@@ -25,26 +25,7 @@ window.V3 = (() => {
   const title=(over,h,sub,extra='')=>`<header class="v3-title"><div><span class="eyebrow">${over}</span><h1>${h}</h1>${sub?`<p>${sub}</p>`:''}</div>${extra}</header>`;
   const noteCount=s=>s.observations.length+s.reportNotes.length;
   const activeAction=s=>s.actions.find(a=>a.status==='active');
-  function home(s){
-    const sess=s.sessions.find(x=>x.id===s.activeSession),unfinished=sess?.status==='in-progress',done=sess?.status==='completed',a=activeAction(s);
-    const recent=s.observations.filter(x=>x.kind==='topic-record').sort((a,b)=>(b.updatedAt||b.createdAt||'').localeCompare(a.updatedAt||a.createdAt||''))[0];
-    const portrait=`<div class="v4-person-scene" aria-hidden="true"><span></span><i></i><i></i><img src="assets/person-${s.avatar}.svg" alt=""></div>`;
-    let heading='16PF 性格探索',sub='每一种你，都值得了解。',action=B('开始了解自己','start',{cls:'btn full',after:'arrow'}),foot='<span>3 道交互示例 · 不计分 · 正式题源待接入</span>';
-    if(unfinished){sub=`从第 ${sess.index+1} 题接着来，已保存 ${Object.keys(sess.answers).length} / 3 题。`;action=B('继续上次的探索','resume',{cls:'btn full',after:'arrow'});foot=L('回看已保存的选择','review',{cls:'textbtn','data-id':sess.id});}
-    else if(done){sub='留住当时的自己，也给变化留点空间。';action=L('回看这次作答','review',{cls:'btn full',after:'arrow','data-id':sess.id});foot=B('再体验一次','start-new',{cls:'textbtn'});}
-    return `<header class="v3-home-heading"><h1>${unfinished?'从上次，接着来。':'你好，今天的你'}</h1><p>留一点时间，认识自己</p></header>
-      <section class="home-scene" aria-label="16PF 性格探索">
-        <div class="home-portrait">${portrait}</div>
-        <h2>${heading}</h2><p class="home-scene-sub">${sub}</p>
-        ${!unfinished&&!done?`<div class="v4-version"><div class="v3-segment" aria-label="16PF 探索版本">${B('原版 16PF','mode',{cls:'selected','data-id':'original','aria-pressed':'true'})}${B('AI 重置版 <span class="version-status">待开放</span>','mode',{cls:'','data-id':'ai','aria-pressed':'false','aria-label':'AI 重置版，待开放'})}</div></div>`:''}
-        ${action}<div class="home-task-foot">${foot}</div>${unfinished||done?'<p class="home-session-boundary">3 题交互体验 · 不计分，不生成性格结论</p>':''}
-      </section>
-      ${a?`<button class="v3-action-resume v4-priority" data-action="nav" data-route="action-detail" data-id="${a.id}">${icon('flag')}<span class="grow"><strong>回看自己的小尝试</strong><small>${esc(a.text)}</small></span>${icon('arrow','sm')}</button>`:''}
-      <section class="home-paths" aria-label="生活里的自我理解"><p>也从生活里，认识自己</p><div class="home-secondary-grid">
-        ${L(`${icon('edit')}<strong>${recent?'接着理清这件事':'理清现实问题'}</strong><small>${recent?'续接自己的整理与依据':'工作、相处、生活 · 无需先测评'}</small>`,recent?'topic-workspace':'explore',{cls:'home-path',...(recent?{'data-topic':recent.topicId,'data-id':recent.id}:{})})}
-        ${L(`${icon('chat')}<strong>找个人助理</strong><small>带着问题或记录聊聊 · 演示</small>`,'assistant',{cls:'home-path'})}
-      </div></section><p class="v3-endnote">知遇测评 · 从性格到生活里的自己</p>`;
-  }
+  function home(s){return AssessmentPreview.home(s);}
 
   function explore(s){
     const recent=s.observations.filter(x=>x.kind==='topic-record').sort((a,b)=>(b.updatedAt||b.createdAt||'').localeCompare(a.updatedAt||a.createdAt||''))[0],workDraft=V2.getDraft(V2.topicKey('work-choice'),{});
@@ -173,11 +154,12 @@ window.V3 = (() => {
   function applyPreferences(){
     document.body.dataset.density=C.state.density==='compact'?'compact':'balanced';
     document.body.classList.toggle('reduce-motion',!!C.state.reduced);
-    Ambient.setContext({quiet:C.current().split('?')[0]==='question',reduced:C.state.reduced});
+    Ambient.setContext({quiet:C.current().split('?')[0]==='question'||AssessmentPreview.isQuiet(),reduced:C.state.reduced});
     document.querySelectorAll('[data-action="v3-density"]').forEach(b=>{const on=b.dataset.id===C.state.density;b.classList.toggle('selected',on);b.setAttribute('aria-pressed',String(on));});
     document.querySelectorAll('[data-action="v3-motion"]').forEach(b=>{b.classList.toggle('on',C.state.reduced);b.setAttribute('aria-checked',String(C.state.reduced));});
   }
   function dispatch(action,el){
+    if(AssessmentPreview.dispatch(action,el))return true;
     const ds=el?.dataset||{};
     switch(action){
       case 'v3-preferences':preferences();return true;
@@ -216,7 +198,7 @@ window.V3 = (() => {
       chapterObserver=new IntersectionObserver(syncChapter,{rootMargin:'-64px 0px -55% 0px',threshold:0});
       document.querySelectorAll('.report-block').forEach(el=>chapterObserver.observe(el));syncChapter();
     }
-    updateCounts();
+    updateCounts();AssessmentPreview.afterRender();
   }
   function updateCounts(){
     const count=document.getElementById('v3-char-count'),editor=document.getElementById('journal-text');if(count&&editor)count.textContent=editor.value.length+' / 4000';
@@ -229,5 +211,5 @@ window.V3 = (() => {
   });
   matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',e=>{if(e.matches)document.getAnimations().forEach(a=>a.cancel());});
   Object.assign(Views.map,{home,explore,topic,'topic-workspace':topicWorkspace,report,assistant,me,question,journal,appearance});
-  return {bind(c){C=c;},dispatch,afterRender,reset(){workspaceSteps.clear();previousRoute=null;},topicMeta};
+  return {bind(c){C=c;AssessmentPreview.bind(c);},dispatch,afterRender,reset(){workspaceSteps.clear();previousRoute=null;},topicMeta};
 })();
