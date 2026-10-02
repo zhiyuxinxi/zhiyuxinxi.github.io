@@ -12,7 +12,7 @@ from playwright.sync_api import sync_playwright
 ROOT=Path(sys.argv[1] if len(sys.argv)>1 else '.').resolve();OUT=ROOT/'qa'/'soft-fields-restored';OUT.mkdir(parents=True,exist_ok=True)
 class Quiet(SimpleHTTPRequestHandler):
  def log_message(self,*args):pass
-server=ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT)));Thread(target=server.serve_forever,daemon=True).start();BASE=f'http://127.0.0.1:{server.server_port}'
+server=ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT)));Thread(target=server.serve_forever,daemon=True).start();BASE='https://zhiyuxinxi.github.io'
 results=[]
 def check(ok,msg):
  if not ok:raise AssertionError(msg)

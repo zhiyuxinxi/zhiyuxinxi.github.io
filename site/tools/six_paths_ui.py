@@ -9,7 +9,7 @@ from playwright.sync_api import sync_playwright
 ROOT=Path(sys.argv[1] if len(sys.argv)>1 else '.').resolve();OUT=ROOT/'qa'/'six-paths-ui';OUT.mkdir(parents=True,exist_ok=True)
 class Quiet(SimpleHTTPRequestHandler):
  def log_message(self,*args):pass
-s=ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT)));Thread(target=s.serve_forever,daemon=True).start();BASE=f'http://127.0.0.1:{s.server_port}'
+s=ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT)));Thread(target=s.serve_forever,daemon=True).start();BASE='https://zhiyuxinxi.github.io'
 results=[]
 def check(ok,msg):
  if not ok:raise AssertionError(msg)

@@ -23,7 +23,7 @@ with sync_playwright() as w:
  for theme in [t['id'] for t in json.loads((ROOT/'handoff/themes-v4.json').read_text())]:
   c=b.new_context(viewport={'width':390,'height':844},locale='zh-CN');p=c.new_page();errors=[];p.on('pageerror',lambda e:errors.append(str(e)));rows=[]
   try:
-   p.goto(f'http://127.0.0.1:{s.server_port}/prototype/index.html?reset=1&scenario=nav-contrast&theme={theme}#home',wait_until='networkidle')
+   p.goto(f'https://zhiyuxinxi.github.io/prototype/index.html?reset=1&scenario=nav-contrast&theme={theme}#home',wait_until='networkidle')
    for route in ['home','explore','assistant','me']:
     p.locator(f'.nav button[data-route="{route}"]').click();p.wait_for_function('r=>App.currentRoute===r',arg=route)
     for t in [8,24]:
