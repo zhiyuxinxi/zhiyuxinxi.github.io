@@ -18,6 +18,10 @@ server=ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT)))
 Thread(target=server.serve_forever,daemon=True).start();BASE=f'http://127.0.0.1:{server.server_port}'
 results=[]
 CASES=[
+ ('workspace-empty','topic-workspace?topic=work-choice','default',390,'sunrise',False),
+ ('record-saved','topic-workspace?topic=work-choice&id=topic-note-demo-v2','topic-record',390,'sunrise',False),
+ ('record-saved-dark','topic-workspace?topic=work-choice&id=topic-note-demo-v2','topic-record',320,'nebula',True),
+ ('action-review','action-detail?id=action-demo-v2','action-review',390,'sunrise',False),
  ('home','home','default',390,'sunrise',False),
  ('explore','explore','default',390,'sunrise',False),
  ('assistant','assistant','default',390,'sunrise',False),
@@ -98,7 +102,7 @@ with sync_playwright() as pw:
     page.wait_for_function("document.querySelector('.report-chapters [aria-current=location]').dataset.id==='report-overview'")
    if route=='explore' and width==320:check(page.locator('.v3-topic-grid').evaluate("e=>getComputedStyle(e).gridTemplateColumns.split(' ').length")==1,'Narrow explore did not become one column')
    page.screenshot(path=str(OUT/(name+'.png')))
-   if name in ['topic','report','profile','appearance']:page.screenshot(path=str(OUT/(name+'-full.png')),full_page=True)
+   if name in ['topic','report','profile','appearance','workspace-empty','record-saved','record-saved-dark','action-review']:page.screenshot(path=str(OUT/(name+'-full.png')),full_page=True)
    row['status']='PASS'
   except Exception as e:
    row.update(status='FAIL',error=str(e),trace=traceback.format_exc(limit=3))

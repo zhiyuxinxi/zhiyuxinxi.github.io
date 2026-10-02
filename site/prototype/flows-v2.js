@@ -34,6 +34,20 @@ window.V2 = (() => {
       ['support','接下来需要什么','多一点休息、一次交流，或其他支持。']
     ]
   };
+  // Additional reflection prompts extend every original topic without replacing it.
+  const reflectionFields = [
+    ['issue','这次，想理清哪件具体的事','可从近期可逆的小选择开始；例如先独立整理再讨论，还是先讨论再动手。示例不用照写。'],
+    ['evidence','有哪些亲历的事实或依据','写发生了什么、何时发生；转述或猜测请注明。这里仍是本人提供，未经外部核验。'],
+    ['understanding','我目前的认识或倾向','可以写还不能决定、条件有冲突，或先补哪条信息。不必选出一个答案。']
+  ];
+  const topicFields = id => schemas[id] ? [[...reflectionFields[0].slice(0,2),id==='work-choice'?reflectionFields[0][2]:'从一件亲历的事开始，写下这次希望理解什么。不必把它变成选择题。'], ...schemas[id], ...reflectionFields.slice(1)] : [];
+  const fieldsText = (id,fields) => topicFields(id).map(([key,label])=>`${label}\n${String(fields[key]||'').trim()||'暂未填写'}`).join('\n\n');
+  const topicChanged = note => {const draft=getDraft(topicKey(note.topicId,note.id),note.fields||{});return JSON.stringify(draft)!==JSON.stringify(note.fields||{});};
+  function savedVersionGuard(note,next) {
+    if(!topicChanged(note))return false;
+    C.show('先选择采用哪个版本',`<p>你还有未正式保存的修改。当前整理卡和后续引用仍采用第 ${note.revision||1} 版。</p><p class="small muted space-12">草稿留在本机；不会静默保存、发送或覆盖原先的小尝试。</p>`,B('回到草稿，先保存修改','topic-edit',{cls:'btn full'})+B('使用已保存版本继续',next,{cls:'btn secondary full space-12','data-id':note.id}));
+    return true;
+  }
   const outcomes = [
     ['not-yet','还没尝试'], ['helpful','有一点帮助'], ['no-change','没看到变化'], ['not-fit','不太适合'], ['partial','只试了一部分']
   ];
@@ -49,6 +63,17 @@ window.V2 = (() => {
     }
     for (const key of ['sessions','reportNotes','observations','actions','memories','conversations','orders']) {
       if(s[key].some(x=>!x || typeof x!=='object' || typeof x.id!=='string')) throw Error(`invalid-object-${key}`);
+    }
+    const recordObject = v => v && typeof v==='object' && !Array.isArray(v);
+    const validFields = v => recordObject(v) && Object.values(v).every(x=>typeof x==='string');
+    for(const n of s.observations.filter(x=>x.kind==='topic-record')) {
+      if(n.fields!==undefined&&!validFields(n.fields))throw Error('invalid-topic-fields');
+      if(n.revisions!==undefined&&(!Array.isArray(n.revisions)||n.revisions.some(v=>!recordObject(v)||!Number.isInteger(v.revision)||v.revision<1||!validFields(v.fields)||typeof v.text!=='string')))throw Error('invalid-topic-revisions');
+    }
+    for(const a of s.actions) {
+      if(a.sourceVersion!==undefined&&typeof a.sourceVersion!=='string')throw Error('invalid-action-source-version');
+      if(a.sourceSnapshot!==undefined&&(!recordObject(a.sourceSnapshot)||['objectId','version','title','excerpt'].some(k=>typeof a.sourceSnapshot[k]!=='string')))throw Error('invalid-action-source-snapshot');
+      if(a.reviews!==undefined&&(!Array.isArray(a.reviews)||a.reviews.some(r=>!recordObject(r)||typeof r.id!=='string'||(r.actionText!==undefined&&typeof r.actionText!=='string')||(r.actionRevision!==undefined&&(!Number.isInteger(r.actionRevision)||r.actionRevision<1)))))throw Error('invalid-action-reviews');
     }
     if(!D.themes.some(t=>t.id===s.theme)) s.theme='green';
     if(![1,2,3].includes(s.avatar)) s.avatar=1;
@@ -93,7 +118,7 @@ window.V2 = (() => {
   function journalKey(p=params()){return `journal:${p.id||p.topic||p.kind||'new'}`;}
   function topicKey(topicId,recordId=''){return `topic:${topicId}:${recordId||'new'}`;}
   function actionKey(id){return `action-review:${id}`;}
-  function ownSource(note){return {id:'observation-'+note.id,kind:'self-note',objectId:note.id,version:String(note.revision||1),title:'本人记录 · '+note.title,excerpt:note.text,status:'valid',scope:'仅本次引用'};}
+  function ownSource(note){return {id:'observation-'+note.id,kind:'self-note',objectId:note.id,version:String(note.revision||1),title:'本人记录 · '+(note.fields?.issue||note.title),excerpt:note.text,status:'valid',scope:'仅本次引用'};}
   function attachSource(src,prompt) {
     if(C.commit(s=>{const i=s.assistantSources.findIndex(x=>x.id===src.id);if(i<0)s.assistantSources.push(src);else s.assistantSources[i]=src;if(!s.assistantDraft)s.assistantDraft=prompt;})) C.nav('assistant');
   }
@@ -108,16 +133,17 @@ window.V2 = (() => {
   function createAction(ds,isNew=false) {
     const r=route(),p=params();
     let text=isNew?'':ds.context==='relationship'?'下次想加入对话时，先回应一个具体细节。':'下次表达前，先写两个要点，观察是否更容易说清楚。';
-    if(r==='topic-workspace')text='';
+    const note=r==='topic-workspace'?C.state.observations.find(x=>x.id===p.id&&x.topicId===p.topic):null;
+    if(r==='topic-workspace'){if(!note){C.toast('先保存这份整理，再留下小尝试。');return;}if(!ds.savedConfirmed&&savedVersionGuard(note,'topic-action-saved'))return;text='';}
     const sourceId=r==='report'?D.report.id:r==='topic-workspace'?p.id||null:r==='conversation'?p.id:null;
     const sourceKind=r==='report'?'sample-report':r==='topic-workspace'?'self-note':r==='conversation'?'conversation':'self-entered';
     C.form('留下一个小尝试','什么情况下，试着做什么？',text,txt=>{
-      const existing=C.state.actions.find(x=>x.status==='active'&&x.text===txt&&x.sourceId===sourceId);
+      const existing=C.state.actions.find(x=>x.status==='active'&&x.text===txt&&x.sourceId===sourceId&&(!note||x.sourceVersion===String(note.revision||1)));
       if(existing){C.nav('action-detail',{id:existing.id});C.toast('这个小尝试已经留下，直接打开原记录。');return true;}
-      const a={id:uid('action'),text:txt,status:'active',sourceId,sourceKind,sectionId:r==='report'?C.state.reportContext:null,reviews:[],createdAt:new Date().toISOString()};
+      const a={id:uid('action'),text:txt,revision:1,status:'active',sourceId,sourceKind,...(note?{sourceVersion:String(note.revision||1),sourceSnapshot:ownSource(note)}:{}),sectionId:r==='report'?C.state.reportContext:null,reviews:[],createdAt:new Date().toISOString()};
       if(C.commit(s=>s.actions.push(a))){C.nav('action-detail',{id:a.id});C.toast('已留下。之后可以记录有帮助、没变化或还没尝试。');return true;}
       return false;
-    },sourceKind==='sample-report'?'灵感来自虚构样例。你保存的是自己选择的尝试，不是个人性格结论。':'写得小一点、具体一点。之后可以修改、放下或重新尝试。');
+    },sourceKind==='sample-report'?'灵感来自虚构样例。你保存的是自己选择的尝试，不是个人性格结论。':'由你亲自决定。选一件成本低、可以调整的小事，并写下准备观察什么；也可以取消，不安排尝试。');
   }
   function dispatch(action,el){
     if(!C)return false;
@@ -129,19 +155,23 @@ window.V2 = (() => {
       case 'topic-journal': C.nav('topic-workspace',{topic:id});return true;
       case 'topic-save': {
         const topic=D.topics.find(t=>t.id===ds.topic); if(!topic)return true;
-        const key=topicKey(topic.id,id),fields=getDraft(key,{});
-        if(!Object.values(fields).some(v=>String(v).trim())){C.toast('至少写下一个真实的想法。');document.querySelector('[data-input="topic-field"]')?.focus();return true;}
-        const text=schemas[topic.id].map(([k,label])=>`${label}\n${String(fields[k]||'').trim()||'暂未填写'}`).join('\n\n');
-        const noteId=id||uid('observation');
-        if(C.commit(n=>{const old=n.observations.find(x=>x.id===id);if(old){old.fields={...fields};old.text=text;old.revision=(old.revision||1)+1;old.updatedAt=new Date().toISOString();}else n.observations.push({id:noteId,kind:'topic-record',topicId:topic.id,title:topic.short+' · 我的整理',fields:{...fields},text,revision:1,createdAt:new Date().toISOString()});deleteDraft(n,key);},'这份整理已保存在本机。')){savedDraft(key);C.nav('topic-workspace',{topic:topic.id,id:noteId},true);}return true;
+        const old=s.observations.find(x=>x.id===id&&x.topicId===topic.id),key=topicKey(topic.id,id),fields=getDraft(key,old?.fields||{});
+        if(id&&!old){C.toast('原记录已不可用，请回到记录查看。');return true;}
+        if(!Object.values(fields).some(v=>String(v).trim())){const error=document.getElementById('topic-error');if(error){error.hidden=false;error.textContent='至少写下一件具体的事，或一个还不知道的问题。';}const first=document.querySelector('[data-input="topic-field"]');first?.setAttribute('aria-invalid','true');first?.setAttribute('aria-describedby','topic-error');first?.focus();return true;}
+        const text=fieldsText(topic.id,fields),noteId=id||uid('observation');
+        if(old&&!topicChanged(old)){C.nav('topic-workspace',{topic:topic.id,id:noteId},true);C.toast('已保存版本没有变化；整理卡仍在。');return true;}
+        if(C.commit(n=>{const prior=n.observations.find(x=>x.id===id);if(prior){prior.revisions=prior.revisions||[];prior.revisions.push({revision:prior.revision||1,fields:{...prior.fields},text:prior.text,createdAt:prior.updatedAt||prior.createdAt});prior.fields={...fields};prior.text=text;prior.revision=(prior.revision||1)+1;prior.updatedAt=new Date().toISOString();}else n.observations.push({id:noteId,kind:'topic-record',topicId:topic.id,title:topic.short+' · 我的整理',fields:{...fields},text,revision:1,revisions:[],createdAt:new Date().toISOString()});deleteDraft(n,key);},'整理卡已保存在本机。只整理到这里，也可以。')){savedDraft(key);C.nav('topic-workspace',{topic:topic.id,id:noteId},true);}return true;
       }
-      case 'topic-to-assistant': {const note=s.observations.find(x=>x.id===id);if(note)attachSource(ownSource(note),'我整理了自己的情况，想看看还缺哪些信息。');return true;}
+      case 'topic-edit': {C.close();const editor=document.querySelector('.record-editor');if(editor){editor.open=true;const target=editor.querySelector('textarea');target?.focus();target?.scrollIntoView({block:'center',behavior:'instant'});}return true;}
+      case 'topic-to-assistant': {const note=s.observations.find(x=>x.id===id);if(note&&!savedVersionGuard(note,'topic-attach-saved'))attachSource(ownSource(note),'我整理了自己的情况，想看看还缺哪些信息。');return true;}
+      case 'topic-attach-saved': {const note=s.observations.find(x=>x.id===id);if(note)attachSource(ownSource(note),'我整理了自己的情况，想看看还缺哪些信息。');return true;}
+      case 'topic-action-saved':createAction({savedConfirmed:true});return true;
       case 'add-action': case 'new-action': createAction(ds,action==='new-action');return true;
       case 'review-action': C.nav('action-detail',{id});return true;
       case 'action-outcome': {const key=actionKey(id),old=getDraft(key,{});setDraft(key,{...old,outcome:ds.outcome});C.repaint();return true;}
       case 'save-action-review': {
         const key=actionKey(id),d=getDraft(key,{});if(!outcomes.some(x=>x[0]===d.outcome)){C.toast('先选择这次实际发生了什么。');document.querySelector('[data-action="action-outcome"]')?.focus();return true;}
-        if(C.commit(n=>{const a=n.actions.find(x=>x.id===id);if(!a)return;a.reviews=a.reviews||[];a.reviews.push({id:uid('review'),outcome:d.outcome,text:String(d.text||'').trim(),createdAt:new Date().toISOString()});a.status=d.outcome==='not-yet'?'active':'reviewed';deleteDraft(n,key);},d.outcome==='not-yet'?'如实记录为还没尝试，未标记完成。':'这次观察已留下，可以继续尝试或放下。')){savedDraft(key);C.repaint();}return true;
+        if(C.commit(n=>{const a=n.actions.find(x=>x.id===id);if(!a)return;a.reviews=a.reviews||[];a.reviews.push({id:uid('review'),outcome:d.outcome,text:String(d.text||'').trim(),actionText:a.text,actionRevision:a.revision||1,createdAt:new Date().toISOString()});a.status=d.outcome==='not-yet'?'active':'reviewed';deleteDraft(n,key);},d.outcome==='not-yet'?'如实记录为还没尝试，未标记完成。':'这次观察已留下，可以继续尝试或放下。')){savedDraft(key);C.repaint();}return true;
       }
       case 'cancel-action': {
         C.confirm('这次先放下？','<p>原尝试和观察会保留，也能重新开始。</p>',()=>{if(C.commit(n=>{const a=n.actions.find(x=>x.id===id);if(a)a.status='cancelled';}))C.repaint();},'先放下');return true;
@@ -182,7 +212,10 @@ window.V2 = (() => {
     if(key==='action-review'){const k=actionKey(p.id);setDraft(k,{...getDraft(k,{}),text:e.target.value});return true;}
     return false;
   }
+  function omitSourceText(action,reason){const copy=JSON.parse(JSON.stringify(action));if(copy.sourceSnapshot){delete copy.sourceSnapshot;copy.sourceUnavailable=reason;}return copy;}
+  function actionsForExport(actions,includeNotes){return actions.map(a=>includeNotes?JSON.parse(JSON.stringify(a)):omitSourceText(a,'excluded-from-export'));}
+  function forgetRecordDrafts(id){for(const key of [...cachedDrafts.keys()])if(key==='journal:'+id||key.startsWith('topic:')&&key.endsWith(':'+id)){cachedDrafts.delete(key);failedDrafts.delete(key);}}
   function reset(){cachedDrafts.clear();failedDrafts.clear();}
-  const V2={bind,normalize,schemas,outcomes,getDraft,journalKey,topicKey,actionKey,dispatch,input,contextChoices:[],reset,paintSaveStatus,get hasUnsaved(){return !!failedDrafts.size;},get draftStatus(){return failedDrafts.size?'草稿尚未保存；请勿关闭页面。':'草稿自动保留在本机'} };
+  const V2={bind,normalize,omitSourceText,actionsForExport,forgetRecordDrafts,schemas,reflectionFields,topicFields,topicChanged,outcomes,getDraft,journalKey,topicKey,actionKey,dispatch,input,contextChoices:[],reset,paintSaveStatus,get hasUnsaved(){return !!failedDrafts.size;},get draftStatus(){return failedDrafts.size?'草稿尚未保存；请勿关闭页面。':'草稿自动保留在本机'} };
   return V2;
 })();
