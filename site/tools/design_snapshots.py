@@ -94,7 +94,10 @@ with sync_playwright() as pw:
    if name in ['topic','report','profile','appearance']:page.screenshot(path=str(OUT/(name+'-full.png')),full_page=True)
    row['status']='PASS'
   except Exception as e:
-   row.update(status='FAIL',error=str(e),trace=traceback.format_exc(limit=3));page.screenshot(path=str(OUT/(name+'-failure.png')),full_page=True)
+   row.update(status='FAIL',error=str(e),trace=traceback.format_exc(limit=3))
+   if route.startswith('report'):
+    row['reportGeometry']=page.evaluate("""() => ({scrollY, padding:getComputedStyle(document.documentElement).scrollPaddingTop, active:document.querySelector('.report-chapters [aria-current=location]')?.dataset.id, navEnd:document.querySelector('.report-chapters')?.getBoundingClientRect().bottom, sections:[...document.querySelectorAll('.report-block')].map(e=>({id:e.id,y:e.getBoundingClientRect().top,margin:getComputedStyle(e).scrollMarginTop}))})""")
+   page.screenshot(path=str(OUT/(name+'-failure.png')),full_page=True)
   results.append(row);print(row['status'],name,row.get('error',''),flush=True);ctx.close()
  # Verify whole character and headline stay still throughout a complete decorative cycle.
  ctx=browser.new_context(viewport={'width':390,'height':844},locale='zh-CN');page=ctx.new_page()
