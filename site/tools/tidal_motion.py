@@ -9,7 +9,7 @@ from datetime import datetime,timezone
 from PIL import Image,ImageChops
 import json,os,sys,traceback,math
 from playwright.sync_api import sync_playwright
-ROOT=Path(sys.argv[1] if len(sys.argv)>1 else '.').resolve();OUT=ROOT/'qa'/'soft-fields';OUT.mkdir(parents=True,exist_ok=True)
+ROOT=Path(sys.argv[1] if len(sys.argv)>1 else '.').resolve();OUT=ROOT/'qa'/'soft-fields-restored';OUT.mkdir(parents=True,exist_ok=True)
 class Quiet(SimpleHTTPRequestHandler):
  def log_message(self,*args):pass
 server=ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT)));Thread(target=server.serve_forever,daemon=True).start();BASE=f'http://127.0.0.1:{server.server_port}'
@@ -30,7 +30,7 @@ def lum(c):
 def contrast(p,name):
  p.wait_for_timeout(320)  # Let route scroll restoration settle before pixel coordinates.
  # Measure actual background pixels beneath visible text, not token pairs alone.
- runs=p.evaluate('''()=>{const out=[],w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){const e=n.parentElement;if(!n.textContent.trim()||e.closest('svg,[aria-hidden=true],button:disabled'))continue;let r=document.createRange();r.selectNodeContents(n);const c=getComputedStyle(e);if(c.visibility!=='visible')continue;for(const b of r.getClientRects()){if(b.width<3||b.height<3||b.top<0||b.bottom>innerHeight-2||b.left<0||b.right>innerWidth-10)continue;const hit=document.elementFromPoint(b.x+b.width/2,b.y+b.height/2);if(hit&&!e.contains(hit))continue;out.push({text:n.textContent.trim().slice(0,60),color:c.color,size:parseFloat(c.fontSize),weight:parseInt(c.fontWeight)||400,x:b.x,y:b.y,w:b.width,h:b.height})}}return out}''')
+ runs=p.evaluate('''()=>{const out=[],w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){const e=n.parentElement;if(!n.textContent.trim()||e.closest('svg,[aria-hidden=true],button:disabled'))continue;let r=document.createRange();r.selectNodeContents(n);const c=getComputedStyle(e);if(c.visibility!=='visible')continue;for(const b of r.getClientRects()){if(b.width<3||b.height<3||b.top<0||b.bottom>innerHeight-2||b.left<0||b.right>innerWidth-10)continue;const covered=[.2,.5,.8].some(fx=>[.3,.7].some(fy=>{const hit=document.elementFromPoint(b.x+b.width*fx,b.y+b.height*fy);return hit&&!e.contains(hit)}));if(covered)continue;out.push({text:n.textContent.trim().slice(0,60),color:c.color,size:parseFloat(c.fontSize),weight:parseInt(c.fontWeight)||400,x:b.x,y:b.y,w:b.width,h:b.height})}}return out}''')
  style=p.add_style_tag(content='#app *,#overlays *{transition:none!important;color:transparent!important;text-shadow:none!important;-webkit-text-fill-color:transparent!important}');path=shot(p,name+'-background-probe');style.evaluate('(e)=>e.remove()');p.wait_for_timeout(180);im=Image.open(path).convert('RGB');path.unlink();bad=[];minimum=99
  for r in runs:
   import re
@@ -55,7 +55,7 @@ with sync_playwright() as w:
   check(not errors,str(errors));results.append({'test':'natural-cycle','status':'PASS','seconds':samples,'contentGeometryStable':True})
  except Exception as e:results.append({'test':'natural-cycle','status':'FAIL','error':str(e)})
  video=p.video;c.close();video.save_as(str(OUT/'natural-32-seconds.webm'));video.delete()
- for theme in ['sunrise','candy','berry','lime','aurora','sea','nebula','amber']:
+ for theme in ['sunrise','candy','berry','lime','aurora','sea','nebula','amber','green','peach','blue','violet']:
   c=b.new_context(viewport={'width':390,'height':844},locale='zh-CN');p=c.new_page();rows=[];legibility=[]
   try:
    goto(p,theme=theme);colors=p.evaluate("['--field-a','--field-b'].map(k=>getComputedStyle(document.body).getPropertyValue(k).trim())")
@@ -91,7 +91,7 @@ with sync_playwright() as w:
    parse=lambda s:[float(x) for x in re.findall(r'[\d.]+',s)][:3]
    for key in ['text','placeholder']:
     a,z=sorted([lum(parse(field_colors[key])),lum(parse(field_colors['surface']))]);check((z+.05)/(a+.05)>=4.5,'Input '+key+' contrast')
-   p.locator('.source-btn').click();p.wait_for_selector('[role=dialog]');shot(p,'modal-'+theme);v=contrast(p,'modal-probe');checks.append({'route':'source-modal',**v});check(not v['failures'],str(v['failures']));p.keyboard.press('Escape');check(p.locator('[role=dialog]').count()==0,'Escape did not close');check(field.input_value().startswith('合成验证'),'Modal lost input');check(p.locator('.source-btn').evaluate('e=>e===document.activeElement'),'Focus not restored')
+   p.locator('.source-btn').click();p.wait_for_selector('[role=dialog]');p.wait_for_timeout(350);shot(p,'modal-'+theme);v=contrast(p,'modal-probe');checks.append({'route':'source-modal',**v});check(not v['failures'],str(v['failures']));p.keyboard.press('Escape');check(p.locator('[role=dialog]').count()==0,'Escape did not close');check(field.input_value().startswith('合成验证'),'Modal lost input');check(p.locator('.source-btn').evaluate('e=>e===document.activeElement'),'Focus not restored')
    p.evaluate("location.hash='settings'");p.wait_for_selector('[data-action="font-size"][data-id="large"]');p.locator('[data-action="font-size"][data-id="large"]').click();p.evaluate("location.hash='assistant'");p.wait_for_selector('.composer textarea');check(p.locator('.composer textarea').input_value().startswith('合成验证'),'Settings lost input');check(p.evaluate('document.documentElement.scrollWidth<=innerWidth'),'Large input overflow');shot(p,'large-input-'+theme)
    results.append({'test':'deep-input-reading-modal-'+theme,'status':'PASS','contrast':checks,'inputColors':field_colors})
   except Exception as e:results.append({'test':'deep-input-reading-modal-'+theme,'status':'FAIL','error':str(e),'contrast':checks})
