@@ -1,5 +1,5 @@
 {
-  "createdAt": "2026-10-02T15:06:04.000031+00:00",
+  "createdAt": "2026-10-02T15:29:03.543050+00:00",
   "scope": "8 workbench shell regression checks: route/tree coverage, navigation, substate deep links, keyboard/search, stale messages, fit/original size and narrow drawer. Shell-only run: the 39 × 12 = 468 theme-route render matrix and all-route full-page screenshots were not rerun.",
   "results": [
     {
@@ -123,7 +123,7 @@
       "test": "substate-sync-and-deep-link",
       "status": "PASS",
       "details": {
-        "deepLink": "page=single-factor-result&route=single-factor&theme=sunrise&scene=default&width=390&mode=preview&hq=&hk=mobile&hv=&hs=&hg=&hp=1",
+        "deepLink": "page=single-factor-result&route=single-factor&theme=sunrise&scene=default&width=390&mode=preview&dq=&hq=&hk=mobile&hv=&hs=&hg=&hp=1",
         "stageReflectedInTree": true
       }
     },
@@ -146,9 +146,9 @@
       "test": "new-session-completion-reflects-in-tree",
       "status": "PASS",
       "details": {
-        "sessionId": "session-mur3i7bf-2vrj",
+        "sessionId": "session-mur4bsav-zf46",
         "seedFixture": false,
-        "actualRoute": "complete?id=session-mur3i7bf-2vrj",
+        "actualRoute": "complete?id=session-mur4bsav-zf46",
         "selectedNode": "complete"
       }
     },

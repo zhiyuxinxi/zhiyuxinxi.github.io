@@ -125,4 +125,4 @@
 
 说明搜索 `dq` 与历史搜索/筛选/页码保存在工作台 hash；仅包含公开文档查询，不读取或携带用户正文。中文组合输入完成才筛选，清空立即生效并归还输入焦点。历史每页15项，筛选变化重置页码。范围与裁决使用原生 select，接受系统弹出菜单。历史去向沿用工作台受保护导航，不能绕过未保存内容检查。窄屏沿用原目录抽屉，文档区自然换行并独立滚动。
 
-隐藏预览 iframe 可能在0×0视口初始化。`ambient.js` 此时延迟分配像素，保留API；显示后由原resize监听分配正常画布。不重建页面、不清除主题/记录。验证：`tools/development_review_test.py`、`tools/workbench_coverage.py`；现有HTTP回归改为等待异步说明的真实内容。
+隐藏预览 iframe 可能在0×0视口初始化。`ambient.js` 此时延迟分配像素，保留API；显示后由原resize监听分配正常画布；切回实际页面时下一帧重新计算外框fit尺寸，不能保留隐藏时1px可用宽度的缩放。不重建页面、不清除主题/记录。验证：`tools/development_review_test.py`、`tools/workbench_coverage.py`；现有HTTP回归改为等待异步说明的真实内容。
