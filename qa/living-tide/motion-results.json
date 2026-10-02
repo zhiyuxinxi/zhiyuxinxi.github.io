@@ -1,0 +1,725 @@
+{
+  "capturedAt": "2026-10-02T09:34:44.315529+00:00",
+  "passed": true,
+  "cycleSeconds": 14,
+  "results": [
+    {
+      "test": "natural-full-cycle",
+      "status": "PASS",
+      "cycleSeconds": 14,
+      "actualSampleTimes": [
+        0.16660000383853912,
+        3.649899959564209,
+        7.249765872955322,
+        10.632966041564941,
+        14.149399757385254
+      ],
+      "contentGeometryStable": true
+    },
+    {
+      "test": "pixels-and-assessment-sunrise",
+      "status": "PASS",
+      "tokens": {
+        "colors": [
+          "#fff19d",
+          "#ff875d",
+          "#ffd586"
+        ],
+        "paper": "#fff7ee",
+        "opacity": 0.58
+      },
+      "phases": [
+        {
+          "time": 0,
+          "coverage": [
+            0.24075,
+            0.1783,
+            0.58095
+          ],
+          "boundaryAt20_50_80": [
+            0.37,
+            0.4075,
+            0.4075
+          ]
+        },
+        {
+          "time": 3.5,
+          "coverage": [
+            0.36745,
+            0.1742,
+            0.45835
+          ],
+          "boundaryAt20_50_80": [
+            0.52,
+            0.51,
+            0.52
+          ]
+        },
+        {
+          "time": 7,
+          "coverage": [
+            0.48525,
+            0.1829,
+            0.33185
+          ],
+          "boundaryAt20_50_80": [
+            0.67,
+            0.6175,
+            0.6375
+          ]
+        },
+        {
+          "time": 10.5,
+          "coverage": [
+            0.36745,
+            0.1742,
+            0.45835
+          ],
+          "boundaryAt20_50_80": [
+            0.52,
+            0.51,
+            0.52
+          ]
+        },
+        {
+          "time": 14,
+          "coverage": [
+            0.24075,
+            0.1783,
+            0.58095
+          ],
+          "boundaryAt20_50_80": [
+            0.37,
+            0.4075,
+            0.4075
+          ]
+        }
+      ]
+    },
+    {
+      "test": "pixels-and-assessment-candy",
+      "status": "PASS",
+      "tokens": {
+        "colors": [
+          "#ffeda0",
+          "#ff74b2",
+          "#ffc77c"
+        ],
+        "paper": "#fff5f6",
+        "opacity": 0.58
+      },
+      "phases": [
+        {
+          "time": 0,
+          "coverage": [
+            0.26985,
+            0.18765,
+            0.5425
+          ],
+          "boundaryAt20_50_80": [
+            0.365,
+            0.4025,
+            0.3975
+          ]
+        },
+        {
+          "time": 3.5,
+          "coverage": [
+            0.3961,
+            0.18325,
+            0.42065
+          ],
+          "boundaryAt20_50_80": [
+            0.515,
+            0.505,
+            0.515
+          ]
+        },
+        {
+          "time": 7,
+          "coverage": [
+            0.51535,
+            0.1924,
+            0.29225
+          ],
+          "boundaryAt20_50_80": [
+            0.665,
+            0.6075,
+            0.6275
+          ]
+        },
+        {
+          "time": 10.5,
+          "coverage": [
+            0.3961,
+            0.18325,
+            0.42065
+          ],
+          "boundaryAt20_50_80": [
+            0.515,
+            0.505,
+            0.515
+          ]
+        },
+        {
+          "time": 14,
+          "coverage": [
+            0.26985,
+            0.18765,
+            0.5425
+          ],
+          "boundaryAt20_50_80": [
+            0.365,
+            0.4025,
+            0.3975
+          ]
+        }
+      ]
+    },
+    {
+      "test": "pixels-and-assessment-berry",
+      "status": "PASS",
+      "tokens": {
+        "colors": [
+          "#ffabd6",
+          "#c594ff",
+          "#8cafff"
+        ],
+        "paper": "#fcf5ff",
+        "opacity": 0.58
+      },
+      "phases": [
+        {
+          "time": 0,
+          "coverage": [
+            0.2896,
+            0.19555,
+            0.51485
+          ],
+          "boundaryAt20_50_80": [
+            0.3625,
+            0.3975,
+            0.395
+          ]
+        },
+        {
+          "time": 3.5,
+          "coverage": [
+            0.41575,
+            0.19115,
+            0.3931
+          ],
+          "boundaryAt20_50_80": [
+            0.5125,
+            0.5025,
+            0.51
+          ]
+        },
+        {
+          "time": 7,
+          "coverage": [
+            0.53535,
+            0.20065,
+            0.264
+          ],
+          "boundaryAt20_50_80": [
+            0.6625,
+            0.6075,
+            0.625
+          ]
+        },
+        {
+          "time": 10.5,
+          "coverage": [
+            0.41575,
+            0.19115,
+            0.3931
+          ],
+          "boundaryAt20_50_80": [
+            0.5125,
+            0.5025,
+            0.51
+          ]
+        },
+        {
+          "time": 14,
+          "coverage": [
+            0.2896,
+            0.19555,
+            0.51485
+          ],
+          "boundaryAt20_50_80": [
+            0.3625,
+            0.3975,
+            0.395
+          ]
+        }
+      ]
+    },
+    {
+      "test": "pixels-and-assessment-lime",
+      "status": "PASS",
+      "tokens": {
+        "colors": [
+          "#edff99",
+          "#88edbd",
+          "#93e0ff"
+        ],
+        "paper": "#f6faef",
+        "opacity": 0.58
+      },
+      "phases": [
+        {
+          "time": 0,
+          "coverage": [
+            0.28845,
+            0.1997,
+            0.51185
+          ],
+          "boundaryAt20_50_80": [
+            0.3625,
+            0.3975,
+            0.3975
+          ]
+        },
+        {
+          "time": 3.5,
+          "coverage": [
+            0.41465,
+            0.195,
+            0.39035
+          ],
+          "boundaryAt20_50_80": [
+            0.5125,
+            0.505,
+            0.51
+          ]
+        },
+        {
+          "time": 7,
+          "coverage": [
+            0.53435,
+            0.2049,
+            0.26075
+          ],
+          "boundaryAt20_50_80": [
+            0.6625,
+            0.6075,
+            0.625
+          ]
+        },
+        {
+          "time": 10.5,
+          "coverage": [
+            0.41465,
+            0.195,
+            0.39035
+          ],
+          "boundaryAt20_50_80": [
+            0.5125,
+            0.505,
+            0.51
+          ]
+        },
+        {
+          "time": 14,
+          "coverage": [
+            0.28845,
+            0.1997,
+            0.51185
+          ],
+          "boundaryAt20_50_80": [
+            0.3625,
+            0.3975,
+            0.3975
+          ]
+        }
+      ]
+    },
+    {
+      "test": "pixels-and-assessment-aurora",
+      "status": "PASS",
+      "tokens": {
+        "colors": [
+          "#c3dfff",
+          "#e3b6ff",
+          "#ffcfe5"
+        ],
+        "paper": "#f6f5ff",
+        "opacity": 0.58
+      },
+      "phases": [
+        {
+          "time": 0,
+          "coverage": [
+            0.2909,
+            0.1952,
+            0.5139
+          ],
+          "boundaryAt20_50_80": [
+            0.3625,
+            0.4,
+            0.395
+          ]
+        },
+        {
+          "time": 3.5,
+          "coverage": [
+            0.4172,
+            0.1906,
+            0.3922
+          ],
+          "boundaryAt20_50_80": [
+            0.5125,
+            0.5025,
+            0.5125
+          ]
+        },
+        {
+          "time": 7,
+          "coverage": [
+            0.53695,
+            0.2003,
+            0.26275
+          ],
+          "boundaryAt20_50_80": [
+            0.665,
+            0.6075,
+            0.6275
+          ]
+        },
+        {
+          "time": 10.5,
+          "coverage": [
+            0.4172,
+            0.1906,
+            0.3922
+          ],
+          "boundaryAt20_50_80": [
+            0.5125,
+            0.5025,
+            0.5125
+          ]
+        },
+        {
+          "time": 14,
+          "coverage": [
+            0.2909,
+            0.1952,
+            0.5139
+          ],
+          "boundaryAt20_50_80": [
+            0.3625,
+            0.4,
+            0.395
+          ]
+        }
+      ]
+    },
+    {
+      "test": "pixels-and-assessment-sea",
+      "status": "PASS",
+      "tokens": {
+        "colors": [
+          "#b3f2ff",
+          "#7fdfd0",
+          "#e2ffa9"
+        ],
+        "paper": "#f0f9fb",
+        "opacity": 0.58
+      },
+      "phases": [
+        {
+          "time": 0,
+          "coverage": [
+            0.29,
+            0.1939,
+            0.5161
+          ],
+          "boundaryAt20_50_80": [
+            0.3625,
+            0.3975,
+            0.395
+          ]
+        },
+        {
+          "time": 3.5,
+          "coverage": [
+            0.4159,
+            0.19005,
+            0.39405
+          ],
+          "boundaryAt20_50_80": [
+            0.5125,
+            0.5025,
+            0.5075
+          ]
+        },
+        {
+          "time": 7,
+          "coverage": [
+            0.5359,
+            0.19895,
+            0.26515
+          ],
+          "boundaryAt20_50_80": [
+            0.6625,
+            0.605,
+            0.625
+          ]
+        },
+        {
+          "time": 10.5,
+          "coverage": [
+            0.4159,
+            0.19005,
+            0.39405
+          ],
+          "boundaryAt20_50_80": [
+            0.5125,
+            0.5025,
+            0.5075
+          ]
+        },
+        {
+          "time": 14,
+          "coverage": [
+            0.29,
+            0.1939,
+            0.5161
+          ],
+          "boundaryAt20_50_80": [
+            0.3625,
+            0.3975,
+            0.395
+          ]
+        }
+      ]
+    },
+    {
+      "test": "pixels-and-assessment-nebula",
+      "status": "PASS",
+      "tokens": {
+        "colors": [
+          "#6254b8",
+          "#3e88b5",
+          "#8c6ca1"
+        ],
+        "paper": "#151e30",
+        "opacity": 0.58
+      },
+      "phases": [
+        {
+          "time": 0,
+          "coverage": [
+            0.296,
+            0.19855,
+            0.50545
+          ],
+          "boundaryAt20_50_80": [
+            0.36,
+            0.3975,
+            0.3975
+          ]
+        },
+        {
+          "time": 3.5,
+          "coverage": [
+            0.42175,
+            0.19435,
+            0.3839
+          ],
+          "boundaryAt20_50_80": [
+            0.51,
+            0.5,
+            0.51
+          ]
+        },
+        {
+          "time": 7,
+          "coverage": [
+            0.54145,
+            0.204,
+            0.25455
+          ],
+          "boundaryAt20_50_80": [
+            0.6625,
+            0.6075,
+            0.625
+          ]
+        },
+        {
+          "time": 10.5,
+          "coverage": [
+            0.42175,
+            0.19435,
+            0.3839
+          ],
+          "boundaryAt20_50_80": [
+            0.51,
+            0.5,
+            0.51
+          ]
+        },
+        {
+          "time": 14,
+          "coverage": [
+            0.296,
+            0.19855,
+            0.50545
+          ],
+          "boundaryAt20_50_80": [
+            0.36,
+            0.3975,
+            0.3975
+          ]
+        }
+      ]
+    },
+    {
+      "test": "pixels-and-assessment-amber",
+      "status": "PASS",
+      "tokens": {
+        "colors": [
+          "#c27978",
+          "#b88961",
+          "#dfad73"
+        ],
+        "paper": "#261923",
+        "opacity": 0.58
+      },
+      "phases": [
+        {
+          "time": 0,
+          "coverage": [
+            0.2891,
+            0.1995,
+            0.5114
+          ],
+          "boundaryAt20_50_80": [
+            0.3625,
+            0.3975,
+            0.3975
+          ]
+        },
+        {
+          "time": 3.5,
+          "coverage": [
+            0.41515,
+            0.1953,
+            0.38955
+          ],
+          "boundaryAt20_50_80": [
+            0.515,
+            0.505,
+            0.51
+          ]
+        },
+        {
+          "time": 7,
+          "coverage": [
+            0.5346,
+            0.20535,
+            0.26005
+          ],
+          "boundaryAt20_50_80": [
+            0.665,
+            0.61,
+            0.6275
+          ]
+        },
+        {
+          "time": 10.5,
+          "coverage": [
+            0.41515,
+            0.1953,
+            0.38955
+          ],
+          "boundaryAt20_50_80": [
+            0.515,
+            0.505,
+            0.51
+          ]
+        },
+        {
+          "time": 14,
+          "coverage": [
+            0.2891,
+            0.1995,
+            0.5114
+          ],
+          "boundaryAt20_50_80": [
+            0.3625,
+            0.3975,
+            0.3975
+          ]
+        }
+      ]
+    },
+    {
+      "test": "identity-clock-routes-focus-and-reduced-motion",
+      "status": "PASS",
+      "transitions": [
+        {
+          "route": "explore",
+          "before": 0.6332659721374512,
+          "after": 0.8832659721374512
+        },
+        {
+          "route": "assistant",
+          "before": 0.8999320268630981,
+          "after": 0.9998000264167786
+        },
+        {
+          "route": "me",
+          "before": 1.0164660215377808,
+          "after": 1.083232045173645
+        },
+        {
+          "route": "home",
+          "before": 1.0999000072479248,
+          "after": 1.183266043663025
+        },
+        {
+          "route": "settings",
+          "before": 1.183266043663025,
+          "after": 1.2165980339050293
+        },
+        {
+          "route": "appearance",
+          "before": 1.2332639694213867,
+          "after": 1.283262014389038
+        },
+        {
+          "route": "records",
+          "before": 1.2999279499053955,
+          "after": 1.3332600593566895
+        },
+        {
+          "route": "home",
+          "before": 1.3499259948730469,
+          "after": 1.3665920495986938
+        }
+      ],
+      "questionPausedAt": 1.6332000494003296,
+      "reducedFixedAt": 3.5
+    },
+    {
+      "test": "home-key-entries-320",
+      "status": "PASS"
+    },
+    {
+      "test": "home-key-entries-390",
+      "status": "PASS"
+    },
+    {
+      "test": "home-key-entries-430",
+      "status": "PASS"
+    }
+  ],
+  "syntheticOnly": true,
+  "limits": [
+    "Browser emulation, not physical-device battery/GPU measurement.",
+    "Pixel coverage classifies nearest rendered theme anchor; blend region is classified as its nearest color."
+  ]
+}
