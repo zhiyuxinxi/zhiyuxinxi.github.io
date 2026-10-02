@@ -2,10 +2,10 @@ name: Publish design review
 on:
   push:
     branches: [main]
-    paths: ['site/**', 'release/**', '.github/workflows/design-preview.yml']
+    paths: ['site/**', 'release/manifest.json', '.github/workflows/design-preview.yml']
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 concurrency:
@@ -14,24 +14,78 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v6
+      - name: Materialize verified public source
+        id: source
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import os,json,hashlib,base64,tarfile,io,re
+          manifest=Path('release/manifest.json')
+          if manifest.exists():
+              m=json.loads(manifest.read_text())
+              marker=Path('site/.release-sha')
+              if not marker.exists() or marker.read_text().strip()!=m['sha256']:
+                  parts=[]
+                  for part in m['parts']:
+                      if not re.fullmatch(r'part-\d{2}\.b64',part['name']): raise ValueError('Invalid chunk path')
+                      text=''.join((manifest.parent/part['name']).read_text().split())
+                      if hashlib.sha256(text.encode()).hexdigest()!=part['sha256']: raise ValueError('Chunk checksum mismatch: '+part['name'])
+                      parts.append(text)
+                  raw=base64.b64decode(''.join(parts),validate=True)
+                  if hashlib.sha256(raw).hexdigest()!=m['sha256']: raise ValueError('Archive checksum mismatch')
+                  target=Path('site');target.mkdir(exist_ok=True)
+                  with tarfile.open(fileobj=io.BytesIO(raw),mode='r:xz') as archive:
+                      for entry in archive.getmembers():
+                          if not entry.isfile() or entry.name.startswith('/') or '..' in Path(entry.name).parts: raise ValueError('Unsafe archive member')
+                      archive.extractall(target,filter='data')
+                  marker.write_text(m['sha256']+'\n')
+          ready=Path('site/index.html').exists()
+          with open(os.environ['GITHUB_OUTPUT'],'a') as out: out.write('ready='+str(ready).lower()+'\n')
+          print('Source ready:',ready,'; no placeholder will be deployed.')
+          PY
+      - name: Install browser test environment
+        if: steps.source.outputs.ready == 'true'
+        run: |
+          python -m pip install playwright==1.57.0
+          python -m playwright install --with-deps chromium
+          sudo apt-get update -qq && sudo apt-get install -y fonts-noto-cjk
+      - name: Verify real HTTP, storage, themes and workflows
+        if: steps.source.outputs.ready == 'true'
+        run: python site/tools/hosted_smoke.py site
+      - name: Preserve browser verification evidence
+        if: always() && steps.source.outputs.ready == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-browser-verification
+          path: site/qa
+          retention-days: 14
+      - name: Publish readable source to the repository
+        if: success() && steps.source.outputs.ready == 'true'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add site
+          if ! git diff --cached --quiet; then
+            git commit -m 'Publish verified V4 source and native-browser evidence [skip ci]'
+            git push origin HEAD:main
+          fi
       - name: Configure Pages
+        if: success() && steps.source.outputs.ready == 'true'
         uses: actions/configure-pages@v5
         with:
           enablement: true
-      - name: Check published source
-        id: source
-        run: |
-          if test -f site/index.html; then echo "ready=true" >> "$GITHUB_OUTPUT"; else echo "ready=false" >> "$GITHUB_OUTPUT"; echo 'Design review source is being prepared; no placeholder deployed.'; fi
       - uses: actions/upload-pages-artifact@v4
-        if: steps.source.outputs.ready == 'true'
+        if: success() && steps.source.outputs.ready == 'true'
         with:
           path: site
-      - name: Deploy
-        if: steps.source.outputs.ready == 'true'
+      - name: Deploy verified site
+        if: success() && steps.source.outputs.ready == 'true'
         id: deployment
         uses: actions/deploy-pages@v4
