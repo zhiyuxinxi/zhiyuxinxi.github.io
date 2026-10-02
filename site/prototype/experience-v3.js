@@ -27,6 +27,7 @@ window.V3 = (() => {
   const activeAction=s=>s.actions.find(a=>a.status==='active');
   function home(s){
     const sess=s.sessions.find(x=>x.id===s.activeSession),unfinished=sess?.status==='in-progress',done=sess?.status==='completed',a=activeAction(s);
+    const recent=s.observations.filter(x=>x.kind==='topic-record').sort((a,b)=>(b.updatedAt||b.createdAt||'').localeCompare(a.updatedAt||a.createdAt||''))[0];
     const portrait=`<div class="v4-person-scene" aria-hidden="true"><span></span><i></i><i></i><img src="assets/person-${s.avatar}.svg" alt=""></div>`;
     let heading='16PF 性格探索',sub='每一种你，都值得了解。',action=B('开始了解自己','start',{cls:'btn full',after:'arrow'}),foot='<span>3 道交互示例 · 不计分 · 正式题源待接入</span>';
     if(unfinished){sub=`从第 ${sess.index+1} 题接着来，已保存 ${Object.keys(sess.answers).length} / 3 题。`;action=B('继续上次的探索','resume',{cls:'btn full',after:'arrow'});foot=L('回看已保存的选择','review',{cls:'textbtn','data-id':sess.id});}
@@ -39,7 +40,10 @@ window.V3 = (() => {
         ${action}<div class="home-task-foot">${foot}</div>${unfinished||done?'<p class="home-session-boundary">3 题交互体验 · 不计分，不生成性格结论</p>':''}
       </section>
       ${a?`<button class="v3-action-resume v4-priority" data-action="nav" data-route="action-detail" data-id="${a.id}">${icon('flag')}<span class="grow"><strong>回看自己的小尝试</strong><small>${esc(a.text)}</small></span>${icon('arrow','sm')}</button>`:''}
-      <p class="v3-endnote">知遇测评 · 留住具体的自己</p>`;
+      <section class="home-paths" aria-label="生活里的自我理解"><p>也从生活里，认识自己</p><div class="home-secondary-grid">
+        ${L(`${icon('edit')}<strong>${recent?'接着理清这件事':'理清现实问题'}</strong><small>${recent?'续接自己的整理与依据':'工作、相处、生活 · 无需先测评'}</small>`,recent?'topic-workspace':'explore',{cls:'home-path',...(recent?{'data-topic':recent.topicId,'data-id':recent.id}:{})})}
+        ${L(`${icon('chat')}<strong>找个人助理</strong><small>带着问题或记录聊聊 · 演示</small>`,'assistant',{cls:'home-path'})}
+      </div></section><p class="v3-endnote">知遇测评 · 从性格到生活里的自己</p>`;
   }
 
   function explore(s){
@@ -169,6 +173,7 @@ window.V3 = (() => {
   function applyPreferences(){
     document.body.dataset.density=C.state.density==='compact'?'compact':'balanced';
     document.body.classList.toggle('reduce-motion',!!C.state.reduced);
+    Ambient.setContext({quiet:C.current().split('?')[0]==='question',reduced:C.state.reduced});
     document.querySelectorAll('[data-action="v3-density"]').forEach(b=>{const on=b.dataset.id===C.state.density;b.classList.toggle('selected',on);b.setAttribute('aria-pressed',String(on));});
     document.querySelectorAll('[data-action="v3-motion"]').forEach(b=>{b.classList.toggle('on',C.state.reduced);b.setAttribute('aria-checked',String(C.state.reduced));});
   }

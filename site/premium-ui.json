@@ -22,13 +22,15 @@
     "themes",
     "runtime",
     "visual",
-    "recordContract"
+    "recordContract",
+    "motion"
   ],
   "commands": {
     "themes": "python tools/build_themes.py",
     "runtime": "python tools/hosted_smoke.py .",
     "visual": "python tools/design_snapshots.py .",
-    "recordContract": "node tools/record_loop_contract.mjs ."
+    "recordContract": "node tools/record_loop_contract.mjs .",
+    "motion": "python tools/tidal_motion.py ."
   },
   "evidence": {
     "crudFullFlow": "tools/hosted_smoke.py",

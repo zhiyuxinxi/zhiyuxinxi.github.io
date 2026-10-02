@@ -99,7 +99,7 @@ def relocated_entries_and_settings(p):
  p.click('[data-action=v3-preferences]');p.click('[data-action=v3-motion]');p.keyboard.press('Escape')
  check(p.evaluate("document.activeElement.dataset.action==='v3-preferences'"),'Settings dialog focus lost')
  check(p.evaluate('App.snapshot.reduced'),'Motion preference not saved')
- check(p.evaluate("getComputedStyle(document.body,'::before').animationName==='none'"),'Reduced motion did not stop global tide')
+ check(p.evaluate("document.getElementById('ambient-tide').animationsPaused()"),'Reduced motion did not stop global tide')
  p.click('[data-action=back]');p.wait_for_function('App.currentRoute==="me"')
  p.click('[data-route=records]');check('记录' in p.locator('main').inner_text())
  return {'movedToolsReachable':True,'settingsOnlyAppearanceEntry':True,'darkDialogKeyboardRecovery':True}
@@ -127,7 +127,7 @@ def theme_six_page_matrix(p):
  rows=[]
  for theme in ['sunrise','candy','berry','lime','aurora','sea','nebula','amber']:
   for r,sc in [('home','default'),('explore','default'),('question?id=session-demo-seed','question'),('report?id=report-sample-01','default'),('assistant','default'),('me','default')]:
-   proto(p,r,sc,theme);check(p.evaluate('App.snapshot.theme')==theme);check(p.evaluate("getComputedStyle(document.body,'::before').backgroundImage.includes('gradient')"),'Missing global scene');check(p.evaluate('document.documentElement.scrollWidth<=innerWidth'),theme+' '+r);check(p.locator('#main-content').count()==1);imgs=p.locator('img').evaluate_all('(es)=>es.filter(e=>!e.complete||e.naturalWidth===0).map(e=>e.src)');check(not imgs,'Missing images '+str(imgs));rows.append({'theme':theme,'page':r,'pass':True})
+   proto(p,r,sc,theme);check(p.evaluate('App.snapshot.theme')==theme);check(p.evaluate("getComputedStyle(document.getElementById('ambient-background')).backgroundImage.includes('gradient')"),'Missing global scene');check(p.evaluate('document.documentElement.scrollWidth<=innerWidth'),theme+' '+r);check(p.locator('#main-content').count()==1);imgs=p.locator('img').evaluate_all('(es)=>es.filter(e=>!e.complete||e.naturalWidth===0).map(e=>e.src)');check(not imgs,'Missing images '+str(imgs));rows.append({'theme':theme,'page':r,'pass':True})
  (OUT/'hosted-theme-matrix.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2));return {'combinations':len(rows)}
 
 def run(pw,browser,name,fn,size=(390,844)):
