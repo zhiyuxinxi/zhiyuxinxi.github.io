@@ -1,0 +1,110 @@
+[
+  {
+    "theme": "sunrise",
+    "sourceAnchors": [
+      "#fff19d",
+      "#ff875d"
+    ],
+    "opacity": 1,
+    "underlay": "#fff7ee"
+  },
+  {
+    "theme": "candy",
+    "sourceAnchors": [
+      "#ffeda0",
+      "#ff74b2"
+    ],
+    "opacity": 1,
+    "underlay": "#fff5f6"
+  },
+  {
+    "theme": "berry",
+    "sourceAnchors": [
+      "#ffabd6",
+      "#c594ff"
+    ],
+    "opacity": 1,
+    "underlay": "#fcf5ff"
+  },
+  {
+    "theme": "lime",
+    "sourceAnchors": [
+      "#edff99",
+      "#88edbd"
+    ],
+    "opacity": 1,
+    "underlay": "#f6faef"
+  },
+  {
+    "theme": "aurora",
+    "sourceAnchors": [
+      "#c3dfff",
+      "#e3b6ff"
+    ],
+    "opacity": 1,
+    "underlay": "#f6f5ff"
+  },
+  {
+    "theme": "sea",
+    "sourceAnchors": [
+      "#b3f2ff",
+      "#7fdfd0"
+    ],
+    "opacity": 1,
+    "underlay": "#f0f9fb"
+  },
+  {
+    "theme": "nebula",
+    "sourceAnchors": [
+      "#6254b8",
+      "#3e88b5"
+    ],
+    "opacity": 0.58,
+    "underlay": "#151e30"
+  },
+  {
+    "theme": "amber",
+    "sourceAnchors": [
+      "#c27978",
+      "#b88961"
+    ],
+    "opacity": 0.58,
+    "underlay": "#261923"
+  },
+  {
+    "theme": "green",
+    "sourceAnchors": [
+      "#d3e9b8",
+      "#eddab5"
+    ],
+    "opacity": 1,
+    "underlay": "#f7faf5"
+  },
+  {
+    "theme": "peach",
+    "sourceAnchors": [
+      "#f4c0a4",
+      "#eddbb1"
+    ],
+    "opacity": 1,
+    "underlay": "#fff8f3"
+  },
+  {
+    "theme": "blue",
+    "sourceAnchors": [
+      "#b9cdec",
+      "#d4dcf4"
+    ],
+    "opacity": 1,
+    "underlay": "#f5f9ff"
+  },
+  {
+    "theme": "violet",
+    "sourceAnchors": [
+      "#d0c0f7",
+      "#e4c7ef"
+    ],
+    "opacity": 1,
+    "underlay": "#faf8ff"
+  }
+]

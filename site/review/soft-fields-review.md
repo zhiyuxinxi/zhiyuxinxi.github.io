@@ -42,3 +42,5 @@ Premium原版静态审计运行后报告29项，与main同文件同行同规则�
 本机Chromium可运行。未做手机真机软键盘、Safari或完整屏幕阅读器认证。历史私有截图未加入本仓库。候选经固定SHA独立review后再由父线程协调发布。
 
 最终本机结果：HTTP业务18/18、记录契约14/14、六入口9/9、设计截图36/36、柔光及深页13/13通过。八主题主色优势面积15.67%–84.02%，另含320/430px像素抽样。完整定义和源码SHA256见 soft-fields-verification.json。原速视频与关键帧由只读候选CI的 site/qa/soft-fields artifact重新生成；本机完整证据另存工作区。
+
+原色恢复后的当前实现为c18624e（源色选择、旧暗色合成与四历史候选对比修复），替代本文件早先aaeb53e配色候选。源色/显示色说明见soft-fields-palette-review.md。新证据目录为qa/soft-fields-restored，不以旧soft-fields截图代替恢复后结果。

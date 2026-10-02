@@ -1,0 +1,42 @@
+{
+  "sourceCommit": "c18624e6d63047cce00bb584d477984ac0de7b3e",
+  "syntheticOnly": true,
+  "deployment": "not performed",
+  "checks": {
+    "hosted": 18,
+    "recordContract": 14,
+    "sixEntryUI": 9,
+    "designSnapshotCases": 36,
+    "fieldAndDeepCases": 17
+  },
+  "failedRuntimeChecks": 0,
+  "staticAudit": {
+    "findings": 29,
+    "identicalToMain": true,
+    "new": 0,
+    "strictPassed": false
+  },
+  "contrastMinima": {
+    "theme-sunrise": 5.055683119294659,
+    "theme-candy": 4.985735670209772,
+    "theme-berry": 5.561909266354048,
+    "theme-lime": 7.763216458060786,
+    "theme-aurora": 6.752969315820153,
+    "theme-sea": 6.757366084182408,
+    "theme-nebula": 5.3049172261618835,
+    "theme-amber": 5.436258052625586,
+    "theme-green": 5.303128477057889,
+    "theme-peach": 5.306979665448956,
+    "theme-blue": 5.307641061785309,
+    "theme-violet": 5.30583444938963
+  },
+  "sourceSHA256": {
+    "prototype/ambient.js": "88c03348e79244a2b629b5e5707d4f3c94591905fe327f7aaea7468d8968ee31",
+    "prototype/product.css": "6cb28904f4f4625abb7140638a7be654559e9b0fb17973b7e5cdeecd651d1d39",
+    "prototype/themes-v4.css": "f285ecaaf2d4d5f251b46cc664060c6cac3c04223587ddb6d75e7e8432c563ee",
+    "prototype/themes-v4.js": "61c0e83538fcadb2aecae0793bb063e268ccced4dd5f6fba83f280a027d8ff3f",
+    "handoff/themes-v4.json": "b98a00efe635769a20a576c6c3dfd04855b9a4d7eda61ebd7a595e67b5955fcb",
+    "tools/build_themes.py": "66ee0ba692998c9bfe9dcd231d7829a0a4f9366acabd41c83b75e59a3c0952c0",
+    "tools/tidal_motion.py": "5bff86a2e78b42c66e14d93adca828f8142f10b84279fb189811d1dda393cfa5"
+  }
+}

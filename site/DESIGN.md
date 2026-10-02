@@ -3,8 +3,8 @@ version: alpha
 colors:
   primary: "#402c28"
   ink: "#402c28"
-  paper: "#f8d0c0"
-  surface: "#f5b79e"
+  paper: "#ffdebe"
+  surface: "#ffcc9c"
 typography:
   body:
     fontFamily: "-apple-system, BlinkMacSystemFont, PingFang SC, Microsoft YaHei, sans-serif"
