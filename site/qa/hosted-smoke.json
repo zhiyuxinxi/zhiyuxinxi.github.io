@@ -1,7 +1,7 @@
 {
   "version": "4.0.0-preservation",
   "environment": "GitHub Actions / real HTTP resource loading / native Chromium localStorage and iframe messaging",
-  "timestampUTC": "2026-10-02T15:32:06.233524+00:00",
+  "timestampUTC": "2026-10-02T16:22:14.627724+00:00",
   "browser": "143.0.7499.4",
   "playwright": "1.57.0",
   "passed": 18,
@@ -133,5 +133,5 @@
     "Complete WCAG audit",
     "Target-user preference"
   ],
-  "sourceEntrySHA256": "b77a191ae939c074c242260ab2f57ce41e4c6eda2e26715545e11f89974f26c7"
+  "sourceEntrySHA256": "18627d936ddd1ffbf737fbc6526fde8242a3e8caef1cd0f0d93118238e2b4c65"
 }

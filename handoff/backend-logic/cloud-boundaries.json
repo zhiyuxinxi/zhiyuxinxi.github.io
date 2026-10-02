@@ -1,0 +1,2922 @@
+{
+  "schemaVersion": "1.0-cloud-boundaries-plan",
+  "title": "知遇测评：本机数据、按次AI与条件会员云存边界",
+  "asOf": "2026-10-02",
+  "status": "阶段二方案；未开发业务、未接入真实账号/支付/AI/同步服务",
+  "scope": "产品设计公开摘要；仅引用稳定页面、需求、既有决策及公开官方技术资料；不含私人资料、私有链接、源码或内部工作记录",
+  "baseline": {
+    "requirementsVersion": "v1.3",
+    "requirementCount": 161,
+    "acceptanceCount": 381,
+    "decisionCount": 22,
+    "pageCount": 39,
+    "historicalRepairsCount": 13
+  },
+  "classificationLegend": {
+    "已明确": "用户方向或现需求已确定的边界，不代表实现完成",
+    "必要约束": "对应能力获选并真实启用时不可缺的安全、状态、恢复条件",
+    "建议": "实现/产品建议，未替用户拍板",
+    "条件待确认": "只有对应能力获选才成立；需在标注的既有决策内定案"
+  },
+  "candidateBoundary": {
+    "referenceId": "PAGE-ARCH-CANDIDATE",
+    "confirmed": "全部获准题库默认随安装本地交付；Android优先、本机优先的方向",
+    "notYetApproved": "本地计算引擎、本地报告保存、会员部分关键分析数据入云仍为三个条件候选，不因本文详细设计而变成已获实施授权",
+    "readingRule": "必要约束表示选择相应功能后的正确性条件；以下本机/云端分类是条件方案中的推荐职责，不证明现功能已实现"
+  },
+  "summary": [
+    "所有纳入产品且可合法分发的题库默认随安装在本机；本地计分与本地报告仍是条件式候选；若选择，可与作答形成独立闭环。未获正式使用资格的内容不能因默认安装要求被包装为正式测评。",
+    "登录、游客资料认领、按次AI外发、聊天留存、长期记忆、会员云快照和连续同步分别选择。会员不等于把所有私人资料交给云端。",
+    "服务端只对账号、权益、跨设备额度及AI请求状态负责权威判定；对仅上传摘要的本地分数不能声称已复算。",
+    "建议优先验证受控的单次AI链路。若选择会员云存，先选对象、目的和快照/同步形式；不默认增加全量同步平台。",
+    "已有私人资料不得因会员变化丢失。既有本地报告离线可读、可导出且不受登录/续费绑住是强建议；现矩阵仍列为D-09/D-10待确认的权益细则，不能当作已承诺。",
+    "最小后端沿现有模块化单体：身份、权益/额度、AI请求、发布资格、数据控制；只有云存获选时才增条件存储职责。"
+  ],
+  "dataClasses": [
+    {
+      "id": "CB-DATA-01",
+      "title": "题库、规则、解释与发布状态",
+      "classification": "已明确",
+      "pageIds": [
+        "content",
+        "question",
+        "review",
+        "report"
+      ],
+      "requirementIds": [
+        "ZY-FR-005",
+        "ZY-NFR-008",
+        "ZY-NFR-009",
+        "ZY-OPS-001"
+      ],
+      "decisionIds": [
+        "D-02",
+        "D-04",
+        "D-16"
+      ],
+      "local": "所有获准产品题库及依赖规则默认安装本机；使用时绑定不可变包版本和最后核验的发布状态。",
+      "minimumEgress": "按需请求公开版本/撤回清单，仅需产品、平台、包版本等技术字段；不为更新题库上传答题历史或画像。",
+      "cloudRetention": "公开内容和发布声明属于服务配置，不是私人云存；个性化选题若本地规则即可完成，不产生私人上云理由。",
+      "excluded": "未获许可内容不得对真人默认分发；不能把静态题库哈希当本机答卷真实性证明。"
+    },
+    {
+      "id": "CB-DATA-02",
+      "title": "原始答卷与作答草稿",
+      "classification": "必要约束",
+      "pageIds": [
+        "question",
+        "review",
+        "complete",
+        "records",
+        "data"
+      ],
+      "requirementIds": [
+        "ZY-FR-006",
+        "ZY-FR-007",
+        "ZY-FR-008",
+        "ZY-DATA-004",
+        "ZY-DATA-005"
+      ],
+      "decisionIds": [
+        "D-04",
+        "D-06",
+        "D-08"
+      ],
+      "local": "本地测评的必要原始记录；保存选择、题项顺序、answerRevision与固定内容锁。未提交草稿与已冻结答案分开，用户删除除外。",
+      "minimumEgress": "普通AI解释默认不需全答卷；只有所选用途确需查看某答案或服务端复算时，另列必要题项/字段和用途并获本次允许。",
+      "cloudRetention": "不必云留存。会员云备份若选中此类别才保留；单次复算输入的短期处理留存与长期备份分开说明。",
+      "excluded": "不得为反作弊、云校验或会员身份默认上传全部答案、答题时长明细与自由文本。"
+    },
+    {
+      "id": "CB-DATA-03",
+      "title": "因子结果与结果质量",
+      "classification": "必要约束",
+      "pageIds": [
+        "complete",
+        "report",
+        "compare",
+        "portrait",
+        "data"
+      ],
+      "requirementIds": [
+        "ZY-FR-008",
+        "ZY-NFR-009",
+        "ZY-MEAS-004",
+        "ZY-MEAS-005",
+        "ZY-ENG-010"
+      ],
+      "decisionIds": [
+        "D-04",
+        "D-06",
+        "D-08"
+      ],
+      "local": "AssessmentResult不可变；保留session/result身份、包锁、引擎规则版本、结果性质、因子值/未知原因及质量限制。",
+      "minimumEgress": "本人选中的因子值、量尺身份、结果性质、质量标记和版本即可支持有边界的解释；未选因子、原题和常模敏感输入不顺带上传。",
+      "cloudRetention": "普通解释仅在获准请求期内处理；长期留存仅所选快照/同步对象。",
+      "excluded": "模拟、自述、候选、不完整结果不得因上云自动成为正式结果；serverRecomputed也不证明回答真实或量表有效。"
+    },
+    {
+      "id": "CB-DATA-04",
+      "title": "本地报告与AI分析结果",
+      "classification": "必要约束",
+      "pageIds": [
+        "report",
+        "records",
+        "conversation",
+        "share",
+        "data"
+      ],
+      "requirementIds": [
+        "ZY-FR-009",
+        "ZY-FR-025",
+        "ZY-MEAS-007",
+        "ZY-BIZ-001"
+      ],
+      "decisionIds": [
+        "D-04",
+        "D-06",
+        "D-08",
+        "D-09",
+        "D-10"
+      ],
+      "local": "报告绑定resultRef、模板版本、locale、来源版本；AI分析单独保存aiResultId，不覆盖确定性分数。离线报告所需渲染模型应本地可恢复。",
+      "minimumEgress": "解释所需的所选报告片段，优先结构化因子/限制而非整份PDF、完整答案或分享图片。",
+      "cloudRetention": "恢复一次真实AI请求需要的结果副本及期限在D-06/D-08先明确；云报告库另属会员条件功能。",
+      "excluded": "已有报告所有权与新AI权益分开；过期阅读/导出条款待定，不擅自承诺付费题文永久使用权。"
+    },
+    {
+      "id": "CB-DATA-05",
+      "title": "个人画像、本人修正和情境",
+      "classification": "必要约束",
+      "pageIds": [
+        "portrait",
+        "journal",
+        "records",
+        "daily-checkin"
+      ],
+      "requirementIds": [
+        "ZY-FR-026",
+        "ZY-FR-027",
+        "ZY-FR-015",
+        "ZY-AI-001",
+        "ZY-AI-002"
+      ],
+      "decisionIds": [
+        "D-05",
+        "D-06",
+        "D-08",
+        "D-17"
+      ],
+      "local": "本人确认的认识及修正记录本地保存；画像是可重建投影，事实/自述/AI推断并列，不把推断压成权威标签。",
+      "minimumEgress": "每次选择与当前问题相关的认识及必要情境，带适用范围、来源性质/版本及异议；不是整个人物档案。",
+      "cloudRetention": "无云画像也可本地持续积累；云存要独立选中。远端更新画像是一次需要授权和计量规则的AI操作。",
+      "excluded": "打开每日打卡、保存答案、切换画像页不得静默外发、扣次或产生新AI画像。"
+    },
+    {
+      "id": "CB-DATA-06",
+      "title": "AI会话、输入草稿和部分流式回复",
+      "classification": "必要约束",
+      "pageIds": [
+        "assistant",
+        "conversation",
+        "conversations",
+        "privacy"
+      ],
+      "requirementIds": [
+        "ZY-FR-020",
+        "ZY-FR-021",
+        "ZY-FR-030",
+        "ZY-AI-003",
+        "ZY-AI-004"
+      ],
+      "decisionIds": [
+        "D-06",
+        "D-07",
+        "D-08"
+      ],
+      "local": "草稿默认本地；会话正文是否持久保存服从聊天留存开关，不要求“只聊不存”的用户永久本地存全文；部分流与完整结果分开。",
+      "minimumEgress": "当前输入＋本次明确采用的有限会话/材料片段；不自动附全会话历史。",
+      "cloudRetention": "请求处理与可恢复结果可能需要短期副本，必须先定期限与关闭留存时的行为；长期会话云存独立选择。",
+      "excluded": "关闭长期记忆不等于关闭聊天留存；关闭聊天留存不自动抹除独立确认的记忆；两者都不等于撤回已发供应商内容。"
+    },
+    {
+      "id": "CB-DATA-07",
+      "title": "长期记忆、版本正文与证据引用",
+      "classification": "必要约束",
+      "pageIds": [
+        "memories",
+        "portrait",
+        "conversation",
+        "privacy",
+        "data"
+      ],
+      "requirementIds": [
+        "ZY-FR-028",
+        "ZY-FR-029",
+        "ZY-FR-030",
+        "ZY-NFR-016",
+        "ZY-DATA-005"
+      ],
+      "decisionIds": [
+        "D-06",
+        "D-08"
+      ],
+      "local": "本人确认后保存memoryId、各版实际文本、时间/原因、当前状态和SourceRef；不是只有revision数字。来源正文优先回原对象，不无限复制原文。",
+      "minimumEgress": "明确允许的有效记忆版本及必要来源片段，按本次预算选择；内部objectId本身不授予云端取全文权。",
+      "cloudRetention": "本地确认记忆可以完全不云存；云记忆需单独类别/范围同意。",
+      "excluded": "源删除后留存失效状态，不伪造可回看原文；删除记忆的范围包含旧版正文、摘要、索引和候选，墓碑不能保存已删全文。"
+    },
+    {
+      "id": "CB-DATA-08",
+      "title": "账号、第三方身份与手机验证",
+      "classification": "必要约束",
+      "pageIds": [
+        "auth",
+        "account",
+        "membership"
+      ],
+      "requirementIds": [
+        "ZY-FR-037",
+        "ZY-FR-038",
+        "ZY-BR-001",
+        "ZY-ENG-009"
+      ],
+      "decisionIds": [
+        "D-20",
+        "D-21",
+        "D-08"
+      ],
+      "local": "本机仅保留必要会话凭据和当前身份状态，与私人spaceId分开；不将凭据放入可导出数据。",
+      "minimumEgress": "选定身份渠道需要的授权凭证及短信流程需要的手机号；具体接收方/SDK、用途和资质真实接入前核对。",
+      "cloudRetention": "账号稳定ID、第三方主体映射、手机号验证状态、必要安全事件为在线身份功能所需；实际字段/期限待定。",
+      "excluded": "第三方认证不等于已获得手机号；手机号验证不等于对既有账号的所有权证明；身份资料不交给模型。"
+    },
+    {
+      "id": "CB-DATA-09",
+      "title": "会员、订单和跨设备额度账本",
+      "classification": "必要约束",
+      "pageIds": [
+        "membership",
+        "checkout",
+        "orders",
+        "order",
+        "conversation"
+      ],
+      "requirementIds": [
+        "ZY-FR-023",
+        "ZY-FR-024",
+        "ZY-BIZ-001",
+        "ZY-BIZ-003",
+        "ZY-BIZ-004"
+      ],
+      "decisionIds": [
+        "D-07",
+        "D-09",
+        "D-10",
+        "D-21"
+      ],
+      "local": "显示服务器已确认权益/额度及核验时间；离线缓存不成为购买、领额或新的AI准入权威。",
+      "minimumEgress": "认证账号、操作ID、产品/交易必要标识、逻辑请求类型；无需私人答卷/报告正文。",
+      "cloudRetention": "服务端权威存权益事件、额度日、预占/结算记录和必要交易事实；升级/到期/退款不重置已用。",
+      "excluded": "不凭客户端会员flag、时钟、支付返回页或手机号单独赠额；不虚构价格、自动续费与退款时限。"
+    },
+    {
+      "id": "CB-DATA-10",
+      "title": "AI请求清单、成本与诊断",
+      "classification": "必要约束",
+      "pageIds": [
+        "conversation",
+        "membership",
+        "support",
+        "privacy"
+      ],
+      "requirementIds": [
+        "ZY-AI-003",
+        "ZY-AI-004",
+        "ZY-DATA-009",
+        "ZY-OPS-004",
+        "ZY-BIZ-003"
+      ],
+      "decisionIds": [
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-14",
+        "D-16"
+      ],
+      "local": "保存clientOperationId、请求/原任务关联、本次实际采用清单和接收状态；不把发送成功当理解成功。",
+      "minimumEgress": "逻辑请求、摘要哈希/字段清单、策略版本、必要预算及被批准的正文载荷；模型侧不应收到手机号、订单、登录凭据或真实账号ID。",
+      "cloudRetention": "请求终态、幂等/结算键、供应商尝试、体量/延时/费用及安全原因码为运维最低事实；正文不进入普通日志/分析平台。",
+      "excluded": "requestHash也可能关联私人内容，不公开记录或当匿名化保证；是否保存载荷/结果及何时删除须有独立短期处理政策。"
+    },
+    {
+      "id": "CB-DATA-11",
+      "title": "云快照、同步元数据与删除墓碑",
+      "classification": "条件待确认",
+      "pageIds": [
+        "data",
+        "privacy",
+        "account",
+        "membership"
+      ],
+      "requirementIds": [
+        "ZY-FR-046",
+        "ZY-FR-047",
+        "ZY-DATA-005",
+        "ZY-DATA-007",
+        "ZY-DATA-008"
+      ],
+      "decisionIds": [
+        "D-08",
+        "D-09",
+        "D-10",
+        "D-14"
+      ],
+      "local": "本机仍可使用未选云存的对象；标清本地已存/待上传/云已确认/冲突/删除待传播。",
+      "minimumEgress": "只发选中对象及恢复所需的关联和版本；必要的删除ID、scopeEpoch、cursor、操作键也要说明用途。",
+      "cloudRetention": "仅在用户另选云存后，按已定保留/容量/退出策略保存；防复活元数据可与正文不同期限。",
+      "excluded": "备份不是连续同步；应用云存不是系统备份；一个全局“同步成功”不能掩盖部分对象失败。"
+    }
+  ],
+  "trustLevels": [
+    {
+      "id": "CB-TRUST-01",
+      "title": "userProvided：用户/客户端提供",
+      "classification": "必要约束",
+      "pageIds": [
+        "report",
+        "conversation",
+        "portrait"
+      ],
+      "requirementIds": [
+        "ZY-ENG-010",
+        "ZY-MEAS-007",
+        "ZY-AI-001"
+      ],
+      "decisionIds": [
+        "D-04",
+        "D-06"
+      ],
+      "verified": "仅能确认这次收到哪些材料及来源声明；身份鉴权不证明分数。",
+      "limits": "分数、quality、resultKind、版本标签都可能被客户端伪造；可作为用户选定材料解释，但标清未独立复核。",
+      "minimum": "被允许的摘要/因子/用途标签；不需原答卷。"
+    },
+    {
+      "id": "CB-TRUST-02",
+      "title": "integrityChecked：指定检查已通过",
+      "classification": "建议",
+      "pageIds": [
+        "content",
+        "report",
+        "conversation"
+      ],
+      "requirementIds": [
+        "ZY-ENG-010",
+        "ZY-NFR-008",
+        "ZY-MEAS-007"
+      ],
+      "decisionIds": [
+        "D-04",
+        "D-06"
+      ],
+      "verified": "仅记录checksPerformed：例如合法包/发布身份、schema、范围、维度、字段一致性。服务器验证包签名/已知哈希只能证明包本身，不能证明客户端确曾用它算分。",
+      "limits": "不能简称“正式分数已验证”；来源哈希、签名包或可选设备完整性信号均不证明原始答案真实。",
+      "minimum": "内容锁＋必要结构与数值；每一项验证清楚写明没覆盖的内容。"
+    },
+    {
+      "id": "CB-TRUST-03",
+      "title": "serverRecomputed：依授权输入独立复算",
+      "classification": "条件待确认",
+      "pageIds": [
+        "report",
+        "conversation",
+        "privacy"
+      ],
+      "requirementIds": [
+        "ZY-ENG-010",
+        "ZY-MEAS-004",
+        "ZY-MEAS-005"
+      ],
+      "decisionIds": [
+        "D-04",
+        "D-06",
+        "D-08"
+      ],
+      "verified": "服务器以同一合格规则和获准输入复算；必须保存recomputedScope和输入/规则身份。",
+      "limits": "只覆盖实际收到且足以计算的部分；局部因子不能冒称完整质量复核，复算不证明诚实作答或测量效度。",
+      "minimum": "按规则依赖确定必要题项及解释所需最小资格信息；拒绝提供则保留userProvided解释或禁用确需复算的功能，不暗传全卷。"
+    }
+  ],
+  "conditionalFlows": [
+    {
+      "id": "CB-FLOW-01",
+      "title": "若选择本地计分/报告：闭环不为云服务让路",
+      "classification": "条件待确认",
+      "pageIds": [
+        "content",
+        "question",
+        "review",
+        "complete",
+        "report",
+        "records"
+      ],
+      "requirementIds": [
+        "ZY-FR-005",
+        "ZY-FR-008",
+        "ZY-NFR-011",
+        "ZY-ENG-001"
+      ],
+      "decisionIds": [
+        "D-02",
+        "D-04",
+        "D-08"
+      ],
+      "steps": [
+        "全题库随安装到本机是已明确条件；以下本地计分/报告的详细责任仅在这两个候选位置方案获选后成立",
+        "安装时本地内容就绪并核对合法可用范围；只对待启用的真实服务进行相应门禁",
+        "作答/草稿/交卷/计分/报告持久化均以本地事务为基础",
+        "离线、未登录或AI用尽仍能完成允许的本地步骤",
+        "选择云解释或云备份时才进入独立授权流程"
+      ],
+      "stop": "不存在内容资格时明确说明对应能力未开放，不伪造分数，也不借此要求先注册/上传全历史。"
+    },
+    {
+      "id": "CB-FLOW-02",
+      "title": "第三方建号、手机验证和游客认领分开",
+      "classification": "必要约束",
+      "pageIds": [
+        "auth",
+        "account",
+        "report",
+        "conversation"
+      ],
+      "requirementIds": [
+        "ZY-FR-037",
+        "ZY-FR-038",
+        "ZY-DATA-003",
+        "ZY-ENG-009"
+      ],
+      "decisionIds": [
+        "D-20",
+        "D-21",
+        "D-08",
+        "D-07"
+      ],
+      "steps": [
+        "保留authIntent和原任务；微信/支付宝优先、手机号验证码备选属于已明确方向",
+        "通过真实渠道核验同一身份→同一应用账号；首次有效且无关联才建号，幂等防重复",
+        "第三方已认证/手机未验证为独立中间态；哪一在线能力需手机先由D-20逐项决定",
+        "游客资料仅对本人选中的本地对象做认领/复制预览；登录成功不搬移账号A资料、不调用AI、不付款、不启用云存",
+        "手机号已归属其他账号时走受支持的恢复/切换/取消；账号合并未选则明确不支持"
+      ],
+      "stop": "不以相同姓名、手机号OTP或第三方回调参数直接接管另一账号；取消保留原报告与草稿。"
+    },
+    {
+      "id": "CB-FLOW-03",
+      "title": "一次受控AI请求",
+      "classification": "必要约束",
+      "pageIds": [
+        "assistant",
+        "conversation",
+        "report",
+        "privacy",
+        "membership"
+      ],
+      "requirementIds": [
+        "ZY-FR-022",
+        "ZY-FR-023",
+        "ZY-FR-025",
+        "ZY-AI-003",
+        "ZY-AI-004"
+      ],
+      "decisionIds": [
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-13"
+      ],
+      "steps": [
+        "用户提出问题并选择资料；预览实际原文、摘要、未采用项、接收方、短期处理留存与计次规则",
+        "本地冻结manifest、源版本和逻辑clientOperationId；改变问题/载荷不能沿用同键",
+        "真正出网前重新核对当前空间、身份、来源、同意版本、大小与预算；长材料不悄悄多轮拆单",
+        "服务端原子鉴权/资格/额度预占/持久请求；模型只收到最小批准载荷，调用在数据库事务之外",
+        "结果按结构、安全和引用清单校验；本地接收再核验空间/来源/设置；部分输出标部分",
+        "只有本人确认的新候选才成为长期记忆；来源已变更的迟到结果按留存规则标历史或丢弃，不更新当前画像"
+      ],
+      "stop": "供应商、日界线、结算规则或安全处理未定时真实外发不启用；已发内容的撤回能力不得虚假承诺。"
+    },
+    {
+      "id": "CB-FLOW-04",
+      "title": "若选择会员云快照",
+      "classification": "条件待确认",
+      "pageIds": [
+        "membership",
+        "data",
+        "privacy"
+      ],
+      "requirementIds": [
+        "ZY-FR-045",
+        "ZY-FR-046",
+        "ZY-FR-047",
+        "ZY-DATA-007"
+      ],
+      "decisionIds": [
+        "D-08",
+        "D-09",
+        "D-10",
+        "D-14"
+      ],
+      "steps": [
+        "明确会员云存权益、容量、保存期限、加密/密钥、到期处理和恢复限制后，另行选择云备份",
+        "选择类别和具体对象，显示关联原文是否包含；不能只写“关键数据”而无字段清单",
+        "生成不可变snapshotId和对象/版本manifest；排除认证凭据、购买/AI待发指令、可重下大题包",
+        "分段上传可幂等重试；全部校验且服务端确认后才显示该快照完成，未完成分段定期清理规则待定",
+        "恢复先验证身份、完整性、格式、空间、删除epoch；预览冲突后原子导入，不恢复旧权益/旧同意",
+        "下一次修改不会自动进入旧快照；需要再次备份或另选连续同步"
+      ],
+      "stop": "快照只保证当时所选对象；删除其中正文需要删除/替换受影响快照及备份处理策略，不能假称删数据库一行已删完所有备份。"
+    },
+    {
+      "id": "CB-FLOW-05",
+      "title": "若选择选择性连续同步",
+      "classification": "条件待确认",
+      "pageIds": [
+        "data",
+        "privacy",
+        "memories",
+        "records"
+      ],
+      "requirementIds": [
+        "ZY-FR-047",
+        "ZY-DATA-005",
+        "ZY-DATA-008"
+      ],
+      "decisionIds": [
+        "D-08",
+        "D-14",
+        "D-09"
+      ],
+      "steps": [
+        "在快照以外独立开启，明确类别、历史范围、设备、网络策略和冲突/删除语义",
+        "首次本机/云端清单预检；先拉取当前删除和控制状态再决定上传，不按本机时间盲目覆盖",
+        "只为选中对象建立持久变更队列，变更使用operationId、expectedServerVersion、scopeEpoch；同键异参拒绝",
+        "服务器按权限、同意和版本条件原子应用，返回每项结果与cursor；客户端只对已确认变更推进同步状态",
+        "不可变结果/报告去重追加；文本并发保留两版待本人选择；不拼接不同答卷，不自动把相互矛盾的记忆合并为事实",
+        "撤回/删除优先阻止继续引用；离线设备重连先对账；暂停同步保留本机，清云副本另外明确选择"
+      ],
+      "stop": "未同步完成或设备未联网不能宣称全设备一致；未开启同步的跨端每日题史不能声称全账号从未做过。"
+    },
+    {
+      "id": "CB-FLOW-06",
+      "title": "到期、降级与退款",
+      "classification": "必要约束",
+      "pageIds": [
+        "membership",
+        "orders",
+        "order",
+        "data",
+        "report"
+      ],
+      "requirementIds": [
+        "ZY-FR-023",
+        "ZY-FR-050",
+        "ZY-BIZ-001",
+        "ZY-BIZ-003",
+        "ZY-BIZ-005"
+      ],
+      "decisionIds": [
+        "D-07",
+        "D-09",
+        "D-10",
+        "D-08"
+      ],
+      "steps": [
+        "以服务端核验权益事件更新时间和新请求资格；旧请求沿受理时已告知的规则收尾",
+        "当天额度账本不清零；升级/到期/退款不创建新的免费池",
+        "本机已存私人报告、聊天和记忆不因权益变化删除；新云写入/生成与既有资料分开处理",
+        "强烈建议本地已存本人资料离线可读、可导出且不需续费；该权益条款仍待D-09/D-10确认",
+        "云保留、下载窗口、超量处理和删除时点需在售卖前定案；不编数字，不静默删云档，不承诺无限免费云留存"
+      ],
+      "stop": "退款事实不伪装未购买历史；付费内容许可、服务期限与私人数据拥有权分别定义。"
+    },
+    {
+      "id": "CB-FLOW-07",
+      "title": "撤回、删除与旧备份恢复",
+      "classification": "必要约束",
+      "pageIds": [
+        "privacy",
+        "data",
+        "account",
+        "memories",
+        "conversation"
+      ],
+      "requirementIds": [
+        "ZY-FR-029",
+        "ZY-FR-030",
+        "ZY-FR-039",
+        "ZY-DATA-005",
+        "ZY-DATA-007"
+      ],
+      "decisionIds": [
+        "D-08",
+        "D-14",
+        "D-16",
+        "D-21"
+      ],
+      "steps": [
+        "先明确动作：停止以后AI引用、删除本机、删除云副本、删除所选快照、注销账号各自范围",
+        "本地事务写撤回/删除标识并失效当前派生索引/候选/画像；阻止未发队列，取消在途请求",
+        "云端写最小墓碑/删除代次并清相应活动正文；备份、已发供应商副本和离线设备分别显示实际处理状态",
+        "注销身份失效后仍按事先设计的适当核验方式查最小处理状态，不公开凭编号泄露内容",
+        "旧设备/系统备份恢复只可先对账，不自动发AI、恢复身份/权益、重新开启同步或回传旧正文",
+        "若用户有意从旧备份恢复已删资料，显示明确恢复预览；新本地对象仍不自动上传，恢复云存需新的明确动作和当前权限"
+      ],
+      "stop": "不承诺远程擦除未联网设备、用户导出文件或第三方副本；删除后追溯只保留最小状态，不能靠版本历史无限保留正文。"
+    }
+  ],
+  "syncContract": [
+    {
+      "id": "CB-SYNC-01",
+      "title": "同一对象、不同版本层次",
+      "classification": "建议",
+      "pageIds": [
+        "data",
+        "report",
+        "memories"
+      ],
+      "requirementIds": [
+        "ZY-DATA-008",
+        "ZY-NFR-013",
+        "ZY-FR-029"
+      ],
+      "decisionIds": [
+        "D-08",
+        "D-14"
+      ],
+      "rules": [
+        "沿spaceId/objectId/revision及SourceRef；不用手机号作对象主键，不另造全局人物ID",
+        "本地revision只能表示本机版本链；同步另带由服务器签发/核验的serverVersion和同步scopeEpoch，不能跨设备按本地自增数比大小",
+        "变更最小信封：operationId、objectType/objectId、baseServerVersion、localRevision/parentRevision、payloadHash、lifecycleState、consentRevision、scopeEpoch",
+        "SourceRef绑定来源类型、对象、revision、必要片段和证据性质；模型引用使用本次manifest中作用域受限sourceKey，不可据任意ID取其他资料"
+      ],
+      "sourceIds": [
+        "OFF-HTTP"
+      ]
+    },
+    {
+      "id": "CB-SYNC-02",
+      "title": "幂等和冲突不是最后时间覆盖",
+      "classification": "建议",
+      "pageIds": [
+        "data",
+        "memories",
+        "question",
+        "report"
+      ],
+      "requirementIds": [
+        "ZY-DATA-008",
+        "ZY-NFR-014",
+        "ZY-FR-046"
+      ],
+      "decisionIds": [
+        "D-08",
+        "D-14"
+      ],
+      "rules": [
+        "同账号/同步范围内operationId唯一；同键同载荷返原结果，同键异载荷明确冲突",
+        "HTTP型接口可用ETag/If-Match表达条件更新；412代表版本前提未满足，具体API并未实现",
+        "不可变报告/结果同身份同内容去重，异内容拒绝/形成明确新修订；不改原结果",
+        "可变记忆/观察两端同时编辑保留双方版本并待本人处理；删除或禁止引用先阻止当前使用，不让旧文本赢回",
+        "问卷草稿默认一份连续编辑，不把两设备答案拼成一卷；若要跨端续答需明确接管/分支规则"
+      ],
+      "sourceIds": [
+        "OFF-HTTP"
+      ]
+    },
+    {
+      "id": "CB-SYNC-03",
+      "title": "墓碑回收仍须阻止旧备份复活",
+      "classification": "建议",
+      "pageIds": [
+        "data",
+        "privacy",
+        "account"
+      ],
+      "requirementIds": [
+        "ZY-DATA-005",
+        "ZY-DATA-007",
+        "ZY-DATA-008",
+        "ZY-FR-039"
+      ],
+      "decisionIds": [
+        "D-08",
+        "D-14",
+        "D-21"
+      ],
+      "rules": [
+        "墓碑只含最小对象标识、范围、删除版本/代次、状态及必要时间，不保留已删除正文",
+        "仅按固定天数删墓碑而允许任意旧cursor上传是不安全方案",
+        "选定cursor有效窗口、设备同步代次与全量对账协议；旧于窗口的设备必须失效旧上传队列、重新认证并重建基线，缺少当前服务端有效对象不能自动作为“新对象”上传",
+        "恢复的旧客户端origin/installation状态不能拥有当前写入epoch；重新发给它新epoch前必须先对账，再让用户选择真正未同步的新本地对象",
+        "账号注销提高主体/范围代次并撤销旧会话；同号码重新注册不可自动接管旧subjectId和旧云副本",
+        "本机离线可保留其持有内容，但界面不能宣称服务器已保证全设备擦除；重连时明确按已告知范围处理"
+      ],
+      "sourceIds": []
+    },
+    {
+      "id": "CB-SYNC-04",
+      "title": "选云存前选清加密和恢复目标",
+      "classification": "条件待确认",
+      "pageIds": [
+        "data",
+        "privacy",
+        "membership"
+      ],
+      "requirementIds": [
+        "ZY-DATA-004",
+        "ZY-DATA-007",
+        "ZY-FR-047"
+      ],
+      "decisionIds": [
+        "D-08",
+        "D-09",
+        "D-14"
+      ],
+      "rules": [
+        "服务器可解密的静态加密存储可以做服务端恢复/检索，但不能宣传服务商看不到正文",
+        "客户端端到端加密快照能减少服务端可读范围，但需恢复材料、换机/丢失密钥、版本和损坏处理；不能同时声称服务器可随时读取它做AI",
+        "即使选择端到端加密备份，用户仍可单独允许本机解密后的最小片段作一次AI外发，二者不混称",
+        "Android Keystore是密钥保护能力，不是自动加密数据库，也不保证密文能跨设备恢复；密钥丢失与不可导出场景必须实测",
+        "应用云存与系统云备份/设备迁移的纳入排除范围分别配置和验证，不能只改一个allowBackup就作全平台承诺"
+      ],
+      "sourceIds": [
+        "OFF-KEYSTORE",
+        "OFF-BACKUP"
+      ]
+    }
+  ],
+  "quotaContract": [
+    {
+      "id": "CB-QUOTA-01",
+      "title": "共享10次的权威归属",
+      "classification": "已明确",
+      "pageIds": [
+        "membership",
+        "assistant",
+        "conversation",
+        "auth"
+      ],
+      "requirementIds": [
+        "ZY-FR-023",
+        "ZY-FR-024",
+        "ZY-BR-002",
+        "ZY-BIZ-003"
+      ],
+      "decisionIds": [
+        "D-07",
+        "D-09",
+        "D-20",
+        "D-21"
+      ],
+      "rules": [
+        "访客/未登录AI为0；注册登录非会员analysis+chat每日共用10次；会员数值未定",
+        "额度按服务器稳定账号主体和policyDay归属，所有已关联登录方式、设备、入口共池",
+        "升级、到期、降级、退款或切换认证方式不重置当日used；若会员用量多于免费上限，降级后的剩余不能变成新赠额",
+        "第三方已认证但手机未验证的准入/领用额度必须由D-20/D-21定案，不从客户端登录图标推断"
+      ]
+    },
+    {
+      "id": "CB-QUOTA-02",
+      "title": "推荐预占与一次业务结算",
+      "classification": "建议",
+      "pageIds": [
+        "membership",
+        "conversation"
+      ],
+      "requirementIds": [
+        "ZY-FR-024",
+        "ZY-AI-004",
+        "ZY-BR-002"
+      ],
+      "decisionIds": [
+        "D-07",
+        "D-14"
+      ],
+      "rules": [
+        "原子事务核对used+activeReservations与当时限额，创建requestId、预占、持久执行记录；两台设备争抢第10次只有一个可受理",
+        "幂等域为认证主体＋operationType＋clientOperationId；参数hash涵盖问题、manifest、请求政策身份；同键异参拒绝",
+        "调用外部模型在数据库事务外；attemptId区别供应商尝试，执行有租约/截止与fencingToken，旧执行器不能覆盖较新终态",
+        "终态与用户额度commit/release/reconcile在同一业务事务裁决；这保证业务结算一次，不保证模型供应商执行一次",
+        "若外部请求结果未知且供应商无幂等/查询能力，不盲目重发；保留unknown并按待定恢复规则核对、有限重试或明确失败"
+      ],
+      "unresolved": "预占是建议方案；什么情况扣次/释放以及最长核对窗口仍需D-07/D-14确认，不能默认超时释放或有成本就扣次。"
+    },
+    {
+      "id": "CB-QUOTA-03",
+      "title": "日界线、取消与重试待定项",
+      "classification": "条件待确认",
+      "pageIds": [
+        "membership",
+        "conversation",
+        "support"
+      ],
+      "requirementIds": [
+        "ZY-FR-023",
+        "ZY-FR-024",
+        "ZY-AI-004"
+      ],
+      "decisionIds": [
+        "D-07",
+        "D-14",
+        "D-06"
+      ],
+      "rules": [
+        "建议采用受理时冻结额度日：以服务端明确policyTimezone/policyDay计算；具体时区/跨日结算方案仍待D-07确认，不默认UTC或跟手机时区变化",
+        "若采用上述冻结额度日方案，跨日完成、原键重取和重试仍归原请求额度日；无论选哪种规则，同一逻辑请求不能重复结算，读已完成结果不再生成/扣次",
+        "主动重新生成是新的逻辑请求；先说明影响后按当时策略执行",
+        "停止请求不等于已停供应商，也不等于必退额度；取消与成功必须有单一终态裁决及可解释收尾",
+        "内部摘要/选题/画像更新/多轮模型调用的用户计次政策未定；供应商每次实际成本另记，禁止暗拆成多次收费或暗给无限调用"
+      ]
+    },
+    {
+      "id": "CB-QUOTA-04",
+      "title": "最小反滥用不等于全量隐私收集",
+      "classification": "建议",
+      "pageIds": [
+        "auth",
+        "account",
+        "membership",
+        "support"
+      ],
+      "requirementIds": [
+        "ZY-ENG-004",
+        "ZY-BR-001",
+        "ZY-BR-002",
+        "ZY-DATA-009"
+      ],
+      "decisionIds": [
+        "D-20",
+        "D-21",
+        "D-06",
+        "D-07"
+      ],
+      "rules": [
+        "认证端点、短信、AI按账号与必要网络风险信号限速，设置试错和并发限制；阈值需真实压测和成本数据，不先编数字",
+        "短信OTP只针对当前目的、挑战和时效，避免重放；发送成功与验证成功分开，令牌/验证码不进入日志或备份",
+        "绑定冲突使用原账号可支持的认证证据；控制当前号码不能证明历史账号归属，考虑号码复用/转移风险",
+        "可选设备完整性能力按发布渠道单独核实；不得把Google Play能力当所有Android国内设备必有，也不得把完整性结论当分数真伪结论",
+        "设备ID/手机号哈希仍可能可关联个人，不冒称匿名；不能为去重额度收集完整人格记录、通讯录或建立隐蔽设备画像"
+      ],
+      "sourceIds": [
+        "OFF-OAUTH",
+        "OFF-NIST",
+        "OFF-INTEGRITY"
+      ]
+    }
+  ],
+  "aiGuards": [
+    {
+      "id": "CB-AI-01",
+      "title": "每次上下文的授权闭环",
+      "classification": "必要约束",
+      "pageIds": [
+        "assistant",
+        "conversation",
+        "report",
+        "privacy"
+      ],
+      "requirementIds": [
+        "ZY-FR-022",
+        "ZY-AI-003",
+        "ZY-DATA-002"
+      ],
+      "decisionIds": [
+        "D-06",
+        "D-08"
+      ],
+      "guards": [
+        "每次发送前让实际范围可核对：本次问题、原文/摘要、源版本、未采用原因、接收方及真实保留用途",
+        "先构建冻结manifest再真正出网；用户预览后新增/更改材料必须重新核对，摘要生成本身若用远程AI也需要先说明",
+        "同意记录区分processOnce、chatRetention、memoryUse、cloudSnapshot、continuousSync，会员购买不勾选这些项",
+        "单次选过不等于永远授权；历史资料进入下一轮必须受当前会话约定范围与当前来源开关限制，扩大范围再确认"
+      ]
+    },
+    {
+      "id": "CB-AI-02",
+      "title": "撤回竞争与迟到结果",
+      "classification": "必要约束",
+      "pageIds": [
+        "privacy",
+        "conversation",
+        "memories",
+        "portrait",
+        "account"
+      ],
+      "requirementIds": [
+        "ZY-AI-002",
+        "ZY-AI-003",
+        "ZY-AI-004",
+        "ZY-FR-028",
+        "ZY-FR-029"
+      ],
+      "decisionIds": [
+        "D-06",
+        "D-08"
+      ],
+      "guards": [
+        "本地撤回先阻止本设备后续外发并向服务器提交最小撤回控制；未联网时明确服务器尚未获知，不宣称已挡住远端派发",
+        "服务器在派发门前核对控制版本；已确认撤回后不得再发未发送部分；派发与撤回交错需要可核对的先后事实",
+        "对于已交给供应商的请求只做其实际支持的取消/删除，不保证瞬时停止或抹除；记录已发送范围",
+        "接收回复、建立候选、确认记忆三个时点重检account/space/sessionGeneration、SourceRef版本/状态、当前留存与记忆开关",
+        "切A→B期间A结果不能出现在B的页面、通知预览、索引；回A原请求恢复不再调用",
+        "较旧结果可按本人允许保留为旧依据历史，不能覆盖新修正、重新激活已停用记忆或写入当前画像"
+      ]
+    },
+    {
+      "id": "CB-AI-03",
+      "title": "真实AI的P0护栏",
+      "classification": "必要约束",
+      "pageIds": [
+        "assistant",
+        "conversation",
+        "portrait",
+        "support",
+        "privacy"
+      ],
+      "requirementIds": [
+        "ZY-AI-001",
+        "ZY-AI-005",
+        "ZY-AI-007",
+        "ZY-SAFE-001",
+        "ZY-SAFE-002",
+        "ZY-SAFE-003"
+      ],
+      "decisionIds": [
+        "D-01",
+        "D-06",
+        "D-13",
+        "D-16"
+      ],
+      "guards": [
+        "非诊断、非治疗；不以人格标签断定命运/关系/职业，不夸大证据效度；缺资料明说未知",
+        "高风险表达策略、专业审校与地区资源核验在真实启用前确定；不编热线，不宣称持续监护，不自动联系第三方",
+        "服务器固定安全/内容资格/提示版本；客户端正文及SourceRef只能作为数据，不能注入system权限",
+        "输出结构、引用白名单、引用范围、类型标记及渲染安全都需验证；坏JSON/越权引用受控失败而非包装成功",
+        "首个AI闭环只读所选资料并生成建议；不默认给予发送、购买、账号设置等外部动作能力",
+        "提示注入防护是分层约束而非某句提示可完全解决；模型自评不能替代服务器授权"
+      ],
+      "sourceIds": [
+        "OFF-OWASP"
+      ]
+    },
+    {
+      "id": "CB-AI-04",
+      "title": "成本上限与可解释降级",
+      "classification": "必要约束",
+      "pageIds": [
+        "membership",
+        "conversation",
+        "support"
+      ],
+      "requirementIds": [
+        "ZY-AI-003",
+        "ZY-AI-006",
+        "ZY-BIZ-003",
+        "ZY-OPS-004"
+      ],
+      "decisionIds": [
+        "D-06",
+        "D-07",
+        "D-09",
+        "D-14"
+      ],
+      "guards": [
+        "限制单请求输入/输出体量、来源数量、执行时长、内部attempt与并发；数值及会员预算真实评估后确认",
+        "模型选择/降级、最大费用、失败重试策略有版本；不静默换成更低质量模型后仍称完整正式分析",
+        "预算耗尽时保留草稿和本地报告，明确AI暂不可用；不关闭安全检查来节约成本",
+        "成本账本记录token/调用数/时间和状态，默认不收私人正文；用户扣次与供应商费用是两种事实",
+        "真实模型评估记录模型/prompt版本、实际送出范围、输出质量与安全结果；合成适配器通过不证明真实个人助理有效"
+      ]
+    }
+  ],
+  "historyRepairs": [
+    {
+      "id": "CB-HISTORY-01",
+      "title": "认识变化的时间线",
+      "classification": "建议",
+      "pageIds": [
+        "records"
+      ],
+      "requirementIds": [
+        "ZY-FR-011",
+        "ZY-FR-026"
+      ],
+      "decisionIds": [
+        "D-05",
+        "D-08"
+      ],
+      "historicalGapId": "HIST-GAP-01",
+      "contract": "本机事件保留对象/版本/来源链接；同步只传被选事件，不把全时间线当AI默认上下文。",
+      "implementation": "承接已有有价值缺口，均待开发；不新增独立页面或通用平台"
+    },
+    {
+      "id": "CB-HISTORY-02",
+      "title": "每日观察回看",
+      "classification": "建议",
+      "pageIds": [
+        "daily-checkin",
+        "records"
+      ],
+      "requirementIds": [
+        "ZY-FR-015",
+        "ZY-FR-011"
+      ],
+      "decisionIds": [
+        "D-17",
+        "D-08"
+      ],
+      "historicalGapId": "HIST-GAP-02",
+      "contract": "保存当日题组、稳定题ID、答案/补充与版本；无跨端历史时“未做过”范围仅本机，云同步是另一选择。",
+      "implementation": "承接已有有价值缺口，均待开发；不新增独立页面或通用平台"
+    },
+    {
+      "id": "CB-HISTORY-03",
+      "title": "作答前后状态",
+      "classification": "建议",
+      "pageIds": [
+        "question",
+        "report",
+        "journal"
+      ],
+      "requirementIds": [
+        "ZY-FR-018",
+        "ZY-FR-010"
+      ],
+      "decisionIds": [
+        "D-05",
+        "D-08"
+      ],
+      "historicalGapId": "HIST-GAP-05",
+      "contract": "可跳过的状态文本绑定session/result；不为计分或云校验强制采集，也不默认外发。",
+      "implementation": "承接已有有价值缺口，均待开发；不新增独立页面或通用平台"
+    },
+    {
+      "id": "CB-HISTORY-04",
+      "title": "一条认识的来由",
+      "classification": "建议",
+      "pageIds": [
+        "portrait",
+        "journal"
+      ],
+      "requirementIds": [
+        "ZY-FR-026",
+        "ZY-FR-027"
+      ],
+      "decisionIds": [
+        "D-05",
+        "D-08"
+      ],
+      "historicalGapId": "HIST-GAP-06",
+      "contract": "每条认识有固定SourceRef及情境；服务端看不到未授权来源正文时如实显示缺失，不能用标题冒充原文。",
+      "implementation": "承接已有有价值缺口，均待开发；不新增独立页面或通用平台"
+    },
+    {
+      "id": "CB-HISTORY-05",
+      "title": "补充情境和符合度",
+      "classification": "建议",
+      "pageIds": [
+        "portrait",
+        "journal"
+      ],
+      "requirementIds": [
+        "ZY-FR-027",
+        "ZY-AI-002"
+      ],
+      "decisionIds": [
+        "D-05",
+        "D-08"
+      ],
+      "historicalGapId": "HIST-GAP-07",
+      "contract": "追加本人修正不改测评分数；并发冲突保留两版；新修正禁止旧AI覆盖。",
+      "implementation": "承接已有有价值缺口，均待开发；不新增独立页面或通用平台"
+    },
+    {
+      "id": "CB-HISTORY-06",
+      "title": "记忆来源原文与失效",
+      "classification": "必要约束",
+      "pageIds": [
+        "memories",
+        "conversation",
+        "records"
+      ],
+      "requirementIds": [
+        "ZY-FR-029",
+        "ZY-DATA-005"
+      ],
+      "decisionIds": [
+        "D-08"
+      ],
+      "historicalGapId": "HIST-GAP-08",
+      "contract": "来源卡能回原对象的指定版本；源不存在/已删/无权限独立状态；删除后不为可回看暗藏全文。",
+      "implementation": "承接已有有价值缺口，均待开发；不新增独立页面或通用平台"
+    },
+    {
+      "id": "CB-HISTORY-07",
+      "title": "记忆完整修订史",
+      "classification": "必要约束",
+      "pageIds": [
+        "memories"
+      ],
+      "requirementIds": [
+        "ZY-FR-029",
+        "ZY-NFR-016"
+      ],
+      "decisionIds": [
+        "D-08"
+      ],
+      "historicalGapId": "HIST-GAP-09",
+      "contract": "编辑保存旧/新版实际文本、时间与原因；仅递增revision不够；删除范围须覆盖历史正文及相关派生。",
+      "implementation": "承接已有有价值缺口，均待开发；不新增独立页面或通用平台"
+    },
+    {
+      "id": "CB-HISTORY-08",
+      "title": "交流偏好",
+      "classification": "建议",
+      "pageIds": [
+        "settings"
+      ],
+      "requirementIds": [
+        "ZY-FR-040",
+        "ZY-AI-008"
+      ],
+      "decisionIds": [
+        "D-12",
+        "D-06"
+      ],
+      "historicalGapId": "HIST-GAP-10",
+      "contract": "短偏好与测评事实分开；必要风格项可在本次预览选入，不上传整套个人资料。",
+      "implementation": "承接已有有价值缺口，均待开发；不新增独立页面或通用平台"
+    },
+    {
+      "id": "CB-HISTORY-09",
+      "title": "不同情境中的我",
+      "classification": "建议",
+      "pageIds": [
+        "portrait",
+        "journal",
+        "records"
+      ],
+      "requirementIds": [
+        "ZY-FR-026",
+        "ZY-FR-027"
+      ],
+      "decisionIds": [
+        "D-05",
+        "D-08"
+      ],
+      "historicalGapId": "HIST-GAP-11",
+      "contract": "认识保留情境与并列来源；本地投影可重建，不用云端合成一个永久人格标签。",
+      "implementation": "承接已有有价值缺口，均待开发；不新增独立页面或通用平台"
+    },
+    {
+      "id": "CB-HISTORY-10",
+      "title": "未知和待补充",
+      "classification": "建议",
+      "pageIds": [
+        "portrait",
+        "journal"
+      ],
+      "requirementIds": [
+        "ZY-FR-026",
+        "ZY-FR-027"
+      ],
+      "decisionIds": [
+        "D-05",
+        "D-06"
+      ],
+      "historicalGapId": "HIST-GAP-12",
+      "contract": "未知有原因可暂不补；不能以“资料不足”为借口强迫补齐敏感档案或上传全历史。",
+      "implementation": "承接已有有价值缺口，均待开发；不新增独立页面或通用平台"
+    },
+    {
+      "id": "CB-HISTORY-11",
+      "title": "并列矛盾和本人澄清",
+      "classification": "建议",
+      "pageIds": [
+        "portrait",
+        "journal"
+      ],
+      "requirementIds": [
+        "ZY-FR-027",
+        "ZY-AI-002"
+      ],
+      "decisionIds": [
+        "D-05",
+        "D-08"
+      ],
+      "historicalGapId": "HIST-GAP-13",
+      "contract": "保留两种都成立/纠正/仍未知的明确选择及来源；云冲突解决不等于心理事实自动融合。",
+      "implementation": "承接已有有价值缺口，均待开发；不新增独立页面或通用平台"
+    },
+    {
+      "id": "CB-HISTORY-12",
+      "title": "优势的小尝试",
+      "classification": "建议",
+      "pageIds": [
+        "actions",
+        "action-detail"
+      ],
+      "requirementIds": [
+        "ZY-FR-031",
+        "ZY-FR-035"
+      ],
+      "decisionIds": [
+        "D-05",
+        "D-08"
+      ],
+      "historicalGapId": "HIST-GAP-14",
+      "contract": "来源、愿试/候选、预期帮助/代价、本人的观察分开；AI建议不自动变成已执行或成功。",
+      "implementation": "承接已有有价值缺口，均待开发；不新增独立页面或通用平台"
+    },
+    {
+      "id": "CB-HISTORY-13",
+      "title": "最小个人资料",
+      "classification": "建议",
+      "pageIds": [
+        "me",
+        "settings"
+      ],
+      "requirementIds": [
+        "ZY-FR-036",
+        "ZY-DATA-001"
+      ],
+      "decisionIds": [
+        "D-08",
+        "D-06"
+      ],
+      "historicalGapId": "HIST-GAP-15",
+      "contract": "仅保留称呼，交流偏好归settings；生活背景在具体任务按需自愿提供，不恢复强制通用画像长表。",
+      "implementation": "承接已有有价值缺口，均待开发；不新增独立页面或通用平台"
+    }
+  ],
+  "errorMatrix": [
+    {
+      "id": "CB-E01",
+      "title": "离线/未登录/AI用尽",
+      "classification": "必要约束",
+      "pageIds": [
+        "conversation",
+        "report",
+        "membership"
+      ],
+      "requirementIds": [
+        "ZY-FR-023",
+        "ZY-ENG-001"
+      ],
+      "decisionIds": [
+        "D-07"
+      ],
+      "expected": "保留草稿和允许的本地报告；说明仅在线生成不可用",
+      "forbidden": "不自动登录、重发或假称画像已更新"
+    },
+    {
+      "id": "CB-E02",
+      "title": "第三方成功、手机未验证",
+      "classification": "必要约束",
+      "pageIds": [
+        "auth",
+        "account"
+      ],
+      "requirementIds": [
+        "ZY-FR-037",
+        "ZY-ENG-009"
+      ],
+      "decisionIds": [
+        "D-20",
+        "D-21"
+      ],
+      "expected": "真实显示中间态；按已定能力表拦截/放行并可回原本地任务",
+      "forbidden": "不重复建号/赠额；不擅自选择强制绑定时机"
+    },
+    {
+      "id": "CB-E03",
+      "title": "新身份遇已绑定另一账号的号码",
+      "classification": "必要约束",
+      "pageIds": [
+        "auth",
+        "account"
+      ],
+      "requirementIds": [
+        "ZY-FR-037",
+        "ZY-FR-038"
+      ],
+      "decisionIds": [
+        "D-21"
+      ],
+      "expected": "核验后提供真实支持的切换/恢复/取消",
+      "forbidden": "不默并私人资料/订单/额度；不展示可枚举的他人身份详情"
+    },
+    {
+      "id": "CB-E04",
+      "title": "第10/11次跨设备同时提交",
+      "classification": "必要约束",
+      "pageIds": [
+        "membership",
+        "conversation"
+      ],
+      "requirementIds": [
+        "ZY-FR-023",
+        "ZY-BR-002"
+      ],
+      "decisionIds": [
+        "D-07"
+      ],
+      "expected": "单事务准入，未获资格的一方保留草稿并显示服务器事实",
+      "forbidden": "不得两边均占免费第10次"
+    },
+    {
+      "id": "CB-E05",
+      "title": "首个POST响应丢失，无requestId",
+      "classification": "必要约束",
+      "pageIds": [
+        "conversation",
+        "membership"
+      ],
+      "requirementIds": [
+        "ZY-AI-004",
+        "ZY-FR-024"
+      ],
+      "decisionIds": [
+        "D-07",
+        "D-14"
+      ],
+      "expected": "以原clientOperationId查回原请求；未知则核对",
+      "forbidden": "不换新键盲目再次生成/扣次"
+    },
+    {
+      "id": "CB-E06",
+      "title": "同幂等键载荷变化",
+      "classification": "必要约束",
+      "pageIds": [
+        "conversation",
+        "data"
+      ],
+      "requirementIds": [
+        "ZY-AI-004",
+        "ZY-DATA-008"
+      ],
+      "decisionIds": [
+        "D-07",
+        "D-08"
+      ],
+      "expected": "明确冲突；新操作须新的逻辑身份和必要授权",
+      "forbidden": "不把不同请求折叠为原结果，也不默生成"
+    },
+    {
+      "id": "CB-E07",
+      "title": "手机改时区/请求跨日结束",
+      "classification": "必要约束",
+      "pageIds": [
+        "membership",
+        "conversation"
+      ],
+      "requirementIds": [
+        "ZY-AI-004",
+        "ZY-BIZ-003"
+      ],
+      "decisionIds": [
+        "D-07"
+      ],
+      "expected": "若采用建议的受理时冻结额度日策略，沿服务器policyDay结算并解释原日归属；最终跨日规则由D-07定案",
+      "forbidden": "不被本机时钟重置或在新日二次扣"
+    },
+    {
+      "id": "CB-E08",
+      "title": "预占后服务重启/供应商未知",
+      "classification": "必要约束",
+      "pageIds": [
+        "membership",
+        "conversation",
+        "support"
+      ],
+      "requirementIds": [
+        "ZY-AI-004",
+        "ZY-BIZ-003"
+      ],
+      "decisionIds": [
+        "D-07",
+        "D-14"
+      ],
+      "expected": "恢复持久请求与租约，按供应商能力查询/有限尝试；显示待核对",
+      "forbidden": "不无限占额、不超时就释放，不承诺外部exactly-once"
+    },
+    {
+      "id": "CB-E09",
+      "title": "用户停止与供应商成功交错",
+      "classification": "必要约束",
+      "pageIds": [
+        "conversation",
+        "membership"
+      ],
+      "requirementIds": [
+        "ZY-AI-004",
+        "ZY-FR-024"
+      ],
+      "decisionIds": [
+        "D-06",
+        "D-07"
+      ],
+      "expected": "取消申请/服务器终态/结果可取/用户结算分开；一次终态裁决",
+      "forbidden": "不将按钮点击当已停止/必退次"
+    },
+    {
+      "id": "CB-E10",
+      "title": "资料预览后改动/撤回",
+      "classification": "必要约束",
+      "pageIds": [
+        "privacy",
+        "conversation"
+      ],
+      "requirementIds": [
+        "ZY-AI-003",
+        "ZY-DATA-002"
+      ],
+      "decisionIds": [
+        "D-06",
+        "D-08"
+      ],
+      "expected": "出网前重检；未发部分不发送，变更范围重新预览",
+      "forbidden": "不沿旧manifest扩大外发"
+    },
+    {
+      "id": "CB-E11",
+      "title": "远端派发时设备离线撤回",
+      "classification": "必要约束",
+      "pageIds": [
+        "privacy",
+        "conversation"
+      ],
+      "requirementIds": [
+        "ZY-AI-003",
+        "ZY-DATA-005"
+      ],
+      "decisionIds": [
+        "D-06",
+        "D-08"
+      ],
+      "expected": "本机先停；显示撤回待送达；服务器获知后阻止未发部分并核对已发范围",
+      "forbidden": "不声称服务器已执行未收到的撤回"
+    },
+    {
+      "id": "CB-E12",
+      "title": "生成中删源/关记忆/切账号",
+      "classification": "必要约束",
+      "pageIds": [
+        "conversation",
+        "memories",
+        "portrait"
+      ],
+      "requirementIds": [
+        "ZY-FR-028",
+        "ZY-FR-029",
+        "ZY-AI-004"
+      ],
+      "decisionIds": [
+        "D-06",
+        "D-08"
+      ],
+      "expected": "接收、候选、确认三处重检；保持账号空间隔离，旧结果只按允许作为历史",
+      "forbidden": "不得复活删除内容或覆盖新修正"
+    },
+    {
+      "id": "CB-E13",
+      "title": "本地hash合法但分数被篡改",
+      "classification": "必要约束",
+      "pageIds": [
+        "report",
+        "conversation"
+      ],
+      "requirementIds": [
+        "ZY-ENG-010",
+        "ZY-MEAS-007"
+      ],
+      "decisionIds": [
+        "D-04",
+        "D-06"
+      ],
+      "expected": "只记真实通过的检查；未复算结果继续userProvided/有限integrityChecked",
+      "forbidden": "不能以包hash、会员、设备完整性担保分数"
+    },
+    {
+      "id": "CB-E14",
+      "title": "结果结构坏/引用不在manifest/材料超长",
+      "classification": "必要约束",
+      "pageIds": [
+        "conversation",
+        "report"
+      ],
+      "requirementIds": [
+        "ZY-AI-003",
+        "ZY-AI-007"
+      ],
+      "decisionIds": [
+        "D-06",
+        "D-13"
+      ],
+      "expected": "明确未采用/部分/受控失败，保留原任务；实际限额前说明缩小或分批",
+      "forbidden": "不伪造完整分析、不跨空间补取、不暗拆多笔"
+    },
+    {
+      "id": "CB-E15",
+      "title": "同步冲突/上传一半/存储满",
+      "classification": "必要约束",
+      "pageIds": [
+        "data",
+        "memories"
+      ],
+      "requirementIds": [
+        "ZY-FR-047",
+        "ZY-DATA-007",
+        "ZY-DATA-008"
+      ],
+      "decisionIds": [
+        "D-08",
+        "D-14"
+      ],
+      "expected": "逐对象状态、保留双方版本/本地数据；确认完整前不标云已存",
+      "forbidden": "不静默覆盖、不丢最早队列项保容量"
+    },
+    {
+      "id": "CB-E16",
+      "title": "删除后旧设备/旧备份重连",
+      "classification": "必要约束",
+      "pageIds": [
+        "data",
+        "account",
+        "privacy"
+      ],
+      "requirementIds": [
+        "ZY-DATA-005",
+        "ZY-FR-039"
+      ],
+      "decisionIds": [
+        "D-08",
+        "D-14",
+        "D-21"
+      ],
+      "expected": "旧epoch/cursor拒写，先对账；已删ID不能自动创建，恢复另预览",
+      "forbidden": "不得凭更晚本机时间、换安装ID或墓碑过期复活"
+    },
+    {
+      "id": "CB-E17",
+      "title": "会员到期/退款且有在途AI或云副本",
+      "classification": "必要约束",
+      "pageIds": [
+        "membership",
+        "order",
+        "data",
+        "report"
+      ],
+      "requirementIds": [
+        "ZY-FR-023",
+        "ZY-BIZ-001",
+        "ZY-BIZ-005"
+      ],
+      "decisionIds": [
+        "D-07",
+        "D-08",
+        "D-09",
+        "D-10"
+      ],
+      "expected": "旧请求按受理规则收尾，新请求按当前权益；云期限需已告知，本机不丢",
+      "forbidden": "不重置已用、不把退款当删除许可、不编保留天数"
+    },
+    {
+      "id": "CB-E18",
+      "title": "设备密钥失效/系统备份恢复",
+      "classification": "必要约束",
+      "pageIds": [
+        "data",
+        "account"
+      ],
+      "requirementIds": [
+        "ZY-DATA-004",
+        "ZY-DATA-007",
+        "ZY-FR-047"
+      ],
+      "decisionIds": [
+        "D-08",
+        "D-14"
+      ],
+      "expected": "按真实恢复材料与预检处理；显示不可恢复范围并保留可恢复原文件",
+      "forbidden": "不清库伪成功，不恢复旧令牌/购买/AI指令"
+    },
+    {
+      "id": "CB-E19",
+      "title": "源正文删除但记忆修订史仍存",
+      "classification": "必要约束",
+      "pageIds": [
+        "memories",
+        "privacy",
+        "data"
+      ],
+      "requirementIds": [
+        "ZY-FR-029",
+        "ZY-DATA-005"
+      ],
+      "decisionIds": [
+        "D-08"
+      ],
+      "expected": "按删除范围清历史正文/派生摘要/索引；保留最小来源失效状态",
+      "forbidden": "不以“有追溯”无限保留被删全文"
+    },
+    {
+      "id": "CB-E20",
+      "title": "账号注销后无法再登录查询",
+      "classification": "必要约束",
+      "pageIds": [
+        "account",
+        "support"
+      ],
+      "requirementIds": [
+        "ZY-FR-039",
+        "ZY-OPS-002"
+      ],
+      "decisionIds": [
+        "D-08",
+        "D-16",
+        "D-21"
+      ],
+      "expected": "在事前确认的适当核验路径查同一申请的最小状态",
+      "forbidden": "不要求已失效账号登录，不把公开编号当鉴权"
+    }
+  ],
+  "decisions": [
+    {
+      "id": "CB-DEC-01",
+      "title": "云存到底帮用户完成什么",
+      "classification": "条件待确认",
+      "pageIds": [
+        "data",
+        "membership"
+      ],
+      "requirementIds": [
+        "ZY-FR-047",
+        "ZY-DATA-001"
+      ],
+      "decisionIds": [
+        "D-08",
+        "D-09"
+      ],
+      "choices": "手动云快照；选择性连续同步；暂不云存",
+      "gate": "先选对象类别/关键字段和恢复目标，禁止“关键数据”泛称授权",
+      "recommendation": "建议先完成单次AI与本机恢复，再按价值选择云快照",
+      "newDecisionIdsCreated": false
+    },
+    {
+      "id": "CB-DEC-02",
+      "title": "云存加密、恢复与副本期限",
+      "classification": "条件待确认",
+      "pageIds": [
+        "data",
+        "privacy"
+      ],
+      "requirementIds": [
+        "ZY-DATA-004",
+        "ZY-DATA-007",
+        "ZY-DATA-005"
+      ],
+      "decisionIds": [
+        "D-08",
+        "D-14"
+      ],
+      "choices": "服务端可解密存储或端到端加密快照；各自恢复材料和代价",
+      "gate": "真实云存前定案，不宣传未经验证的端到端加密/永久恢复",
+      "recommendation": "按单人可维护范围选一种，避免同时建设两套云架构",
+      "newDecisionIdsCreated": false
+    },
+    {
+      "id": "CB-DEC-03",
+      "title": "到期/退款后的既有资料",
+      "classification": "条件待确认",
+      "pageIds": [
+        "membership",
+        "data",
+        "report"
+      ],
+      "requirementIds": [
+        "ZY-BIZ-001",
+        "ZY-BIZ-005"
+      ],
+      "decisionIds": [
+        "D-08",
+        "D-09",
+        "D-10"
+      ],
+      "choices": "本机已存本人报告读/导出；云只读/停止写入/保留窗口/通知与删除",
+      "gate": "售卖前写清，不编价格、天数、自动续费或法律承诺",
+      "recommendation": "强建议本机资料离线阅读与导出不受登录和续费限制",
+      "newDecisionIdsCreated": false
+    },
+    {
+      "id": "CB-DEC-04",
+      "title": "共享额度的日界线和结算",
+      "classification": "条件待确认",
+      "pageIds": [
+        "membership",
+        "conversation"
+      ],
+      "requirementIds": [
+        "ZY-FR-023",
+        "ZY-FR-024",
+        "ZY-AI-004"
+      ],
+      "decisionIds": [
+        "D-07",
+        "D-14"
+      ],
+      "choices": "时区、跨日、部分回复、失败/取消、未知恢复、内部调用和会员额度",
+      "gate": "真实AI前全部可解释；确认0/10并不等于其他细则已定",
+      "recommendation": "建议预占→执行→一次结算并提供原键查询",
+      "newDecisionIdsCreated": false
+    },
+    {
+      "id": "CB-DEC-05",
+      "title": "AI接收方、载荷与短期留存",
+      "classification": "条件待确认",
+      "pageIds": [
+        "conversation",
+        "privacy"
+      ],
+      "requirementIds": [
+        "ZY-AI-003",
+        "ZY-DATA-002",
+        "ZY-ENG-010"
+      ],
+      "decisionIds": [
+        "D-06",
+        "D-08"
+      ],
+      "choices": "供应商/地区/用途/训练和留存实际政策、载荷与结果恢复期限、可取消能力",
+      "gate": "第一次真实外发前核对，不预设供应商或Zero Retention能力",
+      "recommendation": "只保留恢复所需最小内容；账本与正文分离",
+      "newDecisionIdsCreated": false
+    },
+    {
+      "id": "CB-DEC-06",
+      "title": "手机绑定时机和账号冲突",
+      "classification": "条件待确认",
+      "pageIds": [
+        "auth",
+        "account"
+      ],
+      "requirementIds": [
+        "ZY-FR-037",
+        "ZY-FR-038",
+        "ZY-ENG-009"
+      ],
+      "decisionIds": [
+        "D-20",
+        "D-21"
+      ],
+      "choices": "第三方已认证未验手机能否AI/领额/购买/认领本地资料；冲突恢复路径",
+      "gate": "身份接入前定案；本次不做真实SDK",
+      "recommendation": "首期不做两个既有账号合并可降低成本，但需用户定案并提供切换/恢复/取消",
+      "newDecisionIdsCreated": false
+    },
+    {
+      "id": "CB-DEC-07",
+      "title": "反滥用的最少数据",
+      "classification": "条件待确认",
+      "pageIds": [
+        "auth",
+        "membership",
+        "privacy"
+      ],
+      "requirementIds": [
+        "ZY-ENG-004",
+        "ZY-DATA-009"
+      ],
+      "decisionIds": [
+        "D-21",
+        "D-06",
+        "D-07"
+      ],
+      "choices": "短信/请求限速、必要网络/设备风险信号、保留及申诉方式",
+      "gate": "真实服务前验证误伤和渠道能力，不以全量私人资料反刷",
+      "recommendation": "先用账号共池、原子账本、节流及真实身份关联",
+      "newDecisionIdsCreated": false
+    },
+    {
+      "id": "CB-DEC-08",
+      "title": "服务端需验证到哪一层",
+      "classification": "条件待确认",
+      "pageIds": [
+        "report",
+        "conversation"
+      ],
+      "requirementIds": [
+        "ZY-ENG-010",
+        "ZY-MEAS-007"
+      ],
+      "decisionIds": [
+        "D-04",
+        "D-06",
+        "D-08"
+      ],
+      "choices": "每项功能接受userProvided、有限integrityChecked或必要serverRecomputed",
+      "gate": "每种能力列明最小输入和不能验证什么",
+      "recommendation": "一般解释不强求全卷复算；确需复算的用途才独立要最小输入",
+      "newDecisionIdsCreated": false
+    },
+    {
+      "id": "CB-DEC-09",
+      "title": "连续同步的冲突/删除协议",
+      "classification": "条件待确认",
+      "pageIds": [
+        "data",
+        "privacy",
+        "memories"
+      ],
+      "requirementIds": [
+        "ZY-DATA-005",
+        "ZY-DATA-008",
+        "ZY-FR-047"
+      ],
+      "decisionIds": [
+        "D-08",
+        "D-14"
+      ],
+      "choices": "范围、cursor有效窗口、epoch、重建基线、冲突选择、删除和受控备份清理",
+      "gate": "只有选择连续同步才需要，不能作为本地首发前提",
+      "recommendation": "不选同步就不开发同步队列和通用多端平台",
+      "newDecisionIdsCreated": false
+    },
+    {
+      "id": "CB-DEC-10",
+      "title": "每日题组/画像和AI计次",
+      "classification": "条件待确认",
+      "pageIds": [
+        "daily-checkin",
+        "portrait",
+        "membership"
+      ],
+      "requirementIds": [
+        "ZY-FR-015",
+        "ZY-FR-023",
+        "ZY-FR-026"
+      ],
+      "decisionIds": [
+        "D-17",
+        "D-07",
+        "D-06"
+      ],
+      "choices": "本地规则或远程AI；未做题范围、跨端题组及同步冲突",
+      "gate": "真实启用对应智能功能前定案",
+      "recommendation": "本地能完成的步骤不暗扣；有AI外发则按独立授权",
+      "newDecisionIdsCreated": false
+    },
+    {
+      "id": "CB-DEC-11",
+      "title": "真实AI护栏与适用人群",
+      "classification": "条件待确认",
+      "pageIds": [
+        "conversation",
+        "support"
+      ],
+      "requirementIds": [
+        "ZY-SAFE-001",
+        "ZY-SAFE-002",
+        "ZY-SAFE-003",
+        "ZY-AI-007"
+      ],
+      "decisionIds": [
+        "D-01",
+        "D-06",
+        "D-13",
+        "D-16"
+      ],
+      "choices": "风险策略、审校、验证资源、适用人群、安全测试和停止条件",
+      "gate": "真实AI启用前，不能以候选提示词或示例回复替代",
+      "recommendation": "把高风险策略做小而完整，不建立无人维护的危机运营平台",
+      "newDecisionIdsCreated": false
+    }
+  ],
+  "minimalModules": [
+    {
+      "id": "CB-MOD-01",
+      "title": "身份与访问",
+      "classification": "建议",
+      "pageIds": [
+        "auth",
+        "account"
+      ],
+      "requirementIds": [
+        "ZY-BR-001",
+        "ZY-ENG-009"
+      ],
+      "decisionIds": [
+        "D-20",
+        "D-21"
+      ],
+      "owns": "认证主体、第三方/手机关联、会话代次、受限/注销状态、空间访问",
+      "excludes": "不做全资料托管、万能账号合并或真实SDK猜测",
+      "deployment": "沿现有模块化单体及事务数据库，不要求拆微服务；具体技术栈未定"
+    },
+    {
+      "id": "CB-MOD-02",
+      "title": "权益与额度账本",
+      "classification": "建议",
+      "pageIds": [
+        "membership",
+        "checkout",
+        "orders",
+        "order"
+      ],
+      "requirementIds": [
+        "ZY-BR-002",
+        "ZY-BR-003",
+        "ZY-BIZ-004"
+      ],
+      "decisionIds": [
+        "D-07",
+        "D-09",
+        "D-10"
+      ],
+      "owns": "服务端权益事实、每日共池、预占/结算、原请求查询、必要交易核验",
+      "excludes": "支付只在获选后接；不以客户端回包/会员flag作权威",
+      "deployment": "沿现有模块化单体及事务数据库，不要求拆微服务；具体技术栈未定"
+    },
+    {
+      "id": "CB-MOD-03",
+      "title": "AI请求与执行",
+      "classification": "建议",
+      "pageIds": [
+        "assistant",
+        "conversation"
+      ],
+      "requirementIds": [
+        "ZY-AI-003",
+        "ZY-AI-004",
+        "ZY-AI-007",
+        "ZY-BIZ-003"
+      ],
+      "decisionIds": [
+        "D-06",
+        "D-07",
+        "D-13"
+      ],
+      "owns": "批准manifest、请求终态、可恢复执行器、provider adapter、最小结果恢复、成本与安全检查",
+      "excludes": "不默认工具执行、无限重试、全史RAG、向量库或多代理平台",
+      "deployment": "沿现有模块化单体及事务数据库，不要求拆微服务；具体技术栈未定"
+    },
+    {
+      "id": "CB-MOD-04",
+      "title": "公开内容资格",
+      "classification": "建议",
+      "pageIds": [
+        "content",
+        "question",
+        "report"
+      ],
+      "requirementIds": [
+        "ZY-BR-004",
+        "ZY-OPS-001"
+      ],
+      "decisionIds": [
+        "D-02",
+        "D-04",
+        "D-16"
+      ],
+      "owns": "不可变包/发布声明、撤回、最低兼容与允许能力；不接私人答案",
+      "excludes": "不把正式题源/常模未定化作全工程停工，也不绕过门禁",
+      "deployment": "沿现有模块化单体及事务数据库，不要求拆微服务；具体技术栈未定"
+    },
+    {
+      "id": "CB-MOD-05",
+      "title": "同意、删除和最小服务核对",
+      "classification": "建议",
+      "pageIds": [
+        "privacy",
+        "data",
+        "support"
+      ],
+      "requirementIds": [
+        "ZY-DATA-002",
+        "ZY-DATA-005",
+        "ZY-DATA-009",
+        "ZY-BR-006"
+      ],
+      "decisionIds": [
+        "D-08",
+        "D-16"
+      ],
+      "owns": "控制版本、最小删除事件/凭据、服务受限状态、脱敏诊断；复用现有模块边界",
+      "excludes": "不另建全功能工单、审计平台或无限全文日志",
+      "deployment": "沿现有模块化单体及事务数据库，不要求拆微服务；具体技术栈未定"
+    },
+    {
+      "id": "CB-MOD-06",
+      "title": "条件云快照/选择性同步",
+      "classification": "条件待确认",
+      "pageIds": [
+        "data",
+        "membership"
+      ],
+      "requirementIds": [
+        "ZY-FR-047",
+        "ZY-DATA-007",
+        "ZY-DATA-008"
+      ],
+      "decisionIds": [
+        "D-08",
+        "D-09",
+        "D-14"
+      ],
+      "owns": "只在选中功能后增加对象manifest、云副本、版本条件/墓碑/对账",
+      "excludes": "不是新微服务；快照可以先行，连续同步是额外复杂度而非必要默认",
+      "deployment": "沿现有模块化单体及事务数据库，不要求拆微服务；具体技术栈未定"
+    }
+  ],
+  "acceptance": [
+    {
+      "id": "CB-TEST-E01",
+      "title": "离线/未登录/AI用尽",
+      "classification": "必要约束",
+      "pageIds": [
+        "conversation",
+        "report",
+        "membership"
+      ],
+      "requirementIds": [
+        "ZY-FR-023",
+        "ZY-ENG-001"
+      ],
+      "decisionIds": [
+        "D-07"
+      ],
+      "setup": "隔离合成账号/数据，按本场景构造中断、并发或篡改；真实供应商能力另行验收",
+      "steps": "在对应页面触发业务路径并注入所述异常；检查本机持久状态、实际出网载荷、服务器账本/终态和页面回执",
+      "expected": "保留草稿和允许的本地报告；说明仅在线生成不可用",
+      "mustNot": "不自动登录、重发或假称画像已更新",
+      "execution": "待执行；本轮仅方案，不表示通过"
+    },
+    {
+      "id": "CB-TEST-E02",
+      "title": "第三方成功、手机未验证",
+      "classification": "必要约束",
+      "pageIds": [
+        "auth",
+        "account"
+      ],
+      "requirementIds": [
+        "ZY-FR-037",
+        "ZY-ENG-009"
+      ],
+      "decisionIds": [
+        "D-20",
+        "D-21"
+      ],
+      "setup": "隔离合成账号/数据，按本场景构造中断、并发或篡改；真实供应商能力另行验收",
+      "steps": "在对应页面触发业务路径并注入所述异常；检查本机持久状态、实际出网载荷、服务器账本/终态和页面回执",
+      "expected": "真实显示中间态；按已定能力表拦截/放行并可回原本地任务",
+      "mustNot": "不重复建号/赠额；不擅自选择强制绑定时机",
+      "execution": "待执行；本轮仅方案，不表示通过"
+    },
+    {
+      "id": "CB-TEST-E03",
+      "title": "新身份遇已绑定另一账号的号码",
+      "classification": "必要约束",
+      "pageIds": [
+        "auth",
+        "account"
+      ],
+      "requirementIds": [
+        "ZY-FR-037",
+        "ZY-FR-038"
+      ],
+      "decisionIds": [
+        "D-21"
+      ],
+      "setup": "隔离合成账号/数据，按本场景构造中断、并发或篡改；真实供应商能力另行验收",
+      "steps": "在对应页面触发业务路径并注入所述异常；检查本机持久状态、实际出网载荷、服务器账本/终态和页面回执",
+      "expected": "核验后提供真实支持的切换/恢复/取消",
+      "mustNot": "不默并私人资料/订单/额度；不展示可枚举的他人身份详情",
+      "execution": "待执行；本轮仅方案，不表示通过"
+    },
+    {
+      "id": "CB-TEST-E04",
+      "title": "第10/11次跨设备同时提交",
+      "classification": "必要约束",
+      "pageIds": [
+        "membership",
+        "conversation"
+      ],
+      "requirementIds": [
+        "ZY-FR-023",
+        "ZY-BR-002"
+      ],
+      "decisionIds": [
+        "D-07"
+      ],
+      "setup": "隔离合成账号/数据，按本场景构造中断、并发或篡改；真实供应商能力另行验收",
+      "steps": "在对应页面触发业务路径并注入所述异常；检查本机持久状态、实际出网载荷、服务器账本/终态和页面回执",
+      "expected": "单事务准入，未获资格的一方保留草稿并显示服务器事实",
+      "mustNot": "不得两边均占免费第10次",
+      "execution": "待执行；本轮仅方案，不表示通过"
+    },
+    {
+      "id": "CB-TEST-E05",
+      "title": "首个POST响应丢失，无requestId",
+      "classification": "必要约束",
+      "pageIds": [
+        "conversation",
+        "membership"
+      ],
+      "requirementIds": [
+        "ZY-AI-004",
+        "ZY-FR-024"
+      ],
+      "decisionIds": [
+        "D-07",
+        "D-14"
+      ],
+      "setup": "隔离合成账号/数据，按本场景构造中断、并发或篡改；真实供应商能力另行验收",
+      "steps": "在对应页面触发业务路径并注入所述异常；检查本机持久状态、实际出网载荷、服务器账本/终态和页面回执",
+      "expected": "以原clientOperationId查回原请求；未知则核对",
+      "mustNot": "不换新键盲目再次生成/扣次",
+      "execution": "待执行；本轮仅方案，不表示通过"
+    },
+    {
+      "id": "CB-TEST-E06",
+      "title": "同幂等键载荷变化",
+      "classification": "必要约束",
+      "pageIds": [
+        "conversation",
+        "data"
+      ],
+      "requirementIds": [
+        "ZY-AI-004",
+        "ZY-DATA-008"
+      ],
+      "decisionIds": [
+        "D-07",
+        "D-08"
+      ],
+      "setup": "隔离合成账号/数据，按本场景构造中断、并发或篡改；真实供应商能力另行验收",
+      "steps": "在对应页面触发业务路径并注入所述异常；检查本机持久状态、实际出网载荷、服务器账本/终态和页面回执",
+      "expected": "明确冲突；新操作须新的逻辑身份和必要授权",
+      "mustNot": "不把不同请求折叠为原结果，也不默生成",
+      "execution": "待执行；本轮仅方案，不表示通过"
+    },
+    {
+      "id": "CB-TEST-E07",
+      "title": "手机改时区/请求跨日结束",
+      "classification": "必要约束",
+      "pageIds": [
+        "membership",
+        "conversation"
+      ],
+      "requirementIds": [
+        "ZY-AI-004",
+        "ZY-BIZ-003"
+      ],
+      "decisionIds": [
+        "D-07"
+      ],
+      "setup": "隔离合成账号/数据，按本场景构造中断、并发或篡改；真实供应商能力另行验收",
+      "steps": "在对应页面触发业务路径并注入所述异常；检查本机持久状态、实际出网载荷、服务器账本/终态和页面回执",
+      "expected": "若采用建议的受理时冻结额度日策略，沿服务器policyDay结算并解释原日归属；最终跨日规则由D-07定案",
+      "mustNot": "不被本机时钟重置或在新日二次扣",
+      "execution": "待执行；本轮仅方案，不表示通过"
+    },
+    {
+      "id": "CB-TEST-E08",
+      "title": "预占后服务重启/供应商未知",
+      "classification": "必要约束",
+      "pageIds": [
+        "membership",
+        "conversation",
+        "support"
+      ],
+      "requirementIds": [
+        "ZY-AI-004",
+        "ZY-BIZ-003"
+      ],
+      "decisionIds": [
+        "D-07",
+        "D-14"
+      ],
+      "setup": "隔离合成账号/数据，按本场景构造中断、并发或篡改；真实供应商能力另行验收",
+      "steps": "在对应页面触发业务路径并注入所述异常；检查本机持久状态、实际出网载荷、服务器账本/终态和页面回执",
+      "expected": "恢复持久请求与租约，按供应商能力查询/有限尝试；显示待核对",
+      "mustNot": "不无限占额、不超时就释放，不承诺外部exactly-once",
+      "execution": "待执行；本轮仅方案，不表示通过"
+    },
+    {
+      "id": "CB-TEST-E09",
+      "title": "用户停止与供应商成功交错",
+      "classification": "必要约束",
+      "pageIds": [
+        "conversation",
+        "membership"
+      ],
+      "requirementIds": [
+        "ZY-AI-004",
+        "ZY-FR-024"
+      ],
+      "decisionIds": [
+        "D-06",
+        "D-07"
+      ],
+      "setup": "隔离合成账号/数据，按本场景构造中断、并发或篡改；真实供应商能力另行验收",
+      "steps": "在对应页面触发业务路径并注入所述异常；检查本机持久状态、实际出网载荷、服务器账本/终态和页面回执",
+      "expected": "取消申请/服务器终态/结果可取/用户结算分开；一次终态裁决",
+      "mustNot": "不将按钮点击当已停止/必退次",
+      "execution": "待执行；本轮仅方案，不表示通过"
+    },
+    {
+      "id": "CB-TEST-E10",
+      "title": "资料预览后改动/撤回",
+      "classification": "必要约束",
+      "pageIds": [
+        "privacy",
+        "conversation"
+      ],
+      "requirementIds": [
+        "ZY-AI-003",
+        "ZY-DATA-002"
+      ],
+      "decisionIds": [
+        "D-06",
+        "D-08"
+      ],
+      "setup": "隔离合成账号/数据，按本场景构造中断、并发或篡改；真实供应商能力另行验收",
+      "steps": "在对应页面触发业务路径并注入所述异常；检查本机持久状态、实际出网载荷、服务器账本/终态和页面回执",
+      "expected": "出网前重检；未发部分不发送，变更范围重新预览",
+      "mustNot": "不沿旧manifest扩大外发",
+      "execution": "待执行；本轮仅方案，不表示通过"
+    },
+    {
+      "id": "CB-TEST-E11",
+      "title": "远端派发时设备离线撤回",
+      "classification": "必要约束",
+      "pageIds": [
+        "privacy",
+        "conversation"
+      ],
+      "requirementIds": [
+        "ZY-AI-003",
+        "ZY-DATA-005"
+      ],
+      "decisionIds": [
+        "D-06",
+        "D-08"
+      ],
+      "setup": "隔离合成账号/数据，按本场景构造中断、并发或篡改；真实供应商能力另行验收",
+      "steps": "在对应页面触发业务路径并注入所述异常；检查本机持久状态、实际出网载荷、服务器账本/终态和页面回执",
+      "expected": "本机先停；显示撤回待送达；服务器获知后阻止未发部分并核对已发范围",
+      "mustNot": "不声称服务器已执行未收到的撤回",
+      "execution": "待执行；本轮仅方案，不表示通过"
+    },
+    {
+      "id": "CB-TEST-E12",
+      "title": "生成中删源/关记忆/切账号",
+      "classification": "必要约束",
+      "pageIds": [
+        "conversation",
+        "memories",
+        "portrait"
+      ],
+      "requirementIds": [
+        "ZY-FR-028",
+        "ZY-FR-029",
+        "ZY-AI-004"
+      ],
+      "decisionIds": [
+        "D-06",
+        "D-08"
+      ],
+      "setup": "隔离合成账号/数据，按本场景构造中断、并发或篡改；真实供应商能力另行验收",
+      "steps": "在对应页面触发业务路径并注入所述异常；检查本机持久状态、实际出网载荷、服务器账本/终态和页面回执",
+      "expected": "接收、候选、确认三处重检；保持账号空间隔离，旧结果只按允许作为历史",
+      "mustNot": "不得复活删除内容或覆盖新修正",
+      "execution": "待执行；本轮仅方案，不表示通过"
+    },
+    {
+      "id": "CB-TEST-E13",
+      "title": "本地hash合法但分数被篡改",
+      "classification": "必要约束",
+      "pageIds": [
+        "report",
+        "conversation"
+      ],
+      "requirementIds": [
+        "ZY-ENG-010",
+        "ZY-MEAS-007"
+      ],
+      "decisionIds": [
+        "D-04",
+        "D-06"
+      ],
+      "setup": "隔离合成账号/数据，按本场景构造中断、并发或篡改；真实供应商能力另行验收",
+      "steps": "在对应页面触发业务路径并注入所述异常；检查本机持久状态、实际出网载荷、服务器账本/终态和页面回执",
+      "expected": "只记真实通过的检查；未复算结果继续userProvided/有限integrityChecked",
+      "mustNot": "不能以包hash、会员、设备完整性担保分数",
+      "execution": "待执行；本轮仅方案，不表示通过"
+    },
+    {
+      "id": "CB-TEST-E14",
+      "title": "结果结构坏/引用不在manifest/材料超长",
+      "classification": "必要约束",
+      "pageIds": [
+        "conversation",
+        "report"
+      ],
+      "requirementIds": [
+        "ZY-AI-003",
+        "ZY-AI-007"
+      ],
+      "decisionIds": [
+        "D-06",
+        "D-13"
+      ],
+      "setup": "隔离合成账号/数据，按本场景构造中断、并发或篡改；真实供应商能力另行验收",
+      "steps": "在对应页面触发业务路径并注入所述异常；检查本机持久状态、实际出网载荷、服务器账本/终态和页面回执",
+      "expected": "明确未采用/部分/受控失败，保留原任务；实际限额前说明缩小或分批",
+      "mustNot": "不伪造完整分析、不跨空间补取、不暗拆多笔",
+      "execution": "待执行；本轮仅方案，不表示通过"
+    },
+    {
+      "id": "CB-TEST-E15",
+      "title": "同步冲突/上传一半/存储满",
+      "classification": "必要约束",
+      "pageIds": [
+        "data",
+        "memories"
+      ],
+      "requirementIds": [
+        "ZY-FR-047",
+        "ZY-DATA-007",
+        "ZY-DATA-008"
+      ],
+      "decisionIds": [
+        "D-08",
+        "D-14"
+      ],
+      "setup": "隔离合成账号/数据，按本场景构造中断、并发或篡改；真实供应商能力另行验收",
+      "steps": "在对应页面触发业务路径并注入所述异常；检查本机持久状态、实际出网载荷、服务器账本/终态和页面回执",
+      "expected": "逐对象状态、保留双方版本/本地数据；确认完整前不标云已存",
+      "mustNot": "不静默覆盖、不丢最早队列项保容量",
+      "execution": "待执行；本轮仅方案，不表示通过"
+    },
+    {
+      "id": "CB-TEST-E16",
+      "title": "删除后旧设备/旧备份重连",
+      "classification": "必要约束",
+      "pageIds": [
+        "data",
+        "account",
+        "privacy"
+      ],
+      "requirementIds": [
+        "ZY-DATA-005",
+        "ZY-FR-039"
+      ],
+      "decisionIds": [
+        "D-08",
+        "D-14",
+        "D-21"
+      ],
+      "setup": "隔离合成账号/数据，按本场景构造中断、并发或篡改；真实供应商能力另行验收",
+      "steps": "在对应页面触发业务路径并注入所述异常；检查本机持久状态、实际出网载荷、服务器账本/终态和页面回执",
+      "expected": "旧epoch/cursor拒写，先对账；已删ID不能自动创建，恢复另预览",
+      "mustNot": "不得凭更晚本机时间、换安装ID或墓碑过期复活",
+      "execution": "待执行；本轮仅方案，不表示通过"
+    },
+    {
+      "id": "CB-TEST-E17",
+      "title": "会员到期/退款且有在途AI或云副本",
+      "classification": "必要约束",
+      "pageIds": [
+        "membership",
+        "order",
+        "data",
+        "report"
+      ],
+      "requirementIds": [
+        "ZY-FR-023",
+        "ZY-BIZ-001",
+        "ZY-BIZ-005"
+      ],
+      "decisionIds": [
+        "D-07",
+        "D-08",
+        "D-09",
+        "D-10"
+      ],
+      "setup": "隔离合成账号/数据，按本场景构造中断、并发或篡改；真实供应商能力另行验收",
+      "steps": "在对应页面触发业务路径并注入所述异常；检查本机持久状态、实际出网载荷、服务器账本/终态和页面回执",
+      "expected": "旧请求按受理规则收尾，新请求按当前权益；云期限需已告知，本机不丢",
+      "mustNot": "不重置已用、不把退款当删除许可、不编保留天数",
+      "execution": "待执行；本轮仅方案，不表示通过"
+    },
+    {
+      "id": "CB-TEST-E18",
+      "title": "设备密钥失效/系统备份恢复",
+      "classification": "必要约束",
+      "pageIds": [
+        "data",
+        "account"
+      ],
+      "requirementIds": [
+        "ZY-DATA-004",
+        "ZY-DATA-007",
+        "ZY-FR-047"
+      ],
+      "decisionIds": [
+        "D-08",
+        "D-14"
+      ],
+      "setup": "隔离合成账号/数据，按本场景构造中断、并发或篡改；真实供应商能力另行验收",
+      "steps": "在对应页面触发业务路径并注入所述异常；检查本机持久状态、实际出网载荷、服务器账本/终态和页面回执",
+      "expected": "按真实恢复材料与预检处理；显示不可恢复范围并保留可恢复原文件",
+      "mustNot": "不清库伪成功，不恢复旧令牌/购买/AI指令",
+      "execution": "待执行；本轮仅方案，不表示通过"
+    },
+    {
+      "id": "CB-TEST-E19",
+      "title": "源正文删除但记忆修订史仍存",
+      "classification": "必要约束",
+      "pageIds": [
+        "memories",
+        "privacy",
+        "data"
+      ],
+      "requirementIds": [
+        "ZY-FR-029",
+        "ZY-DATA-005"
+      ],
+      "decisionIds": [
+        "D-08"
+      ],
+      "setup": "隔离合成账号/数据，按本场景构造中断、并发或篡改；真实供应商能力另行验收",
+      "steps": "在对应页面触发业务路径并注入所述异常；检查本机持久状态、实际出网载荷、服务器账本/终态和页面回执",
+      "expected": "按删除范围清历史正文/派生摘要/索引；保留最小来源失效状态",
+      "mustNot": "不以“有追溯”无限保留被删全文",
+      "execution": "待执行；本轮仅方案，不表示通过"
+    },
+    {
+      "id": "CB-TEST-E20",
+      "title": "账号注销后无法再登录查询",
+      "classification": "必要约束",
+      "pageIds": [
+        "account",
+        "support"
+      ],
+      "requirementIds": [
+        "ZY-FR-039",
+        "ZY-OPS-002"
+      ],
+      "decisionIds": [
+        "D-08",
+        "D-16",
+        "D-21"
+      ],
+      "setup": "隔离合成账号/数据，按本场景构造中断、并发或篡改；真实供应商能力另行验收",
+      "steps": "在对应页面触发业务路径并注入所述异常；检查本机持久状态、实际出网载荷、服务器账本/终态和页面回执",
+      "expected": "在事前确认的适当核验路径查同一申请的最小状态",
+      "mustNot": "不要求已失效账号登录，不把公开编号当鉴权",
+      "execution": "待执行；本轮仅方案，不表示通过"
+    },
+    {
+      "id": "CB-TEST-21",
+      "title": "会员购买不等于云存同意",
+      "classification": "必要约束",
+      "pageIds": [
+        "membership",
+        "data",
+        "privacy"
+      ],
+      "requirementIds": [
+        "ZY-FR-047",
+        "ZY-DATA-002"
+      ],
+      "decisionIds": [
+        "D-08",
+        "D-09"
+      ],
+      "setup": "隔离合成数据及目标平台",
+      "steps": "变更会员前后抓取外发和队列；未选择云存时答卷/画像/聊天不新增上传",
+      "expected": "变更会员前后抓取外发和队列；未选择云存时答卷/画像/聊天不新增上传",
+      "execution": "待执行；本轮仅方案，不表示通过"
+    },
+    {
+      "id": "CB-TEST-22",
+      "title": "云快照恢复真实性",
+      "classification": "必要约束",
+      "pageIds": [
+        "data",
+        "report",
+        "records"
+      ],
+      "requirementIds": [
+        "ZY-DATA-007",
+        "ZY-FR-046"
+      ],
+      "decisionIds": [
+        "D-08",
+        "D-14"
+      ],
+      "setup": "隔离合成数据及目标平台",
+      "steps": "选部分报告快照→修改原文→恢复预检；仅恢复当时获选范围，原数据不被盲覆盖，不恢复令牌/权益/AI待发",
+      "expected": "选部分报告快照→修改原文→恢复预检；仅恢复当时获选范围，原数据不被盲覆盖，不恢复令牌/权益/AI待发",
+      "execution": "待执行；本轮仅方案，不表示通过"
+    },
+    {
+      "id": "CB-TEST-23",
+      "title": "本地10次耗尽仍可完成测评",
+      "classification": "必要约束",
+      "pageIds": [
+        "question",
+        "review",
+        "report"
+      ],
+      "requirementIds": [
+        "ZY-FR-023",
+        "ZY-ENG-001"
+      ],
+      "decisionIds": [
+        "D-07",
+        "D-08"
+      ],
+      "setup": "隔离合成数据及目标平台",
+      "steps": "断网且远端额度用尽；合格本地题组可作答/保存/按许可出报告，不暗做AI或要求上传",
+      "expected": "断网且远端额度用尽；合格本地题组可作答/保存/按许可出报告，不暗做AI或要求上传",
+      "execution": "待执行；本轮仅方案，不表示通过"
+    },
+    {
+      "id": "CB-TEST-24",
+      "title": "来源与修订历史真正可用",
+      "classification": "必要约束",
+      "pageIds": [
+        "memories",
+        "portrait",
+        "records"
+      ],
+      "requirementIds": [
+        "ZY-FR-029",
+        "ZY-NFR-016"
+      ],
+      "decisionIds": [
+        "D-08"
+      ],
+      "setup": "隔离合成数据及目标平台",
+      "steps": "创建两版实际文本→查看原文→停用→删除；能逐版回看有效历史，删除后搜索/候选/旧版缓存不泄正文",
+      "expected": "创建两版实际文本→查看原文→停用→删除；能逐版回看有效历史，删除后搜索/候选/旧版缓存不泄正文",
+      "execution": "待执行；本轮仅方案，不表示通过"
+    },
+    {
+      "id": "CB-TEST-25",
+      "title": "模型看到范围与预览一致",
+      "classification": "必要约束",
+      "pageIds": [
+        "conversation",
+        "privacy"
+      ],
+      "requirementIds": [
+        "ZY-FR-022",
+        "ZY-AI-003"
+      ],
+      "decisionIds": [
+        "D-06",
+        "D-08"
+      ],
+      "setup": "隔离合成数据及目标平台",
+      "steps": "用可审计合成适配器对比实际payload与冻结manifest；原答卷、手机号、未选聊天与未选来源均不出现",
+      "expected": "用可审计合成适配器对比实际payload与冻结manifest；原答卷、手机号、未选聊天与未选来源均不出现",
+      "execution": "待执行；本轮仅方案，不表示通过"
+    },
+    {
+      "id": "CB-TEST-26",
+      "title": "发布和信任等级能力一致",
+      "classification": "必要约束",
+      "pageIds": [
+        "content",
+        "report",
+        "conversation"
+      ],
+      "requirementIds": [
+        "ZY-ENG-010",
+        "ZY-MEAS-007"
+      ],
+      "decisionIds": [
+        "D-04",
+        "D-06"
+      ],
+      "setup": "隔离合成数据及目标平台",
+      "steps": "userProvided/不同检查范围/serverRecomputed逐组合测试；客户端显示和服务端资格一致，局部复算不冒充全卷复核",
+      "expected": "userProvided/不同检查范围/serverRecomputed逐组合测试；客户端显示和服务端资格一致，局部复算不冒充全卷复核",
+      "execution": "待执行；本轮仅方案，不表示通过"
+    },
+    {
+      "id": "CB-TEST-27",
+      "title": "不登录不续费的既有本地阅读",
+      "classification": "建议",
+      "pageIds": [
+        "report",
+        "data"
+      ],
+      "requirementIds": [
+        "ZY-BIZ-001",
+        "ZY-FR-023"
+      ],
+      "decisionIds": [
+        "D-09",
+        "D-10"
+      ],
+      "setup": "隔离合成数据及目标平台",
+      "steps": "强建议验收：会员过期后断网/退出，已存本人报告可读可导出；最终授权/许可边界需先定案",
+      "expected": "强建议验收：会员过期后断网/退出，已存本人报告可读可导出；最终授权/许可边界需先定案",
+      "execution": "待执行；本轮仅方案，不表示通过"
+    },
+    {
+      "id": "CB-TEST-28",
+      "title": "操作系统备份未暗带私密资料",
+      "classification": "必要约束",
+      "pageIds": [
+        "data",
+        "account",
+        "privacy"
+      ],
+      "requirementIds": [
+        "ZY-FR-047",
+        "ZY-DATA-004"
+      ],
+      "decisionIds": [
+        "D-08",
+        "D-11",
+        "D-14"
+      ],
+      "setup": "隔离合成数据及目标平台",
+      "steps": "在目标Android版本/设备实测备份和设备迁移；包含/排除与说明相符，旧令牌和待发操作不恢复执行",
+      "expected": "在目标Android版本/设备实测备份和设备迁移；包含/排除与说明相符，旧令牌和待发操作不恢复执行",
+      "execution": "待执行；本轮仅方案，不表示通过"
+    }
+  ],
+  "counterexamples": [
+    {
+      "id": "CB-REVIEW-01",
+      "title": "本地计分可篡改，所以每人都交全答卷",
+      "classification": "必要约束",
+      "pageIds": [
+        "report",
+        "conversation"
+      ],
+      "requirementIds": [
+        "ZY-ENG-010"
+      ],
+      "decisionIds": [
+        "D-04",
+        "D-06"
+      ],
+      "finding": "错误：完整上传仍不证明诚实作答；对一般AI解释，明确userProvided比偷偷扩大采集更诚实。确需复算才要最小必要输入。"
+    },
+    {
+      "id": "CB-REVIEW-02",
+      "title": "有hash或签名包就能信任分数",
+      "classification": "必要约束",
+      "pageIds": [
+        "report",
+        "content"
+      ],
+      "requirementIds": [
+        "ZY-ENG-010",
+        "ZY-MEAS-004"
+      ],
+      "decisionIds": [
+        "D-04",
+        "D-06"
+      ],
+      "finding": "错误：包完整性与结果生成过程是两件事；需要checksPerformed与recomputedScope，不能把设备完整性当量表效度。"
+    },
+    {
+      "id": "CB-REVIEW-03",
+      "title": "本地数据不联网就天然私密",
+      "classification": "必要约束",
+      "pageIds": [
+        "data",
+        "privacy"
+      ],
+      "requirementIds": [
+        "ZY-DATA-004",
+        "ZY-FR-047"
+      ],
+      "decisionIds": [
+        "D-08"
+      ],
+      "finding": "错误：系统备份、日志、分享临时文件、模型载荷都是出口；逐项配置和验证。"
+    },
+    {
+      "id": "CB-REVIEW-04",
+      "title": "删除墓碑保留一段时间就永不复活",
+      "classification": "必要约束",
+      "pageIds": [
+        "data",
+        "account"
+      ],
+      "requirementIds": [
+        "ZY-DATA-005",
+        "ZY-DATA-008"
+      ],
+      "decisionIds": [
+        "D-08",
+        "D-14"
+      ],
+      "finding": "错误：任意旧备份比墓碑活得久；必须失效旧写入代次/游标、重新对账，恢复不能把旧对象伪装新建。"
+    },
+    {
+      "id": "CB-REVIEW-05",
+      "title": "记忆可追溯所以永远保留全部旧文本",
+      "classification": "必要约束",
+      "pageIds": [
+        "memories",
+        "privacy"
+      ],
+      "requirementIds": [
+        "ZY-FR-029",
+        "ZY-DATA-005"
+      ],
+      "decisionIds": [
+        "D-08"
+      ],
+      "finding": "错误：编辑历史和删除语义不同；删除范围覆盖旧正文，引用只留失效状态与必要最小标识。"
+    },
+    {
+      "id": "CB-REVIEW-06",
+      "title": "有会员就可以持续读取云档给AI",
+      "classification": "必要约束",
+      "pageIds": [
+        "membership",
+        "conversation"
+      ],
+      "requirementIds": [
+        "ZY-DATA-002",
+        "ZY-FR-022",
+        "ZY-FR-047"
+      ],
+      "decisionIds": [
+        "D-06",
+        "D-08",
+        "D-09"
+      ],
+      "finding": "错误：云存同意与模型处理范围独立；端到端加密快照还意味着服务端不能默认读明文。"
+    },
+    {
+      "id": "CB-REVIEW-07",
+      "title": "取消就释放，重新点就再发一次",
+      "classification": "必要约束",
+      "pageIds": [
+        "conversation",
+        "membership"
+      ],
+      "requirementIds": [
+        "ZY-AI-004",
+        "ZY-BIZ-003"
+      ],
+      "decisionIds": [
+        "D-07",
+        "D-14"
+      ],
+      "finding": "错误：供应商可能已执行、结果只是晚到；业务结算和供应商成本分离，原键恢复与新请求分开。"
+    },
+    {
+      "id": "CB-REVIEW-08",
+      "title": "手机号相同证明是同一个历史用户",
+      "classification": "必要约束",
+      "pageIds": [
+        "auth",
+        "account"
+      ],
+      "requirementIds": [
+        "ZY-FR-037",
+        "ZY-FR-038"
+      ],
+      "decisionIds": [
+        "D-20",
+        "D-21"
+      ],
+      "finding": "错误：号码复用/转移及已有账号冲突不能靠当前OTP接管；需受支持的归属核验路径。"
+    },
+    {
+      "id": "CB-REVIEW-09",
+      "title": "拿到提交manifest证明AI读懂全部",
+      "classification": "必要约束",
+      "pageIds": [
+        "conversation",
+        "report"
+      ],
+      "requirementIds": [
+        "ZY-FR-022",
+        "ZY-AI-003"
+      ],
+      "decisionIds": [
+        "D-06"
+      ],
+      "finding": "错误：manifest只证明实际送出/选择范围，不能证明模型关注、理解或结论正确；仍需引用与质量评估。"
+    },
+    {
+      "id": "CB-REVIEW-10",
+      "title": "无同步也能保证全账号每天全是未做题",
+      "classification": "必要约束",
+      "pageIds": [
+        "daily-checkin",
+        "records"
+      ],
+      "requirementIds": [
+        "ZY-FR-015",
+        "ZY-DATA-008"
+      ],
+      "decisionIds": [
+        "D-17",
+        "D-08"
+      ],
+      "finding": "错误：未共享的设备历史无法被本机看到；如不选择同步，明确未做判定只覆盖已知本机历史。"
+    }
+  ],
+  "officialSources": [
+    {
+      "id": "OFF-BACKUP",
+      "title": "Android Developers：Back up user data with Auto Backup",
+      "url": "https://developer.android.com/identity/data/autobackup",
+      "checkedAt": "2026-10-02",
+      "supports": "默认备份可包含数据库；云备份与设备迁移需分别配置；部分Android设备allowBackup=false不能单独保证禁用设备迁移。",
+      "boundary": "本项目具体OS/targetSdk/渠道和设备尚未验证；不照抄未来平台能力为既有产品承诺"
+    },
+    {
+      "id": "OFF-KEYSTORE",
+      "title": "Android Developers：Android Keystore system",
+      "url": "https://developer.android.com/privacy-and-security/keystore",
+      "checkedAt": "2026-10-02",
+      "supports": "密钥材料防提取及可选硬件保护；安全级别与设备支持有关。",
+      "boundary": "它不自动加密业务数据库、不证明应用进程未受攻击，也不自动提供跨设备密钥恢复"
+    },
+    {
+      "id": "OFF-HTTP",
+      "title": "IETF RFC 9110：HTTP Semantics，13.1.1 If-Match",
+      "url": "https://www.rfc-editor.org/rfc/rfc9110.html#section-13.1.1",
+      "checkedAt": "2026-10-02",
+      "supports": "强ETag条件请求可防止并发覆盖；前提不符不应执行修改，可返回412。",
+      "boundary": "HTTP条件请求不是完整同步协议；本方案中的epoch/墓碑/幂等为设计建议"
+    },
+    {
+      "id": "OFF-OAUTH",
+      "title": "IETF RFC 9700：Best Current Practice for OAuth 2.0 Security",
+      "url": "https://www.rfc-editor.org/rfc/rfc9700.html",
+      "checkedAt": "2026-10-02",
+      "supports": "标准OAuth公共客户端使用PKCE等机制，严格重定向匹配并防CSRF/授权码攻击。",
+      "boundary": "仅作身份设计安全基线；不据此宣称微信/支付宝当前SDK实现某流程、手机号字段或渠道能力"
+    },
+    {
+      "id": "OFF-NIST",
+      "title": "NIST SP 800-63B-4：Authentication and Authenticator Management",
+      "url": "https://pages.nist.gov/800-63-4/sp800-63b.html",
+      "checkedAt": "2026-10-02",
+      "supports": "短信/PSTN认证存在风险；需考虑SIM变更、号码携转等风险信号并提供适当恢复。",
+      "boundary": "安全设计参考，不等于对本产品适用法律的判断；具体身份提供方能力待核实"
+    },
+    {
+      "id": "OFF-INTEGRITY",
+      "title": "Android Developers：Overview of the Play Integrity API",
+      "url": "https://developer.android.com/google/play/integrity/overview",
+      "checkedAt": "2026-10-02",
+      "supports": "评估应用/设备及请求相关完整性，需要后端核验请求绑定。",
+      "boundary": "仅Google Play相关候选能力，不默认适用所有Android渠道；不验证测评分数或个人回答真实"
+    },
+    {
+      "id": "OFF-OWASP",
+      "title": "OWASP：LLM Prompt Injection Prevention Cheat Sheet",
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html",
+      "checkedAt": "2026-10-02",
+      "supports": "区分指令与不可信数据、最小权限、参数/输出验证与多层防护。",
+      "boundary": "采用分层控制原则；不照搬全文日志收集、不承诺提示注入风险归零"
+    }
+  ],
+  "nonGoals": [
+    "本轮不接真实SDK、短信、支付、模型或云存",
+    "不决定价格、会员额度、云保留天数、退款时限或法律条款",
+    "不将模块化单体改造成微服务",
+    "不因会员云存候选默认上传全部私人资料",
+    "不新增通用同步平台、向量记忆平台或全功能客服系统",
+    "不将方案/合成测试当生产业务验收"
+  ],
+  "validation": {
+    "schema": "所有业务条目有稳定id、pageIds、requirementIds和decisionIds",
+    "businessImplementation": "未实施",
+    "runtimeTests": "未执行",
+    "officialSourceCheck": "已阅读以上官方页面；具体供应商/SDK与目标设备能力仍待选定和实测",
+    "privacy": "仅产品摘要与公开官方技术来源；未复制用户私人内容",
+    "referencedEntries": 121,
+    "allPageRequirementDecisionIdsExist": true
+  }
+}

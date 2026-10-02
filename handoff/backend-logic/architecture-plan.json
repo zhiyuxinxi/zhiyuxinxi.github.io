@@ -1,0 +1,2457 @@
+{
+  "meta": {
+    "schemaVersion": "1.0-local-assessment-architecture",
+    "product": "知遇测评",
+    "title": "本地题库与测评业务架构方案",
+    "asOf": "2026-10-02",
+    "phase": "阶段二 业务逻辑与架构分析",
+    "implementationStatus": "仅方案，未写应用业务代码、未接入服务、未执行生产验收",
+    "publicSafe": true,
+    "basis": [
+      "阶段一39个路由的页级开发契约",
+      "原始职责与动作公开追溯摘要",
+      "完整需求矩阵v1.3",
+      "现有Android底座及移动端、内容和服务契约的只读复核"
+    ],
+    "scope": "在既有Android优先、本机优先和模块化单体后端内补齐本地题库、确定性计分条件方案、报告条件方案、私人空间及恢复；会员云数据与认证额度策略由配套边界方案定义。",
+    "notAReleaseDecision": "本方案不能替代题源授权、测量证据、首版范围及用户对三个条件式架构方向的确认",
+    "statusLegend": {
+      "已明确": "用户已明确的硬条件，或已核实的现状；每项basis区分两者，不表示已经实现",
+      "建议": "沿既有架构提出的最小实现方式，尚未批准为唯一方案",
+      "条件必需": "若启用所指能力，必须满足的正确性、恢复或隐私约束；不扩大首发范围",
+      "待决定": "业务、专业或工程选择尚未定案；只阻断相关能力启用"
+    }
+  },
+  "executiveSummary": [
+    {
+      "id": "A-01",
+      "title": "全部题库随安装交付",
+      "status": "已明确",
+      "text": "所有已获授权且被批准正式发布的题库，必须完整默认随安装落到本地。首启、第一次进入任一题库均不得再下载全量题文、计分所需数据或必要资源。更新下载只能用于后续新增或修订。",
+      "basis": "用户硬条件与阶段一契约",
+      "pages": [
+        "home",
+        "explore",
+        "content",
+        "question"
+      ]
+    },
+    {
+      "id": "A-02",
+      "title": "保留已有技术方向",
+      "status": "建议",
+      "text": "继续原生Android单app、Kotlin、Compose、ViewModel与Flow、Hilt、Room；按逻辑职责划分包，不重建框架、不先拆微服务或几十个Gradle模块。服务端沿模块化单体与事务数据库，只负责已有远端事实。",
+      "basis": "已核实底座与既有架构提案",
+      "sourceIds": [
+        "S-ARCH"
+      ]
+    },
+    {
+      "id": "A-03",
+      "title": "三个位置选择仍为候选",
+      "status": "待决定",
+      "text": "本地计算引擎、本地分析报告保存、会员部分关键分析数据入云，是条件式候选。本方案具体分析采用本地计算与报告后的完整责任；不把它们改写成用户已经确认，也不因会员自动同步。",
+      "basis": "阶段一PAGE-ARCH-CANDIDATE",
+      "decisionRefs": [
+        "PAGE-ARCH-CANDIDATE",
+        "D-08"
+      ]
+    },
+    {
+      "id": "A-04",
+      "title": "正式题源仍未过门槛",
+      "status": "已明确",
+      "text": "当前生产可分发题包清单为空，现有Android仍为示例底座。全量安装是发布验收目标，不能以清单为空、数学上全部安装而宣称已满足正式产品交付。候选题库与工程向量不能冒充获准测评。",
+      "basis": "2026-10-02当前项目复核",
+      "decisionRefs": [
+        "D-02",
+        "D-03",
+        "D-04"
+      ]
+    },
+    {
+      "id": "A-05",
+      "title": "最小存储分成内容与私人两边",
+      "status": "建议",
+      "text": "不可变题包与可重建内容读库独立于私人答卷、报告和来源关系库。内容刷新可以重建索引；私人升级失败必须保留原件。主题切换、登录、会员到期都不是改写旧分数的理由。",
+      "basis": "既有版本锁与私人空间规则"
+    },
+    {
+      "id": "A-06",
+      "title": "先把完整的本地闭环落实",
+      "status": "建议",
+      "text": "实施时先做内置内容与保护空间，再以工程数据贯通保存、续答、冻结提交、计算、报告重开与恢复；正式启用仍逐包过门禁。随后接受控真实AI，再按确认范围接会员云保存。",
+      "basis": "既有纵向实施思路；具体首发切片由D-05决定"
+    }
+  ],
+  "sections": [
+    {
+      "id": "L1",
+      "title": "安装完成就具备完整题库",
+      "status": "建议",
+      "summary": "优先采用安装包assets内的既有不可变题包，加发布时生成的离线目录与只读查询索引。首启只做本机校验和必要初始化；不以首次联网下载弥补安装缺项。",
+      "items": [
+        {
+          "id": "L1-1",
+          "title": "构建期完整性清单",
+          "status": "条件必需",
+          "text": "每次应用发布生成BundledContentManifest：bundleId、manifestVersion、目标应用兼容范围，以及每个获准bankId/version的完整文件SHA-256、四项componentLocks、字节数、必要资源清单、索引版本和资格声明引用。CI逐项验证批准发布集合与实际打包集合相等，并核验题数与资源数量；不能把“下载地址存在”计为已内置。",
+          "gate": "任何正式题库随安装分发"
+        },
+        {
+          "id": "L1-2",
+          "title": "离线索引是派生物",
+          "status": "建议",
+          "text": "保留现有JSON题包为内容契约真源；预构建目录、题目顺序、选项和题因子关系索引只用于本机查询，不再维护一套独立手写题库。索引带bundle/内容哈希与schemaVersion，可验证与原包一致。先用普通索引完成必要筛选，全文索引仅在真实搜索需要时引入。"
+        },
+        {
+          "id": "L1-3",
+          "title": "Room预置库方式",
+          "status": "建议",
+          "text": "采用单独的内容读库，通过Room createFromAsset从内置预置库建立本机副本，并用只读Repository暴露业务读取；这里的只读是应用写入边界，不宣称Room自动提供不可变文件。Room会复制并校验预置库schema，不能把该API当作后续内容升级机制。首选不更换现有Room依赖版本。",
+          "sourceIds": [
+            "S-ROOM-PRE"
+          ]
+        },
+        {
+          "id": "L1-4",
+          "title": "首启可见与可用分开验收",
+          "status": "条件必需",
+          "text": "启动先显示真实状态的首页；后台完成本机索引复制、manifest与schema核验，相关题库只有ready后才能开始。首页出现不等于全库就绪。dataReady须覆盖全部批准清单和必要资源；所选原包使用前核验对应哈希。首次完全断网可查所有获准题库并开始、保存和续答，初始化不得请求账号或网络。",
+          "gate": "全量本地题库",
+          "sourceIds": [
+            "S-STARTUP"
+          ]
+        },
+        {
+          "id": "L1-5",
+          "title": "安装体积和首启成本",
+          "status": "待决定",
+          "text": "实测压缩安装体积、解压占用、预置库复制额外空间、旧版本保留、更新暂存峰值及低端设备就绪耗时，再定D-14预算。优化只能先做无损压缩、资源去重和派生索引精简；不得悄悄改成懒下载、减少批准题库或截断题文。空间不足时留清楚错误与重试，不显示全库已备好。",
+          "decisionRefs": [
+            "D-14"
+          ]
+        },
+        {
+          "id": "L1-6",
+          "title": "渠道大包方案不是默认前提",
+          "status": "待决定",
+          "text": "默认优先兼容目标渠道的应用内assets。若完整体积超渠道限制，需重新确认渠道与安装时资源交付方式；Google Play install-time资源包在安装时提供、fast-follow和on-demand不满足本需求。PAD文档主要面向游戏，不据此假定本应用或其他渠道自动适用。此处只是备选评估，不引入新分发平台。",
+          "decisionRefs": [
+            "D-11",
+            "D-14"
+          ],
+          "sourceIds": [
+            "S-PAD"
+          ]
+        },
+        {
+          "id": "L1-7",
+          "title": "权利和效度各自审查",
+          "status": "条件必需",
+          "text": "“全部”以经核实的正式发布范围为准：每包分别核验分发、离线持有、商业/改编、适用人群与期限。许可不能由文件哈希、公开可见或工程通过替代；题文能分发也不等于计分和常模有效。当前不足应显示具体不可用原因，不能用AI现场生成来凑齐。",
+          "gate": "正式内容开放",
+          "decisionRefs": [
+            "D-01",
+            "D-02",
+            "D-03",
+            "D-04"
+          ]
+        }
+      ],
+      "pages": [
+        "home",
+        "explore",
+        "content",
+        "topic",
+        "question"
+      ]
+    },
+    {
+      "id": "L2",
+      "title": "内容版本更新与撤回",
+      "status": "条件必需",
+      "summary": "原包字节不可变，发布声明可修订；会话、结果和报告锁定原依据，版本更新不改写历史。",
+      "items": [
+        {
+          "id": "L2-1",
+          "title": "内容库与私人库隔离",
+          "status": "建议",
+          "text": "内容侧保存不可变原包、派生读库及安装记录；私人侧保存答卷、冻结提交、结果、报告和来源关系。包索引重建不得触发私人库删除或重建。私人库引用bankId/version和hash，跨库关系由Repository校验，不假设跨数据库事务外键。"
+        },
+        {
+          "id": "L2-2",
+          "title": "可信发布身份",
+          "status": "条件必需",
+          "text": "后续包更新先验证可信发布身份，再验证精确文件哈希和结构。建议manifest与发布声明由受控发布密钥签名，客户端保存可信公钥及keyId、支持受控轮换和反回退版本检查。签名验证失败、未知keyId、同版本不同字节均隔离拒用；仅文件与旁边hash一致不能证明发布者。密钥与签名算法、离线失效策略仍需工程定案，不自创密码协议。",
+          "gate": "启用包外更新",
+          "decisionRefs": [
+            "D-16"
+          ]
+        },
+        {
+          "id": "L2-3",
+          "title": "双阶段安装与切换",
+          "status": "条件必需",
+          "text": "新包先写临时区并记录installOperationId，校验签名、兼容性、每个文件哈希、ID和引用、索引一致性；通过后才以本地事务切换当前新任务指针。文件与数据库无法同事务，必须保留prepared/activated/failed安装记录，重启按记录完成或回滚。旧有效包保持可用，半包不进入目录。",
+          "gate": "更新或新增包"
+        },
+        {
+          "id": "L2-4",
+          "title": "数据库schema与题库版本不同",
+          "status": "条件必需",
+          "text": "Room schemaVersion只管理表结构；bankVersion、规则和解释版本管理内容语义。替换assets不会自动更新已有Room库；定义显式内容安装/索引切换流程。私人库迁移使用非破坏性迁移路径及数据断言，失败保留原数据并进入恢复模式，禁止fallbackToDestructiveMigration清除真人资料。",
+          "gate": "保存真实私人资料及升级",
+          "sourceIds": [
+            "S-ROOM-PRE",
+            "S-ROOM-MIG"
+          ]
+        },
+        {
+          "id": "L2-5",
+          "title": "旧答卷固定旧版本",
+          "status": "条件必需",
+          "text": "进行中会话固定bankId/version、完整fileSha256、items/factors/rules/interpretation四组件锁及题目次序。续答与计算都按锁定原包，不能取latest或另一家族同名因子补齐。旧包缺失时保留会话并标blocked，可在许可允许时恢复精确原包；不能先换新题再沿用旧答案。",
+          "gate": "续答、旧答卷读取、重算"
+        },
+        {
+          "id": "L2-6",
+          "title": "撤回按动作生效",
+          "status": "条件必需",
+          "text": "发布声明至少分别管理下载、新答、续答、计算、当前画像引用，另明确历史阅读和保留限制。停止新分发不等于删旧报告；已知错误规则可禁止再计算/作为当前证据。声明整份原子替换并保留最后可信revision与获知时间，迟到旧声明不能回退。离线只呈现最后已知状态，不承诺即时知道远端撤回。",
+          "gate": "内容开放和运营撤回"
+        },
+        {
+          "id": "L2-7",
+          "title": "保留与合法撤回冲突",
+          "status": "待决定",
+          "text": "旧包有引用通常不能按缓存清理，但也不能承诺永久保留无权题文。若法律/许可要求撤销持有，应明确哪些题文和派生物必须删除、哪些最小版本证明或历史快照可保留；允许范围不足时如实标不可重现，不能保留全文以求重算。此选择由内容事实与D-02/D-08/D-16约束。",
+          "decisionRefs": [
+            "D-02",
+            "D-08",
+            "D-16"
+          ]
+        },
+        {
+          "id": "L2-9",
+          "title": "沿用既有哈希规范",
+          "status": "条件必需",
+          "text": "完整fileSha256校验原文件字节，四项componentLocks沿现有qbank-json-v1规则；它不是默认RFC 8785。跨端重算需对对象键、十进制、负零、Unicode和数组顺序运行共享向量。一般私人载荷的contentHash/payloadHash必须另有明确规范，不与题库组件锁混用。",
+          "gate": "多端内容校验与来源摘要"
+        },
+        {
+          "id": "L2-8",
+          "title": "纠错生成新结果",
+          "status": "条件必需",
+          "text": "规则纠错或用户获准纠正答案，创建带parentResultId与reason的新结果和新报告；原结果不变，当前有效性另标。更新引擎也不批量重算旧记录。若用户选择重算，必须明确选定旧输入、拟用新依据和结果身份；跨版本对比先过可比规则。",
+          "gate": "启用修订/重算"
+        }
+      ],
+      "pages": [
+        "content",
+        "question",
+        "review",
+        "report",
+        "records",
+        "compare",
+        "data",
+        "portrait"
+      ]
+    },
+    {
+      "id": "L3",
+      "title": "采用本地计算时的最小引擎",
+      "status": "条件必需",
+      "summary": "本节在本地计算被确认后启用。运算是纯确定性的版本化函数，题库和许可由内容域提供，答案由测评域冻结，输出只写入独立结果。",
+      "items": [
+        {
+          "id": "L3-1",
+          "title": "输入与输出边界",
+          "status": "条件必需",
+          "text": "输入为已验证包引用、冻结答卷、明确的规则/常模选择和engineVersion；不读系统时间、账号、主题、网络、AI或可变全局状态。输出为类型明确的完整结果，或无部分因子分的失败对象。相同锁定输入与引擎须得到相同规范化结果摘要；engineVersion指可执行实现版本，不能用界面版本代替。",
+          "gate": "本地计分"
+        },
+        {
+          "id": "L3-2",
+          "title": "遵守已有原始和语义",
+          "status": "条件必需",
+          "text": "当前selected_option_sum只累加选中optionId已经展开的因子贡献；支持一题多因子、多题一因子的显式关系。factorId在bankId内才有意义。contributions=null是缺映射，空对象是明确不贡献；未知题/选项、重复答案、空答不是0。先检查原始答案数组重复，再建立查询表。",
+          "gate": "当前契约计分"
+        },
+        {
+          "id": "L3-3",
+          "title": "反向计分只做一次",
+          "status": "条件必需",
+          "text": "当前契约的贡献已展开，不再按历史reverse标记二次反向。未来如获准规则采用未展开编码，必须在其独立规则版本中声明转换、量尺上下界、适用题项与顺序，金标准验证后才支持；不能默认用max减答案套全部量表。",
+          "gate": "正式计分规则支持"
+        },
+        {
+          "id": "L3-4",
+          "title": "缺答与精度",
+          "status": "条件必需",
+          "text": "当前完整原始和缺答返回incomplete而非均值补齐；未来缺失容许、插补或无效判定只能来自相应获准规则。当前贡献采用精确十进制、中间及最终不舍入、跨端数值用十进制字符串；若正式新规则要求舍入，固定步骤、模式和位数。每因子保留observedItemCount、possibleRange、缺失/无效原因。",
+          "gate": "正式计算或报告"
+        },
+        {
+          "id": "L3-5",
+          "title": "不先建设万能公式平台",
+          "status": "建议",
+          "text": "第一批只实现当前契约已经支持的有限规则类型和明确分派。若真实获准包需要扩展公式，再加入封闭、带类型的表达式AST/DSL：允许的算术、条件、固定查表；限制节点数、深度、数值规模和计算量；除零、溢出及非有限值必须失败，拒绝未知操作、循环、动态代码、文件、网络和反射。内容包是数据，不能eval JavaScript、下载可执行代码或靠AI生成公式。"
+        },
+        {
+          "id": "L3-6",
+          "title": "常模是有资格的版本数据",
+          "status": "条件必需",
+          "text": "normRef需明确人群、译本/版本、适用条件、转换表或公式及出处；不匹配则保留原始分或返回适用性不足，按规则决定能否展示。当前reference_only无适用常模，不提供百分位、标准分或“超过多少人”；数学取值范围不能伪装人群分布。normVersion为null必须附原因，不能默认latest。",
+          "gate": "提供常模换算或正式解释"
+        },
+        {
+          "id": "L3-7",
+          "title": "引擎与内容兼容",
+          "status": "条件必需",
+          "text": "包声明支持的规则schema、引擎能力和模板能力。应用升级保留已承诺可复算的兼容引擎实现或明确迁移策略；历史快照可读不等于一定可重新计算。遇到旧算法不支持则报ENGINE_UNSUPPORTED并保留历史，不用新算法静默替代。",
+          "gate": "发布多个内容/引擎版本"
+        },
+        {
+          "id": "L3-8",
+          "title": "工程向量与专业金标准分开",
+          "status": "条件必需",
+          "text": "先与既有参考向量逐字段对照，再增加边界、重复、缺答、多因子贡献、反向一次、十进制、常模分段边界与旧版本重开测试。正式启用另需经授权和专业核验的金标准，记录预期值来源和独立审校。工程样本通过仅证明实现符合输入规则，不证明量表信效度或中文常模成立。",
+          "gate": "正式计分与报告上线"
+        },
+        {
+          "id": "L3-9",
+          "title": "服务端不靠hash授予权威",
+          "status": "条件必需",
+          "text": "验证层级统一为userProvided、integrityChecked、serverRecomputed，分别表示本次自报材料、明确checksPerformed通过、依授权输入独立复算；recomputedScope注明实际复算范围。它们与resultKind（如reference_only、simulation）分别表达。客户端传来的层级只是声明，服务器须根据实际检查决定，不能接受自报serverRecomputed。签名/哈希不证明客户端确按该包算分，服务端复算也不证明诚实作答或测量效度；不能为了提高层级默认上传全答卷。",
+          "gate": "结果外发或会员云存"
+        }
+      ],
+      "pages": [
+        "question",
+        "review",
+        "complete",
+        "report",
+        "compare",
+        "single-factor",
+        "short-16pf",
+        "daily-checkin",
+        "personality-sandbox",
+        "ai-reset"
+      ]
+    },
+    {
+      "id": "L4",
+      "title": "采用本地报告时的分层",
+      "status": "条件必需",
+      "summary": "本地保存与本地生成是两件事。离线基础报告由确定性结果和获准规则模板形成；远端AI解释可在获准留存后下载到本机，但不能因此称为完全离线分析。",
+      "items": [
+        {
+          "id": "L4-1",
+          "title": "结果与报告各有身份",
+          "status": "建议",
+          "text": "AssessmentResult保存不可变数值与计算依据；ReportSnapshot保存按结果、解释组件和展示模板生成的结构化阅读模型。AIExplanation另有aiResultId、requestId和执行来源清单。模板文案变化生成新报告版本，不改原分数；AI文本不回写正式因子值。"
+        },
+        {
+          "id": "L4-2",
+          "title": "离线基础报告最低内容",
+          "status": "条件必需",
+          "text": "显示模式/结果身份、版本、适用限制、各因子值或不可用原因、量尺定义、必要计算依据与规则解释。没有获准解释模板时只呈现允许的原始结果及缺口，不临时请AI编成正式解释。报告打开不需要联网或再次调用计分/AI；本地条件未确认前不承诺此能力已存在。",
+          "gate": "本地报告方案"
+        },
+        {
+          "id": "L4-3",
+          "title": "可重现以语义快照为准",
+          "status": "条件必需",
+          "text": "快照固定resultRef、answerRevision、package/engine/rule/norm引用、interpretation锁、templateId/version、locale、生成参数、来源revision和renderModelHash；保留必要输入及仍获准的旧模板/包才可重现。重现目标为相同数值、段落和来源，像素级PDF复刻若需要还须锁字体与渲染器，不能混作默认承诺。",
+          "gate": "历史报告阅读与可重现"
+        },
+        {
+          "id": "L4-4",
+          "title": "来源修订与报告历史",
+          "status": "条件必需",
+          "text": "来源更新/撤回立即使当前画像投影、上下文候选和依赖缓存失效；历史报告保留当时快照并附当前失效说明。来源被删除按批准留存范围清正文或脱敏引用；报告是快照也不能成为绕过删除的私密全文副本。修订不会悄悄把旧引用指向新内容。",
+          "gate": "来源编辑、停用或删除"
+        },
+        {
+          "id": "L4-5",
+          "title": "多版本比较要有依据",
+          "status": "条件必需",
+          "text": "比较必须核对内容家族、模式、规则、常模和可比性声明。原版与AI重置、简化、单因子、每日或模拟不因同叫16PF就相减；条件不满足只并读并说明，不制造趋势或进步。因子瓶量尺映射锁定，主题/形象变化不改数值或报告含义。",
+          "gate": "比较与图形展示"
+        },
+        {
+          "id": "L4-6",
+          "title": "AI结果接纳门槛",
+          "status": "条件必需",
+          "text": "远端完成、本机取回、写入当前认识是三个状态。接收结果、创建记忆候选和本人确认时，都重查账号/空间、来源revision/撤回与留存/记忆开关；不符则只在允许范围显示旧依据历史或丢弃，不能自动回流当前画像。未完成流式片段始终标partial。",
+          "gate": "真实AI解释和记忆"
+        }
+      ],
+      "pages": [
+        "report",
+        "records",
+        "compare",
+        "assistant",
+        "conversation",
+        "memories",
+        "portrait",
+        "share",
+        "privacy"
+      ]
+    },
+    {
+      "id": "L5",
+      "title": "私人空间加密与可恢复性",
+      "status": "条件必需",
+      "summary": "访客资料、账号资料、内容库与身份凭据分别管理。登录、归属认领、向AI外发和启用云保存不能合并成一个隐式动作。",
+      "items": [
+        {
+          "id": "L5-1",
+          "title": "空间是一等归属",
+          "status": "条件必需",
+          "text": "首次创建空访客PersonalSpace；所有私人实体、索引、通知预览和任务带spaceId。accountId仅为可选归属关联，不能代替空间ID；服务端权限由已验证会话决定。本地数据Repository必须显式传空间范围，不给页面无边界查询。",
+          "gate": "保存个人数据"
+        },
+        {
+          "id": "L5-2",
+          "title": "认领与复制可恢复",
+          "status": "条件必需",
+          "text": "本人选择原访客空间、目标账号及对象范围后，建立claimOperationId和预览；认领保留对象稳定ID及归属变更记录，复制产生新ID及旧到新映射，连同引用关系一致提交。取消/中断/重试不得重复复制或提前删源，也不能把A账号资料领给B。",
+          "gate": "启用访客资料接入账号"
+        },
+        {
+          "id": "L5-3",
+          "title": "退出和过期不同",
+          "status": "条件必需",
+          "text": "自然认证过期只阻断远端鉴权，不抹除已解锁本地资料。主动退出清凭据、订阅和显示缓存，切到空访客或锁定状态；原空间是否保留、何时解锁必须在策略中说明。sessionGeneration只防迟到回调进入新界面，不当永久空间身份。",
+          "gate": "账号切换或退出"
+        },
+        {
+          "id": "L5-4",
+          "title": "保护方案要真实落地",
+          "status": "建议",
+          "text": "私人正文采用成熟的认证加密实现，密钥由Android Keystore保护；可选字段级加密或经评估的数据库加密适配，具体方案按查询需求和恢复要求定案。Room和DataStore本身不因使用Keystore就自动加密。凭据、验证码、供应商密钥不入普通库、导出或日志；内容题库公开数据与私密答案不要共用秘密密钥。",
+          "sourceIds": [
+            "S-KEYSTORE"
+          ],
+          "decisionRefs": [
+            "D-08"
+          ]
+        },
+        {
+          "id": "L5-5",
+          "title": "系统备份不是应用云同步",
+          "status": "条件必需",
+          "text": "分别定义Android自动云备份、设备迁移、应用云保存、主动导出四种范围。建议私人答案/报告/聊天/密钥包装及待发送队列默认排除系统自动备份，主题等非敏感设置可另定。需覆盖支持系统版本的backup规则与dataExtractionRules，验证cloud-backup及device-transfer，不只切allowBackup；新平台迁移能力也须按支持版本核查。",
+          "gate": "真实私人数据落盘",
+          "sourceIds": [
+            "S-BACKUP"
+          ],
+          "decisionRefs": [
+            "D-08",
+            "D-11"
+          ]
+        },
+        {
+          "id": "L5-6",
+          "title": "主动导出与分享不同",
+          "status": "条件必需",
+          "text": "导出由本人选空间、对象与目的地，区分可恢复数据包和已脱敏分享图/报告。恢复包有schemaVersion、对象/关联清单、校验和、题包引用及加密描述；不导出无权分发的题文、认证凭据、设备私钥或会员权威。明文导出如提供必须说明风险，分享后无法靠本机删除撤回外部副本。",
+          "gate": "导出、分享或恢复"
+        },
+        {
+          "id": "L5-7",
+          "title": "设备密文不等于换机备份",
+          "status": "条件必需",
+          "text": "若密钥绑定本机，单独复制密文到新设备无法恢复。可恢复导出必须采用经审查的跨设备加密封装和独立恢复材料，明确丢失后果、错误密码、文件篡改和密钥失效体验；密码不直接作加密密钥，不自制算法。没有可靠备份时须明确卸载、清除数据、设备损坏会丢失本机独有资料。",
+          "gate": "承诺加密备份可恢复",
+          "sourceIds": [
+            "S-KEYSTORE"
+          ],
+          "decisionRefs": [
+            "D-08"
+          ]
+        },
+        {
+          "id": "L5-8",
+          "title": "导入先预检再应用",
+          "status": "条件必需",
+          "text": "对格式、最大大小、解压后大小、校验、schema、空间归属、对象唯一性、完整关联及包资格预检；在隔离暂存区显示新增、重复、冲突、缺包和不可恢复项，用户选择后原子应用或按可回滚操作日志完成。损坏或新版本文件不覆盖原库；同ID不同hash不静默合并。导入可解析不等于来源可信。",
+          "gate": "恢复或导入"
+        },
+        {
+          "id": "L5-9",
+          "title": "恢复不重放外部动作",
+          "status": "条件必需",
+          "text": "恢复只能还原获准资料与被动历史引用，不恢复有效登录、权益、已消耗额度，不自动补发AI、付款、上传或删除。未知AI任务只在原账号重新认证后按原键查询。已撤回/删除状态与云墓碑核对由同步方案处理，恢复旧备份不能自行把删除对象作为新对象上传。",
+          "gate": "导入后重新联网"
+        },
+        {
+          "id": "L5-11",
+          "title": "会员变化与本机资料访问",
+          "status": "建议",
+          "text": "会员到期或退款不得用删除资料来改变已发生的本机事实；强烈建议已生成资料仍可本地阅读和导出。永久阅读/导出的具体权益属于D-09/D-10待确认，新增计算、远端生成和云保留另按明确政策，不能把这些权益混成一个本机资料开关。",
+          "decisionRefs": [
+            "D-09",
+            "D-10"
+          ]
+        },
+        {
+          "id": "L5-10",
+          "title": "缓存与隐私删除有边界",
+          "status": "条件必需",
+          "text": "清内容索引/临时分享缓存不删私人原件；删答案或报告要说明受影响来源、派生正文、历史和已导出副本。最小墓碑只存防迟到重生所需标识、范围和revision，不借此保留全文。加密删除也不被宣传成所有存储介质绝对安全擦除。",
+          "gate": "清理、删除或注销"
+        }
+      ],
+      "pages": [
+        "auth",
+        "account",
+        "me",
+        "data",
+        "privacy",
+        "support",
+        "question",
+        "records"
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "id": "PersonalSpace",
+      "status": "建议",
+      "store": "私人库",
+      "fields": "spaceId；ownerAccountId可空；state；createdAt",
+      "invariant": "空间归属不由当前登录布尔决定；所有私人查询带spaceId"
+    },
+    {
+      "id": "BundledContentManifest",
+      "status": "建议",
+      "store": "应用内置内容",
+      "fields": "bundleId；manifestVersion；approvedPackageRefs；assetHashes；indexSchemaVersion；signature/keyId",
+      "invariant": "打包清单与批准发布集合逐项相等；签名方案为待定实现"
+    },
+    {
+      "id": "ContentPackageRef",
+      "status": "条件必需",
+      "store": "内容库与不可变文件",
+      "fields": "bankId/version；fileSha256；componentLocks；compatibility；source/qualification引用",
+      "invariant": "与已有包契约同名字段同义；旧会话不能跟随latest"
+    },
+    {
+      "id": "PackageAvailability",
+      "status": "条件必需",
+      "store": "本地可信声明缓存",
+      "fields": "packageRef；declarationId/revision；effects；reason；replacement；lastCheckedAt",
+      "invariant": "可修订声明与不可变包分开；离线只知最后状态"
+    },
+    {
+      "id": "ContentInstallOperation",
+      "status": "建议",
+      "store": "本机安装记录",
+      "fields": "installOperationId；old/new packageRefs；stagingRef；state；failureReason",
+      "invariant": "协调文件与索引切换；重启能够继续或回滚"
+    },
+    {
+      "id": "AssessmentSession / Answer",
+      "status": "条件必需",
+      "store": "私人库",
+      "fields": "spaceId/sessionId；mode；packageRef；itemOrder；answerRevision；itemId/optionId；saveState",
+      "invariant": "每题持久化及revision同事务；重复题答案不能被Map静默吞掉"
+    },
+    {
+      "id": "AssessmentSubmission",
+      "status": "建议",
+      "store": "私人库",
+      "fields": "submissionId；sessionId；frozenAnswerRevision；inputDigest；engineVersion；state；resultRef",
+      "invariant": "交卷先冻结；同一冻结输入重试只产生一个逻辑结果"
+    },
+    {
+      "id": "AssessmentResult",
+      "status": "条件必需",
+      "store": "私人库不可变快照",
+      "fields": "assessmentResultId；submission/session引用；package/engine/rule/norm引用；resultKind；factorValues/unknownReasons；verificationLevel；parentResultId?",
+      "invariant": "规则引用沿规则组件锁；无常模明确null及原因；纠错追加不覆盖"
+    },
+    {
+      "id": "ReportSnapshot",
+      "status": "建议",
+      "store": "私人库不可变快照",
+      "fields": "reportId；resultRef；interpretation锁；templateId/version；locale；sourceRefs；renderModel/hash；validityOverlay",
+      "invariant": "报告模板与数值分别版本化；validityOverlay不篡改原快照正文"
+    },
+    {
+      "id": "SourceRef / Retraction",
+      "status": "条件必需",
+      "store": "私人库关系与最小撤回索引",
+      "fields": "spaceId；sourceType/objectId/revision；evidenceKind；selectedScope；contentHash；validity；retractionRevision",
+      "invariant": "revision固定；hash不等于匿名化或测量真实性；删除不留全文"
+    },
+    {
+      "id": "DailySelection",
+      "status": "建议",
+      "store": "私人库",
+      "fields": "spaceId/daySetId；dayKey/timezone；contentRefs；selectedItemIds；selectionRuleVersion；historyCoverage；completionState",
+      "invariant": "一日首次固定；稳定题身份与内容修订不能简单混用"
+    },
+    {
+      "id": "SimulationConfig",
+      "status": "建议",
+      "store": "本地独立假设区",
+      "fields": "simulationId；factorMap；scaleVersion；explicitlySetMask；sourceKind=hypothesis",
+      "invariant": "是否持久化待D-19；不在AssessmentResult表里伪装正式结果"
+    },
+    {
+      "id": "TransferOperation / ClaimOperation",
+      "status": "建议",
+      "store": "私人库操作记录",
+      "fields": "operationId；source/targetSpace；selectedObjectRefs；schemaVersion；manifest/hash；idMapping；state/resultItems",
+      "invariant": "导入、认领与复制各有语义，失败不留假成功或无关系副本"
+    },
+    {
+      "id": "TopicRecord / Observation / ActionReview",
+      "status": "条件必需",
+      "store": "私人库复用已有领域对象",
+      "fields": "recordId/actionId/reviewId；spaceId；revision；sourceRefs；内容与实际回看",
+      "invariant": "专题和本人观察不硬塞进计分引擎；实际回看不替代计划"
+    },
+    {
+      "id": "AiOperationRef",
+      "status": "条件必需",
+      "store": "私人库最小恢复记录",
+      "fields": "clientOperationId；requestId?；originAccount/space；contextRevision；manifestRef；state；retentionScope",
+      "invariant": "只缓存服务端任务；收到不等于可采用；不默认保存未留存聊天正文"
+    },
+    {
+      "id": "LocalChangeEnvelope",
+      "status": "条件必需",
+      "store": "仅连续同步被选用时",
+      "fields": "objectType/id；spaceId；localRevision/parentRevision；operationId；contentHash；lifecycleState；consentRevision",
+      "invariant": "本机revision不是跨设备总序；云serverVersion/scopeEpoch策略沿配套方案"
+    },
+    {
+      "id": "Tombstone",
+      "status": "条件必需",
+      "store": "本地最小删除索引；云副本按条件",
+      "fields": "spaceId；objectType/id；deleteScope；revision；reason；occurredAt",
+      "invariant": "有删除与迟到AI时本地就需要，不以开启云同步为前提；只留防复生所需标识，不保留被删正文"
+    }
+  ],
+  "modules": [
+    {
+      "id": "M-01",
+      "title": "内容发布与安装",
+      "status": "建议",
+      "owns": "生产清单、可信声明、不可变包、离线目录、版本保留与安装恢复",
+      "output": "包资格及精确版本读接口",
+      "boundary": "不得读取或上传私人答案",
+      "deployment": "现有单应用内逻辑职责；远端沿现有模块化单体"
+    },
+    {
+      "id": "M-02",
+      "title": "测评Repository",
+      "status": "建议",
+      "owns": "空间内答卷、每题保存、续答、冻结提交及结果存取",
+      "output": "session/revision/result身份",
+      "boundary": "不在页面生命周期或网络回调里交卷",
+      "deployment": "现有单应用内逻辑职责；远端沿现有模块化单体"
+    },
+    {
+      "id": "M-03",
+      "title": "纯计分引擎",
+      "status": "建议",
+      "owns": "校验固定输入并执行受支持规则",
+      "output": "结构化结果或明确无部分分数错误",
+      "boundary": "不碰DB/网络/AI/会员策略",
+      "deployment": "现有单应用内逻辑职责；远端沿现有模块化单体"
+    },
+    {
+      "id": "M-04",
+      "title": "报告与比较",
+      "status": "建议",
+      "owns": "固定模板渲染、快照、因子瓶映射、可比性判断",
+      "output": "reportId与阅读模型",
+      "boundary": "不让AI覆盖分数，不从主题推导数值",
+      "deployment": "现有单应用内逻辑职责；远端沿现有模块化单体"
+    },
+    {
+      "id": "M-05",
+      "title": "来源与本人资料",
+      "status": "建议",
+      "owns": "观察、专题、本人修订、记忆、行动及失效传播",
+      "output": "SourceRef与当前投影",
+      "boundary": "自述、测量、AI和实际观察不混为一个事实",
+      "deployment": "现有单应用内逻辑职责；远端沿现有模块化单体"
+    },
+    {
+      "id": "M-06",
+      "title": "空间与身份适配",
+      "status": "建议",
+      "owns": "空间锁定、认领/复制、会话代次、归属验证",
+      "output": "显式spaceId与当前访问上下文",
+      "boundary": "不因登录自动上传，不在客户端自授服务权限",
+      "deployment": "现有单应用内逻辑职责；远端沿现有模块化单体"
+    },
+    {
+      "id": "M-07",
+      "title": "保护与传输",
+      "status": "建议",
+      "owns": "加密封装、schema迁移、导入导出、备份规则和恢复",
+      "output": "经校验的本地保存/恢复回执",
+      "boundary": "不恢复凭据、权益或自动外发指令",
+      "deployment": "现有单应用内逻辑职责；远端沿现有模块化单体"
+    },
+    {
+      "id": "M-08",
+      "title": "远端适配",
+      "status": "建议",
+      "owns": "内容更新查询、认证、AI、权益及可选云保存",
+      "output": "已有服务语义、最小DTO和可恢复操作键",
+      "boundary": "不上微服务/向量库/通用消息平台，不直连模型供应商",
+      "deployment": "现有单应用内逻辑职责；远端沿现有模块化单体"
+    },
+    {
+      "id": "M-09",
+      "title": "页面和导航",
+      "status": "建议",
+      "owns": "39路由的UiState、保存状态、受控返回意图、可访问性",
+      "output": "带对象身份的用户动作",
+      "boundary": "不直接查全库、不在Composable里计算或发副作用",
+      "deployment": "现有单应用内逻辑职责；远端沿现有模块化单体"
+    }
+  ],
+  "operations": [
+    {
+      "id": "content.open",
+      "status": "条件必需",
+      "location": "本机",
+      "requestSemantics": "bankId/version或当前获准目录选择；客户端能力",
+      "responseSemantics": "精确PackageRef、可信声明、ready/blocked及原因",
+      "boundary": "选包后核验资格和全部必要数据；无答案外发",
+      "pages": [
+        "content",
+        "question"
+      ],
+      "endpoint": null,
+      "endpointStatus": "沿既有服务合同演进，本方案不定URI"
+    },
+    {
+      "id": "answer.persist",
+      "status": "条件必需",
+      "location": "本机",
+      "requestSemantics": "spaceId/sessionId；itemId/optionId；expectedAnswerRevision",
+      "responseSemantics": "savedRevision或冲突/存储失败",
+      "boundary": "同一事务保存答案和revision；未落盘不可显示已保存",
+      "pages": [
+        "question"
+      ],
+      "endpoint": null,
+      "endpointStatus": "沿既有服务合同演进，本方案不定URI"
+    },
+    {
+      "id": "assessment.submit",
+      "status": "条件必需",
+      "location": "本机条件方案",
+      "requestSemantics": "spaceId/sessionId；expectedAnswerRevision；submitToken",
+      "responseSemantics": "原submissionId及结果/计算中/失败",
+      "boundary": "先冻结；同键同输入回原结果，同键异参冲突",
+      "pages": [
+        "review",
+        "complete"
+      ],
+      "endpoint": null,
+      "endpointStatus": "沿既有服务合同演进，本方案不定URI"
+    },
+    {
+      "id": "report.read",
+      "status": "条件必需",
+      "location": "本机条件方案",
+      "requestSemantics": "spaceId/reportId及明确版本",
+      "responseSemantics": "不可变阅读模型＋当前有效性说明",
+      "boundary": "导航只读；不因重开触发计分/AI",
+      "pages": [
+        "report",
+        "records"
+      ],
+      "endpoint": null,
+      "endpointStatus": "沿既有服务合同演进，本方案不定URI"
+    },
+    {
+      "id": "result.compare",
+      "status": "条件必需",
+      "location": "本机",
+      "requestSemantics": "同空间两个resultRefs；比较规则版本",
+      "responseSemantics": "可比字段或不可比原因及并读模型",
+      "boundary": "不能按同名因子直接相减",
+      "pages": [
+        "compare"
+      ],
+      "endpoint": null,
+      "endpointStatus": "沿既有服务合同演进，本方案不定URI"
+    },
+    {
+      "id": "content.update.check",
+      "status": "条件必需",
+      "location": "联网更新",
+      "requestSemantics": "已装公共包版本；manifest/declaration revision；客户端兼容能力",
+      "responseSemantics": "签名增量元数据、替代/撤回影响和更新体积",
+      "boundary": "首启不依赖；不传答案、画像或私人历史",
+      "pages": [
+        "content"
+      ],
+      "endpoint": null,
+      "endpointStatus": "沿既有服务合同演进，本方案不定URI"
+    },
+    {
+      "id": "daily.select",
+      "status": "条件必需",
+      "location": "位置待决定，建议本机",
+      "requestSemantics": "空间、dayKey/timezone、批准题库、获准使用的本机历史/画像来源",
+      "responseSemantics": "固定daySetId、所选精确题ID、规则版本、缺口和historyCoverage",
+      "boundary": "按D-17确认后启用；若远端选题另走明确外发与AI计次策略",
+      "pages": [
+        "daily-checkin"
+      ],
+      "endpoint": null,
+      "endpointStatus": "沿既有服务合同演进，本方案不定URI"
+    },
+    {
+      "id": "transfer.preview/apply",
+      "status": "条件必需",
+      "location": "本机",
+      "requestSemantics": "本人选择文件/空间；预检manifest；冲突选择；operationId",
+      "responseSemantics": "逐对象预览与应用回执；可恢复失败",
+      "boundary": "原文件和原库不提前删；不自动认领他人账号数据",
+      "pages": [
+        "data"
+      ],
+      "endpoint": null,
+      "endpointStatus": "沿既有服务合同演进，本方案不定URI"
+    },
+    {
+      "id": "context.prepare",
+      "status": "条件必需",
+      "location": "本机",
+      "requestSemantics": "当前空间、明确来源片段、purpose、representation及noticeVersion",
+      "responseSemantics": "固定contextRevision、selectedScope、payloads和inputDigest",
+      "boundary": "登录同意不覆盖私人正文外发；不足时显示真实限制",
+      "pages": [
+        "assistant",
+        "report",
+        "conversation"
+      ],
+      "endpoint": null,
+      "endpointStatus": "沿既有服务合同演进，本方案不定URI"
+    },
+    {
+      "id": "analysis.submit/recover",
+      "status": "条件必需",
+      "location": "联网AI",
+      "requestSemantics": "既有clientOperationId、认证会话、选定payloads、版本/类型/验证层级及同意快照",
+      "responseSemantics": "requestId、任务状态、实际执行来源清单、独立AI结果",
+      "boundary": "收到回应不授权当前画像采用；原键查回优先，端侧不能自扣额度",
+      "pages": [
+        "assistant",
+        "conversation",
+        "report"
+      ],
+      "endpoint": null,
+      "endpointStatus": "沿既有服务合同演进，本方案不定URI"
+    },
+    {
+      "id": "cloud.save.selection",
+      "status": "条件必需",
+      "location": "仅会员云保存方案被确认后",
+      "requestSemantics": "本人选定objectRefs、允许字段、localRevision/parentRevision、操作键、consentScope；云权限来自认证",
+      "responseSemantics": "已接受字段/版本、逐对象状态、serverVersion/冲突及删除回执",
+      "boundary": "云备份摘要不等于可完整恢复；云端不能凭本地hash认定分数真实",
+      "pages": [
+        "data",
+        "membership",
+        "privacy"
+      ],
+      "endpoint": null,
+      "endpointStatus": "沿既有服务合同演进，本方案不定URI"
+    }
+  ],
+  "flows": [
+    {
+      "id": "F-01",
+      "title": "首次安装后的离线开始",
+      "status": "条件必需",
+      "normal": [
+        "安装制品已含全部批准内容和索引",
+        "创建/解锁私人空间，本地验证manifest与初始化内容读库",
+        "dataReady后显示全量获准目录，开始时锁定具体包和题序",
+        "每题事务保存，飞行模式可杀进程后续答"
+      ],
+      "exceptions": [
+        "缺文件/校验失败：对应包blocked，不能联网补齐后仍声称随安装完整",
+        "磁盘不足/首启中断：保留可恢复初始化记录，重开继续；首页不能假称已准备好"
+      ],
+      "pages": [
+        "home",
+        "content",
+        "question"
+      ]
+    },
+    {
+      "id": "F-02",
+      "title": "保存作答与冻结交卷",
+      "status": "条件必需",
+      "normal": [
+        "选项变化先校验所选包、题ID、选项ID和空间",
+        "按expectedRevision原子写答案并加revision，页面收到saved后才标已保存",
+        "提交事务冻结答卷与完整版本锁，创建或找回submission",
+        "纯引擎计算，第二事务落不可变结果并推进会话；再生成/保存报告快照",
+        "页面用原resultId/reportId导航"
+      ],
+      "exceptions": [
+        "提交后进程被杀：按冻结输入和原engineVersion恢复，不用latest",
+        "结果已存但导航失败：只查原结果，不再次交卷",
+        "保存失败保留未保存输入；冻结后编辑另建修订或新会话"
+      ],
+      "pages": [
+        "question",
+        "review",
+        "complete",
+        "report"
+      ]
+    },
+    {
+      "id": "F-03",
+      "title": "后续题包更新",
+      "status": "条件必需",
+      "normal": [
+        "收到受信声明和明确体积/影响",
+        "临时区保存新包与installOperationId",
+        "校验签名、哈希、schema、引用、兼容性和派生索引",
+        "文件就位后事务激活新任务指针；旧session继续引用旧包",
+        "无引用且允许清理的旧版本才回收"
+      ],
+      "exceptions": [
+        "下载/复制中断：原包继续工作，残件按安装日志恢复",
+        "激活前崩溃：新包未成为current；激活后崩溃：重开核对安装状态",
+        "同版本不同hash、未知签名或不支持引擎：拒用，不破坏旧记录"
+      ],
+      "pages": [
+        "content",
+        "question",
+        "records"
+      ]
+    },
+    {
+      "id": "F-04",
+      "title": "规则纠错与撤回",
+      "status": "条件必需",
+      "normal": [
+        "验证更高可信声明revision并整体入库",
+        "按影响表分别控制新答、续答、计算、当前引用与历史可读",
+        "失效来源关系与当前投影；取消/标记相关待发与在途AI",
+        "历史报告显示当时快照和当前失效说明",
+        "本人选择重算且资格允许时创建关联新结果和报告"
+      ],
+      "exceptions": [
+        "离线设备只能保持最后可信状态，不能保证马上撤回",
+        "需删除题文时按许可范围执行并披露不可复算，不保存无权全文",
+        "迟到AI结果重检来源，不让失效分数回到当前画像"
+      ],
+      "pages": [
+        "content",
+        "report",
+        "portrait",
+        "memories",
+        "privacy"
+      ]
+    },
+    {
+      "id": "F-05",
+      "title": "认领访客资料与换号",
+      "status": "条件必需",
+      "normal": [
+        "登录仅获得认证，不动访客私人对象",
+        "本人预览要认领/复制的对象及目标空间",
+        "事务/操作日志完成归属与引用映射，源数据到成功后才按选择处理",
+        "恢复原任务；上传与AI发送仍分别由本人选择",
+        "A退出切空空间，B登录只打开B的空间"
+      ],
+      "exceptions": [
+        "认领中断：按claimOperationId续接或回滚，不双份复制",
+        "A请求迟到：校验originAccount/space和会话代次，只能按留存规则写回A隔离空间，绝不进入B界面"
+      ],
+      "pages": [
+        "auth",
+        "account",
+        "question",
+        "data"
+      ]
+    },
+    {
+      "id": "F-06",
+      "title": "导入一份可恢复备份",
+      "status": "条件必需",
+      "normal": [
+        "本人选文件和目标空间",
+        "隔离预检格式/校验/加密/schema/归属/关联/题包引用",
+        "预览新增、重复、冲突及缺包，不预设合并所有资料",
+        "确认后按原operationId原子应用或可恢复提交",
+        "只恢复私人资料，重新验证来源资格；联网任务由本人重新认证后查询"
+      ],
+      "exceptions": [
+        "错误密码/密钥缺失/截断：明确无法恢复，原库不变",
+        "同ID不同hash：显示冲突，不能最新覆盖",
+        "缺旧包时可读合法历史快照但不能伪称可以续答/复算",
+        "旧备份含云删除对象：同步前查墓碑，禁止作为新上传复活"
+      ],
+      "pages": [
+        "data",
+        "privacy",
+        "support"
+      ]
+    },
+    {
+      "id": "F-07",
+      "title": "从本地报告发起AI解释",
+      "status": "条件必需",
+      "normal": [
+        "本人选择报告片段及补充情境，预览实际外发内容",
+        "固定来源revision、类型与已有验证证据声明，本地持久化原操作键；服务端按实际checksPerformed/recomputedScope决定接纳层级",
+        "服务端按认证、额度与政策接收获准payload；终态与计次按服务合同",
+        "客户端原键恢复结果和实际执行来源清单",
+        "接收、形成候选、确认三处重检来源；AI解释独立保存"
+      ],
+      "exceptions": [
+        "断网/首响丢失是unknown，先查原任务，不能新键重复扣次",
+        "修改或删除来源后，迟到结果不得成为当前画像或确认记忆",
+        "关闭聊天留存时不默认持久化全文；允许保存的最小恢复元数据单独定义"
+      ],
+      "pages": [
+        "report",
+        "assistant",
+        "conversation",
+        "memories",
+        "privacy"
+      ]
+    },
+    {
+      "id": "F-08",
+      "title": "私人库升级失败",
+      "status": "条件必需",
+      "normal": [
+        "备份/隔离保留旧版本数据与必要密钥材料，禁外发",
+        "按已测试迁移路径运行数据库事务；文件转换按操作日志暂存",
+        "核验schema、记录数量、内容摘要和引用关系后才正常打开",
+        "失败保留旧库进入只读诊断/恢复界面，支持导出原始可恢复材料"
+      ],
+      "exceptions": [
+        "不能清库重建后显示正常",
+        "新应用不一定能直接使用旧schema；回滚含安全恢复原文件及兼容读取器，不能承诺Room自动支持应用降级",
+        "密钥失效与迁移错误不同，分别处理"
+      ],
+      "pages": [
+        "data",
+        "support",
+        "home"
+      ]
+    }
+  ],
+  "acceptance": [
+    {
+      "id": "AT-L-01",
+      "title": "首次完全断网全量清单",
+      "status": "条件必需",
+      "execution": "待执行；本轮仅设计验收",
+      "steps": "全新安装，首开前断网；遍历全部批准包及必要资源，搜索/打开/开始/保存/重开。",
+      "expected": "实际安装集合等于批准集合，无首次下载请求；资格不足列阻断而非完成。",
+      "pages": [
+        "home",
+        "content",
+        "question"
+      ],
+      "requirementIds": [
+        "ZY-FR-005",
+        "ZY-ENG-001"
+      ],
+      "existingAcceptanceRefs": [
+        "T-ENG-001",
+        "T-FR-005-E1",
+        "T-FR-005-E2",
+        "T-FR-005-E3",
+        "T-FR-005-N"
+      ],
+      "traceabilityNote": "关联现有需求和用例，不表示这些用例已逐项执行或已覆盖全部新增故障点"
+    },
+    {
+      "id": "AT-L-02",
+      "title": "首启就绪与体积",
+      "status": "条件必需",
+      "execution": "待执行；本轮仅设计验收",
+      "steps": "在D-14设备矩阵量测冷启动首帧、全库ready、安装/复制/更新峰值空间。",
+      "expected": "首页可见与内容ready分别记录；全部达到批准预算才通过，预算未定不宣布通过。",
+      "pages": [
+        "home",
+        "content"
+      ],
+      "requirementIds": [
+        "ZY-NFR-008",
+        "ZY-ENG-001"
+      ],
+      "existingAcceptanceRefs": [
+        "T-ENG-001",
+        "T-NFR-008-N"
+      ],
+      "traceabilityNote": "关联现有需求和用例，不表示这些用例已逐项执行或已覆盖全部新增故障点"
+    },
+    {
+      "id": "AT-L-03",
+      "title": "坏包与伪签名",
+      "status": "条件必需",
+      "execution": "待执行；本轮仅设计验收",
+      "steps": "替换包字节、同时替换自报hash、未知keyId、旧声明回放。",
+      "expected": "可信来源/哈希/反回退检查拒用；原有效包和私人记录完整。",
+      "pages": [
+        "content"
+      ],
+      "requirementIds": [
+        "ZY-FR-005",
+        "ZY-OPS-001"
+      ],
+      "existingAcceptanceRefs": [
+        "T-FR-005-E1",
+        "T-FR-005-E2",
+        "T-FR-005-E3",
+        "T-FR-005-N",
+        "T-OPS-001"
+      ],
+      "traceabilityNote": "关联现有需求和用例，不表示这些用例已逐项执行或已覆盖全部新增故障点"
+    },
+    {
+      "id": "AT-L-04",
+      "title": "更新故障点恢复",
+      "status": "条件必需",
+      "execution": "待执行；本轮仅设计验收",
+      "steps": "分别在写临时文件、验包、文件就位、索引激活前后强杀并重开。",
+      "expected": "只能得到完整旧版或完整新版当前指针，无半包；在做答卷仍锁原版。",
+      "pages": [
+        "content",
+        "question"
+      ],
+      "requirementIds": [
+        "ZY-DATA-007",
+        "ZY-FR-007"
+      ],
+      "existingAcceptanceRefs": [
+        "T-DATA-007",
+        "T-DATA-007-R3-CORRUPT",
+        "T-DATA-007-R3-ROUNDTRIP",
+        "T-FR-007-E1",
+        "T-FR-007-E2",
+        "T-FR-007-E3",
+        "T-FR-007-N"
+      ],
+      "traceabilityNote": "关联现有需求和用例，不表示这些用例已逐项执行或已覆盖全部新增故障点"
+    },
+    {
+      "id": "AT-L-05",
+      "title": "私人非破坏迁移",
+      "status": "条件必需",
+      "execution": "待执行；本轮仅设计验收",
+      "steps": "从每个支持旧schema迁移含答案、报告、关系与加密数据的测试库，并注入迁移失败。",
+      "expected": "数据与引用守恒；失败不清库；保留恢复路径，密钥错误不报成功。",
+      "pages": [
+        "data",
+        "support"
+      ],
+      "requirementIds": [
+        "ZY-DATA-004",
+        "ZY-DATA-007"
+      ],
+      "existingAcceptanceRefs": [
+        "T-DATA-004",
+        "T-DATA-007",
+        "T-DATA-007-R3-CORRUPT",
+        "T-DATA-007-R3-ROUNDTRIP"
+      ],
+      "traceabilityNote": "关联现有需求和用例，不表示这些用例已逐项执行或已覆盖全部新增故障点"
+    },
+    {
+      "id": "AT-L-06",
+      "title": "保存与交卷幂等",
+      "status": "条件必需",
+      "execution": "待执行；本轮仅设计验收",
+      "steps": "连点保存/交卷、进程中断、结果已存导航失败、同键异参。",
+      "expected": "已保存答案不丢、未保存明确；一个冻结输入一个逻辑结果；异参冲突。",
+      "pages": [
+        "question",
+        "review",
+        "complete"
+      ],
+      "requirementIds": [
+        "ZY-FR-006",
+        "ZY-FR-008",
+        "ZY-NFR-014"
+      ],
+      "existingAcceptanceRefs": [
+        "T-FR-006-E1",
+        "T-FR-006-E2",
+        "T-FR-006-E3",
+        "T-FR-006-N",
+        "T-FR-008-E1",
+        "T-FR-008-E2",
+        "T-FR-008-E3",
+        "T-FR-008-N",
+        "T-NFR-014-N"
+      ],
+      "traceabilityNote": "关联现有需求和用例，不表示这些用例已逐项执行或已覆盖全部新增故障点"
+    },
+    {
+      "id": "AT-L-07",
+      "title": "既有契约精确计分",
+      "status": "条件必需",
+      "execution": "待执行；本轮仅设计验收",
+      "steps": "运行参考工程向量；多因子贡献、null/空映射、重复/未知ID、反向标记和十进制。",
+      "expected": "逐字段精确一致；不二次反向、不补0、不对失败展示部分因子。",
+      "pages": [
+        "review",
+        "report"
+      ],
+      "requirementIds": [
+        "ZY-MEAS-004",
+        "ZY-MEAS-005"
+      ],
+      "existingAcceptanceRefs": [
+        "T-MEAS-004",
+        "T-MEAS-005"
+      ],
+      "traceabilityNote": "关联现有需求和用例，不表示这些用例已逐项执行或已覆盖全部新增故障点"
+    },
+    {
+      "id": "AT-L-08",
+      "title": "正式金标准与常模资格",
+      "status": "条件必需",
+      "execution": "待执行；本轮仅设计验收",
+      "steps": "逐正式包运行独立核验的输入预期样本及常模适用/分段边界。",
+      "expected": "工程和测量证据分别通过；无常模不显示百分位，rule_missing/unavailable不能偷跑。",
+      "pages": [
+        "report",
+        "single-factor",
+        "short-16pf"
+      ],
+      "requirementIds": [
+        "ZY-MEAS-001",
+        "ZY-MEAS-004",
+        "ZY-MEAS-007"
+      ],
+      "existingAcceptanceRefs": [
+        "T-LEG-02",
+        "T-LEG-12",
+        "T-MEAS-001",
+        "T-MEAS-004",
+        "T-MEAS-007"
+      ],
+      "traceabilityNote": "关联现有需求和用例，不表示这些用例已逐项执行或已覆盖全部新增故障点"
+    },
+    {
+      "id": "AT-L-09",
+      "title": "六种身份不混",
+      "status": "条件必需",
+      "execution": "待执行；本轮仅设计验收",
+      "steps": "原版、AI重置、简化、单因子、每日、手设模拟分别保存、分享、转AI和进入比较。",
+      "expected": "原身份随快照全程保留；模拟不入真人画像，局部不变成全量，未经验证不算跨模式差值。",
+      "pages": [
+        "report",
+        "compare",
+        "share",
+        "portrait"
+      ],
+      "requirementIds": [
+        "ZY-FR-012",
+        "ZY-FR-014",
+        "ZY-FR-015",
+        "ZY-FR-016",
+        "ZY-FR-057",
+        "ZY-MEAS-002"
+      ],
+      "existingAcceptanceRefs": [
+        "T-FR-012-E1",
+        "T-FR-012-E2",
+        "T-FR-012-N",
+        "T-FR-014-E1",
+        "T-FR-014-E2",
+        "T-FR-014-N",
+        "T-FR-014-R1-SELECT",
+        "T-FR-015-E1",
+        "T-FR-015-E2",
+        "T-FR-015-N",
+        "T-FR-015-R1-COLD",
+        "T-FR-015-R1-PROFILE",
+        "T-FR-015-R1-RANGE",
+        "T-FR-015-R3-DAILY-1",
+        "T-FR-015-R3-DAILY-2",
+        "T-FR-015-R3-DAILY-3",
+        "T-FR-015-R3-DEVICES",
+        "T-FR-015-R3-QUESTION",
+        "T-FR-016-E1",
+        "T-FR-016-E2",
+        "T-FR-016-N",
+        "T-FR-016-R1-SIM",
+        "T-FR-057-E1",
+        "T-FR-057-E2",
+        "T-FR-057-N",
+        "T-MEAS-002"
+      ],
+      "traceabilityNote": "关联现有需求和用例，不表示这些用例已逐项执行或已覆盖全部新增故障点"
+    },
+    {
+      "id": "AT-L-10",
+      "title": "旧报告稳定重开",
+      "status": "条件必需",
+      "execution": "待执行；本轮仅设计验收",
+      "steps": "生成后升级题包/引擎/模板、换主题，再打开旧报告。",
+      "expected": "数值、依据和旧正文不静默变；有效性说明可更新；新版本生成新快照。",
+      "pages": [
+        "report",
+        "records",
+        "appearance"
+      ],
+      "requirementIds": [
+        "ZY-FR-008",
+        "ZY-FR-009",
+        "ZY-MEAS-006"
+      ],
+      "existingAcceptanceRefs": [
+        "T-FR-008-E1",
+        "T-FR-008-E2",
+        "T-FR-008-E3",
+        "T-FR-008-N",
+        "T-FR-009-E1",
+        "T-FR-009-E2",
+        "T-FR-009-N",
+        "T-MEAS-006"
+      ],
+      "traceabilityNote": "关联现有需求和用例，不表示这些用例已逐项执行或已覆盖全部新增故障点"
+    },
+    {
+      "id": "AT-L-11",
+      "title": "撤回与迟到AI",
+      "status": "条件必需",
+      "execution": "待执行；本轮仅设计验收",
+      "steps": "撤回源/关闭引用/修订答案时在途AI完成，并尝试生成和确认记忆。",
+      "expected": "三处接纳校验均生效；旧依据只按留存规则保留历史，不复活画像或记忆。",
+      "pages": [
+        "report",
+        "conversation",
+        "memories",
+        "privacy"
+      ],
+      "requirementIds": [
+        "ZY-DATA-005",
+        "ZY-FR-030"
+      ],
+      "existingAcceptanceRefs": [
+        "T-DATA-005",
+        "T-FR-030-E1",
+        "T-FR-030-E2",
+        "T-FR-030-E3",
+        "T-FR-030-N",
+        "T-LEG-07"
+      ],
+      "traceabilityNote": "关联现有需求和用例，不表示这些用例已逐项执行或已覆盖全部新增故障点"
+    },
+    {
+      "id": "AT-L-12",
+      "title": "账号与空间隔离",
+      "status": "条件必需",
+      "execution": "待执行；本轮仅设计验收",
+      "steps": "访客认领中断；A退出后B登录；A晚到结果；取消认领与重复复制。",
+      "expected": "无A内容显示给B；原空间可恢复；操作幂等且引用不丢；登录没有上传。",
+      "pages": [
+        "auth",
+        "account",
+        "data"
+      ],
+      "requirementIds": [
+        "ZY-DATA-003",
+        "ZY-FR-007"
+      ],
+      "existingAcceptanceRefs": [
+        "T-DATA-003",
+        "T-DATA-003-R3-INTERRUPT",
+        "T-DATA-003-R3-SWITCH",
+        "T-FR-007-E1",
+        "T-FR-007-E2",
+        "T-FR-007-E3",
+        "T-FR-007-N"
+      ],
+      "traceabilityNote": "关联现有需求和用例，不表示这些用例已逐项执行或已覆盖全部新增故障点"
+    },
+    {
+      "id": "AT-L-13",
+      "title": "系统备份边界",
+      "status": "条件必需",
+      "execution": "待执行；本轮仅设计验收",
+      "steps": "在支持Android版本及可用OEM迁移路径检查自动云备份、设备迁移、凭据和待发送队列。",
+      "expected": "符合明确策略；不能只凭allowBackup或一个XML断言全部已排除。",
+      "pages": [
+        "privacy",
+        "data"
+      ],
+      "requirementIds": [
+        "ZY-DATA-004",
+        "ZY-ENG-005"
+      ],
+      "existingAcceptanceRefs": [
+        "T-DATA-004",
+        "T-ENG-005"
+      ],
+      "traceabilityNote": "关联现有需求和用例，不表示这些用例已逐项执行或已覆盖全部新增故障点"
+    },
+    {
+      "id": "AT-L-14",
+      "title": "导出与换机往返",
+      "status": "条件必需",
+      "execution": "待执行；本轮仅设计验收",
+      "steps": "加密导出选定资料到新安装环境导入；测试错密码、缺密钥、截断、缺包、同ID冲突。",
+      "expected": "仅授权数据完整恢复且关联可查；未恢复登录/权益/自动AI；失败原库不变。",
+      "pages": [
+        "data"
+      ],
+      "requirementIds": [
+        "ZY-DATA-007",
+        "ZY-FR-046",
+        "ZY-FR-047"
+      ],
+      "existingAcceptanceRefs": [
+        "T-DATA-007",
+        "T-DATA-007-R3-CORRUPT",
+        "T-DATA-007-R3-ROUNDTRIP",
+        "T-FR-046-E1",
+        "T-FR-046-E2",
+        "T-FR-046-E3",
+        "T-FR-046-N",
+        "T-FR-047-E1",
+        "T-FR-047-E2",
+        "T-FR-047-E3",
+        "T-FR-047-N"
+      ],
+      "traceabilityNote": "关联现有需求和用例，不表示这些用例已逐项执行或已覆盖全部新增故障点"
+    },
+    {
+      "id": "AT-L-15",
+      "title": "删除不复生",
+      "status": "条件必需",
+      "execution": "待执行；本轮仅设计验收",
+      "steps": "删除对象后触发旧缓存、迟到结果、旧备份导入和可选同步重新联机。",
+      "expected": "当前投影不再引用；本地墓碑与云删除策略防复生；不能承诺撤回已导出副本。",
+      "pages": [
+        "data",
+        "privacy",
+        "portrait"
+      ],
+      "requirementIds": [
+        "ZY-DATA-005",
+        "ZY-FR-048"
+      ],
+      "existingAcceptanceRefs": [
+        "T-DATA-005",
+        "T-FR-048-E1",
+        "T-FR-048-E2",
+        "T-FR-048-E3",
+        "T-FR-048-N",
+        "T-LEG-07"
+      ],
+      "traceabilityNote": "关联现有需求和用例，不表示这些用例已逐项执行或已覆盖全部新增故障点"
+    },
+    {
+      "id": "AT-L-16",
+      "title": "每日固定及未做口径",
+      "status": "条件必需",
+      "execution": "待执行；本轮仅设计验收",
+      "steps": "同日重开/改设备日期/跨日未完成/包修订/不足题/拒答/多设备不同历史。",
+      "expected": "执行D-17明确策略；不换题偷补、不把同题新版自动当未做；本机范围清楚。",
+      "pages": [
+        "daily-checkin"
+      ],
+      "requirementIds": [
+        "ZY-FR-015"
+      ],
+      "existingAcceptanceRefs": [
+        "T-FR-015-E1",
+        "T-FR-015-E2",
+        "T-FR-015-N",
+        "T-FR-015-R1-COLD",
+        "T-FR-015-R1-PROFILE",
+        "T-FR-015-R1-RANGE",
+        "T-FR-015-R3-DAILY-1",
+        "T-FR-015-R3-DAILY-2",
+        "T-FR-015-R3-DAILY-3",
+        "T-FR-015-R3-DEVICES",
+        "T-FR-015-R3-QUESTION"
+      ],
+      "traceabilityNote": "关联现有需求和用例，不表示这些用例已逐项执行或已覆盖全部新增故障点"
+    },
+    {
+      "id": "AT-L-17",
+      "title": "只读动作无隐性副作用",
+      "status": "条件必需",
+      "execution": "待执行；本轮仅设计验收",
+      "steps": "打开报告、返回首页、主题切换、查看会员、网络恢复。",
+      "expected": "不自动重算/发AI/付款/上传，已保存本机事实不因会员到期被改写或抹去。",
+      "pages": [
+        "home",
+        "report",
+        "appearance",
+        "membership"
+      ],
+      "requirementIds": [
+        "ZY-ENG-001",
+        "ZY-DATA-002"
+      ],
+      "existingAcceptanceRefs": [
+        "T-DATA-002",
+        "T-ENG-001",
+        "T-LEG-05"
+      ],
+      "traceabilityNote": "关联现有需求和用例，不表示这些用例已逐项执行或已覆盖全部新增故障点"
+    },
+    {
+      "id": "AT-L-18",
+      "title": "敏感数据最小出网",
+      "status": "条件必需",
+      "execution": "待执行；本轮仅设计验收",
+      "steps": "抓包与日志核查内容更新、报告解释及可选云保存。",
+      "expected": "内容更新只有公共版本信息；AI/云只有明确选定字段；无答案、密钥、正文泄漏到普通日志。",
+      "pages": [
+        "content",
+        "assistant",
+        "data"
+      ],
+      "requirementIds": [
+        "ZY-DATA-002",
+        "ZY-DATA-004"
+      ],
+      "existingAcceptanceRefs": [
+        "T-DATA-002",
+        "T-DATA-004",
+        "T-LEG-05"
+      ],
+      "traceabilityNote": "关联现有需求和用例，不表示这些用例已逐项执行或已覆盖全部新增故障点"
+    }
+  ],
+  "decisions": [
+    {
+      "id": "LD-01",
+      "title": "确定三个条件式架构方向",
+      "status": "待决定",
+      "text": "是否选择本地确定性计分、本地报告保存，以及会员只保存哪些关键分析数据。建议本地计分与基础报告；会员云保存保持独立可选。",
+      "existingDecisionIds": [
+        "PAGE-ARCH-CANDIDATE",
+        "D-05",
+        "D-08"
+      ],
+      "owner": "产品负责人；客户端/服务端工程评估",
+      "blocks": "对应正式实施方案冻结，不阻止本轮分析",
+      "canProceed": "题包契约、空间隔离、假数据工程流程、完整安装预算研究"
+    },
+    {
+      "id": "LD-02",
+      "title": "确认正式发布题库及权利",
+      "status": "待决定",
+      "text": "逐包明确内容家族、版本、适用人群、中文译本、离线分发/商业/改编许可及计分解释依据。当前清单为空，不能把候选库整体发布。",
+      "existingDecisionIds": [
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04"
+      ],
+      "owner": "产品与内容负责人，必要专业审校",
+      "blocks": "正式题文分发、正式测评/解释",
+      "canProceed": "用明确标识的工程样例验证安装和运算"
+    },
+    {
+      "id": "LD-03",
+      "title": "完整安装的体积与设备预算",
+      "status": "待决定",
+      "text": "全量实际内容字节数、最低设备/系统、首启ready目标、空间峰值和目标渠道；若超限由用户决定渠道或范围，不以下载悄改硬指标。",
+      "existingDecisionIds": [
+        "D-11",
+        "D-14"
+      ],
+      "owner": "产品与客户端工程",
+      "blocks": "安装制品验收",
+      "canProceed": "清单/索引生成与真实设备测量准备"
+    },
+    {
+      "id": "LD-04",
+      "title": "更新信任与撤回处置",
+      "status": "待决定",
+      "text": "受控签名密钥/轮换、离线过期策略、撤回后的历史/题文保留，以及操作者职责。更新通道不能自行决定量表资格。",
+      "existingDecisionIds": [
+        "D-02",
+        "D-08",
+        "D-16"
+      ],
+      "owner": "内容、工程及隐私负责人",
+      "blocks": "动态更新/撤回正式启用",
+      "canProceed": "不可变包、影响表和故障恢复设计"
+    },
+    {
+      "id": "LD-05",
+      "title": "真人数据保护与恢复",
+      "status": "待决定",
+      "text": "采用字段级还是数据库加密、空间解锁规则、系统备份与设备迁移范围、恢复材料和保留期限。选择主动可恢复导出时一起定义密钥丢失后果。",
+      "existingDecisionIds": [
+        "D-08",
+        "D-14"
+      ],
+      "owner": "产品与客户端安全工程",
+      "blocks": "真实私人数据持久化前",
+      "canProceed": "合成数据迁移/恢复故障测试"
+    },
+    {
+      "id": "LD-06",
+      "title": "衍生模式的正式语义",
+      "status": "待决定",
+      "text": "每日固定和历史范围、画像采用；简化题量/映射；模拟量尺和保存。单因子要独立使用依据，不借用完整原版的效度。",
+      "existingDecisionIds": [
+        "D-04",
+        "D-17",
+        "D-18",
+        "D-19"
+      ],
+      "owner": "产品与测量/内容负责人",
+      "blocks": "对应模式的真实计分或画像更新",
+      "canProceed": "身份、状态、空值和不可比UI契约"
+    },
+    {
+      "id": "LD-07",
+      "title": "AI与云范围的共同接口",
+      "status": "待决定",
+      "text": "按配套方案定本次AI片段、留存和会员云保存字段；不得将“只上传因子”误称不敏感，也不得承诺仅摘要可完整重建答案。",
+      "existingDecisionIds": [
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-09"
+      ],
+      "owner": "产品、服务端与隐私负责人",
+      "blocks": "真实AI外发与会员云存",
+      "canProceed": "稳定对象引用、来源revision、类型与验证层级接口"
+    }
+  ],
+  "implementationStages": [
+    {
+      "id": "ST-1",
+      "title": "固定范围和可验证内容清单",
+      "status": "建议",
+      "text": "确认LD-01与首版闭环，建立批准题库全集、资格门禁、版本/哈希和设备预算。现在不创建全平台脚手架。",
+      "deliverables": [
+        "批准集合到安装制品的完整性检查",
+        "来源和模式类型清单",
+        "真实设备/空间/性能验收计划"
+      ],
+      "exitGate": "未获准内容不得进入正式制品；候选工程样例显式标识"
+    },
+    {
+      "id": "ST-2",
+      "title": "本机保护与完整安装闭环",
+      "status": "建议",
+      "text": "在现有Android底座实现内容/私人分离、空间与加密/备份策略、内置包ready、每题保存续答、非破坏迁移和主动恢复。",
+      "deliverables": [
+        "全部获准内容离线可开始与恢复",
+        "假数据空间/升级/导出导入故障通过",
+        "保存失败与恢复状态真实可见"
+      ],
+      "exitGate": "AT-L-01至06、12至14的相关部分通过；未测试项明确列出"
+    },
+    {
+      "id": "ST-3",
+      "title": "条件式本地引擎与报告",
+      "status": "建议",
+      "text": "在本地计算/报告方案确认后，适配既有规则和工程向量，建立冻结提交、结果/报告快照、比较资格与来源失效。正式量表逐包核验，不因工程闭环完成而自动开放。",
+      "deliverables": [
+        "纯引擎及专业金标准证据分栏",
+        "旧报告可读且无静默重算",
+        "六种模式身份和未知原因贯穿页面"
+      ],
+      "exitGate": "AT-L-07至11、15至17相关部分通过；正式包的权利/常模/解释资格单独通过"
+    },
+    {
+      "id": "ST-4",
+      "title": "接受控AI并按需接云保存",
+      "status": "建议",
+      "text": "接已有认证/共享额度/可恢复任务和最小实际来源清单；再按已批准字段/政策实现会员云保存。真实AI带来的帮助和可纠正性需另做小范围验证，本机工程完成不等于完整个人助理产品完成。",
+      "deliverables": [
+        "明确所选片段实际外发",
+        "原键查回与迟到接纳有效",
+        "可选云保存的逐对象回执与删除边界"
+      ],
+      "exitGate": "配套云边界方案及真实外发测试通过；不默认引入全量同步"
+    }
+  ],
+  "sources": [
+    {
+      "id": "S-BASE",
+      "title": "本轮项目基线复核",
+      "type": "项目证据公开摘要",
+      "checkedAt": "2026-10-02",
+      "supports": "现有Android为单app示例底座；题库生产清单为空；沿用内容与服务契约，不公开源代码或私有定位信息"
+    },
+    {
+      "id": "S-PAGES",
+      "title": "阶段一页级开发说明与历史职责公开对账",
+      "type": "已交付公开规格",
+      "supports": "39路由、条件式本地计算/报告/会员云保存、全量随安装硬条件及动作关联"
+    },
+    {
+      "id": "S-REQ",
+      "title": "完整需求矩阵 v1.3",
+      "type": "需求基线",
+      "supports": "D-01至D-22、空间与版本、计分和恢复要求；新增架构建议未改写为已批准需求"
+    },
+    {
+      "id": "S-ARCH",
+      "title": "Android架构建议",
+      "url": "https://developer.android.com/topic/architecture/recommendations",
+      "type": "官方文档",
+      "checkedAt": "2026-10-02",
+      "supports": "UI/数据层、Repository、单向状态、按需要引入领域用例；具体业务边界为项目建议"
+    },
+    {
+      "id": "S-ROOM-PRE",
+      "title": "Room预置数据库",
+      "url": "https://developer.android.com/training/data-storage/room/prepopulate",
+      "type": "官方文档",
+      "checkedAt": "2026-10-02",
+      "supports": "createFromAsset复制与schema校验；已有正常迁移不会自动使用新的预置数据库替换内容"
+    },
+    {
+      "id": "S-ROOM-MIG",
+      "title": "Room数据库迁移",
+      "url": "https://developer.android.com/training/data-storage/room/migrating-db-versions",
+      "type": "官方文档",
+      "checkedAt": "2026-10-02",
+      "supports": "导出schema、非破坏迁移与迁移测试原则；实施API以项目当前固定依赖版本为准，不照抄最新示例升级框架"
+    },
+    {
+      "id": "S-BACKUP",
+      "title": "Android自动备份",
+      "url": "https://developer.android.com/identity/data/autobackup",
+      "type": "官方文档",
+      "checkedAt": "2026-10-02",
+      "supports": "分系统版本和传输方式定义备份排除；默认本地不等于不会进入系统备份"
+    },
+    {
+      "id": "S-KEYSTORE",
+      "title": "Android Keystore",
+      "url": "https://developer.android.com/privacy-and-security/keystore",
+      "type": "官方文档",
+      "checkedAt": "2026-10-02",
+      "supports": "保护密钥与密钥使用限制；数据库加密及跨设备恢复仍需单独设计"
+    },
+    {
+      "id": "S-PAD",
+      "title": "Play Asset Delivery",
+      "url": "https://developer.android.com/guide/playcore/asset-delivery",
+      "type": "官方文档",
+      "checkedAt": "2026-10-02",
+      "supports": "install-time与fast-follow/on-demand时机不同；是否适合本应用和发布渠道须另评估"
+    },
+    {
+      "id": "S-STARTUP",
+      "title": "Android应用启动时间",
+      "url": "https://developer.android.com/topic/performance/issues/launch-time",
+      "type": "官方文档",
+      "checkedAt": "2026-10-02",
+      "supports": "首屏显示与实际可交互/就绪要分别测量；本方案未虚构具体性能阈值"
+    }
+  ],
+  "modeBoundaries": [
+    {
+      "id": "MODE-ORIGINAL",
+      "title": "16PF原版",
+      "status": "条件必需",
+      "text": "独立获准原版包、题序、计分与适用常模；正式资格逐版本核验。没有资格不向真人输出正式结论。",
+      "pages": [
+        "home",
+        "question",
+        "report"
+      ]
+    },
+    {
+      "id": "MODE-AI-RESET",
+      "title": "AI重置版",
+      "status": "条件必需",
+      "text": "独立内容家族与研究/探索身份；AI重置指经维护的内容版本，不授权运行时让AI改写试题。不得借用原版常模或宣称等值，名称不意味着每次作答都调用远端AI。",
+      "pages": [
+        "ai-reset"
+      ],
+      "decisionRefs": [
+        "D-03"
+      ]
+    },
+    {
+      "id": "MODE-SHORT",
+      "title": "简化版",
+      "status": "条件必需",
+      "text": "少量复杂题可显式映射多个因子，映射和公式独立版本化。题量、覆盖、精度和效度待定；未测因素保留未知，不补0或填出完整正式16PF。",
+      "pages": [
+        "short-16pf"
+      ],
+      "decisionRefs": [
+        "D-18"
+      ]
+    },
+    {
+      "id": "MODE-SINGLE",
+      "title": "单因子",
+      "status": "条件必需",
+      "text": "16选1保留factorId和独立合格题组/解释，只输出选中因子的局部结果。不能从原版任意抽几题后直接沿用其完整常模。",
+      "pages": [
+        "single-factor"
+      ],
+      "decisionRefs": [
+        "D-02",
+        "D-04"
+      ]
+    },
+    {
+      "id": "MODE-DAILY",
+      "title": "每日打卡",
+      "status": "待决定",
+      "text": "默认3–5道尚未做题的方向已明确；推荐本地按批准的选题规则固定daySetId、日期/时区、题包和题ID顺序，同日重开不换题。稳定题身份与修订关系、历史覆盖、题不足/跳过/跨日、画像采用仍待D-17。仅本机历史不得声称跨设备未做，日常资料不得变成完整正式分数。",
+      "pages": [
+        "daily-checkin"
+      ],
+      "decisionRefs": [
+        "D-17",
+        "D-07"
+      ]
+    },
+    {
+      "id": "MODE-SIM",
+      "title": "手设模拟",
+      "status": "条件必需",
+      "text": "SimulationConfig保存16因子显式设定值、量尺版本和设定掩码；始终hypothesis，不生成真人测评身份或进入本人画像。0–10只是当前UI示意；是否保存由D-19决定，转AI或分享必须携带假设标签。旧单因子实验仅兼容入口，不作为新的测评模式。",
+      "pages": [
+        "personality-sandbox",
+        "simulation"
+      ],
+      "decisionRefs": [
+        "D-19"
+      ]
+    }
+  ],
+  "pageCoverage": [
+    {
+      "pageId": "home",
+      "pageName": "认识",
+      "status": "建议",
+      "references": {
+        "sections": [
+          "L1"
+        ],
+        "modeBoundaries": [
+          "MODE-ORIGINAL"
+        ],
+        "operations": [],
+        "flows": [
+          "F-01",
+          "F-08"
+        ],
+        "acceptance": [
+          "AT-L-01",
+          "AT-L-02",
+          "AT-L-17"
+        ]
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    },
+    {
+      "pageId": "explore",
+      "pageName": "探索",
+      "status": "建议",
+      "references": {
+        "sections": [
+          "L1"
+        ],
+        "modeBoundaries": [],
+        "operations": [],
+        "flows": [],
+        "acceptance": []
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    },
+    {
+      "pageId": "assistant",
+      "pageName": "助理",
+      "status": "建议",
+      "references": {
+        "sections": [
+          "L4"
+        ],
+        "modeBoundaries": [],
+        "operations": [
+          "context.prepare",
+          "analysis.submit/recover"
+        ],
+        "flows": [
+          "F-07"
+        ],
+        "acceptance": [
+          "AT-L-18"
+        ]
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    },
+    {
+      "pageId": "me",
+      "pageName": "我的",
+      "status": "建议",
+      "references": {
+        "sections": [
+          "L5"
+        ],
+        "modeBoundaries": [],
+        "operations": [],
+        "flows": [],
+        "acceptance": []
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    },
+    {
+      "pageId": "question",
+      "pageName": "专心作答",
+      "status": "建议",
+      "references": {
+        "sections": [
+          "L1",
+          "L2",
+          "L3",
+          "L5"
+        ],
+        "modeBoundaries": [
+          "MODE-ORIGINAL"
+        ],
+        "operations": [
+          "content.open",
+          "answer.persist"
+        ],
+        "flows": [
+          "F-01",
+          "F-02",
+          "F-03",
+          "F-05"
+        ],
+        "acceptance": [
+          "AT-L-01",
+          "AT-L-04",
+          "AT-L-06"
+        ]
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    },
+    {
+      "pageId": "review",
+      "pageName": "作答检查",
+      "status": "建议",
+      "references": {
+        "sections": [
+          "L2",
+          "L3"
+        ],
+        "modeBoundaries": [],
+        "operations": [
+          "assessment.submit"
+        ],
+        "flows": [
+          "F-02"
+        ],
+        "acceptance": [
+          "AT-L-06",
+          "AT-L-07"
+        ]
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    },
+    {
+      "pageId": "complete",
+      "pageName": "完成回执",
+      "status": "建议",
+      "references": {
+        "sections": [
+          "L3"
+        ],
+        "modeBoundaries": [],
+        "operations": [
+          "assessment.submit"
+        ],
+        "flows": [
+          "F-02"
+        ],
+        "acceptance": [
+          "AT-L-06"
+        ]
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    },
+    {
+      "pageId": "report",
+      "pageName": "报告阅读",
+      "status": "建议",
+      "references": {
+        "sections": [
+          "L2",
+          "L3",
+          "L4"
+        ],
+        "modeBoundaries": [
+          "MODE-ORIGINAL"
+        ],
+        "operations": [
+          "report.read",
+          "context.prepare",
+          "analysis.submit/recover"
+        ],
+        "flows": [
+          "F-02",
+          "F-04",
+          "F-07"
+        ],
+        "acceptance": [
+          "AT-L-07",
+          "AT-L-08",
+          "AT-L-09",
+          "AT-L-10",
+          "AT-L-11",
+          "AT-L-17"
+        ]
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    },
+    {
+      "pageId": "records",
+      "pageName": "测评与记录",
+      "status": "建议",
+      "references": {
+        "sections": [
+          "L2",
+          "L4",
+          "L5"
+        ],
+        "modeBoundaries": [],
+        "operations": [
+          "report.read"
+        ],
+        "flows": [
+          "F-03"
+        ],
+        "acceptance": [
+          "AT-L-10"
+        ]
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    },
+    {
+      "pageId": "topic",
+      "pageName": "专题介绍",
+      "status": "建议",
+      "references": {
+        "sections": [
+          "L1"
+        ],
+        "modeBoundaries": [],
+        "operations": [],
+        "flows": [],
+        "acceptance": []
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    },
+    {
+      "pageId": "appearance",
+      "pageName": "主题与形象",
+      "status": "建议",
+      "references": {
+        "sections": [],
+        "modeBoundaries": [],
+        "operations": [],
+        "flows": [],
+        "acceptance": [
+          "AT-L-10",
+          "AT-L-17"
+        ]
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    },
+    {
+      "pageId": "conversation",
+      "pageName": "连续对话",
+      "status": "建议",
+      "references": {
+        "sections": [
+          "L4"
+        ],
+        "modeBoundaries": [],
+        "operations": [
+          "context.prepare",
+          "analysis.submit/recover"
+        ],
+        "flows": [
+          "F-07"
+        ],
+        "acceptance": [
+          "AT-L-11"
+        ]
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    },
+    {
+      "pageId": "auth",
+      "pageName": "登录与注册",
+      "status": "建议",
+      "references": {
+        "sections": [
+          "L5"
+        ],
+        "modeBoundaries": [],
+        "operations": [],
+        "flows": [
+          "F-05"
+        ],
+        "acceptance": [
+          "AT-L-12"
+        ]
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    },
+    {
+      "pageId": "memories",
+      "pageName": "助理记忆",
+      "status": "建议",
+      "references": {
+        "sections": [
+          "L4"
+        ],
+        "modeBoundaries": [],
+        "operations": [],
+        "flows": [
+          "F-04",
+          "F-07"
+        ],
+        "acceptance": [
+          "AT-L-11"
+        ]
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    },
+    {
+      "pageId": "portrait",
+      "pageName": "正在认识的自己",
+      "status": "建议",
+      "references": {
+        "sections": [
+          "L2",
+          "L4"
+        ],
+        "modeBoundaries": [],
+        "operations": [],
+        "flows": [
+          "F-04"
+        ],
+        "acceptance": [
+          "AT-L-09",
+          "AT-L-15"
+        ]
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    },
+    {
+      "pageId": "data",
+      "pageName": "我的数据",
+      "status": "建议",
+      "references": {
+        "sections": [
+          "L2",
+          "L5"
+        ],
+        "modeBoundaries": [],
+        "operations": [
+          "transfer.preview/apply",
+          "cloud.save.selection"
+        ],
+        "flows": [
+          "F-05",
+          "F-06",
+          "F-08"
+        ],
+        "acceptance": [
+          "AT-L-05",
+          "AT-L-12",
+          "AT-L-13",
+          "AT-L-14",
+          "AT-L-15",
+          "AT-L-18"
+        ]
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    },
+    {
+      "pageId": "membership",
+      "pageName": "会员与用量规则",
+      "status": "建议",
+      "references": {
+        "sections": [],
+        "modeBoundaries": [],
+        "operations": [
+          "cloud.save.selection"
+        ],
+        "flows": [],
+        "acceptance": [
+          "AT-L-17"
+        ]
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    },
+    {
+      "pageId": "share",
+      "pageName": "分享预览",
+      "status": "建议",
+      "references": {
+        "sections": [
+          "L4"
+        ],
+        "modeBoundaries": [],
+        "operations": [],
+        "flows": [],
+        "acceptance": [
+          "AT-L-09"
+        ]
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    },
+    {
+      "pageId": "privacy",
+      "pageName": "隐私与引用",
+      "status": "建议",
+      "references": {
+        "sections": [
+          "L4",
+          "L5"
+        ],
+        "modeBoundaries": [],
+        "operations": [
+          "cloud.save.selection"
+        ],
+        "flows": [
+          "F-04",
+          "F-06",
+          "F-07"
+        ],
+        "acceptance": [
+          "AT-L-11",
+          "AT-L-13",
+          "AT-L-15"
+        ]
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    },
+    {
+      "pageId": "support",
+      "pageName": "帮助与反馈",
+      "status": "建议",
+      "references": {
+        "sections": [
+          "L5"
+        ],
+        "modeBoundaries": [],
+        "operations": [],
+        "flows": [
+          "F-06",
+          "F-08"
+        ],
+        "acceptance": [
+          "AT-L-05"
+        ]
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    },
+    {
+      "pageId": "account",
+      "pageName": "账号与安全",
+      "status": "建议",
+      "references": {
+        "sections": [
+          "L5"
+        ],
+        "modeBoundaries": [],
+        "operations": [],
+        "flows": [
+          "F-05"
+        ],
+        "acceptance": [
+          "AT-L-12"
+        ]
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    },
+    {
+      "pageId": "simulation",
+      "pageName": "旧单因子假设实验",
+      "status": "建议",
+      "references": {
+        "sections": [],
+        "modeBoundaries": [
+          "MODE-SIM"
+        ],
+        "operations": [],
+        "flows": [],
+        "acceptance": []
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    },
+    {
+      "pageId": "compare",
+      "pageName": "两份结果比较",
+      "status": "建议",
+      "references": {
+        "sections": [
+          "L2",
+          "L3",
+          "L4"
+        ],
+        "modeBoundaries": [],
+        "operations": [
+          "result.compare"
+        ],
+        "flows": [],
+        "acceptance": [
+          "AT-L-09"
+        ]
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    },
+    {
+      "pageId": "content",
+      "pageName": "本机内容",
+      "status": "建议",
+      "references": {
+        "sections": [
+          "L1",
+          "L2"
+        ],
+        "modeBoundaries": [],
+        "operations": [
+          "content.open",
+          "content.update.check"
+        ],
+        "flows": [
+          "F-01",
+          "F-03",
+          "F-04"
+        ],
+        "acceptance": [
+          "AT-L-01",
+          "AT-L-02",
+          "AT-L-03",
+          "AT-L-04",
+          "AT-L-18"
+        ]
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    },
+    {
+      "pageId": "single-factor",
+      "pageName": "单因子测评",
+      "status": "建议",
+      "references": {
+        "sections": [
+          "L3"
+        ],
+        "modeBoundaries": [
+          "MODE-SINGLE"
+        ],
+        "operations": [],
+        "flows": [],
+        "acceptance": [
+          "AT-L-08"
+        ]
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    },
+    {
+      "pageId": "daily-checkin",
+      "pageName": "每日打卡",
+      "status": "建议",
+      "references": {
+        "sections": [
+          "L3"
+        ],
+        "modeBoundaries": [
+          "MODE-DAILY"
+        ],
+        "operations": [
+          "daily.select"
+        ],
+        "flows": [],
+        "acceptance": [
+          "AT-L-16"
+        ]
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    },
+    {
+      "pageId": "short-16pf",
+      "pageName": "简化版16PF",
+      "status": "建议",
+      "references": {
+        "sections": [
+          "L3"
+        ],
+        "modeBoundaries": [
+          "MODE-SHORT"
+        ],
+        "operations": [],
+        "flows": [],
+        "acceptance": [
+          "AT-L-08"
+        ]
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    },
+    {
+      "pageId": "personality-sandbox",
+      "pageName": "模拟性格",
+      "status": "建议",
+      "references": {
+        "sections": [
+          "L3"
+        ],
+        "modeBoundaries": [
+          "MODE-SIM"
+        ],
+        "operations": [],
+        "flows": [],
+        "acceptance": []
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    },
+    {
+      "pageId": "ai-reset",
+      "pageName": "AI重置版",
+      "status": "建议",
+      "references": {
+        "sections": [
+          "L3"
+        ],
+        "modeBoundaries": [
+          "MODE-AI-RESET"
+        ],
+        "operations": [],
+        "flows": [],
+        "acceptance": []
+      },
+      "scope": "业务契约关联，未声称该页全部业务已实现或验收通过"
+    }
+  ]
+}

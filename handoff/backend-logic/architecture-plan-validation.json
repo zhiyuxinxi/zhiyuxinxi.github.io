@@ -1,0 +1,37 @@
+{
+  "asOf": "2026-10-02",
+  "status": "passed",
+  "checks": {
+    "jsonParses": true,
+    "classifiedItems": true,
+    "pageReferencesValid": true,
+    "requirementIdsValid": true,
+    "privateSourceLocatorScan": "passed",
+    "productionBusinessImplemented": false,
+    "productionAcceptanceExecuted": false
+  },
+  "counts": {
+    "executiveSummary": 6,
+    "sections": 5,
+    "modeBoundaries": 6,
+    "entities": 17,
+    "modules": 9,
+    "operations": 11,
+    "flows": 8,
+    "acceptance": 18,
+    "decisions": 7,
+    "implementationStages": 4,
+    "pageCoverage": 29
+  },
+  "errors": [],
+  "files": {
+    "architecture-plan.json": {
+      "bytes": 95477,
+      "sha256": "e9e1470a6ae9a8365d109dda0ea00fd4fe9b9e4582e56c8d52d9e764c8e67635"
+    },
+    "architecture-plan.md": {
+      "bytes": 59600,
+      "sha256": "53d856a129dc3ea36dc568767d5645248b7cc95d4b6f950f476928c00223202a"
+    }
+  }
+}

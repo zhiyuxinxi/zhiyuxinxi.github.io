@@ -1,0 +1,189 @@
+{
+  "createdAt": "2026-10-02T16:09:52.677170+00:00",
+  "scope": "8 workbench shell regression checks: route/tree coverage, navigation, substate deep links, keyboard/search, stale messages, fit/original size and narrow drawer. Shell-only run: the 39 × 12 = 468 theme-route render matrix and all-route full-page screenshots were not rerun.",
+  "results": [
+    {
+      "test": "exhaustive-route-and-tree-map",
+      "status": "PASS",
+      "details": {
+        "routeFamilies": 39,
+        "nodes": 77,
+        "previewNodes": 65,
+        "specificationOrPlanned": 12
+      }
+    },
+    {
+      "test": "every-tree-node-real-navigation",
+      "status": "PASS",
+      "details": {
+        "visited": [
+          "home",
+          "explore",
+          "assessment-detail",
+          "content",
+          "question",
+          "review",
+          "recovery",
+          "report",
+          "records",
+          "compare",
+          "share",
+          "light-suite",
+          "article",
+          "assistant",
+          "conversations",
+          "conversation",
+          "context",
+          "usage",
+          "analysis",
+          "portrait",
+          "memories",
+          "actions",
+          "journal",
+          "life-spaces",
+          "skills",
+          "reminders",
+          "me",
+          "auth",
+          "account",
+          "settings",
+          "appearance",
+          "privacy",
+          "data",
+          "sync",
+          "support",
+          "notifications",
+          "membership",
+          "checkout",
+          "orders",
+          "order",
+          "topic-workspace",
+          "action-detail",
+          "single-factor",
+          "daily-checkin",
+          "short-16pf",
+          "personality-sandbox",
+          "ai-reset",
+          "complete",
+          "single-factor-process",
+          "single-factor-result",
+          "daily-checkin-process",
+          "daily-checkin-result",
+          "short-16pf-process",
+          "short-16pf-result",
+          "personality-sandbox-result",
+          "topic-relationships",
+          "workspace-relationships",
+          "topic-city-choice",
+          "workspace-city-choice",
+          "topic-learning",
+          "workspace-learning",
+          "topic-self-space",
+          "workspace-self-space",
+          "workspace-saved",
+          "action-observed",
+          "report-source",
+          "settings-preferences",
+          "factor-library",
+          "login-requirement",
+          "phone-requirement",
+          "payments-requirement",
+          "moments-requirement",
+          "abuse-requirement",
+          "memory-flow",
+          "data-transfer-flow",
+          "data-delete-flow",
+          "save-failure-flow",
+          "state:default",
+          "state:resume",
+          "state:question",
+          "state:combined",
+          "state:save-failure",
+          "state:complete",
+          "state:mixed-records",
+          "state:topic-record",
+          "state:ongoing-action",
+          "state:action-review",
+          "state:source-login",
+          "state:quota",
+          "state:history",
+          "state:paid-annual",
+          "backend:BR-001",
+          "backend:BR-002",
+          "backend:BR-003",
+          "backend:BR-004",
+          "backend:BR-005",
+          "backend:BR-006",
+          "backend:BR-007",
+          "backend:BR-008"
+        ]
+      }
+    },
+    {
+      "test": "substate-sync-and-deep-link",
+      "status": "PASS",
+      "details": {
+        "deepLink": "page=single-factor-result&route=single-factor&theme=sunrise&scene=default&width=390&mode=preview&dq=&hq=&hk=mobile&hv=&hs=&hg=&hp=1&logicDoc=local&logicSection=&logicQuery=&logicStatus=",
+        "stageReflectedInTree": true
+      }
+    },
+    {
+      "test": "tree-search-clear-and-keyboard",
+      "status": "PASS",
+      "details": {
+        "nestedSearch": true,
+        "keyboardTree": true
+      }
+    },
+    {
+      "test": "obsolete-frame-message-ignored",
+      "status": "PASS",
+      "details": {
+        "obsoleteGenerationIgnored": true
+      }
+    },
+    {
+      "test": "new-session-completion-reflects-in-tree",
+      "status": "PASS",
+      "details": {
+        "sessionId": "session-mur5s8m4-9j6p",
+        "seedFixture": false,
+        "actualRoute": "complete?id=session-mur5s8m4-9j6p",
+        "selectedNode": "complete"
+      }
+    },
+    {
+      "test": "explore-to-four-nondefault-topics-reflects-in-tree",
+      "status": "PASS",
+      "details": [
+        {
+          "route": "topic?id=relationships",
+          "selectedNode": "topic-relationships"
+        },
+        {
+          "route": "topic?id=city-choice",
+          "selectedNode": "topic-city-choice"
+        },
+        {
+          "route": "topic?id=learning",
+          "selectedNode": "topic-learning"
+        },
+        {
+          "route": "topic?id=self-space",
+          "selectedNode": "topic-self-space"
+        }
+      ]
+    },
+    {
+      "test": "desktop-fit-original-size-and-mobile",
+      "status": "PASS",
+      "details": [
+        "layout-1480",
+        "layout-1188",
+        "layout-390"
+      ]
+    }
+  ],
+  "themeRouteMatrix": [],
+  "pageErrors": []
+}

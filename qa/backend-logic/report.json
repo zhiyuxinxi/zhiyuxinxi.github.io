@@ -1,0 +1,44 @@
+{
+  "sourceCommit": "fe35cf7aa010d718c967679616bd1a44de71908c",
+  "tests": [
+    {
+      "name": "data-integrity-and-boundaries",
+      "status": "PASS",
+      "detail": {
+        "local": {
+          "entities": 17,
+          "operations": 11,
+          "flows": 8,
+          "acceptance": 18,
+          "pageCoverage": 29
+        },
+        "cloudItems": 121,
+        "pages": "All referenced page IDs exist in current workbench",
+        "requirements": "ID format verified; full161 requirement membership follows supplied cross-reviewed source validation, not a new full-matrix audit.",
+        "acceptance": "46 planned acceptance items remain unexecuted business criteria."
+      }
+    },
+    {
+      "name": "local-directory-search-status-and-ime",
+      "status": "PASS",
+      "detail": "17 entities, 8 flows, source status labels, bounded list, no-results, clear focus, IME and URL reload verified."
+    },
+    {
+      "name": "cloud-flow-page-links-and-official-sources",
+      "status": "PASS",
+      "detail": "7 conditional flows; related page opens its development contract; 7 official links keep exact source URLs; return preserves current page."
+    },
+    {
+      "name": "direct-mode-and-responsive-return",
+      "status": "PASS",
+      "detail": "1440px and390px real screenshots; no horizontal overflow; direct logic entry returns to nonzero, rendered preview."
+    },
+    {
+      "name": "failure-retry-and-static-only-requests",
+      "status": "PASS",
+      "detail": "Load error recovers via retry; observed requests stay on same static origin; no business SDK or upload."
+    }
+  ],
+  "pageErrors": [],
+  "scope": "Read-only document UI and source integrity; no business acceptance executed."
+}
