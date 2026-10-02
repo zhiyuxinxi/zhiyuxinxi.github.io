@@ -1,0 +1,11 @@
+{
+  "profile": "product-admin",
+  "sourceRoots": ["prototype", "index.html", "workbench.js", "workbench.css"],
+  "locale": "zh-CN",
+  "canonicalMap": "UX-CONTRACT.md",
+  "requiredCapabilities": ["Select/Listbox", "Form", "Scrollbar", "Toast", "CRUD"],
+  "ownership": {"Select/Listbox": "native"},
+  "requiredCommands": ["themes", "runtime", "visual"],
+  "commands": {"themes": "python tools/build_themes.py", "runtime": "python tools/hosted_smoke.py .", "visual": "python tools/design_snapshots.py ."},
+  "evidence": {"crudFullFlow": "tools/hosted_smoke.py", "failurePaths": "tools/hosted_smoke.py"}
+}
