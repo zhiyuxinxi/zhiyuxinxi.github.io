@@ -1,10 +1,10 @@
 {
   "version": "4.0.0-preservation",
   "environment": "GitHub Actions / real HTTP resource loading / native Chromium localStorage and iframe messaging",
-  "timestampUTC": "2026-10-02T05:26:27.993906+00:00",
+  "timestampUTC": "2026-10-02T07:51:32.142476+00:00",
   "browser": "143.0.7499.4",
   "playwright": "1.57.0",
-  "passed": 13,
+  "passed": 16,
   "failed": 0,
   "results": [
     {
@@ -46,6 +46,34 @@
       "test": "topic_edit_source_roundtrip",
       "status": "PASS",
       "details": {}
+    },
+    {
+      "test": "real_problem_record_action_review",
+      "status": "PASS",
+      "details": {
+        "recordIdStable": true,
+        "sourceRevisionImmutable": true,
+        "noAssessmentOrLoginRequired": true,
+        "unresolvedAccepted": true
+      }
+    },
+    {
+      "test": "record_failure_legacy_offline",
+      "status": "PASS",
+      "details": {
+        "oldFieldsPreserved": true,
+        "offlineLocalSave": true,
+        "failedWriteRecoverable": true
+      }
+    },
+    {
+      "test": "record_snapshot_export_delete_scope",
+      "status": "PASS",
+      "details": {
+        "exportSelectionHonored": true,
+        "deletedSourcePlaintextRemoved": true,
+        "actionRetained": true
+      }
     },
     {
       "test": "original_order_snapshot",
