@@ -42,8 +42,11 @@ passed('data-integrity-and-boundaries',{'local':counts,'cloudItems':len(classifi
 
 class Handler(http.server.SimpleHTTPRequestHandler):
     def log_message(self,*args):pass
-server=http.server.ThreadingHTTPServer(('127.0.0.1',0),functools.partial(Handler,directory=str(root)))
-threading.Thread(target=server.serve_forever,daemon=True).start();base=f'http://127.0.0.1:{server.server_port}'
+server=None
+base=os.environ.get('PUBLIC_LOGIC_URL','').rstrip('/')
+if not base:
+    server=http.server.ThreadingHTTPServer(('127.0.0.1',0),functools.partial(Handler,directory=str(root)))
+    threading.Thread(target=server.serve_forever,daemon=True).start();base=f'http://127.0.0.1:{server.server_port}'
 try:
     with sync_playwright() as pw:
         launch={'args':['--no-sandbox']}
@@ -54,6 +57,7 @@ try:
         assert not any('/backend-logic/' in u for u in requests)
         p.locator('#tab-logic').click();p.locator('#logic-query').wait_for()
         assert '仅方案' in p.locator('#panel-logic').inner_text()
+        assert '本地计算引擎、本地分析报告保存、会员部分关键分析数据入云，是条件式候选' in p.locator('#panel-logic').inner_text()
         p.screenshot(path=str(out/'desktop-local.png'))
         p.locator('#logic-section').select_option('entities');assert p.locator('.logic-item').count()==17
         p.locator('.logic-item summary').first.click();assert p.locator('.logic-item').first.get_attribute('open') is not None
@@ -94,4 +98,5 @@ try:
         passed('failure-retry-and-static-only-requests','Load error recovers via retry; observed requests stay on same static origin; no business SDK or upload.')
         browser.close()
 finally:
-    server.shutdown();(out/'report.json').write_text(json.dumps({'sourceCommit':manifest['sourceCommit'],'tests':results,'pageErrors':errors,'scope':'Read-only document UI and source integrity; no business acceptance executed.'},ensure_ascii=False,indent=2)+'\n')
+    if server:server.shutdown()
+    (out/'report.json').write_text(json.dumps({'sourceCommit':manifest['sourceCommit'],'tests':results,'pageErrors':errors,'testedOrigin':base,'scope':'Read-only document UI and source integrity; no business acceptance executed.'},ensure_ascii=False,indent=2)+'\n')
