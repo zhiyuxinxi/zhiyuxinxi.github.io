@@ -1,7 +1,7 @@
 name: Review Zhiyu design candidate
 on:
   push:
-    branches: [design/zhiyu-refinement, design/zhiyu-living-tide, design/zhiyu-six-paths]
+    branches: [design/zhiyu-refinement, design/zhiyu-living-tide, design/zhiyu-six-paths, design/zhiyu-soft-fields]
 permissions:
   contents: read
 concurrency:
