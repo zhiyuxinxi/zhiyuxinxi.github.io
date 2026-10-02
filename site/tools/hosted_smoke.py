@@ -49,7 +49,7 @@ def topic_roundtrip(p):
 
 def real_problem_loop(p):
  shots=OUT/'record-loop-screenshots';shots.mkdir(exist_ok=True)
- proto(p);p.click('.life-entry [data-route="topic-workspace"]');p.wait_for_selector('#topic-issue');check(not p.evaluate('App.snapshot.logged'));check(p.evaluate('App.snapshot.sessions.length')==0)
+ proto(p,'explore');p.click('.life-entry [data-route="topic-workspace"]');p.wait_for_selector('#topic-issue');check(not p.evaluate('App.snapshot.logged'));check(p.evaluate('App.snapshot.sessions.length')==0)
  p.click('[data-action=topic-save]');check(p.locator('#topic-error').is_visible());check(p.evaluate('App.snapshot.observations.length')==0)
  p.fill('#topic-issue','下次讨论，先独立准备还是先交流？');p.fill('#topic-options','先写两点；先问一个问题');p.fill('#topic-evidence','上次写两点后容易开始，但还没排除话题熟悉度');p.fill('#topic-unknown','换个话题会怎样？');p.fill('#topic-understanding','先试一个低成本变化，不急着定论');p.reload(wait_until='networkidle');check(p.input_value('#topic-issue').startswith('下次讨论'))
  p.click('[data-action=topic-save]');n=p.evaluate('App.snapshot.observations[0]');check(p.locator('.record-summary').is_visible());p.wait_for_timeout(4500);p.screenshot(path=str(shots/'record-saved.png'),full_page=True);check(p.locator('.record-editor').get_attribute('open') is None);p.click('[data-action=add-action]');p.fill('#dialog-field','讨论前写两点，观察是否容易开始');p.click('[data-action=submit-dialog]');a=p.evaluate('App.snapshot.actions[0]');check(a['sourceId']==n['id'] and a['sourceVersion']=='1');check(a['sourceSnapshot']['version']=='1');p.wait_for_timeout(4500);p.screenshot(path=str(shots/'action-origin.png'),full_page=True)
@@ -82,18 +82,52 @@ def gallery_isolation(p):
 def persona_and_settings(p):
  proto(p,'appearance');check(p.locator('.v4-avatar-options img').count()==6);p.click('[data-action=avatar][data-id="3"][data-family=scene]');p.click('[data-action=theme][data-id=amber]');p.reload(wait_until='networkidle');check(p.evaluate('App.snapshot.avatarFamily')=='scene');check(p.evaluate('App.snapshot.avatar')==3);check(p.evaluate('App.snapshot.theme')=='amber','Theme reverted on reload');p.click('[data-action=avatar][data-id="2"][data-family=original]');p.evaluate("location.hash='home'");p.wait_for_selector('.v4-person-scene img');check('original-person-2.webp' in p.locator('.v4-person-scene img').get_attribute('src'))
 
+def relocated_entries_and_settings(p):
+ proto(p)
+ check(p.locator('.brandline,.wordmark,.prototype-label').count()==0)
+ check(p.locator('button[data-route=appearance]').count()==0)
+ p.click('[data-action=tab][data-route=explore]')
+ p.locator('.explore-tools summary').click()
+ p.click('[data-action=daily]');check('每日轻探索' in p.locator('.dialog').inner_text());p.keyboard.press('Escape')
+ p.click('[data-action=all-factors]');check(p.locator('.dialog .bottle-tile').count()==16);p.keyboard.press('Escape')
+ for route in ['simulation','report','article']:
+  p.click('.explore-tools [data-route='+route+']');p.wait_for_function('r=>App.currentRoute.startsWith(r)',arg=route)
+  check(p.locator('[data-action=back]').count()>=1,'Task return lost')
+  p.click('[data-action=back]');p.wait_for_function('App.currentRoute==="explore"');p.locator('.explore-tools summary').click()
+ p.click('[data-action=tab][data-route=me]');p.click('[data-route=settings]');p.click('[data-route=appearance]')
+ p.click('[data-action=theme][data-id=nebula]');p.click('[data-action=back]');p.wait_for_function('App.currentRoute==="settings"')
+ p.click('[data-action=v3-preferences]');p.click('[data-action=v3-motion]');p.keyboard.press('Escape')
+ check(p.evaluate("document.activeElement.dataset.action==='v3-preferences'"),'Settings dialog focus lost')
+ check(p.evaluate('App.snapshot.reduced'),'Motion preference not saved')
+ check(p.evaluate("getComputedStyle(document.body,'::before').animationName==='none'"),'Reduced motion did not stop global tide')
+ p.click('[data-action=back]');p.wait_for_function('App.currentRoute==="me"')
+ p.click('[data-route=records]');check('记录' in p.locator('main').inner_text())
+ return {'movedToolsReachable':True,'settingsOnlyAppearanceEntry':True,'darkDialogKeyboardRecovery':True}
+
+def home_state_priority(p):
+ for scenario,action in [('ongoing-action','start'),('combined','resume'),('complete','nav')]:
+  proto(p,'home',scenario)
+  check(p.locator('.home-scene h2').inner_text()=='16PF 性格探索')
+  primary=p.locator('.home-scene>.btn');check(primary.get_attribute('data-action')==action)
+  check(p.locator('.v3-action-resume').count()==(0 if scenario=='complete' else 1))
+  (OUT/'design-candidate').mkdir(exist_ok=True);p.screenshot(path=str(OUT/'design-candidate'/('home-'+scenario+'.png')))
+  primary.click()
+  p.wait_for_function("r=>App.currentRoute.startsWith(r)",arg='review?' if scenario=='complete' else 'question?')
+  if scenario!='ongoing-action':check('session-demo-seed' in p.evaluate('App.currentRoute'),'Original answer ID lost')
+ return {'firstWithAction':'start','combined':'resume','completed':'original review','stableHeadline':True}
+
 def route_matrix(p):
  paths=json.loads((ROOT/'handoff/routes.json').read_text());visited=0
  for r in paths:
   if not r.get('route'):continue
-  proto(p,r['route'],r.get('scenario','default'),'nebula');check(p.locator('#main-content').count()==1,r['id']);check(p.evaluate('document.documentElement.scrollWidth<=innerWidth'),r['id']+' horizontal overflow');visited+=1
+  proto(p,r['route'],r.get('scenario','default'),'nebula');check(p.locator('.brandline,.wordmark,.prototype-label').count()==0,'Removed toolbar returned on '+r['id']);check(p.locator('#main-content').count()==1,r['id']);check(p.evaluate('document.documentElement.scrollWidth<=innerWidth'),r['id']+' horizontal overflow');visited+=1
  return {'route_mappings':visited,'scope':'Valid named fixture IDs. Native page rendering, console and overflow checks; not full backend actions.'}
 
 def theme_six_page_matrix(p):
  rows=[]
  for theme in ['sunrise','candy','berry','lime','aurora','sea','nebula','amber']:
   for r,sc in [('home','default'),('explore','default'),('question?id=session-demo-seed','question'),('report?id=report-sample-01','default'),('assistant','default'),('me','default')]:
-   proto(p,r,sc,theme);check(p.evaluate('App.snapshot.theme')==theme);check(p.evaluate('document.documentElement.scrollWidth<=innerWidth'),theme+' '+r);check(p.locator('#main-content').count()==1);imgs=p.locator('img').evaluate_all('(es)=>es.filter(e=>!e.complete||e.naturalWidth===0).map(e=>e.src)');check(not imgs,'Missing images '+str(imgs));rows.append({'theme':theme,'page':r,'pass':True})
+   proto(p,r,sc,theme);check(p.evaluate('App.snapshot.theme')==theme);check(p.evaluate("getComputedStyle(document.body,'::before').backgroundImage.includes('gradient')"),'Missing global scene');check(p.evaluate('document.documentElement.scrollWidth<=innerWidth'),theme+' '+r);check(p.locator('#main-content').count()==1);imgs=p.locator('img').evaluate_all('(es)=>es.filter(e=>!e.complete||e.naturalWidth===0).map(e=>e.src)');check(not imgs,'Missing images '+str(imgs));rows.append({'theme':theme,'page':r,'pass':True})
  (OUT/'hosted-theme-matrix.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2));return {'combinations':len(rows)}
 
 def run(pw,browser,name,fn,size=(390,844)):
@@ -106,8 +140,8 @@ with sync_playwright() as pw:
  args={'headless':True,'args':['--no-sandbox']}
  if os.environ.get('CHROMIUM_PATH'):args['executable_path']=os.environ['CHROMIUM_PATH']
  b=pw.chromium.launch(**args);browser_version=b.version
- for name,fn in [('root_resources',root_and_resources),('bridge_theme_width_density',bridge_and_themes),('tree_keyboard_search_specs',tree_keyboard_and_search),('unsaved_scene_guard',blocked_scene_reload),('native_reload_persistence',native_persistence),('native_cross_window_guard',cross_window_conflict),('answer_sample_boundaries',sample_boundaries_and_answer),('topic_edit_source_roundtrip',topic_roundtrip),('real_problem_record_action_review',real_problem_loop),('record_failure_legacy_offline',record_failure_and_legacy),('record_snapshot_export_delete_scope',record_snapshot_privacy),('original_order_snapshot',original_order),('theme_gallery_isolation',gallery_isolation),('persona_setting_independence',persona_and_settings),('route_mappings',route_matrix),('eight_themes_six_pages',theme_six_page_matrix)]:run(pw,b,name,fn,(1480,1100)if name in ['root_resources','bridge_theme_width_density','tree_keyboard_search_specs','unsaved_scene_guard','theme_gallery_isolation']else(390,844))
+ for name,fn in [('root_resources',root_and_resources),('bridge_theme_width_density',bridge_and_themes),('tree_keyboard_search_specs',tree_keyboard_and_search),('unsaved_scene_guard',blocked_scene_reload),('native_reload_persistence',native_persistence),('native_cross_window_guard',cross_window_conflict),('answer_sample_boundaries',sample_boundaries_and_answer),('topic_edit_source_roundtrip',topic_roundtrip),('real_problem_record_action_review',real_problem_loop),('record_failure_legacy_offline',record_failure_and_legacy),('record_snapshot_export_delete_scope',record_snapshot_privacy),('original_order_snapshot',original_order),('theme_gallery_isolation',gallery_isolation),('persona_setting_independence',persona_and_settings),('relocated_entries_and_settings',relocated_entries_and_settings),('home_state_priority',home_state_priority),('route_mappings',route_matrix),('eight_themes_six_pages',theme_six_page_matrix)]:run(pw,b,name,fn,(1480,1100)if name in ['root_resources','bridge_theme_width_density','tree_keyboard_search_specs','unsaved_scene_guard','theme_gallery_isolation']else(390,844))
  # Native images are evidence only, all data synthetic.
  c=b.new_context(viewport={'width':1500,'height':1280});p=c.new_page();p.goto(BASE+'/',wait_until='networkidle');p.wait_for_timeout(500);(OUT/'hosted-screenshots').mkdir(exist_ok=True);p.screenshot(path=str(OUT/'hosted-screenshots/workbench.png'));c.close();b.close()
-summary={'version':'4.0.0-preservation','environment':'GitHub Actions / real HTTP resource loading / native Chromium localStorage and iframe messaging','timestampUTC':datetime.now(timezone.utc).isoformat(),'browser':browser_version,'playwright':version('playwright'),'passed':sum(x['status']=='PASS'for x in RESULTS),'failed':sum(x['status']=='FAIL'for x in RESULTS),'results':RESULTS,'notVerified':['Actual end-user browser/network','Android/iOS devices and soft keyboards','Real 16PF scoring/norms','Real model/auth/payment/sync','Complete WCAG audit','Target-user preference'], 'sourceEntrySHA256':hashlib.sha256((ROOT/'index.html').read_bytes()).hexdigest()}
+summary={'version':'4.0.0-preservation','environment':('GitHub Actions' if os.environ.get('GITHUB_ACTIONS') else 'Local workspace')+' / real HTTP resource loading / native Chromium localStorage and iframe messaging','timestampUTC':datetime.now(timezone.utc).isoformat(),'browser':browser_version,'playwright':version('playwright'),'passed':sum(x['status']=='PASS'for x in RESULTS),'failed':sum(x['status']=='FAIL'for x in RESULTS),'results':RESULTS,'notVerified':['Actual end-user browser/network','Android/iOS devices and soft keyboards','Real 16PF scoring/norms','Real model/auth/payment/sync','Complete WCAG audit','Target-user preference'], 'sourceEntrySHA256':hashlib.sha256((ROOT/'index.html').read_bytes()).hexdigest()}
 (OUT/'hosted-smoke.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2));print('NATIVE HTTP GATE',summary['passed'],'PASS',summary['failed'],'FAIL');server.shutdown();sys.exit(1 if summary['failed']else 0)
