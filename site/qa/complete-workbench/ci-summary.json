@@ -1,0 +1,172 @@
+{
+  "authority": "Final CI job output for the exact functional candidate; supersedes the earlier local report for final pass counts.",
+  "sourceCommit": "12e44f8047351477653c4df9beae01cfd7c2ae62",
+  "workflowRun": 37013361993,
+  "jobId": 110858190836,
+  "runURL": "https://github.com/zhiyuxinxi/zhiyuxinxi.github.io/actions/runs/37013361993",
+  "jobURL": "https://github.com/zhiyuxinxi/zhiyuxinxi.github.io/actions/runs/37013361993/job/110858190836",
+  "fullArtifact": {
+    "id": 11229395979,
+    "url": "https://github.com/zhiyuxinxi/zhiyuxinxi.github.io/actions/runs/37013361993/artifacts/11229395979",
+    "sha256": "729ab19640d40c05a818b79efb1d47f15e7396b4675969e1c3cfdb1a1e181d24",
+    "expiresAt": "2026-10-09T13:39:49Z"
+  },
+  "extraction": "Verbatim JSON summary printed by site/tools/workbench_coverage.py, extracted from the completed job log after removing GitHub timestamp prefixes. This is the CI summary, not a replacement pretending to be the full artifact report.",
+  "summary": {
+    "tests": [
+      {
+        "test": "exhaustive-route-and-tree-map",
+        "status": "PASS",
+        "details": {
+          "routeFamilies": 39,
+          "nodes": 77,
+          "previewNodes": 65,
+          "specificationOrPlanned": 12
+        }
+      },
+      {
+        "test": "every-tree-node-real-navigation",
+        "status": "PASS",
+        "details": {
+          "visited": [
+            "home",
+            "explore",
+            "assessment-detail",
+            "content",
+            "question",
+            "review",
+            "recovery",
+            "report",
+            "records",
+            "compare",
+            "share",
+            "light-suite",
+            "article",
+            "assistant",
+            "conversations",
+            "conversation",
+            "context",
+            "usage",
+            "analysis",
+            "portrait",
+            "memories",
+            "actions",
+            "journal",
+            "life-spaces",
+            "skills",
+            "reminders",
+            "me",
+            "auth",
+            "account",
+            "settings",
+            "appearance",
+            "privacy",
+            "data",
+            "sync",
+            "support",
+            "notifications",
+            "membership",
+            "checkout",
+            "orders",
+            "order",
+            "topic-workspace",
+            "action-detail",
+            "single-factor",
+            "daily-checkin",
+            "short-16pf",
+            "personality-sandbox",
+            "ai-reset",
+            "complete",
+            "single-factor-process",
+            "single-factor-result",
+            "daily-checkin-process",
+            "daily-checkin-result",
+            "short-16pf-process",
+            "short-16pf-result",
+            "personality-sandbox-result",
+            "topic-relationships",
+            "workspace-relationships",
+            "topic-city-choice",
+            "workspace-city-choice",
+            "topic-learning",
+            "workspace-learning",
+            "topic-self-space",
+            "workspace-self-space",
+            "workspace-saved",
+            "action-observed",
+            "report-source",
+            "settings-preferences",
+            "factor-library",
+            "login-requirement",
+            "phone-requirement",
+            "payments-requirement",
+            "moments-requirement",
+            "abuse-requirement",
+            "memory-flow",
+            "data-transfer-flow",
+            "data-delete-flow",
+            "save-failure-flow",
+            "state:default",
+            "state:resume",
+            "state:question",
+            "state:combined",
+            "state:save-failure",
+            "state:complete",
+            "state:mixed-records",
+            "state:topic-record",
+            "state:ongoing-action",
+            "state:action-review",
+            "state:source-login",
+            "state:quota",
+            "state:history",
+            "state:paid-annual",
+            "backend:BR-001",
+            "backend:BR-002",
+            "backend:BR-003",
+            "backend:BR-004",
+            "backend:BR-005",
+            "backend:BR-006",
+            "backend:BR-007",
+            "backend:BR-008"
+          ]
+        }
+      },
+      {
+        "test": "substate-sync-and-deep-link",
+        "status": "PASS",
+        "details": {
+          "deepLink": "page=single-factor-result&route=single-factor&theme=sunrise&scene=default&width=390&mode=preview",
+          "stageReflectedInTree": true
+        }
+      },
+      {
+        "test": "tree-search-clear-and-keyboard",
+        "status": "PASS",
+        "details": {
+          "nestedSearch": true,
+          "keyboardTree": true
+        }
+      },
+      {
+        "test": "obsolete-frame-message-ignored",
+        "status": "PASS",
+        "details": {
+          "obsoleteGenerationIgnored": true
+        }
+      },
+      {
+        "test": "desktop-fit-original-size-and-mobile",
+        "status": "PASS",
+        "details": [
+          "layout-1480",
+          "layout-1188",
+          "layout-390"
+        ]
+      }
+    ],
+    "matrixPassed": 468,
+    "matrixTotal": 468,
+    "matrixFailures": [],
+    "pageErrors": []
+  }
+}
