@@ -11,7 +11,7 @@
       "locator": null,
       "revision": null,
       "reviewState": "summary-only",
-      "notes": "119职责=107独立页+12页内模块；119移动预览；725有效操作契约。等待原始page-atlas/refined-routes/buttons逐项审计。"
+      "notes": "父线程独立核对确认：119职责与551有效动作均与原源码集合完全相等；另有22后端域、66动作。文档725为另一统计口径，不能称551为删减后的阶段。当前仅收到摘要，Library版本0官方物化失败，版本1窄修正待交付；本机尚未逐项读取。"
     },
     {
       "id": "current-user-decision",
@@ -30,12 +30,21 @@
       "revision": "481e89aa67620c04c6a990bfb70509db587bffe1",
       "reviewState": "item-reviewed",
       "notes": "3题原创交互示例已随包；正式题源/计分/常模未接入。"
+    },
+    {
+      "id": "parent-audit-clarification",
+      "title": "父线程独立核对及版本1修订说明",
+      "kind": "audit-summary",
+      "locator": null,
+      "revision": null,
+      "reviewState": "summary-only",
+      "notes": "原职责119/有效动作551及后端22/66已独立核对。登录说明将窄修正后交版本1；39页契约正在修实体引用、滑杆标签、弹层输入映射。"
     }
   ],
   "baselines": [
     {
       "id": "original-119-725",
-      "label": "最初完整职责与操作基线",
+      "label": "历史文档声明的统计基线（非实际有效动作集合计数）",
       "countUnit": "职责节点、独立页、页内模块、移动预览、操作契约分别计数",
       "counts": {
         "responsibilityNodes": 119,
@@ -50,11 +59,14 @@
       "itemInventoryState": "awaiting-items"
     },
     {
-      "id": "converged-551",
-      "label": "后续收敛动作基线",
-      "countUnit": "另一阶段的动作基线，不与原725等同",
+      "id": "audited-source-551",
+      "label": "经独立核对的原源码有效动作集合",
+      "countUnit": "与原源码逐项集合相等；与文档725为不同统计口径",
       "counts": {
-        "actionContracts": 551
+        "responsibilityNodes": 119,
+        "actionContracts": 551,
+        "backendDomains": 22,
+        "backendActions": 66
       },
       "evidenceRefs": [
         "parent-history-audit-summary"
@@ -83,6 +95,13 @@
       "decisionState": "confirmed-requirement",
       "evidenceRefs": [
         "current-user-decision"
+      ]
+    },
+    {
+      "statement": "登录/注册/验证码需求采用微信、支付宝优先；首次无关联时建号，短信绑定手机号，手机号登录为备选。全部仅记录为待开发，不表示已实现真实账号或第三方登录。",
+      "decisionState": "confirmed-requirement",
+      "evidenceRefs": [
+        "parent-audit-clarification"
       ]
     }
   ],
@@ -123,6 +142,6 @@
     "mappedItems": 0,
     "unresolvedItems": null,
     "completenessClaim": "not-assessed",
-    "notes": "等待两份审计的逐项源数据；不把39渲染路由、119→42职责映射、551动作索引等同于原725操作全部保留。 父线程新转达：画像的逐条认识/情境差异/未知选择/矛盾澄清、记忆原文溯源/更改历史、交流偏好回答长度/协作方式/避免表达均存在待补设计；等待完整映射后逐项落节点，不据此新增真实业务。"
+    "notes": "等待两份审计的逐项源数据；不把39渲染路由、119→42职责映射、551动作索引等同于原725操作全部保留。 父线程新转达：画像的逐条认识/情境差异/未知选择/矛盾澄清、记忆原文溯源/更改历史、交流偏好回答长度/协作方式/避免表达均存在待补设计；等待完整映射后逐项落节点，不据此新增真实业务。 最新核对摘要：价值裁决14保留、96合并、8删除、1待确认；15项真实遗漏中2项建议删除、13项为有价值的最小设计缺口，13并非全部未完成项。已合并职责仍有暂停已有记忆、导入冲突等未完成能力；承载去向与实现状态分别保留，不能将合并一律标为已实现。价值裁决只是建议，未实际删除代码。"
   }
 }
