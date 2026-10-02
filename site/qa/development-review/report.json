@@ -43,7 +43,7 @@
     {
       "name": "hidden-preview-initialization",
       "status": "PASS",
-      "detail": "Direct contract/history/review entry initializes Ambient; showing preview restores a rendered canvas without page errors."
+      "detail": "Direct contract/history/review entry initializes Ambient; showing preview restores a rendered canvas and full-size viewport; real Explore clicks synchronize the tree without page errors."
     },
     {
       "name": "page-search-and-ime",

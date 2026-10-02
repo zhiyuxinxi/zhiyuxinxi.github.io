@@ -57,7 +57,10 @@ with sync_playwright() as pw:
   page.locator('#tab-preview').click()
   frame.wait_for_function('innerWidth>0 && innerHeight>0 && document.querySelector("#ambient-tide").height>=96')
   assert frame.evaluate('document.querySelector("#ambient-tide").getContext("2d").getImageData(0,0,1,1).data[3]')==255
- passed('hidden-preview-initialization','Direct contract/history/review entry initializes Ambient; showing preview restores a rendered canvas without page errors.')
+  page.wait_for_function("document.querySelector('#product-frame').getBoundingClientRect().width>200")
+  frame.locator('[data-action=tab][data-route=explore]').click()
+  page.wait_for_function("document.querySelector('[data-page=explore]').getAttribute('aria-selected')==='true'")
+ passed('hidden-preview-initialization','Direct contract/history/review entry initializes Ambient; showing preview restores a rendered canvas and full-size viewport; real Explore clicks synchronize the tree without page errors.')
  visit(origin+'/#page=personality-sandbox&mode=contract');page.locator('#dev-query').wait_for();page.locator('#dev-query').fill('滑杆');page.wait_for_timeout(100)
  page.locator('#dev-query').fill('impossible-no-result');assert '没有匹配项' in page.locator('#dev-sections').inner_text();page.locator('#dev-clear').click();assert page.locator('#dev-query').input_value()=='';assert page.locator('#dev-query').evaluate('(e)=>e===document.activeElement')
  # Composition must not redraw until committed.
