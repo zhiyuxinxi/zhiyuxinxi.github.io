@@ -56,7 +56,7 @@ with sync_playwright() as w:
   p.click('[data-route=settings]');p.wait_for_function('App.currentRoute==="settings"');p.screenshot(path=str(OUT/'settings.png'))
   check(p.locator('button[data-route=appearance]').count()==1,'Settings missing appearance')
   p.click('[data-route=appearance]');p.click('[data-action=theme][data-id=nebula]')
-  p.set_viewport_size({'width':320,'height':844});p.screenshot(path=str(OUT/'appearance-dark-320.png'))
+  p.set_viewport_size({'width':320,'height':844});p.evaluate('scrollTo(0,0)');p.wait_for_function('scrollY===0');p.screenshot(path=str(OUT/'appearance-dark-320.png'))
   box=p.locator('.v4-live-preview>.v4-person-scene').bounding_box();halo=p.locator('.v4-live-preview>.v4-person-scene>span').bounding_box()
   check(abs(halo['width']-halo['height'])<1 and .84<halo['width']/box['width']<.88,'Preview ring regression on live site')
   p.click('[data-action=back]');p.wait_for_function('App.currentRoute==="settings"');p.click('[data-action=v3-preferences]')
