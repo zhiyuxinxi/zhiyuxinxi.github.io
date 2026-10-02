@@ -31,7 +31,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
  def log_message(self,*a):pass
 server=http.server.ThreadingHTTPServer(('127.0.0.1',0),functools.partial(Handler,directory=str(root)));threading.Thread(target=server.serve_forever,daemon=True).start();origin=f'http://127.0.0.1:{server.server_port}'
 with sync_playwright() as pw:
- browser=pw.chromium.launch(executable_path=os.environ.get('CHROMIUM_PATH','/usr/bin/chromium'),args=['--no-sandbox'])
+ launch={'args':['--no-sandbox']}
+ if os.environ.get('CHROMIUM_PATH'):launch['executable_path']=os.environ['CHROMIUM_PATH']
+ browser=pw.chromium.launch(**launch)
  page=browser.new_page(viewport={'width':1440,'height':1000},device_scale_factor=1);errors=[];requests=[]
  def visit(url):
   page.goto('about:blank');page.goto(url)

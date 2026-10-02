@@ -1,6 +1,6 @@
 {
   "createdAt": "2026-10-02T15:06:04.000031+00:00",
-  "scope": "All real route families × all 12 themes: real render, shared shell/token presence, no toolbar, no horizontal overflow. Full-page screenshots of all routes in sunrise. This is not a claim of all interaction states or pixel contrast in every theme.",
+  "scope": "8 workbench shell regression checks: route/tree coverage, navigation, substate deep links, keyboard/search, stale messages, fit/original size and narrow drawer. Shell-only run: the 39 × 12 = 468 theme-route render matrix and all-route full-page screenshots were not rerun.",
   "results": [
     {
       "test": "exhaustive-route-and-tree-map",
