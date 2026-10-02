@@ -13,7 +13,7 @@ ROOT=Path(sys.argv[1] if len(sys.argv)>1 else '.').resolve();OUT=ROOT/'qa'/'six-
 class Quiet(SimpleHTTPRequestHandler):
  def log_message(self,*args):pass
 server=ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT)));Thread(target=server.serve_forever,daemon=True).start()
-BASE=f'http://127.0.0.1:{server.server_port}'
+BASE='https://zhiyuxinxi.github.io'
 results=[]
 def check(x,message):
  if not x:raise AssertionError(message)
@@ -128,7 +128,7 @@ with sync_playwright() as w:
   except Exception as e:results.append({'test':'home-key-entries-'+str(width),'status':'FAIL','error':str(e)})
   ctx.close()
  b.close()
-report={'capturedAt':datetime.now(timezone.utc).isoformat(),'passed':all(r['status']=='PASS' for r in results),'componentPeriodsSeconds':[16,23,19],'results':results,'syntheticOnly':True,'limits':['Browser emulation, not physical-device battery/GPU measurement.','Pixel coverage classifies nearest rendered theme anchor; blend region is classified as its nearest color.']}
+report={'publicURL':BASE,'sourceSHA':'53bca5fe5f7cf03399d4a735eb1659c6f6e9d94c','capturedAt':datetime.now(timezone.utc).isoformat(),'passed':all(r['status']=='PASS' for r in results),'componentPeriodsSeconds':[16,23,19],'results':results,'syntheticOnly':True,'limits':['Browser emulation, not physical-device battery/GPU measurement.','Pixel coverage classifies nearest rendered theme anchor; blend region is classified as its nearest color.']}
 (OUT/'motion-results.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
 for r in results:print(r['status'],r['test'],r.get('error',''),flush=True)
 server.shutdown()
