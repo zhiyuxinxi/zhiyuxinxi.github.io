@@ -99,7 +99,7 @@ def relocated_entries_and_settings(p):
  p.click('[data-action=v3-preferences]');p.click('[data-action=v3-motion]');p.keyboard.press('Escape')
  check(p.evaluate("document.activeElement.dataset.action==='v3-preferences'"),'Settings dialog focus lost')
  check(p.evaluate('App.snapshot.reduced'),'Motion preference not saved')
- check(p.evaluate("document.getElementById('ambient-tide').animationsPaused()"),'Reduced motion did not stop global tide')
+ check(p.evaluate("Ambient.isPaused()"),'Reduced motion did not stop global tide')
  p.click('[data-action=back]');p.wait_for_function('App.currentRoute==="me"')
  p.click('[data-route=records]');check('记录' in p.locator('main').inner_text())
  return {'movedToolsReachable':True,'settingsOnlyAppearanceEntry':True,'darkDialogKeyboardRecovery':True}
