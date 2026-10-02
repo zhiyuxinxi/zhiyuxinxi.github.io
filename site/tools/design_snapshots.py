@@ -93,8 +93,8 @@ with sync_playwright() as pw:
     halo=page.locator('.v4-person-scene span').bounding_box();check(abs(halo['width']-halo['height'])<1 and 148<=halo['width']<=154,'Halo must be a restrained circle')
     check(page.locator('.home-scene h2').inner_text()=='16PF 性格探索','Assessment headline changed with unrelated activity')
     check(page.locator('.life-entry,.home-support,.v3-life,.v3-capture,.v3-editorial').count()==0,'Secondary catalog returned to home')
-    check(page.locator('.home-path').count()==2,'Homepage lost the two key secondary entries')
-    primary=page.locator('.home-scene>.btn');check(primary.count()==1,'Primary assessment lost')
+    check(page.locator('.home-path').count()==4,'Homepage lost the four secondary entries')
+    primary=page.locator('.home-primary').first;check(primary.count()==1,'Primary assessment lost')
     check(primary.bounding_box()['y']<720,'Homepage start pushed too low')
     if scenario=='question':check(primary.get_attribute('data-action')=='resume','Unfinished assessment lost priority')
     if scenario=='ongoing-action':check(page.locator('.v3-action-resume').count()==1,'Active attempt lost its continuation')
@@ -158,8 +158,8 @@ with sync_playwright() as pw:
  ctx=browser.new_context(viewport={'width':390,'height':844},locale='zh-CN');page=ctx.new_page()
  try:
   page.goto(BASE+'/prototype/index.html?reset=1&scenario=default#home',wait_until='networkidle')
-  targets=['.v4-person-scene img','.home-scene h2','.home-scene > .btn']
-  sample=lambda:[page.locator(t).bounding_box() for t in targets]
+  targets=['.v4-person-scene img','.home-scene h2','.home-primary']
+  sample=lambda:[page.locator(t).first.bounding_box() for t in targets]
   first=sample();previous=0
   for seconds in [3.5,7,14,21,28]:
    page.wait_for_timeout(int((seconds-previous)*1000));check(first==sample(),'Content moved during decorative breathing at '+str(seconds)+' seconds');previous=seconds

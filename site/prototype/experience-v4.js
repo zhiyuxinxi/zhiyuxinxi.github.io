@@ -60,7 +60,7 @@ window.V4=(()=>{
  function afterRender(){
   document.body.dataset.route=C.current().split('?')[0];const t=D.themes.find(t=>t.id===C.state.theme);document.body.dataset.themeMode=t?.mode||'light';
   document.documentElement.style.colorScheme=t?.mode||'light';
-  Ambient.setContext({quiet:C.current().split('?')[0]==='question',reduced:C.state.reduced});
+  Ambient.setContext({quiet:C.current().split('?')[0]==='question'||AssessmentPreview.isQuiet(),reduced:C.state.reduced});
   document.querySelectorAll('textarea').forEach(el=>{el.style.resize='none';const grow=()=>{el.style.height='auto';el.style.height=Math.min(480,Math.max(136,el.scrollHeight+2))+'px';};el.addEventListener('input',grow);grow();});
   notify();
  }

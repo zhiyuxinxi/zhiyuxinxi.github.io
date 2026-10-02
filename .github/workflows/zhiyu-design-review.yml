@@ -1,7 +1,7 @@
 name: Review Zhiyu design candidate
 on:
   push:
-    branches: [design/zhiyu-refinement, design/zhiyu-living-tide]
+    branches: [design/zhiyu-refinement, design/zhiyu-living-tide, design/zhiyu-six-paths]
 permissions:
   contents: read
 concurrency:
@@ -30,6 +30,9 @@ jobs:
       - name: Verify persistent tide and full-cycle evidence
         if: always()
         run: python site/tools/tidal_motion.py site
+      - name: Verify six-entry preview UI
+        if: always()
+        run: python site/tools/six_paths_ui.py site
       - name: Preserve independent review evidence
         if: always()
         uses: actions/upload-artifact@v4

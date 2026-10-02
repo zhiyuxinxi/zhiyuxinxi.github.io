@@ -108,7 +108,7 @@ def home_state_priority(p):
  for scenario,action in [('ongoing-action','start'),('combined','resume'),('complete','nav')]:
   proto(p,'home',scenario)
   check(p.locator('.home-scene h2').inner_text()=='16PF 性格探索')
-  primary=p.locator('.home-scene>.btn');check(primary.get_attribute('data-action')==action)
+  primary=p.locator('.home-primary').first;check(primary.get_attribute('data-action')==action)
   check(p.locator('.v3-action-resume').count()==(0 if scenario=='complete' else 1))
   (OUT/'design-candidate').mkdir(exist_ok=True);p.screenshot(path=str(OUT/'design-candidate'/('home-'+scenario+'.png')))
   primary.click()
