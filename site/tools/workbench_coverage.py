@@ -59,6 +59,35 @@ with sync_playwright() as w:
  def stale_message():
   before=p.url;p.frames[1].evaluate("parent.postMessage({type:'jianji-preview-state',version:4,reviewSession:'obsolete',route:'home',theme:'amber'},location.origin)");p.wait_for_timeout(80);check(p.url==before,'Obsolete iframe message changed current selection');return {'obsoleteGenerationIgnored':True}
  test('obsolete-frame-message-ignored',stale_message)
+ def newly_completed_session():
+  ctx=b.new_context(viewport={'width':1480,'height':1100},locale='zh-CN');q=ctx.new_page()
+  try:
+   q.goto(BASE+'/?workflow=new-session');q.wait_for_function("document.querySelector('#runtime-status').textContent.includes('原型已连接')");frame=q.frames[1]
+   frame.locator('[data-action=start]').click();frame.wait_for_function("App.currentRoute.startsWith('question?')");sid=frame.evaluate('App.snapshot.activeSession');check(sid!='session-demo-seed','Must exercise a newly created session')
+   for choice in ['a','b','c']:
+    frame.locator('[data-action=answer][data-id='+choice+']').click();frame.locator('[data-action=question-next]').click()
+   frame.locator('[data-action=finish]').click();frame.wait_for_function('id=>App.currentRoute==="complete?id="+id',arg=sid)
+   q.wait_for_function("document.querySelector('[data-page=complete]').getAttribute('aria-selected')==='true'",timeout=5000)
+   check(q.locator('#page-title').inner_text()=='作答完成（3题示例）','Wrong completion title');check('complete%3Fid%3D'+sid in q.url,'Workbench URL lost actual new session')
+   check(q.locator('.frame-shell').evaluate('e=>e.scrollTop===0&&e.scrollLeft===0'),'Scaled viewport mask scrolled after answering');frame.wait_for_function('scrollY===0');q.wait_for_timeout(200);q.screenshot(path=str(OUT/'real-new-session-complete.png'));return {'sessionId':sid,'seedFixture':False,'actualRoute':'complete?id='+sid,'selectedNode':'complete'}
+  finally:ctx.close()
+ test('new-session-completion-reflects-in-tree',newly_completed_session)
+ def actual_exploration_topics():
+  ctx=b.new_context(viewport={'width':1480,'height':1100},locale='zh-CN');q=ctx.new_page();visited=[]
+  try:
+   q.goto(BASE+'/?workflow=exploration');q.wait_for_function("document.querySelector('#runtime-status').textContent.includes('原型已连接')");frame=q.frames[1];frame.locator('[data-action=tab][data-route=explore]').click()
+   topics=frame.evaluate("D.topics.filter(x=>x.id!=='work-choice').map(x=>x.id)")
+   for topic in topics:
+    frame.locator('[data-action=nav][data-route=topic][data-id='+topic+']').click();frame.wait_for_function('r=>App.currentRoute===r',arg='topic?id='+topic)
+    node='topic-'+topic;q.wait_for_function('id=>document.querySelector("[data-page=\\\""+id+"\\\"]").getAttribute("aria-selected")==="true"',arg=node,timeout=5000)
+    check(q.locator('#page-title').inner_text()==next(x['name'] for x in nodes if x['id']==node),'Wrong topic title');visited.append({'route':'topic?id='+topic,'selectedNode':node})
+    check(q.locator('.frame-shell').evaluate('e=>e.scrollTop===0&&e.scrollLeft===0'),'Scaled viewport mask scrolled after topic navigation')
+    if topic=='relationships':frame.wait_for_function('scrollY===0');q.wait_for_timeout(200);q.screenshot(path=str(OUT/'real-explore-relationships.png'))
+    frame.locator('[data-action=back]').first.click();frame.wait_for_function("App.currentRoute==='explore'")
+   check(len(visited)==4,'Must visit all four non-default topics');return visited
+  finally:ctx.close()
+ test('explore-to-four-nondefault-topics-reflects-in-tree',actual_exploration_topics)
+
  def captures():
   shots=[]
   for width,height in [(1480,1100),(1188,761),(390,844)]:
@@ -92,4 +121,4 @@ with sync_playwright() as w:
    except Exception as e:row.update(status='FAIL',error=str(e))
    matrix.append(row)
  c.close();b.close()
-server.shutdown();report={'createdAt':datetime.now(timezone.utc).isoformat(),'scope':'All real route families × all 12 themes: real render, shared shell/token presence, no toolbar, no horizontal overflow. Full-page screenshots of all routes in sunrise. This is not a claim of all interaction states or pixel contrast in every theme.','results':results,'themeRouteMatrix':matrix,'pageErrors':errors};(OUT/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2));print(json.dumps({'tests':results,'matrixPassed':sum(x['status']=='PASS' for x in matrix),'matrixTotal':len(matrix),'matrixFailures':[x for x in matrix if x['status']=='FAIL'],'pageErrors':errors},ensure_ascii=False,indent=2));sys.exit(0 if all(x['status']=='PASS' for x in results+matrix) and not errors else 1)
+server.shutdown();report={'createdAt':datetime.now(timezone.utc).isoformat(),'scope':'All real route families × all 12 themes: real render, shared shell/token presence, no toolbar, no horizontal overflow. Full-page screenshots of all routes in sunrise. This is not a claim of all interaction states or pixel contrast in every theme.','results':results,'themeRouteMatrix':matrix,'pageErrors':errors};(OUT/('shell-report.json' if os.environ.get('WORKBENCH_SHELL_ONLY') else 'report.json')).write_text(json.dumps(report,ensure_ascii=False,indent=2));print(json.dumps({'tests':results,'matrixPassed':sum(x['status']=='PASS' for x in matrix),'matrixTotal':len(matrix),'matrixFailures':[x for x in matrix if x['status']=='FAIL'],'pageErrors':errors},ensure_ascii=False,indent=2));sys.exit(0 if all(x['status']=='PASS' for x in results+matrix) and not errors else 1)

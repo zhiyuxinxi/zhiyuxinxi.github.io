@@ -148,3 +148,11 @@
 | 服务端责任域 / 配置与审计 | `backend:BR-008` | —（说明节点） | 服务端责任规格 · 未接入 |
 
 | 关键状态检查 / 正在作答 · 三题示例 | `state:question` | question?id=session-demo-seed · scenario=question | 隔离场景演示 |
+
+## 独立终评后的定向导航修复
+
+终评发现普通route回传匹配排除了所有parentId节点，导致实际新答卷完成后的新ID无法定位complete，实际进入非默认专题也回退到默认专题名称。改为：先在普通页面候选中精确匹配route（排除弹层action、过程/结果stage、需从宿主操作的flow歧义），再匹配同base的规范父页；同base只有一个普通子页时允许匹配该子页，如complete。
+
+新增真实浏览器路径：从首页开始新答卷，实际选完3题并完成，断言动态sessionId保留、左树complete选中和标题同步；从探索实际点击4个非默认专题，逐一断言真实route、子节点与标题同步。不是直接点击seed树节点。产品页面、布局、主题、业务均未改动。旧98/5本地报告不是最终结果；见QA说明中的精确CI权威来源及定向shell-report。
+
+真实完成路径的实拍还揭示缩放iframe外框会被浏览器焦点自动滚动（外框scrollTop=106、scrollLeft=19，iframe自身scrollY=0），裁掉手机顶端。仅将外框overflow从hidden改为clip，禁止遮罩成为滚动容器；iframe内正常内容滚动与视口尺寸不变。两个真实路径均断言外框scrollTop/scrollLeft=0。

@@ -1,5 +1,11 @@
 # 完整页面工作台证据
 
+> **证据版本说明：** 仓库 `report.json` 是较早的本地快照（98个visited、5项工作台检查），不是最终CI结果。上一候选 `12e44f8` 的 [精确CI 37013361993](https://github.com/zhiyuxinxi/zhiyuxinxi.github.io/actions/runs/37013361993) 已通过99节点、6项工作台检查与468次主题路由检查；[原始CI摘要及全部99个visited ID](https://github.com/zhiyuxinxi/zhiyuxinxi.github.io/blob/2e06f42aef38c4b30c58facfff34d1b93e96b3d4/site/qa/complete-workbench/ci-summary.json) 可直接读取。
+>
+> 本次路由同步定向修复增加“全新答卷完成”和“探索真实进入4个非默认专题”两项测试；本地 [shell-report.json](shell-report.json) 单独记录8项工作台检查，不覆盖或冒充完整主题矩阵。最终以对应精确修复提交的CI产物为权威。
+>
+> 桌面“整页适合窗口”缩放完整手机视口；窄屏按宽度缩放，页面通过滚动查看，不声称窄屏能同时看到整张手机。
+
 基线 main：614dac3f8faf82da7c6b93c02b809306e4cefe8a。全部为本机HTTP、Chromium与隔离合成数据；不是生产AI/计分/账号/支付验证。
 
 - [1480×1100 左树＋整页预览](layout-1480.png)

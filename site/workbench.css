@@ -20,3 +20,6 @@
 .tree-children .tree-children{margin-left:8px}.mini-status{white-space:nowrap}
 @media(min-width:741px){.app-head{height:60px}.workspace{height:calc(100dvh - 60px)}.page-heading{padding:12px 24px}.page-heading #page-task{margin-top:3px}.view-panel{padding-top:14px;padding-bottom:14px}}
 @media(max-width:740px){.preview-tools>summary{padding:8px 14px}.stage-label{gap:8px}.scale-label select{max-width:144px}.sidebar-label{padding-top:18px}}
+
+/* A scaled iframe mask must not scroll when its internal controls receive focus. */
+.frame-shell{overflow:clip}
