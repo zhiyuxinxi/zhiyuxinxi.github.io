@@ -164,7 +164,8 @@ body[data-route=home] .home-path{min-height:86px;padding:10px 12px;gap:3px}
 /* Soft-field materials: theme-tinted planes, opaque writing/reading surfaces.
    No page-specific background tint; each route sees the same persistent field. */
 .nav{background:color-mix(in srgb,var(--nav-surface) 94%,transparent);border-top-color:var(--line);box-shadow:0 -8px 28px color-mix(in srgb,var(--ink) 8%,transparent)}
-.nav button.active .navicon{background:var(--primary);color:var(--on-primary)}
+/* Own the selected icon pair above legacy .theme-* overrides. */
+body[data-theme-mode] .nav button.active .navicon{background:var(--primary);color:var(--on-primary)}
 .home-path,.home-support,.v3-control,.v3-topic:not(.wide){background:color-mix(in srgb,var(--surface) 92%,transparent)}
 .home-primary{box-shadow:0 8px 22px color-mix(in srgb,var(--ink) 12%,transparent)}
 .input,.textarea,.search-box,select,.v3-composer{border-color:color-mix(in srgb,var(--ink) 48%,var(--surface))}

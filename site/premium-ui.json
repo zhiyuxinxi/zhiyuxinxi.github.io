@@ -24,7 +24,8 @@
     "visual",
     "recordContract",
     "motion",
-    "previewUI"
+    "previewUI",
+    "navigation"
   ],
   "commands": {
     "themes": "python tools/build_themes.py",
@@ -32,7 +33,8 @@
     "visual": "python tools/design_snapshots.py .",
     "recordContract": "node tools/record_loop_contract.mjs .",
     "motion": "python tools/tidal_motion.py .",
-    "previewUI": "python tools/six_paths_ui.py ."
+    "previewUI": "python tools/six_paths_ui.py .",
+    "navigation": "python tools/nav_contrast.py ."
   },
   "evidence": {
     "crudFullFlow": "tools/hosted_smoke.py",
