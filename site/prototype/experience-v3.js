@@ -33,7 +33,7 @@ window.V3 = (() => {
     if(unfinished){sub=`从第 ${sess.index+1} 题接着来，已保存 ${Object.keys(sess.answers).length} / 3 题。`;action=B('继续上次的探索','resume',{cls:'btn full',after:'arrow'});foot=L('回看已保存的选择','review',{cls:'textbtn','data-id':sess.id});}
     else if(a){heading='把想法，带进生活';sub='你留给自己的小尝试，还可以接着走。';action=L('留下这次观察','action-detail',{cls:'btn full',after:'arrow','data-id':a.id});foot=B('体验 16PF 作答流程','start',{cls:'textbtn'});}
     else if(done){heading='每次选择，都有来处';sub='留住当时的自己，也给变化留点空间。';action=L('回看这次作答','review',{cls:'btn full',after:'arrow','data-id':sess.id});foot=B('再体验一次','start-new',{cls:'textbtn'});}
-    return `<div class="topline brandline"><div class="wordmark">${mark()}<strong>知遇</strong><span class="prototype-label">设计体验</span></div><div class="v3-tools">${tools()}${L('','appearance',{cls:'iconbtn',icon:'palette','aria-label':'切换主题与形象'})}</div></div>
+    return `<div class="topline brandline"><div class="wordmark">${mark()}<strong>知遇测评</strong><span class="prototype-label">设计体验</span></div><div class="v3-tools">${tools()}${L('','appearance',{cls:'iconbtn',icon:'palette','aria-label':'切换主题与形象'})}</div></div>
       <header class="v3-home-heading"><h1>${unfinished||a?'从上次，接着来。':'你好，今天的你'}</h1><p>留一点时间，认识自己</p></header>
       <section class="home-scene" aria-label="16PF 性格探索">
         <div class="home-portrait">${portrait}${L('换形象','appearance',{cls:'home-avatar-link',after:'chevron'})}</div>

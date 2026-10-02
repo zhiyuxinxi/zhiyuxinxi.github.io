@@ -67,10 +67,17 @@ with sync_playwright() as pw:
     page.wait_for_function("r=>App.currentRoute===r",arg=route)
    page.wait_for_timeout(80)
    check(not errors,'Browser errors: '+str(errors))
+   check(page.title().endswith('知遇测评'),'Page title has stale brand')
    check(page.evaluate('document.documentElement.scrollWidth<=innerWidth'),'Horizontal document overflow')
    check(page.locator('img').evaluate_all('(es)=>es.every(e=>e.complete&&e.naturalWidth>0)'),'Missing image')
    row['primaryActions']=page.locator('.btn:not(.secondary):not(.tonal)').evaluate_all('(es)=>es.filter(e=>e.getClientRects().length).map(e=>({text:e.textContent.trim(),height:e.getBoundingClientRect().height,y:e.getBoundingClientRect().y}))')
+   if route in ['home','assistant']:
+    logo=page.locator('.brand-logo');check(logo.count()==1,'Missing supplied brand image')
+    check(logo.get_attribute('src')=='assets/zhiyu-logo.png','Wrong logo asset')
+    check(logo.evaluate("e=>e.naturalWidth===940&&e.naturalHeight===940&&getComputedStyle(e).objectFit==='contain'&&getComputedStyle(e).filter==='none'"),'Logo distorted, recolored, or missing')
    if route=='home':
+    check(page.locator('.wordmark strong').inner_text()=='知遇测评','Homepage wordmark is stale')
+    mark=page.locator('.wordmark').bounding_box();tools=page.locator('.brandline .v3-tools').bounding_box();check(mark['x']+mark['width']<=tools['x'],'Four-character wordmark collides with tools')
     box=page.locator('.v4-person-scene img').bounding_box();check(box['width']>=160,'Approved portrait anchor too small')
     check(abs(box['x']+box['width']/2-(width-7)/2)<15,'Portrait not centered')
     check(page.locator('[data-action=start]').count()==1,'Primary assessment lost')
@@ -99,6 +106,18 @@ with sync_playwright() as pw:
     row['reportGeometry']=page.evaluate("""() => ({scrollY, padding:getComputedStyle(document.documentElement).scrollPaddingTop, active:document.querySelector('.report-chapters [aria-current=location]')?.dataset.id, navEnd:document.querySelector('.report-chapters')?.getBoundingClientRect().bottom, sections:[...document.querySelectorAll('.report-block')].map(e=>({id:e.id,y:e.getBoundingClientRect().top,margin:getComputedStyle(e).scrollMarginTop}))})""")
    page.screenshot(path=str(OUT/(name+'-failure.png')),full_page=True)
   results.append(row);print(row['status'],name,row.get('error',''),flush=True);ctx.close()
+ # The review shell shares the same unchanged supplied logo at desktop and phone widths.
+ for shell_width in [1480,390]:
+  ctx=browser.new_context(viewport={'width':shell_width,'height':1100},locale='zh-CN');page=ctx.new_page()
+  try:
+   page.goto(BASE+'/',wait_until='networkidle')
+   check(page.locator('.brand b').inner_text()=='知遇测评','Workbench wordmark is stale')
+   logo=page.locator('.brand-logo');check(logo.evaluate("e=>e.naturalWidth===940&&e.naturalHeight===940&&getComputedStyle(e).objectFit==='contain'"),'Workbench logo missing or distorted')
+   name_box=page.locator('.brand').bounding_box();actions_box=page.locator('.head-actions').bounding_box();check(name_box['x']+name_box['width']<=actions_box['x'],'Workbench name collides with actions')
+   page.screenshot(path=str(OUT/('workbench-brand-'+str(shell_width)+'.png')))
+   results.append({'name':'workbench-brand-'+str(shell_width),'status':'PASS'})
+  except Exception as e:results.append({'name':'workbench-brand-'+str(shell_width),'status':'FAIL','error':str(e)})
+  ctx.close()
  # Verify whole character and headline stay still throughout a complete decorative cycle.
  ctx=browser.new_context(viewport={'width':390,'height':844},locale='zh-CN');page=ctx.new_page()
  try:
