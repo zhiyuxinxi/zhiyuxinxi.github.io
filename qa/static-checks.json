@@ -1,0 +1,96 @@
+{
+  "environment": "Project-owned static syntax/token/link inspection",
+  "passed": 16,
+  "failed": 0,
+  "checks": [
+    {
+      "check": "syntax:workbench-data.js",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "syntax:workbench.js",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "syntax:prototype/experience-v2.js",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "syntax:prototype/experience-v3.js",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "syntax:prototype/themes-v4.js",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "syntax:prototype/flows-v2.js",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "syntax:prototype/components.js",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "syntax:prototype/data.js",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "syntax:prototype/experience-v4.js",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "syntax:prototype/app.js",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "syntax:prototype/views.js",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "canonical_theme_generation",
+      "pass": true,
+      "detail": "Checked 12 complete themes\n"
+    },
+    {
+      "check": "contrast_semantic_pairs",
+      "pass": true,
+      "detail": {
+        "pairs": 192,
+        "failed": [],
+        "scope": "Flat token pairs and gradient endpoint samples only; actual composite states separately checked."
+      }
+    },
+    {
+      "check": "no_fonts",
+      "pass": true,
+      "detail": "No redistributed font files"
+    },
+    {
+      "check": "source_contracts_present",
+      "pass": true,
+      "detail": "Canonical owners documented"
+    },
+    {
+      "check": "local_entry_links",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "notClaimed": [
+    "Official skill auditor or DESIGN.md package lint",
+    "Full WCAG audit",
+    "Runtime origin verification"
+  ]
+}

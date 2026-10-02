@@ -1,0 +1,242 @@
+[
+  {
+    "id": "P01",
+    "area": "产品优先级",
+    "risk": "高",
+    "claim": "首页密度提高后，可以放更多新入口。",
+    "challenge": "用户自己未完成的事被推荐内容挤出首屏。",
+    "decision": "保留两列浏览；已有小尝试紧接主答卷。",
+    "verification": "combined_task_priority",
+    "status": "本轮本地指定回归通过；原生HTTP另行验证"
+  },
+  {
+    "id": "P02",
+    "area": "主线与范围",
+    "risk": "高",
+    "claim": "三题体验更容易理解和开始。",
+    "challenge": "标题会让人把三题当成正式16PF能力。",
+    "decision": "标题恢复16PF，按钮明确三道交互示例，不计分。",
+    "verification": "assessment_identity",
+    "status": "本轮本地指定回归通过；原生HTTP另行验证"
+  },
+  {
+    "id": "P03",
+    "area": "入口连续性",
+    "risk": "高",
+    "claim": "快速记录可以承接每日轻探索。",
+    "challenge": "普通记录与固定每日题组是两种职责。",
+    "decision": "两者保留独立入口；正式每日题组仍标待就绪。",
+    "verification": "daily_and_capture",
+    "status": "本轮本地指定回归通过；原生HTTP另行验证"
+  },
+  {
+    "id": "P04",
+    "area": "空状态",
+    "risk": "中",
+    "claim": "三个数量入口能提高个人页信息量。",
+    "challenge": "空用户首先看到一排零，没有实际帮助。",
+    "decision": "无资料时先写观察，有资料时再展示数量。",
+    "verification": "empty_profile",
+    "status": "本轮本地指定回归通过；原生HTTP另行验证"
+  },
+  {
+    "id": "P05",
+    "area": "找回记录",
+    "risk": "高",
+    "claim": "记录共用一个列表能避免重复。",
+    "challenge": "具体分类入口却跳到全部，违反入口承诺。",
+    "decision": "加入本人记录/全部答卷组合分类；返回保留筛选。",
+    "verification": "record_shortcuts",
+    "status": "本轮本地指定回归通过；原生HTTP另行验证"
+  },
+  {
+    "id": "T01",
+    "area": "主题身份",
+    "risk": "高",
+    "claim": "统一浅色风格更整齐。",
+    "challenge": "八个原始方向变为四套，深色和原有差异消失。",
+    "decision": "恢复八套原始方向，四套历史候选单列；不重复业务代码。",
+    "verification": "theme_registry",
+    "status": "本轮本地指定回归通过；原生HTTP另行验证"
+  },
+  {
+    "id": "T02",
+    "area": "主题覆盖",
+    "risk": "高",
+    "claim": "固定五色分类方便识别专题。",
+    "challenge": "换主题后主要卡片不变，构成视觉混杂。",
+    "decision": "分类名和图标稳定；颜色取当前主题的五个内部角色。",
+    "verification": "theme_category_coverage",
+    "status": "本轮本地指定回归通过；原生HTTP另行验证"
+  },
+  {
+    "id": "T03",
+    "area": "深色适配",
+    "risk": "高",
+    "claim": "修改页面底色和主文字即可支持夜间。",
+    "challenge": "笔记、弹层、因子瓶和错误区仍可能保留浅色固值。",
+    "decision": "检查实际计算样式；共享组件使用语义角色，未知因子仍为灰色。",
+    "verification": "dark_component_coverage",
+    "status": "实现及静态检查完成；适用状态见发布门禁"
+  },
+  {
+    "id": "T04",
+    "area": "人物表达",
+    "risk": "中",
+    "claim": "头像能保留人物选择，并节省首屏空间。",
+    "challenge": "人物仅剩44px头像，详细角色表达消失。",
+    "decision": "主任务保留人物场景；复查主按钮、快捷记录的位置。",
+    "verification": "hero_geometry",
+    "status": "本轮本地指定回归通过；原生HTTP另行验证"
+  },
+  {
+    "id": "I01",
+    "area": "动态",
+    "risk": "中",
+    "claim": "按钮回弹已经带来动态感。",
+    "challenge": "操作反馈无法承接原本缓慢的氛围动态。",
+    "decision": "恢复装饰慢呼吸，保留点击反馈；系统和应用均可关闭。",
+    "verification": "motion_and_reduction",
+    "status": "本轮本地指定回归通过；原生HTTP另行验证"
+  },
+  {
+    "id": "I02",
+    "area": "中文输入",
+    "risk": "高",
+    "claim": "输入时立即搜索就很及时。",
+    "challenge": "中文拼音组合中重绘可能截断输入或移走焦点。",
+    "decision": "组合输入期间不重绘；compositionend再提交本地更新。",
+    "verification": "ime_search",
+    "status": "本轮本地指定回归通过；原生HTTP另行验证"
+  },
+  {
+    "id": "D01",
+    "area": "版本延续",
+    "risk": "高",
+    "claim": "各版本独立存储可以保护旧数据。",
+    "challenge": "没有复制路径，用户只能面对空空间。",
+    "decision": "预检导出文件或同来源旧空间，确认后复制；非空空间拒绝覆盖。",
+    "verification": "migration_safety",
+    "status": "本轮本地指定回归通过；原生HTTP另行验证"
+  },
+  {
+    "id": "D02",
+    "area": "资料边界",
+    "risk": "高",
+    "claim": "迁移应恢复全部状态，体验最连续。",
+    "challenge": "文件不能恢复真实身份、购买权益或自动运行旧请求。",
+    "decision": "保留有效记录和来源；身份、权益与在途请求不自动恢复。",
+    "verification": "migration_privacy",
+    "status": "实现及静态检查完成；适用状态见发布门禁"
+  },
+  {
+    "id": "W01",
+    "area": "评审工作台",
+    "risk": "高",
+    "claim": "左树列全页面，就能证明完整覆盖。",
+    "challenge": "树上可点击不等于有真实交互，空页会掩盖遗漏。",
+    "decision": "每个节点标交互原型或流程规格；展示对象、取消、失败、返回和原需求。",
+    "verification": "tree_coverage",
+    "status": "实现及静态检查完成；适用状态见发布门禁"
+  },
+  {
+    "id": "W02",
+    "area": "评审安全",
+    "risk": "高",
+    "claim": "工作台可以随意发消息控制原型。",
+    "challenge": "不校验来源或直接重载，可能泄露数据或丢未保存答案。",
+    "decision": "校验消息来源、origin与动作白名单；未保存内容阻断场景重载。",
+    "verification": "preview_bridge",
+    "status": "实现及静态检查完成；适用状态见发布门禁"
+  },
+  {
+    "id": "W03",
+    "area": "上线证据",
+    "risk": "高",
+    "claim": "本地DOM测试通过就可以宣布网页可用。",
+    "challenge": "托管加载、真实存储和路径可能仍有问题。",
+    "decision": "本地证据单列；GitHub Actions再跑HTTP浏览器验证，成功后才部署。",
+    "verification": "hosted_http_gate",
+    "status": "实现及静态检查完成；适用状态见发布门禁"
+  },
+  {
+    "id": "R01",
+    "area": "既有流程",
+    "risk": "高",
+    "claim": "新界面无需重测未改的存储代码。",
+    "challenge": "渲染、入口和事件绑定照样会造成业务回退。",
+    "decision": "复跑V2行为回归及V3有效检查，并列出调整过的旧断言。",
+    "verification": "legacy_regression",
+    "status": "实现及静态检查完成；适用状态见发布门禁"
+  },
+  {
+    "id": "R02",
+    "area": "独立评审",
+    "risk": "中",
+    "claim": "用多个角色口吻就可以称多AI独立协作。",
+    "challenge": "角色扮演无法提供独立执行证据。",
+    "decision": "本轮没有已调用的独立AI代理；对抗裁决与并行测试如实标注。",
+    "verification": "provenance",
+    "status": "能力边界已披露"
+  },
+  {
+    "id": "T05",
+    "area": "原始人物素材",
+    "risk": "高",
+    "claim": "把V1–V3的人物放大就算保留原始形象。",
+    "challenge": "原包三张详细人物素材仍没有被继承。",
+    "decision": "恢复原始三个人物；历次三套场景人物单列保留，主题与人物家族独立。",
+    "verification": "original_and_legacy_people",
+    "status": "本轮本地指定回归通过；原生HTTP另行验证"
+  },
+  {
+    "id": "D03",
+    "area": "同来源多窗口",
+    "risk": "高",
+    "claim": "独立打开页面方便用户放大预览。",
+    "challenge": "同一场景在两个窗口可能发生过时数据覆盖。",
+    "decision": "写前校验原始快照，接收storage事件；有冲突暂停写入，允许导出并确认重载。",
+    "verification": "cross_window_write_guard",
+    "status": "本轮本地指定回归通过；原生HTTP另行验证"
+  },
+  {
+    "id": "W04",
+    "area": "页面定位与深链接",
+    "risk": "中",
+    "claim": "复制页面名称就足够分享评审定位。",
+    "challenge": "具体专题、记录、后台规格与预置状态可能打开成其他内容。",
+    "decision": "链接保留合法页面、对象标识、场景和主题，不含正文；缺失本机对象如实显示不可用。",
+    "verification": "workbench_deep_links",
+    "status": "本地壳交互检查通过；原生深链接/消息另行验证"
+  },
+  {
+    "id": "W05",
+    "area": "预览反馈一致性",
+    "risk": "高",
+    "claim": "树点击后立即高亮，响应看起来更快。",
+    "challenge": "原型拒绝跳转时，树与实际页面会显示不同任务。",
+    "decision": "受控命令始终回传实际元状态；只有预览模式同步树，规格阅读不受后台消息改写。",
+    "verification": "workbench_actual_state_ack",
+    "status": "本地壳交互检查通过；原生深链接/消息另行验证"
+  },
+  {
+    "id": "W06",
+    "area": "移动工作台",
+    "risk": "中",
+    "claim": "窄屏隐藏复制链接可减少一排控件。",
+    "challenge": "把桌面提供的评审分享能力在手机端直接删除。",
+    "decision": "复制入口保持可达，允许工具栏换行。",
+    "verification": "shell_narrow",
+    "status": "本轮本地窄屏壳检查通过"
+  },
+  {
+    "id": "T06",
+    "area": "刷新后的主题连续性",
+    "risk": "高",
+    "claim": "URL携带主题可用于初次定位。",
+    "challenge": "选了新主题再刷新，旧URL可能覆盖刚保存的选择。",
+    "decision": "非画廊页面消费初始主题参数后移除；正常选择独立持久化。",
+    "verification": "persona_setting_independence",
+    "status": "已修改；需原生HTTP重载门禁验证"
+  }
+]

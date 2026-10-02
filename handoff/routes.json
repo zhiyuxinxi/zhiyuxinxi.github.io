@@ -1,0 +1,1126 @@
+[
+  {
+    "id": "home",
+    "name": "认识",
+    "lane": "本地探索",
+    "surface": "主入口",
+    "task": "判断现在从哪里开始 / 从哪里继续",
+    "architecture": "首要任务依次为未完成答题、进行中的小尝试、完成体验回看、首次体验；AI重置版保留说明，尚未开放。 V3：单一高权重任务；两个生活入口与快速记录前移；支持舒展/紧凑。 V4 恢复16PF标题、人物、每日入口和低幅呼吸；已有任务优先，快捷记录保留。",
+    "objects": "sessionId,actionId,contentVersion,localSpaceId",
+    "exceptions": "样例与正式内容身份明确；同一进行中答卷重复开始直接续答；未来版本不伪装可使用。",
+    "returnRule": "四入口各自保留滚动位置与当前状态。",
+    "slice": "S1",
+    "legacyIds": [
+      "home",
+      "welcome"
+    ],
+    "prototypeRoute": "home",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": true,
+    "eventIds": [
+      "nav.root",
+      "assessment.choose-version",
+      "nav.back"
+    ],
+    "route": "home",
+    "scenario": "default",
+    "status": "交互原型"
+  },
+  {
+    "id": "explore",
+    "name": "探索",
+    "lane": "本地探索",
+    "surface": "主入口",
+    "task": "把生活里的一个问题转成探索方向",
+    "architecture": "按工作、相处、学习、生活组织；搜索、筛选、收藏在同一浏览空间；不用量表目录轰炸。 V3：一个跨列主题 + 四个两列主题；保留搜索与筛选；清楚显示问题数和整理产物。",
+    "objects": "topicId,filters,searchQuery",
+    "exceptions": "无结果给清空条件；专题未上线给可做的观察而非假测评。",
+    "returnRule": "从专题回来保留筛选、关键词及位置。",
+    "slice": "S1",
+    "legacyIds": [
+      "explore",
+      "topic-list",
+      "assessment-search",
+      "assessment-favorites"
+    ],
+    "prototypeRoute": "explore",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": true,
+    "eventIds": [
+      "topics.filter",
+      "topic.favorite"
+    ],
+    "route": "explore",
+    "scenario": "default",
+    "status": "交互原型"
+  },
+  {
+    "id": "assessment-detail",
+    "name": "了解这项探索",
+    "lane": "本地探索",
+    "surface": "任务页 + 内联说明",
+    "task": "开始前看清是什么、适不适用",
+    "architecture": "用途、输出、耗时依据、题源/许可、版本/适用范围；准备与版本选择同页，不多次确认。",
+    "objects": "assessmentId,packVersion,scoringVersion,factorId?",
+    "exceptions": "内容缺失或撤回禁止新开正式答卷；已有记录原版本可回看。",
+    "returnRule": "取消不创建答卷；开始成功才转入固定sessionId。",
+    "slice": "S1",
+    "legacyIds": [
+      "assessment-detail",
+      "assessment-source",
+      "assessment-versions",
+      "session-prepare"
+    ],
+    "prototypeRoute": "topic",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [],
+    "route": "topic?id=work-choice",
+    "scenario": "default",
+    "status": "交互原型"
+  },
+  {
+    "id": "content",
+    "name": "本机内容",
+    "lane": "内容运营",
+    "surface": "任务页",
+    "task": "知道哪些内容真正可离线使用",
+    "architecture": "本机包状态、版本、容量、更新/撤回说明；下载校验后才标可用。",
+    "objects": "contentPackId,version,checksum,eligibilityStatus",
+    "exceptions": "下载中断可重试；新版本不能直接改写正在作答的包。",
+    "returnRule": "返回原准备页并保留所选版本；更新失败不损坏旧可用包。",
+    "slice": "S1",
+    "legacyIds": [
+      "content-library",
+      "content-download",
+      "content-updates"
+    ],
+    "prototypeRoute": "content",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [],
+    "route": "content",
+    "scenario": "default",
+    "status": "交互原型"
+  },
+  {
+    "id": "question",
+    "name": "专心作答",
+    "lane": "本地探索",
+    "surface": "全屏任务",
+    "task": "回答当前一题，并知道存好了没有",
+    "architecture": "一道题、一个选项组、进度、真实保存状态；上一题/下一题固定在任务区，没有四Tab。 V3：保留专注答题空间，选择具有短反馈；提交门槛仍取决于保存状态。",
+    "objects": "spaceId,sessionId,packVersion,questionId,optionId,answerRevision",
+    "exceptions": "保存失败保持临时选择，下一题不可走；重试或导出临时答案。",
+    "returnRule": "暂停保存当前位置；恢复同一答卷同一题；已完成仅回看。",
+    "slice": "S1",
+    "legacyIds": [
+      "question"
+    ],
+    "prototypeRoute": "question",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [
+      "session.begin",
+      "answer.select",
+      "answer.retry",
+      "answer.next"
+    ],
+    "route": "question?id=session-demo-seed",
+    "scenario": "question",
+    "status": "交互原型"
+  },
+  {
+    "id": "review",
+    "name": "作答检查与完成",
+    "lane": "本地探索",
+    "surface": "任务页",
+    "task": "检查漏题并固定这份答卷",
+    "architecture": "逐项回看 → 只修改未完成答卷 → 确认完成；提交是事务，不是点击就显示成功。",
+    "objects": "sessionId,answerRevision,submitToken,resultId?",
+    "exceptions": "缺题定位；重复提交返回同一结果；内容版本不匹配不算。",
+    "returnRule": "已完成只读；重新开始产生新sessionId，不覆盖旧记录。",
+    "slice": "S1",
+    "legacyIds": [
+      "answer-review",
+      "assessment-submit"
+    ],
+    "prototypeRoute": "review",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [
+      "session.complete-demo",
+      "result.commit-formal"
+    ],
+    "route": "review?id=session-demo-seed",
+    "scenario": "complete",
+    "status": "交互原型"
+  },
+  {
+    "id": "recovery",
+    "name": "继续与恢复",
+    "lane": "本地探索",
+    "surface": "就地恢复面板",
+    "task": "找回未完成任务，不凭最新题库猜进度",
+    "architecture": "展示原答卷名称、已保存题数、停留题、版本；多份草稿让用户明确选择。",
+    "objects": "sessionId,packVersion,lastSavedQuestionId",
+    "exceptions": "包丢失/数据损坏/空间归属不明分别说明；不可恢复时保留原始数据。",
+    "returnRule": "继续原任务；取消仍留在原入口；不隐式合并。",
+    "slice": "S1",
+    "legacyIds": [
+      "session-recovery",
+      "unfinished"
+    ],
+    "prototypeRoute": null,
+    "runtimeLevel": "无独立交互页面；展示任务、对象、失败与返回规则",
+    "tabBar": false,
+    "eventIds": [
+      "session.pause",
+      "session.resume"
+    ],
+    "route": null,
+    "scenario": "default",
+    "status": "流程规格"
+  },
+  {
+    "id": "report",
+    "name": "读懂一份结果",
+    "lane": "本地探索",
+    "surface": "阅读页 + 因子详情层",
+    "task": "先理解与自己有关的情境，再读依据与限制",
+    "architecture": "虚构身份常驻首段；要点、依据、我的观察、下一步四段导航；本人观察与样例来源分别保留。 V3：短封面、三条可扫读要点、跟随章节的粘性目录；样例身份与本人观察仍分开。",
+    "objects": "reportId,reportVersion,sectionId,sourceKind,observationId,editorDraftKey",
+    "exceptions": "缺失因子保持未知；草稿保存失败可重试或导出；引用样例的回复不可直接变成个人记忆。",
+    "returnRule": "回到同一段位置；本人补充独立存储，不改原始分数。",
+    "slice": "S1",
+    "legacyIds": [
+      "report",
+      "factor-detail",
+      "report-evidence",
+      "report-feedback",
+      "report-explanation"
+    ],
+    "prototypeRoute": "report",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [
+      "report.open",
+      "report.context",
+      "source.inspect",
+      "report.annotate",
+      "report.quote",
+      "report.jump",
+      "draft.autosave"
+    ],
+    "route": "report?id=report-sample-01",
+    "scenario": "default",
+    "status": "交互原型"
+  },
+  {
+    "id": "records",
+    "name": "测评与记录",
+    "lane": "本地探索",
+    "surface": "任务页",
+    "task": "按当时的情境找回自己的资料",
+    "architecture": "按类型和时间找回答卷、正式报告、本人观察；记录不是成长积分。 V4 精确分类入口，同时保留未完成答卷和列表返回筛选。",
+    "objects": "spaceId,recordType,recordId,version",
+    "exceptions": "空状态给可开始的动作；损坏记录单独隔离不清空整个列表。",
+    "returnRule": "打开精确对象，返回原筛选/时间位置。",
+    "slice": "S1",
+    "legacyIds": [
+      "records",
+      "record-timeline",
+      "observation-history"
+    ],
+    "prototypeRoute": "records",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [],
+    "route": "records",
+    "scenario": "default",
+    "status": "交互原型"
+  },
+  {
+    "id": "compare",
+    "name": "放在一起看",
+    "lane": "本地探索",
+    "surface": "任务页",
+    "task": "先判断是否可比，再理解差异",
+    "architecture": "先选两份 → 核对量表/计分/常模与版本 → 可比分数差异或仅并列原文 → 本人情境。",
+    "objects": "leftResultId,rightResultId,comparabilityRuleVersion",
+    "exceptions": "不同行为/模拟/观察不能拼成趋势；无依据就只并列阅读。",
+    "returnRule": "取消选择保留原记录；不改任何结果。",
+    "slice": "S1",
+    "legacyIds": [
+      "compare-select",
+      "compare-report"
+    ],
+    "prototypeRoute": "compare",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [],
+    "route": "compare",
+    "scenario": "default",
+    "status": "交互原型"
+  },
+  {
+    "id": "share",
+    "name": "分享预览",
+    "lane": "资料掌控",
+    "surface": "任务页",
+    "task": "只导出本人愿意外发的部分",
+    "architecture": "范围勾选 → 实际预览 → 脱敏提示 → 导出结果/失败；原始答案和私人补充默认不外发。",
+    "objects": "resultId,sectionIds,exportSnapshotId,redactionVersion",
+    "exceptions": "文件生成失败不显示已保存；文件离开设备后不可远程撤回。",
+    "returnRule": "取消不导出；返回报告原片段；预览与实际内容一致。",
+    "slice": "S1",
+    "legacyIds": [
+      "share-preview",
+      "share-records"
+    ],
+    "prototypeRoute": "share",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [
+      "share.export"
+    ],
+    "route": "share",
+    "scenario": "default",
+    "status": "交互原型"
+  },
+  {
+    "id": "light-suite",
+    "name": "轻量探索",
+    "lane": "本地探索",
+    "surface": "选择层 + 复用作答/报告",
+    "task": "用较轻的方式理解某个角度",
+    "architecture": "单因子保留factorId；每日题组首次固定daySetId；模拟显著标假设，绝不写入本人测量。",
+    "objects": "mode,factorId,daySetId,contentVersion,simulationId",
+    "exceptions": "正式题组未就绪不伪造；重复进入每日不随机换题；模拟无结论依据只示意。",
+    "returnRule": "沿原入口返回；正式作答仍使用同一个session与瓶子组件。",
+    "slice": "S1",
+    "legacyIds": [
+      "single-factor-list",
+      "single-factor-detail",
+      "daily",
+      "daily-review",
+      "light-intro",
+      "simulation",
+      "simulation-presets",
+      "simulation-result"
+    ],
+    "prototypeRoute": "simulation",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [
+      "factor.open",
+      "daily.fixed-set",
+      "simulation.adjust"
+    ],
+    "route": "simulation",
+    "scenario": "default",
+    "status": "交互原型"
+  },
+  {
+    "id": "article",
+    "name": "理解的方法",
+    "lane": "本地探索",
+    "surface": "阅读页",
+    "task": "借一段概念解释，减少标签化误解",
+    "architecture": "正文为主体；出处/版本就近；选中片段时给引用/提问，不只发送文章标题。",
+    "objects": "articleId,articleVersion,sectionId,excerpt",
+    "exceptions": "文章撤回可标记旧引用不可新用；选段为空要明确提示。",
+    "returnRule": "回原阅读位置；提问只进入草稿，不自动发送。",
+    "slice": "S1",
+    "legacyIds": [
+      "personality-guide",
+      "exploration-perspectives",
+      "knowledge-detail"
+    ],
+    "prototypeRoute": "article",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [
+      "article.quote"
+    ],
+    "route": "article?id=read-traits",
+    "scenario": "default",
+    "status": "交互原型"
+  },
+  {
+    "id": "assistant",
+    "name": "助理",
+    "lane": "理解与行动",
+    "surface": "主入口",
+    "task": "把一个具体问题准备清楚",
+    "architecture": "静态欢迎/最近对话；具体草稿与可移除引用；登录与额度在动作前解释，而不覆盖正文。 V3：减少铺垫，输入前置；入口文案从具体事情出发；明确预写演示与本次引用。",
+    "objects": "spaceId,accountId?,draftId,sourceRefs",
+    "exceptions": "未登录0次；登录免费分析+聊天合计10/日；不足保留草稿。",
+    "returnRule": "进入认证/会员后回同一草稿，不自动发AI。",
+    "slice": "S2",
+    "legacyIds": [
+      "assistant"
+    ],
+    "prototypeRoute": "assistant",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": true,
+    "eventIds": [
+      "ai.send"
+    ],
+    "route": "assistant",
+    "scenario": "default",
+    "status": "交互原型"
+  },
+  {
+    "id": "conversations",
+    "name": "聊过的话题",
+    "lane": "理解与行动",
+    "surface": "任务页",
+    "task": "继续某一段旧对话",
+    "architecture": "标题、更新时间与状态；只读打开历史不消耗新额度，不展示新欢迎页替换。",
+    "objects": "accountId,conversationId",
+    "exceptions": "对象不属于当前空间/不存在/已删分别处理。",
+    "returnRule": "回列表原位置；新话题需明确创建新对象。",
+    "slice": "S2",
+    "legacyIds": [
+      "conversation-list"
+    ],
+    "prototypeRoute": "conversations",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [],
+    "route": "conversations",
+    "scenario": "history",
+    "status": "交互原型"
+  },
+  {
+    "id": "conversation",
+    "name": "对话正文",
+    "lane": "理解与行动",
+    "surface": "对话任务页",
+    "task": "连续整理这一个问题",
+    "architecture": "消息、当次使用的来源快照、可纠正建议、小尝试/记忆候选；底部单一编辑器。",
+    "objects": "conversationId,messageId,requestId,accountId,sourceSnapshotId",
+    "exceptions": "停止/超时/认证过期/切账号/引用撤回；查询原请求，禁止无限重发。",
+    "returnRule": "离开保留草稿；历史不重算、不重新扣次；返回原对话。",
+    "slice": "S2",
+    "legacyIds": [
+      "conversation-detail",
+      "conversation-settings"
+    ],
+    "prototypeRoute": "conversation",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [
+      "ai.stop",
+      "history.open",
+      "source.invalidate-inflight",
+      "conversation.delete",
+      "ai.job.isolation"
+    ],
+    "route": "conversation?id=conversation-demo-history",
+    "scenario": "history",
+    "status": "交互原型"
+  },
+  {
+    "id": "context",
+    "name": "本次引用",
+    "lane": "资料掌控",
+    "surface": "选择层 + 预览层",
+    "task": "明确这一条请求会用到什么",
+    "architecture": "本人记录与已确认记忆默认可见；虚构演示来源置于独立折叠区；替换同源新修订时保持唯一来源。",
+    "objects": "draftId,sourceRef(kind,id,version,sectionId,status),grantId",
+    "exceptions": "来源删除/修改/停用时发送前重检；在途返回前再核验。",
+    "returnRule": "取消不更改原选择；确认只写草稿引用，不发送。",
+    "slice": "S2",
+    "legacyIds": [
+      "context-select",
+      "context-preview"
+    ],
+    "prototypeRoute": null,
+    "runtimeLevel": "无独立交互页面；展示任务、对象、失败与返回规则",
+    "tabBar": false,
+    "eventIds": [
+      "source.select",
+      "source.remove"
+    ],
+    "route": null,
+    "scenario": "default",
+    "status": "流程规格"
+  },
+  {
+    "id": "usage",
+    "name": "AI用量",
+    "lane": "服务保障",
+    "surface": "就地额度层 + 明细",
+    "task": "知道能否请求、为什么扣、怎样追原单",
+    "architecture": "免费共享池与付费依据；每次请求唯一requestId；分析与聊天同一明细。",
+    "objects": "accountId,requestId,quotaPolicyVersion,ledgerEntryId",
+    "exceptions": "失败/取消/重试如何结算待定；没有服务端账本不宣称防绕过。",
+    "returnRule": "不足返回原草稿；买后查询原请求，不强制重新发送。",
+    "slice": "S2",
+    "legacyIds": [
+      "ai-quota",
+      "ai-usage-history"
+    ],
+    "prototypeRoute": null,
+    "runtimeLevel": "无独立交互页面；展示任务、对象、失败与返回规则",
+    "tabBar": false,
+    "eventIds": [
+      "quota.inspect"
+    ],
+    "route": null,
+    "scenario": "default",
+    "status": "流程规格"
+  },
+  {
+    "id": "analysis",
+    "name": "按需解析",
+    "lane": "理解与行动",
+    "surface": "报告内展开 + 结果读取",
+    "task": "只对选定结果增加一层有来源的解释",
+    "architecture": "本地报告先可读；按需点击才产生AI请求；保留所选结果和解释版本，不替代原报告。",
+    "objects": "resultId,resultVersion,analysisId,requestId,sourceSnapshotId",
+    "exceptions": "原报告删除/撤回时晚到解析不能复活资料；失败仍可读原报告。",
+    "returnRule": "关闭回报告同片段；读已生成结果不另扣次数。",
+    "slice": "S2",
+    "legacyIds": [
+      "ai-analysis",
+      "ai-analysis-result"
+    ],
+    "prototypeRoute": null,
+    "runtimeLevel": "无独立交互页面；展示任务、对象、失败与返回规则",
+    "tabBar": false,
+    "eventIds": [
+      "analysis.request"
+    ],
+    "route": null,
+    "scenario": "default",
+    "status": "流程规格"
+  },
+  {
+    "id": "portrait",
+    "name": "正在认识的自己",
+    "lane": "理解与行动",
+    "surface": "关系图阅读页",
+    "task": "看清不同认识来自哪里、哪些还不知道",
+    "architecture": "本人观察、测量、情境、纠正分层；关系图不是人格雷达或一个总分。",
+    "objects": "portraitRevision,evidenceRefs,reflectionId",
+    "exceptions": "没有证据留白；矛盾并列，不强行综合为更准确。",
+    "returnRule": "点节点去对应来源，回来保留视角；修正不改测量记录。",
+    "slice": "S2",
+    "legacyIds": [
+      "my-portrait",
+      "portrait-insight",
+      "portrait-reflection",
+      "understanding-gaps",
+      "insight-reconcile"
+    ],
+    "prototypeRoute": "portrait",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [],
+    "route": "portrait",
+    "scenario": "default",
+    "status": "交互原型"
+  },
+  {
+    "id": "memories",
+    "name": "助理记忆",
+    "lane": "资料掌控",
+    "surface": "列表 + 编辑/来源层",
+    "task": "确认、修改、停用或删除一条可长期使用的认识",
+    "architecture": "候选 → 本人确认 → 可用；修改变新候选；来源和变化历史可查。",
+    "objects": "memoryId,revision,sourceRefs,confirmationId",
+    "exceptions": "旧版本/停用源不可进入新检索；在途任务不得复活被删记忆。",
+    "returnRule": "取消编辑保留原版本；停用不等于删除历史聊天。",
+    "slice": "S2",
+    "legacyIds": [
+      "memory-list",
+      "memory-detail",
+      "memory-inbox",
+      "memory-edit",
+      "memory-source",
+      "memory-changes"
+    ],
+    "prototypeRoute": "memories",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [
+      "memory.propose",
+      "memory.confirm",
+      "memory.edit",
+      "memory.deactivate",
+      "memory.delete"
+    ],
+    "route": "memories",
+    "scenario": "default",
+    "status": "交互原型"
+  },
+  {
+    "id": "actions",
+    "name": "我的小尝试",
+    "lane": "理解与行动",
+    "surface": "任务列表 + 就地编辑",
+    "task": "找到还在进行的小尝试，并如实记录实际发生的情况",
+    "architecture": "进行中、已观察、已放下分区；结果单独记录为五种状态；还没尝试继续保留在进行中。",
+    "objects": "actionId,sourceId,sourceKind,sectionId,reviewId,outcome,status",
+    "exceptions": "过期建议可标记；失败保存保留文字，不以连续天数评价用户。",
+    "returnRule": "回到原建议或列表；观察可以独立存在。",
+    "slice": "S2",
+    "legacyIds": [
+      "action-list",
+      "action-detail",
+      "action-edit",
+      "action-review",
+      "strength-experiment"
+    ],
+    "prototypeRoute": "actions",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [
+      "action.create",
+      "action.review",
+      "action.cancel"
+    ],
+    "route": "actions",
+    "scenario": "default",
+    "status": "交互原型"
+  },
+  {
+    "id": "journal",
+    "name": "本人观察",
+    "lane": "本地探索",
+    "surface": "专注编辑页",
+    "task": "用具体经历表达自己",
+    "architecture": "独立本机草稿；路由往返保留；保存进入正式记录，草稿缓存与个人记录区分；失败可重试和导出。 V3：短记录提示和字数显示，草稿保护链不变。",
+    "objects": "noteId,revision,contextType,sourceRef?",
+    "exceptions": "保存失败不离开、不丢字；草稿按对象隔离；删除失败保留原记录。",
+    "returnRule": "保存回原记录集合；不自动外发、不自动变记忆。",
+    "slice": "S1",
+    "legacyIds": [
+      "decision-context",
+      "session-checkin",
+      "observation-edit",
+      "situational-self"
+    ],
+    "prototypeRoute": "journal",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [
+      "note.save",
+      "note.delete",
+      "draft.autosave",
+      "draft.retry",
+      "draft.scope"
+    ],
+    "route": "journal",
+    "scenario": "default",
+    "status": "交互原型"
+  },
+  {
+    "id": "life-spaces",
+    "name": "生活空间",
+    "lane": "理解与行动",
+    "surface": "后续聚合任务",
+    "task": "按持续议题收拢相关记录",
+    "architecture": "工作/关系/城市等自定义空间，归集来源和尝试，不新造一种人格分。",
+    "objects": "lifeSpaceId,memberRecordIds",
+    "exceptions": "重复归属不重复数据；删空间不默认删源记录。",
+    "returnRule": "明确保留/移出关联，原对象仍可从记录找到。",
+    "slice": "S4",
+    "legacyIds": [
+      "life-space-list",
+      "life-space-detail"
+    ],
+    "prototypeRoute": null,
+    "runtimeLevel": "无独立交互页面；展示任务、对象、失败与返回规则",
+    "tabBar": false,
+    "eventIds": [
+      "space.organize"
+    ],
+    "route": null,
+    "scenario": "default",
+    "status": "流程规格"
+  },
+  {
+    "id": "skills",
+    "name": "助理技能",
+    "lane": "理解与行动",
+    "surface": "后续选择层",
+    "task": "选择明确的整理方法而不是改变人格",
+    "architecture": "每项说明输入、产出、资料范围、收费/权限；禁止默认运行所有工具。",
+    "objects": "skillId,skillVersion,requestId,grantId",
+    "exceptions": "技能不可用/越权有原因；外部动作另需授权。",
+    "returnRule": "取消不调用；结束把结果关联原对话。",
+    "slice": "S4",
+    "legacyIds": [
+      "skills-list",
+      "skill-detail"
+    ],
+    "prototypeRoute": null,
+    "runtimeLevel": "无独立交互页面；展示任务、对象、失败与返回规则",
+    "tabBar": false,
+    "eventIds": [
+      "skill.run"
+    ],
+    "route": null,
+    "scenario": "default",
+    "status": "流程规格"
+  },
+  {
+    "id": "reminders",
+    "name": "轻提醒",
+    "lane": "服务保障",
+    "surface": "后续设置层",
+    "task": "在本人愿意时提醒某个小尝试",
+    "architecture": "选择事项、频率与系统权限；默认不开；现实系统能力不支持不造假开关。",
+    "objects": "reminderId,actionId,notificationPermission",
+    "exceptions": "拒绝权限不挡离线记录；系统没授权不能说已开启。",
+    "returnRule": "关闭只停止提醒，不删除行动或观察。",
+    "slice": "S4",
+    "legacyIds": [
+      "reminder-settings",
+      "notification-settings"
+    ],
+    "prototypeRoute": null,
+    "runtimeLevel": "无独立交互页面；展示任务、对象、失败与返回规则",
+    "tabBar": false,
+    "eventIds": [
+      "reminder.enable"
+    ],
+    "route": null,
+    "scenario": "default",
+    "status": "流程规格"
+  },
+  {
+    "id": "me",
+    "name": "我的",
+    "lane": "资料掌控",
+    "surface": "主入口",
+    "task": "找回自己留下的资料并掌握使用范围",
+    "architecture": "最近本人记录与待回看的小尝试优先；没有资料时给具体起点；画像图与低频设置后置。 V3：本人记录与小尝试可找回；笔记页隐喻；数量不作成长评分。 V4 无资料不突出空计数，有资料后展示真实数量。",
+    "objects": "spaceId,profileId,localStats",
+    "exceptions": "无记录就留白，非零人格分；演示资料不混入真实画像。",
+    "returnRule": "四Tab保存自身位置；去设置回来不丢状态。",
+    "slice": "S1",
+    "legacyIds": [
+      "profile",
+      "profile-edit"
+    ],
+    "prototypeRoute": "me",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": true,
+    "eventIds": [],
+    "route": "me",
+    "scenario": "default",
+    "status": "交互原型"
+  },
+  {
+    "id": "auth",
+    "name": "登录与注册",
+    "lane": "身份与权益",
+    "surface": "单一连续任务",
+    "task": "验证身份后回到原动作",
+    "architecture": "输入账号/验证码等真实方式待定；条款按实际；访客资料认领必须显式。",
+    "objects": "authFlowId,returnTarget,draftId,guestSpaceId,accountId",
+    "exceptions": "认证过期/错误/恢复；切账号不自动搬资料或接收旧任务。",
+    "returnRule": "取消返回原稿；认证成功只恢复原操作，不自动请求AI。",
+    "slice": "S2",
+    "legacyIds": [
+      "login",
+      "register",
+      "verify-code"
+    ],
+    "prototypeRoute": "auth",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [
+      "auth.return"
+    ],
+    "route": "auth",
+    "scenario": "default",
+    "status": "交互原型"
+  },
+  {
+    "id": "account",
+    "name": "账号与安全",
+    "lane": "身份与权益",
+    "surface": "任务页 + 删除流程",
+    "task": "理解身份、空间、在途任务之间的关系",
+    "architecture": "会话/恢复/切账号/注销；注销前列本机、应用云端、供应商及已导出范围。",
+    "objects": "accountId,spaceId,sessionTokenId,deletionRequestId",
+    "exceptions": "注销失败显示真实阶段；在途任务隔离；购买保留义务待实际规则。",
+    "returnRule": "取消不删；退出不宣称已清理所有副本。",
+    "slice": "S2",
+    "legacyIds": [
+      "account-recovery",
+      "account-security",
+      "account-delete"
+    ],
+    "prototypeRoute": "account",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [
+      "account.logout",
+      "account.delete"
+    ],
+    "route": "account",
+    "scenario": "default",
+    "status": "交互原型"
+  },
+  {
+    "id": "settings",
+    "name": "偏好",
+    "lane": "资料掌控",
+    "surface": "组合设置页",
+    "task": "改变展示或助理偏好，不改变原资料",
+    "architecture": "文字大小、主题形象、提醒、隐私、账号、帮助；不把几十个单项扩成页面。 V4 所有展示设置均独立，不触碰业务内容。",
+    "objects": "preferencesRevision,fontScale,motionPreference",
+    "exceptions": "系统字体/动态优先级明确；拒绝无关权限不影响本地任务。",
+    "returnRule": "应用即保留，有失败提示；回原位置。",
+    "slice": "S1",
+    "legacyIds": [
+      "settings",
+      "display-settings",
+      "ai-settings"
+    ],
+    "prototypeRoute": "settings",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [
+      "font.scale"
+    ],
+    "route": "settings",
+    "scenario": "default",
+    "status": "交互原型"
+  },
+  {
+    "id": "appearance",
+    "name": "主题与形象",
+    "lane": "资料掌控",
+    "surface": "可预览的配置页",
+    "task": "在不打断体验的情况下换外观",
+    "architecture": "八套原始主题独立恢复；四套历史候选单独保留。主题、人物、字号、密度与减少动态分别管理；语义色覆盖面板、因子瓶和异常状态。",
+    "objects": "themeId,avatarPresetId,motionPreference",
+    "exceptions": "减少动态保留静态色彩；缺失素材回默认外观但不动业务数据。",
+    "returnRule": "取消层不改其他偏好；改变外观不重启答卷。",
+    "slice": "S1",
+    "legacyIds": [
+      "theme",
+      "avatar",
+      "avatar-editor"
+    ],
+    "prototypeRoute": "appearance",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [
+      "theme.apply",
+      "avatar.apply",
+      "motion.reduce",
+      "experience.preferences",
+      "experience.density",
+      "experience.motion"
+    ],
+    "route": "appearance",
+    "scenario": "default",
+    "status": "交互原型"
+  },
+  {
+    "id": "privacy",
+    "name": "隐私与引用",
+    "lane": "资料掌控",
+    "surface": "分组设置页",
+    "task": "分别决定外发、保存与长期使用",
+    "architecture": "逐请求选择；对话保存范围；长期记忆候选/确认；协议与权限就地说明。",
+    "objects": "accountId,consentRevision,retentionPolicy,sourceGrantId",
+    "exceptions": "撤回需作用于新/在途任务；供应商实际留存未明不能虚构承诺。",
+    "returnRule": "不开权限仍可用本地资料；关闭聊天留存不自动删除旧聊天。",
+    "slice": "S2",
+    "legacyIds": [
+      "privacy",
+      "privacy-policy",
+      "terms",
+      "permission-settings",
+      "memory-controls"
+    ],
+    "prototypeRoute": "privacy",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [
+      "retention.toggle",
+      "memory-candidate.toggle"
+    ],
+    "route": "privacy",
+    "scenario": "default",
+    "status": "交互原型"
+  },
+  {
+    "id": "data",
+    "name": "我的数据",
+    "lane": "资料掌控",
+    "surface": "任务页 + 范围确认",
+    "task": "知道在哪里、能导出什么、清理会失去什么",
+    "architecture": "本机概览；明文/加密事实；分类导出预览；导入预检；缓存与唯一数据分开清理。 V4 增加同来源旧空间或导出文件的预检与确认复制；仅空空间，原数据不变，不导入认证和购买权益。",
+    "objects": "spaceId,exportId,manifestVersion,deleteScope,importBatchId",
+    "exceptions": "存储不足、格式不符、冲突需回滚；不假报已下载或已清空云端。",
+    "returnRule": "取消不写；导出可验证文件；清理前范围和不可撤回可见。",
+    "slice": "S1",
+    "legacyIds": [
+      "data-center",
+      "data-export",
+      "data-import",
+      "clear-data"
+    ],
+    "prototypeRoute": "data",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [
+      "export.preview",
+      "export.create",
+      "import.preflight",
+      "local.clear",
+      "storage.recover"
+    ],
+    "route": "data",
+    "scenario": "default",
+    "status": "交互原型"
+  },
+  {
+    "id": "sync",
+    "name": "备份与冲突",
+    "lane": "资料掌控",
+    "surface": "后续任务页",
+    "task": "区分备份、同步与换机恢复",
+    "architecture": "服务类型明确；本机优先；冲突逐类预览；合并不恢复认证/付费权益。",
+    "objects": "backupId,syncCursor,conflictId,spaceId,revision",
+    "exceptions": "离线删除墓碑必须传播；不可复活已删；授权拒绝可继续本地。",
+    "returnRule": "取消保留两份版本；成功返回明确逐项结果。",
+    "slice": "S4",
+    "legacyIds": [
+      "backup-sync",
+      "sync-conflicts"
+    ],
+    "prototypeRoute": null,
+    "runtimeLevel": "无独立交互页面；展示任务、对象、失败与返回规则",
+    "tabBar": false,
+    "eventIds": [
+      "sync.resolve"
+    ],
+    "route": null,
+    "scenario": "default",
+    "status": "流程规格"
+  },
+  {
+    "id": "support",
+    "name": "帮助与反馈",
+    "lane": "服务保障",
+    "surface": "阅读与提交组合",
+    "task": "获得真实帮助，不看到假提交成功",
+    "architecture": "使用说明/问题原文/反馈实际接收状态/回复；附日志必须脱敏且选择范围。",
+    "objects": "articleId,feedbackId,attachmentScope,status",
+    "exceptions": "无真实接收渠道只导出本机反馈文件；失败保留内容。",
+    "returnRule": "返回原故障任务；不要求先交私人内容才能查常见问题。",
+    "slice": "S1",
+    "legacyIds": [
+      "help",
+      "help-article",
+      "feedback",
+      "feedback-detail",
+      "about"
+    ],
+    "prototypeRoute": "support",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [
+      "feedback.export"
+    ],
+    "route": "support",
+    "scenario": "default",
+    "status": "交互原型"
+  },
+  {
+    "id": "notifications",
+    "name": "通知",
+    "lane": "服务保障",
+    "surface": "收件箱 + 原对象跳转",
+    "task": "理解一条服务消息对应哪件事",
+    "architecture": "内容更新、请求结果、交易/反馈状态；按对象跳转，不泛跳首页。",
+    "objects": "notificationId,targetType,targetId",
+    "exceptions": "目标已删显示原因不复活；消息已读不改变原业务状态。",
+    "returnRule": "返回原通知列表；拒绝推送不挡应用内消息。",
+    "slice": "S3",
+    "legacyIds": [
+      "notifications",
+      "notification-detail"
+    ],
+    "prototypeRoute": null,
+    "runtimeLevel": "无独立交互页面；展示任务、对象、失败与返回规则",
+    "tabBar": false,
+    "eventIds": [
+      "notification.open"
+    ],
+    "route": null,
+    "scenario": "default",
+    "status": "流程规格"
+  },
+  {
+    "id": "membership",
+    "name": "使用与会员",
+    "lane": "身份与权益",
+    "surface": "权益说明页",
+    "task": "先清楚理解已有/可买权益",
+    "architecture": "免费0/10共用规则先讲；价格/周期/额度/续费方式待定就不售卖；已买凭证可看。",
+    "objects": "accountId,entitlementId,planId,planVersion",
+    "exceptions": "已付钱和权益生效分开；额度未知不写无限；旧资料可读导出为建议。",
+    "returnRule": "取消回原任务草稿；恢复购买≠资料恢复。",
+    "slice": "S3",
+    "legacyIds": [
+      "membership",
+      "plan-detail",
+      "purchase-restore",
+      "subscription-settings"
+    ],
+    "prototypeRoute": "membership",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [
+      "plan.select",
+      "purchase.restore"
+    ],
+    "route": "membership",
+    "scenario": "default",
+    "status": "交互原型"
+  },
+  {
+    "id": "checkout",
+    "name": "购买确认",
+    "lane": "身份与权益",
+    "surface": "单一任务页",
+    "task": "确认这一次到底买什么",
+    "architecture": "身份、方案快照、周期、金额、叠加规则、渠道、确认；不默认勾选自动续费。",
+    "objects": "checkoutId,planId,planVersion,priceQuoteId,returnTarget",
+    "exceptions": "方案变更/报价过期重新明确；取消支付查原订单状态不重复创建。",
+    "returnRule": "回原草稿；不同方案明确重新选择，不悄悄替换年/月。",
+    "slice": "S3",
+    "legacyIds": [
+      "checkout"
+    ],
+    "prototypeRoute": "checkout",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [
+      "order.create-demo"
+    ],
+    "route": "checkout",
+    "scenario": "default",
+    "status": "交互原型"
+  },
+  {
+    "id": "orders",
+    "name": "订单记录",
+    "lane": "身份与权益",
+    "surface": "账单列表",
+    "task": "找回原来的交易",
+    "architecture": "原单号、原方案、付款事实与权益状态；即使停售也可查。",
+    "objects": "accountId,orderId,originalPlanSnapshot",
+    "exceptions": "身份不符拒绝；查询失败显示未知而非未支付。",
+    "returnRule": "按原orderId打开；列表不读取当前售卖页默认方案。",
+    "slice": "S3",
+    "legacyIds": [
+      "orders"
+    ],
+    "prototypeRoute": "orders",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [
+      "order.open"
+    ],
+    "route": "orders",
+    "scenario": "paid-annual",
+    "status": "交互原型"
+  },
+  {
+    "id": "order",
+    "name": "原单核验与售后",
+    "lane": "身份与权益",
+    "surface": "原对象详情 + 申请层",
+    "task": "核对付款、权益、退款的真实状态",
+    "architecture": "购买快照 → 核验事实 → 权益 → 退款申请/进度；查询只读，状态变更有幂等键。",
+    "objects": "orderId,paymentId,entitlementId,refundId,idempotencyKey",
+    "exceptions": "付款未知先查原单；申请不等于到账；回调乱序不能把已付降为待付。",
+    "returnRule": "处理结束返回原任务；一条原单贯穿核验、售后、恢复。",
+    "slice": "S3",
+    "legacyIds": [
+      "payment-result",
+      "order-detail",
+      "refund-request",
+      "refund-status"
+    ],
+    "prototypeRoute": "order",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [
+      "payment.query",
+      "payment.demo-paid",
+      "entitlement.demo-active",
+      "refund.apply-demo",
+      "refund.settle"
+    ],
+    "route": "order?id=DEMO-ANNUAL-001",
+    "scenario": "paid-annual",
+    "status": "交互原型"
+  },
+  {
+    "id": "topic-workspace",
+    "name": "专题整理工作区",
+    "lane": "生活专题",
+    "surface": "任务页",
+    "task": "把具体困扰整理成可查看、可修改、可引用的本人记录",
+    "architecture": "工作、相处、城市、学习、独处使用不同问题结构；保存后可引用原记录或留下行动。 V3：新增总览/专注视图，同一草稿、同一对象，可双向切换。",
+    "objects": "topicId,recordId,revision,fields,editorDraftKey",
+    "exceptions": "问题可留空但不可全空保存；编辑保留原ID和未修改字段；保存失败不伪装成功。",
+    "returnRule": "优先返回真实进入路径；直接进入有父级兜底；输入草稿独立保留。",
+    "slice": "S1",
+    "legacyIds": [],
+    "prototypeRoute": "topic-workspace",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [
+      "topic.record.save",
+      "topic.record.edit",
+      "topic.record.quote",
+      "draft.autosave",
+      "workspace.presentation",
+      "workspace.step"
+    ],
+    "route": "topic-workspace?topic=work-choice",
+    "scenario": "default",
+    "status": "交互原型"
+  },
+  {
+    "id": "action-detail",
+    "name": "小尝试与回看",
+    "lane": "理解与行动",
+    "surface": "任务页",
+    "task": "记录真实尝试结果、补充体会、继续或放下",
+    "architecture": "计划、来源、结果选择和历次观察同页；还没尝试、略有帮助、没变化、不适合、只做部分分别记录。",
+    "objects": "actionId,sourceId,sourceKind,reviewId,outcome,status,revision",
+    "exceptions": "不以文字非空冒充完成；取消和重新开始保留历史；重复创建同一活动计划打开原条目。",
+    "returnRule": "优先返回真实进入路径；直接进入有父级兜底；输入草稿独立保留。",
+    "slice": "S1",
+    "legacyIds": [],
+    "prototypeRoute": "action-detail",
+    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "tabBar": false,
+    "eventIds": [
+      "action.review",
+      "action.outcome",
+      "action.restart",
+      "action.cancel"
+    ],
+    "route": "action-detail?id=action-demo-v2",
+    "scenario": "ongoing-action",
+    "status": "交互原型"
+  }
+]

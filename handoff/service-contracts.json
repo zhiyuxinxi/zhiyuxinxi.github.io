@@ -1,0 +1,147 @@
+{
+  "version": "proposal-v2-2026-10-02",
+  "status": "接口草案；未审阅真实Android代码，不是已接入API",
+  "ownership": {
+    "Space": "local space identity independent of account",
+    "Account": "authenticated identity; requests bound at creation",
+    "Rule": "Never accept accountId from client as an authorization grant"
+  },
+  "entities": {
+    "SourceRef": {
+      "kind": "sample-report|report|article|self-note|memory",
+      "id": "stable object id",
+      "version": "required immutable revision",
+      "sectionId": "optional stable fragment id",
+      "excerpt": "exact selected text",
+      "status": "valid|modified|withdrawn|deleted",
+      "grantId": "one-request consent proof"
+    },
+    "Session": {
+      "id": "sessionId",
+      "spaceId": "owner space",
+      "contentPackId": "fixed pack",
+      "packVersion": "immutable",
+      "questionOrder": "fixed id[]",
+      "answers": "map(questionId,optionId,answerRevision)",
+      "lastSavedQuestionId": "cursor",
+      "status": "draft|completing|completed|recoverable-error"
+    },
+    "Result": {
+      "id": "resultId",
+      "sessionId": "origin",
+      "scoringVersion": "fixed",
+      "normVersion": "fixed or explicitly unavailable",
+      "resultVersion": "immutable",
+      "values": "factorId -> number|null",
+      "kind": "formal|interaction-demo|simulation; demo never a formal result"
+    },
+    "AIRequest": {
+      "id": "requestId",
+      "idempotencyKey": "client attempt key",
+      "accountId": "server bound principal",
+      "conversationId": "exact origin",
+      "sourceSnapshot": "SourceRef[]",
+      "sourceRevisions": "revalidated before dispatch and return",
+      "quotaPolicyVersion": "shared ledger policy",
+      "state": "created|authorized|running|stopped|succeeded|failed|source-invalid|identity-isolated"
+    },
+    "Memory": {
+      "id": "memoryId",
+      "revision": "monotonic",
+      "sourceRefs": "SourceRef[]",
+      "status": "candidate|active|inactive|deleted",
+      "confirmationId": "explicit user action"
+    },
+    "Order": {
+      "id": "orderId",
+      "accountId": "owner",
+      "originalPlanSnapshot": "planId+version+duration+price+currency+renewalRule",
+      "paymentState": "unknown|pending|paid|failed|refunding|refunded",
+      "entitlementState": "pending|active|revoked",
+      "refundId": "separate object",
+      "returnTarget": "exact draft/task id"
+    },
+    "EditorDraft": {
+      "draftKey": "route and stable object/section identity",
+      "revision": "monotonic",
+      "value": "text or structured fields",
+      "persistenceState": "buffered|persisted|failed",
+      "rule": "A draft is not an observation or memory"
+    },
+    "TopicRecord": {
+      "id": "stable across edits",
+      "topicId": "schema identity",
+      "fields": "schema fields; preserve unchanged ones",
+      "revision": "increment on save",
+      "sourceRule": "quote saved version only"
+    },
+    "ActionPlan": {
+      "id": "stable",
+      "status": "active|reviewed|cancelled",
+      "sourceId": "nullable",
+      "sourceKind": "sample-report|self-note|conversation|self-entered",
+      "reviews": "append-only ActionReview[] in this prototype"
+    },
+    "ActionReview": {
+      "id": "stable",
+      "outcome": "not-yet|helpful|no-change|not-fit|partial",
+      "text": "optional",
+      "createdAt": "timestamp",
+      "rule": "not-yet keeps active; reviewed does not imply useful or successful"
+    }
+  },
+  "commands": [
+    {
+      "name": "POST /ai/requests",
+      "required": "Idempotency-Key, requestType, conversationId/resultId, sourceRefs, draftRevision",
+      "response": "requestId,status,quotaPolicyVersion; query original request after timeout"
+    },
+    {
+      "name": "GET /ai/requests/{requestId}",
+      "required": "same authorized originating account",
+      "response": "status,actualSourceSnapshot,usageLedgerEntry,result or failure reason"
+    },
+    {
+      "name": "POST /ai/requests/{requestId}/stop",
+      "required": "idempotent command and ownership",
+      "response": "stop requested vs stopped distinct; settlement policy TBD"
+    },
+    {
+      "name": "POST /orders",
+      "required": "verified quote+planVersion+idempotencyKey",
+      "response": "immutable originalPlanSnapshot,orderId"
+    },
+    {
+      "name": "GET /orders/{orderId}",
+      "required": "order ownership",
+      "response": "payment facts and entitlements separate; no new payment"
+    },
+    {
+      "name": "POST /orders/{orderId}/refunds",
+      "required": "request scope+eligibility+idempotency",
+      "response": "refund request id,stage; never equate requested with refunded"
+    },
+    {
+      "name": "POST /privacy/deletion-requests",
+      "required": "verified identity+explicit scopes",
+      "response": "requestId,processor stages,unknown/unreachable processors visibly represented"
+    },
+    {
+      "name": "client local draft and request coordinator",
+      "required": "object-scoped drafts, requestId-to-job map, recoverable buffers",
+      "response": "explicit persisted/failed state; never replay pending request on reload",
+      "status": "local prototype; not an implemented server endpoint"
+    }
+  ],
+  "unresolved": [
+    "真实身份方式",
+    "免费次数结算/重置时区",
+    "付费价格额度渠道与续费规则",
+    "模型方/数据留存/适用人群",
+    "正式题源许可中文译本计分常模",
+    "同步方案",
+    "历史资料付费访问策略须确认",
+    "V1到V2本机键迁移与回滚策略：本轮隔离演示，无自动迁移",
+    "草稿与行动观察真实跨设备合并、加密和留存策略"
+  ]
+}

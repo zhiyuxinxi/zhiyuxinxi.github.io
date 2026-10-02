@@ -1,0 +1,37 @@
+{
+  "version": "4.0.0-preservation",
+  "localSuites": [
+    {
+      "suite": "v2-regression-on-v4.json",
+      "passed": 54,
+      "failed": 0,
+      "environment": "Chromium DOM mount with explicit in-memory storage adapter"
+    },
+    {
+      "suite": "v3-regression-on-v4.json",
+      "passed": 23,
+      "failed": 0,
+      "environment": "Chromium DOM mount, explicit in-memory storage adapter"
+    },
+    {
+      "suite": "v4-regression.json",
+      "passed": 25,
+      "failed": 0,
+      "environment": "Chromium DOM mount and explicit in-memory storage adapter"
+    },
+    {
+      "suite": "workbench-dom-checks.json",
+      "passed": 2,
+      "failed": 0,
+      "environment": "DOM mount and explicit frame/storage adapter; not native HTTP"
+    }
+  ],
+  "environment": "Chromium DOM-mount with explicit in-memory storage adapter. Shell checks mount the frame through the adapter. These results do not establish real HTTP/native persistence.",
+  "notVerifiedHere": [
+    "Actual public URL",
+    "Actual Android/iOS device",
+    "Real authentication/model/payment/sync",
+    "Full WCAG conformance",
+    "Independent multi-AI or human-user research"
+  ]
+}

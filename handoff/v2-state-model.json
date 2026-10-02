@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "storageKey": "jianji-design-v2:<scenario>",
+  "priorData": "V1 key stays untouched; no automatic migration",
+  "draftKeys": [
+    "journal:<recordId|topic|kind|new>",
+    "report:<context>",
+    "topic:<topicId>:<recordId|new>",
+    "action-review:<actionId>"
+  ],
+  "actionStatus": {
+    "active": "待尝试；也包含记录为还没尝试",
+    "reviewed": "已留本次观察；可能无效或不适合",
+    "cancelled": "本人选择放下；历史保留"
+  },
+  "outcomes": [
+    "not-yet",
+    "helpful",
+    "no-change",
+    "not-fit",
+    "partial"
+  ],
+  "sourceSeparation": "sample-report cannot automatically become a personal memory; self-written observation keeps author ownership",
+  "loadFailure": "preserve raw; block writes; explicit recovery export or current-scenario reset",
+  "requests": "one timer per requestId; reload marks pending as interrupted; no automatic retry",
+  "limits": "Local cleartext prototype storage; no encryption, verified native persistence or real cloud identity isolation"
+}
