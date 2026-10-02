@@ -48,19 +48,20 @@ with sync_playwright() as w:
   for index,target in enumerate([0,3.2,6.4,9.6,12.8,16,19.2,22.4,25.6,28.8,32]):
    p.wait_for_function('t=>document.getElementById("ambient-tide").getCurrentTime()>=t',arg=target,timeout=18000)
    capture(p,'cycle-'+str(index));samples.append(clock(p));check(first==geometry(),'Content moved with the background')
-  check(not errors,str(errors));results.append({'test':'natural-full-cycle','status':'PASS','cycleSeconds':16,'actualSampleTimes':samples,'contentGeometryStable':True})
- except Exception as e:results.append({'test':'natural-full-cycle','status':'FAIL','error':str(e)})
+  check(not errors,str(errors));results.append({'test':'natural-32-second-decoupled-motion','status':'PASS','componentPeriodsSeconds':[16,23,19],'actualSampleTimes':samples,'contentGeometryStable':True})
+ except Exception as e:results.append({'test':'natural-32-second-decoupled-motion','status':'FAIL','error':str(e)})
  video=p.video;ctx.close();video.save_as(str(OUT/'full-cycle.webm'));video.delete()
  # Dense angle sampling and cycle seam: smooth direction changes, no random jumps.
  ctx=b.new_context(viewport={'width':390,'height':844},reduced_motion='no-preference');p=ctx.new_page()
  try:
-  goto(p);angles=[]
-  for i in range(65):
-   phase(p,i/4);angles.append(p.evaluate("document.getElementById('tide-field').transform.animVal.getItem(0).angle"))
+  goto(p);angles=[];motion=[]
+  for i in range(129):
+   phase(p,i/4);sample=p.evaluate("()=>{let a=document.getElementById('tide-field').transform.animVal.getItem(0).angle,m=document.getElementById('tide-offset').transform.animVal.getItem(0).matrix;return [a,m.e,m.f,document.getElementById('tide-front').getTotalLength()]}");angles.append(sample[0]);motion.append(sample)
   jumps=[abs(b-a) for a,b in zip(angles,angles[1:])]
-  check(max(jumps)<18,'Direction jumped within 250ms');check(abs(angles[0]-angles[-1])<.1,'Cycle angle seam jumps')
-  check(max(angles)-min(angles)>130,'Direction variation too narrow')
-  results.append({'test':'continuous-multi-direction-angle-sampling','status':'PASS','sampleIntervalSeconds':.25,'angles':angles,'maximumStepDegrees':max(jumps)})
+  check(max(jumps)<18,'Direction jumped within 250ms');check(abs(angles[0]-angles[64])>5 and abs(angles[0]-angles[-1])>5,'Whole field repeats at 16/32 seconds')
+  check(max(angles)-min(angles)>110,'Direction variation too narrow')
+  check(all(max(abs(b-a) for a,b in zip(x,y))>.005 for x,y in zip(motion,motion[1:])), 'All motion tracks stopped together')
+  results.append({'test':'continuous-multi-direction-angle-sampling','status':'PASS','sampleIntervalSeconds':.25,'angles':angles,'maximumStepDegrees':max(jumps),'trackSamplesAngleXYLength':motion,'noSynchronizedStops':True})
  except Exception as e:results.append({'test':'continuous-multi-direction-angle-sampling','status':'FAIL','error':str(e)})
  ctx.close()
  # Measure actual composited pixels at precise phases; hide content only for measurement.
@@ -70,11 +71,12 @@ with sync_playwright() as w:
    goto(p,theme=theme);p.add_style_tag(content='#app,#overlays,#notice{visibility:hidden!important}')
    tokens=p.evaluate("()=>{let c=getComputedStyle(document.body);return {colors:['a','b','c'].map(x=>c.getPropertyValue('--scene-'+x).trim()),paper:c.getPropertyValue('--paper').trim(),opacity:Number(getComputedStyle(document.getElementById('ambient-background')).opacity)}}")
    rows=[]
-   for i,t in enumerate([0,1.6,3.2,4.8,6.4,8,9.6,11.2,12.8,14.4,16]):
+   for i,t in enumerate([0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,41,53,67,83,101,127]):
     phase(p,t);name=f'field-{theme}-{i}';capture(p,name);rows.append({'time':t,**metric(OUT/(name+'.png'),**tokens)})
    for k in [0,2]:
     values=[r['coverage'][k] for r in rows];check(min(values)>=.18,f'{theme} primary color {k} vanished: {values}');check(max(values)-min(values)>=.12,f'{theme} coverage change too small: {values}')
-   for k in [0,1,2]:check(abs(rows[0]['coverage'][k]-rows[-1]['coverage'][k])<.02,'Cycle did not return')
+   for later in [8,16]:
+    check(sum(abs(rows[0]['centroidA'][k]-rows[later]['centroidA'][k]) for k in [0,1])>.06,'Rendered field repeats after 16/32 seconds')
    centers=[r['centroidA'] for r in rows]
    check(max(c[0] for c in centers)-min(c[0] for c in centers)>.18,'No meaningful horizontal movement')
    check(max(c[1] for c in centers)-min(c[1] for c in centers)>.14,'No meaningful vertical movement')
@@ -92,16 +94,16 @@ with sync_playwright() as w:
  # Object identity, route-independent rendering and uninterrupted clock through four tabs.
  ctx=b.new_context(viewport={'width':390,'height':844},locale='zh-CN',reduced_motion='no-preference');p=ctx.new_page()
  try:
-  goto(p);p.evaluate("window.tideRefs=[document.getElementById('ambient-background'),document.getElementById('ambient-tide'),document.getElementById('tide-motion'),document.getElementById('tide-direction')]")
+  goto(p);p.evaluate("window.tideRefs=[document.getElementById('ambient-background'),document.getElementById('ambient-tide'),document.getElementById('tide-motion'),document.getElementById('tide-direction'),document.getElementById('tide-drift')]")
   style=lambda:p.evaluate("()=>{let e=document.getElementById('ambient-background'),c=getComputedStyle(e),s=getComputedStyle(document.body);return [c.opacity,c.backgroundImage,c.filter,...['a','b','c'].map(x=>s.getPropertyValue('--scene-'+x))]}")
   initial=style();transitions=[]
   for route in ['explore','assistant','me','home']:
    before=clock(p);p.click('[data-action=tab][data-route='+route+']');p.wait_for_function('r=>App.currentRoute===r',arg=route);after=clock(p)
-   check(p.evaluate("['ambient-background','ambient-tide','tide-motion','tide-direction'].every((id,i)=>document.getElementById(id)===window.tideRefs[i])"),'Route rebuilt background')
+   check(p.evaluate("['ambient-background','ambient-tide','tide-motion','tide-direction','tide-drift'].every((id,i)=>document.getElementById(id)===window.tideRefs[i])"),'Route rebuilt background')
    check(after>=before and after-before<2,'Route reset clock');check(style()==initial,'Route changed background rendering');transitions.append({'route':route,'before':before,'after':after})
   for route in ['settings','appearance','records','home']:
    before=clock(p);p.evaluate('r=>location.hash=r',route);p.wait_for_function('r=>App.currentRoute===r',arg=route);after=clock(p)
-   check(p.evaluate("['ambient-background','ambient-tide','tide-motion','tide-direction'].every((id,i)=>document.getElementById(id)===window.tideRefs[i])"),'Subpage rebuilt background')
+   check(p.evaluate("['ambient-background','ambient-tide','tide-motion','tide-direction','tide-drift'].every((id,i)=>document.getElementById(id)===window.tideRefs[i])"),'Subpage rebuilt background')
    check(after>=before and after-before<2 and style()==initial,'Subpage changed clock or rendering');transitions.append({'route':route,'before':before,'after':after})
   p.click('[data-action=start]');p.wait_for_function('App.currentRoute.startsWith("question")');q=clock(p);p.wait_for_timeout(500)
   check(abs(clock(p)-q)<.03,'Question failed to pause');p.click('[data-action=pause]');p.get_by_role('button',name='保存位置，返回认识').click();p.wait_for_function('App.currentRoute==="home"');p.wait_for_timeout(300)
@@ -126,7 +128,7 @@ with sync_playwright() as w:
   except Exception as e:results.append({'test':'home-key-entries-'+str(width),'status':'FAIL','error':str(e)})
   ctx.close()
  b.close()
-report={'capturedAt':datetime.now(timezone.utc).isoformat(),'passed':all(r['status']=='PASS' for r in results),'cycleSeconds':16,'results':results,'syntheticOnly':True,'limits':['Browser emulation, not physical-device battery/GPU measurement.','Pixel coverage classifies nearest rendered theme anchor; blend region is classified as its nearest color.']}
+report={'capturedAt':datetime.now(timezone.utc).isoformat(),'passed':all(r['status']=='PASS' for r in results),'componentPeriodsSeconds':[16,23,19],'results':results,'syntheticOnly':True,'limits':['Browser emulation, not physical-device battery/GPU measurement.','Pixel coverage classifies nearest rendered theme anchor; blend region is classified as its nearest color.']}
 (OUT/'motion-results.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
 for r in results:print(r['status'],r['test'],r.get('error',''),flush=True)
 server.shutdown()
