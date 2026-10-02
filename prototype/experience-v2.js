@@ -15,8 +15,8 @@
     else if(a){task=`<span class="eyebrow">接着上次 · 我的尝试</span><h2 class="action-title">${esc(a.text)}</h2><p class="task-desc">如实记录这次的情况，暂时没做也可以。</p>${L('记下这次的观察','action-detail',{cls:'btn full',after:'arrow','data-id':a.id})}<div class="task-foot">${L('全部小尝试','actions',{cls:'textbtn'})}<span>不催打卡</span></div>`;}
     else if(done){task=`<span class="eyebrow">体验已完成</span><h2>答案已留下，理解慢慢来</h2><p class="task-desc">回看自己当时的选择，或了解一份报告怎样阅读。</p>${L('回看这次作答','review',{cls:'btn full',after:'arrow','data-id':active.id})}<div class="task-foot">${L('查看独立报告样例','report',{cls:'textbtn','data-id':D.report.id})}${B('再体验一次','start-new',{cls:'textbtn'})}</div>`;}
     else{task=`<span class="eyebrow">从性格探索开始</span><div class="row between"><h2>16PF 性格探索</h2><span class="entry-symbol">${icon('bottle')}</span></div><p class="task-desc">了解倾向，也看看哪些情境会让自己不同。</p><div class="version-row"><span class="version-current">原版方向</span>${B('AI 重置版 · 待开放','mode',{cls:'version-future','data-id':'ai',icon:'lock'})}</div>${B('体验 3 道示例题','start',{cls:'btn full',after:'arrow'})}<div class="task-foot"><span>约 1 分钟 · 仅体验交互</span>${L('先看报告','report',{cls:'textbtn','data-id':D.report.id})}</div>`;}
-    return `<div class="topline brandline"><div class="wordmark">${mark()}<strong>知遇测评</strong><span class="edition-label">体验原型</span></div>${L('','appearance',{cls:'iconbtn',icon:'palette','aria-label':'主题与形象'})}</div>
-      <header class="welcome-v2"><div><span class="eyebrow">${unfinished||a||done?'欢迎回来':'给自己一点时间'}</span><h1>${unfinished||a?'从上次的地方，<br>继续了解自己。':'看懂自己的倾向，<br>也找到下一小步。'}</h1></div><div class="avatar-scene"><img src="assets/person-${s.avatar}.svg" alt="手拿笔记本的人物插画">${L('','appearance',{cls:'avatar-change',icon:'edit','aria-label':'更换形象'})}</div></header>
+    return `
+      <header class="welcome-v2"><div><span class="eyebrow">${unfinished||a||done?'欢迎回来':'给自己一点时间'}</span><h1>${unfinished||a?'从上次的地方，<br>继续了解自己。':'看懂自己的倾向，<br>也找到下一小步。'}</h1></div><div class="avatar-scene"><img src="assets/person-${s.avatar}.svg" alt="手拿笔记本的人物插画"></div></header>
       <section class="primary-task">${task}</section>
       <p class="quiet-boundary">${icon('info','sm')}示例题不计分。正式题源与常模尚未接入。</p>
       ${unfinished&&a?`<button class="resume-note" data-action="nav" data-route="action-detail" data-id="${a.id}">${icon('flag')}<span class="grow"><strong>也有一件小尝试等你回看</strong><small>${esc(a.text)}</small></span>${icon('chevron','sm')}</button>`:''}
@@ -75,7 +75,7 @@
       ${a?`<button class="resume-note" data-action="nav" data-route="action-detail" data-id="${a.id}">${icon('flag')}<span class="grow"><strong>一件小尝试，还可以回看</strong><small>${esc(a.text)}</small></span>${icon('chevron','sm')}</button>`:''}
       <div class="personal-links">${row('我的记录',notes.length?`${notes.length} 条本人记录 · 体验答卷单独标识`:'观察、专题整理与体验答卷','records','book')}${row('我的小尝试',s.actions.length?`${s.actions.length} 件尝试 · 不要求连续打卡`:'计划、实际结果与后续观察','actions','flag')}${row('正在认识的自己','查看各条认识的来源与留白','portrait','explore')}</div>
       ${section('资料由自己掌握')}<div class="plain-list">${row('助理记忆','确认、纠正和停用','memories','memory')}${row('数据与隐私','导出本机资料；引用与留存分开控制','data','shield')}${row('引用与留存设置','聊天保存与长期记忆独立控制','privacy','lock')}</div>
-      ${section('账号与服务')}<div class="plain-list">${row(s.logged?'演示账号':'登录 / 注册说明',s.logged?'未连接真实认证服务':'本机记录不依赖登录',s.logged?'account':'auth','user')}${row('会员与使用次数','查看规则、方案与原订单','membership','crown')}${row('主题与形象',D.themes.find(t=>t.id===s.theme).name,'appearance','palette')}</div>`;
+      ${section('账号与服务')}<div class="plain-list">${row(s.logged?'演示账号':'登录 / 注册说明',s.logged?'未连接真实认证服务':'本机记录不依赖登录',s.logged?'account':'auth','user')}${row('会员与使用次数','查看规则、方案与原订单','membership','crown')}${row('主题与形象',D.themes.find(t=>t.id===s.theme).name,'settings','settings')}</div>`;
   }
   function journal(s,p){
     const found=s.observations.find(x=>x.id===p.id)||s.reportNotes.find(x=>x.id===p.id);

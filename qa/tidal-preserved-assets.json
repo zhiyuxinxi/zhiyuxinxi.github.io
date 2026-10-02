@@ -1,0 +1,37 @@
+[
+  {
+    "path": "site/prototype/assets/zhiyu-logo.png",
+    "unchanged": true,
+    "sha256": "97fb52e8d68378b91dcd77ac3937b8c1c4cd1a6dc494fa5c07d40564a49ffdc3"
+  },
+  {
+    "path": "site/handoff/themes-v4.json",
+    "unchanged": true,
+    "sha256": "8e619fea9b353af1146192562b6ed1aeb70e87e9001fe544adb15f7441a198e6"
+  },
+  {
+    "path": "site/prototype/assets/original-person-1.webp",
+    "unchanged": true,
+    "sha256": "d0b7e360f9ab0750ed74409e54200a49d5c070a616bfa1d60122c8e718f74838"
+  },
+  {
+    "path": "site/prototype/assets/original-person-2.webp",
+    "unchanged": true,
+    "sha256": "98b58e2db90ca5d30a0243547e4ea9d9bad5a9f08c27d26e9175a91398306d45"
+  },
+  {
+    "path": "site/prototype/assets/original-person-3.webp",
+    "unchanged": true,
+    "sha256": "d5a583511c784a381f8e458d927a99b512b66bf381f81a5467dd1ee541de5b66"
+  },
+  {
+    "path": "site/prototype/flows-v2.js",
+    "unchanged": true,
+    "sha256": "2122e63dd9ee79634e7cce0db6db7e3ec37f375ab804c8db6a52695490aef6ac"
+  },
+  {
+    "path": "site/prototype/app.js",
+    "unchanged": true,
+    "sha256": "19d15cd62fc32dfb2aac7e8fd5a9000301736d6bb1120e63ece685866b09dfbb"
+  }
+]

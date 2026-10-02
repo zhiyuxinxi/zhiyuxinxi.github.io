@@ -23,6 +23,9 @@ CASES=[
  ('record-saved-dark','topic-workspace?topic=work-choice&id=topic-note-demo-v2','topic-record',320,'nebula',True),
  ('action-review','action-detail?id=action-demo-v2','action-review',390,'sunrise',False),
  ('home','home','default',390,'sunrise',False),
+ ('home-resume','home','question',390,'sunrise',False),
+ ('home-action','home','ongoing-action',390,'sunrise',False),
+ ('settings','settings','default',390,'sunrise',False),
  ('explore','explore','default',390,'sunrise',False),
  ('assistant','assistant','default',390,'sunrise',False),
  ('profile','me','default',390,'sunrise',False),
@@ -31,6 +34,8 @@ CASES=[
  ('report','report?id=report-sample-01','default',390,'sunrise',False),
  ('question','question?id=session-demo-seed','question',390,'sunrise',False),
  ('appearance','appearance','default',390,'sunrise',False),
+ ('appearance-320','appearance','default',320,'sunrise',False),
+ ('appearance-dark-320','appearance','default',320,'nebula',False),
  ('home-320','home','default',320,'sunrise',False),
  ('explore-320','explore','default',320,'sunrise',False),
  ('assistant-320','assistant','default',320,'sunrise',False),
@@ -75,17 +80,31 @@ with sync_playwright() as pw:
    check(page.evaluate('document.documentElement.scrollWidth<=innerWidth'),'Horizontal document overflow')
    check(page.locator('img').evaluate_all('(es)=>es.every(e=>e.complete&&e.naturalWidth>0)'),'Missing image')
    row['primaryActions']=page.locator('.btn:not(.secondary):not(.tonal)').evaluate_all('(es)=>es.filter(e=>e.getClientRects().length).map(e=>({text:e.textContent.trim(),height:e.getBoundingClientRect().height,y:e.getBoundingClientRect().y}))')
-   if route in ['home','assistant']:
+   if route=='assistant':
     logo=page.locator('.brand-logo');check(logo.count()==1,'Missing supplied brand image')
     check(logo.get_attribute('src')=='assets/zhiyu-logo.png','Wrong logo asset')
     check(logo.evaluate("e=>e.naturalWidth===940&&e.naturalHeight===940&&getComputedStyle(e).objectFit==='contain'&&getComputedStyle(e).filter==='none'"),'Logo distorted, recolored, or missing')
+   check(page.locator('.brandline,.wordmark,.prototype-label').count()==0,'Removed product toolbar returned')
+   check(page.locator('button[data-route=appearance]').count()==(1 if route=='settings' else 0),'Appearance bypasses personal settings')
+   check(page.evaluate("getComputedStyle(document.body,'::before').backgroundImage.includes('gradient')"),'Global tidal background missing')
    if route=='home':
-    check(page.locator('.wordmark strong').inner_text()=='知遇测评','Homepage wordmark is stale')
-    mark=page.locator('.wordmark').bounding_box();tools=page.locator('.brandline .v3-tools').bounding_box();check(mark['x']+mark['width']<=tools['x'],'Four-character wordmark collides with tools')
     box=page.locator('.v4-person-scene img').bounding_box();check(box['width']>=160,'Approved portrait anchor too small')
     check(abs(box['x']+box['width']/2-(width-7)/2)<15,'Portrait not centered')
-    check(page.locator('[data-action=start]').count()==1,'Primary assessment lost')
-    check(page.locator('[data-action=start]').bounding_box()['y']<720,'Homepage start pushed too low')
+    halo=page.locator('.v4-person-scene span').bounding_box();check(abs(halo['width']-halo['height'])<1 and 148<=halo['width']<=154,'Halo must be a restrained circle')
+    check(page.locator('.home-scene h2').inner_text()=='16PF 性格探索','Assessment headline changed with unrelated activity')
+    check(page.locator('.life-entry,.home-support,.v3-life,.v3-capture,.v3-editorial').count()==0,'Secondary catalog returned to home')
+    primary=page.locator('.home-scene>.btn');check(primary.count()==1,'Primary assessment lost')
+    check(primary.bounding_box()['y']<720,'Homepage start pushed too low')
+    if scenario=='question':check(primary.get_attribute('data-action')=='resume','Unfinished assessment lost priority')
+    if scenario=='ongoing-action':check(page.locator('.v3-action-resume').count()==1,'Active attempt lost its continuation')
+    nav=page.locator('.nav').bounding_box();check(nav['y']+nav['height']<=845,'Navigation left viewport')
+    check(page.locator('.nav button').all_text_contents()==['认识','探索','助理','我的'],'Four entry roles changed')
+   if route=='appearance':
+    person=page.locator('.v4-live-preview>.v4-person-scene').bounding_box();halo=page.locator('.v4-live-preview>.v4-person-scene>span').bounding_box()
+    check(abs(halo['width']-halo['height'])<1,'Preview halo is not circular')
+    check(.84<=halo['width']/person['width']<=.88,'Preview halo does not scale with its portrait')
+    check(abs(halo['x']+halo['width']/2-person['x']-person['width']/2)<1 and abs(halo['y']+halo['height']/2-person['y']-person['height']/2)<1,'Preview halo not centered')
+    card=page.locator('.v4-live-preview').bounding_box();check(halo['x']>=card['x'] and halo['x']+halo['width']<=card['x']+card['width'] and halo['y']>=card['y'] and halo['y']+halo['height']<=card['y']+card['height'],'Preview halo clipped')
    if route.startswith('topic?id='):
     primary=page.locator('.topic-start .btn');check(primary.bounding_box()['y']<670,'Topic start is below the main task area')
     check(not page.locator('.topic-outline').get_attribute('open'),'Outline must start collapsed')
@@ -102,7 +121,7 @@ with sync_playwright() as pw:
     page.wait_for_function("document.querySelector('.report-chapters [aria-current=location]').dataset.id==='report-overview'")
    if route=='explore' and width==320:check(page.locator('.v3-topic-grid').evaluate("e=>getComputedStyle(e).gridTemplateColumns.split(' ').length")==1,'Narrow explore did not become one column')
    page.screenshot(path=str(OUT/(name+'.png')))
-   if name in ['topic','report','profile','appearance','workspace-empty','record-saved','record-saved-dark','action-review']:page.screenshot(path=str(OUT/(name+'-full.png')),full_page=True)
+   if name in ['explore','assistant','settings','home-resume','home-action','topic','report','profile','appearance','workspace-empty','record-saved','record-saved-dark','action-review']:page.screenshot(path=str(OUT/(name+'-full.png')),full_page=True)
    row['status']='PASS'
   except Exception as e:
    row.update(status='FAIL',error=str(e),trace=traceback.format_exc(limit=3))
@@ -110,6 +129,18 @@ with sync_playwright() as pw:
     row['reportGeometry']=page.evaluate("""() => ({scrollY, padding:getComputedStyle(document.documentElement).scrollPaddingTop, active:document.querySelector('.report-chapters [aria-current=location]')?.dataset.id, navEnd:document.querySelector('.report-chapters')?.getBoundingClientRect().bottom, sections:[...document.querySelectorAll('.report-block')].map(e=>({id:e.id,y:e.getBoundingClientRect().top,margin:getComputedStyle(e).scrollMarginTop}))})""")
    page.screenshot(path=str(OUT/(name+'-failure.png')),full_page=True)
   results.append(row);print(row['status'],name,row.get('error',''),flush=True);ctx.close()
+ # Narrow dark dialog uses the real personal settings entry and preserves focus.
+ ctx=browser.new_context(viewport={'width':320,'height':844},locale='zh-CN',reduced_motion='reduce');page=ctx.new_page()
+ try:
+  page.goto(BASE+'/prototype/index.html?reset=1&scenario=default&theme=nebula#me',wait_until='networkidle')
+  page.click('[data-route=settings]');page.locator('[data-action=v3-preferences]').focus();page.keyboard.press('Enter');page.wait_for_selector('.dialog')
+  check(page.evaluate('document.documentElement.scrollWidth<=innerWidth'),'Narrow dark dialog overflows')
+  box=page.locator('.dialog').bounding_box();check(box['x']>=0 and box['y']>=0 and box['x']+box['width']<=320,'Narrow dark dialog clipped')
+  page.screenshot(path=str(OUT/'settings-dialog-dark-320.png'));page.keyboard.press('Escape')
+  check(page.locator('.dialog').count()==0 and page.evaluate("document.activeElement.dataset.action==='v3-preferences'"),'Dark dialog did not restore settings focus')
+  results.append({'name':'settings-dialog-dark-320','status':'PASS'})
+ except Exception as e:results.append({'name':'settings-dialog-dark-320','status':'FAIL','error':str(e)})
+ ctx.close()
  # The review shell shares the same unchanged supplied logo at desktop and phone widths.
  for shell_width in [1480,390]:
   ctx=browser.new_context(viewport={'width':shell_width,'height':1100},locale='zh-CN');page=ctx.new_page()
@@ -131,7 +162,7 @@ with sync_playwright() as pw:
   first=sample();previous=0
   for seconds in [3.5,7,14,21,28]:
    page.wait_for_timeout(int((seconds-previous)*1000));check(first==sample(),'Content moved during decorative breathing at '+str(seconds)+' seconds');previous=seconds
-  page.locator('[data-action=v3-preferences]').focus();page.keyboard.press('Enter');page.wait_for_selector('.dialog')
+  page.click('[data-action=tab][data-route=me]');page.click('[data-route=settings]');page.locator('[data-action=v3-preferences]').focus();page.keyboard.press('Enter');page.wait_for_selector('.dialog')
   page.screenshot(path=str(OUT/'dialog-keyboard.png'));page.keyboard.press('Escape');check(page.locator('.dialog').count()==0,'Dialog failed Escape')
   check(page.evaluate("document.activeElement.dataset.action==='v3-preferences'"),'Dialog did not restore focus')
   results.append({'name':'motion-and-dialog-focus','status':'PASS'})

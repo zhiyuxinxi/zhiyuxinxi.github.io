@@ -1,9 +1,9 @@
 {
   "version": "4.0.0-preservation",
-  "environment": "Local workspace / real HTTP resource loading / native Chromium localStorage and iframe messaging",
-  "timestampUTC": "2026-10-02T08:51:59.769194+00:00",
-  "browser": "151.0.7922.173",
-  "playwright": "1.62.0",
+  "environment": "GitHub Actions / real HTTP resource loading / native Chromium localStorage and iframe messaging",
+  "timestampUTC": "2026-10-02T09:05:36.069026+00:00",
+  "browser": "143.0.7499.4",
+  "playwright": "1.57.0",
   "passed": 18,
   "failed": 0,
   "results": [
