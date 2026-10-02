@@ -4,7 +4,8 @@
     "prototype",
     "index.html",
     "workbench.js",
-    "workbench.css"
+    "workbench.css",
+    "development-review.js"
   ],
   "locale": "zh-CN",
   "canonicalMap": "UX-CONTRACT.md",
@@ -26,7 +27,8 @@
     "motion",
     "previewUI",
     "navigation",
-    "workbench"
+    "workbench",
+    "development"
   ],
   "commands": {
     "themes": "python tools/build_themes.py",
@@ -36,7 +38,8 @@
     "motion": "python tools/tidal_motion.py .",
     "previewUI": "python tools/six_paths_ui.py .",
     "navigation": "python tools/nav_contrast.py .",
-    "workbench": "python tools/build_workbench.py && python tools/workbench_coverage.py ."
+    "workbench": "python tools/build_workbench.py && python tools/workbench_coverage.py .",
+    "development": "python tools/development_review_test.py ."
   },
   "evidence": {
     "crudFullFlow": "tools/hosted_smoke.py",

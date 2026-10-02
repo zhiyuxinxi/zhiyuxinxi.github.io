@@ -1,0 +1,61 @@
+{
+  "baselineMain": "afd1bf2af36ef130c8636c137b131183b3ffab54",
+  "checks": [
+    {
+      "name": "themes",
+      "command": "python tools/build_themes.py",
+      "exitCode": 0
+    },
+    {
+      "name": "recordContract",
+      "command": "node tools/record_loop_contract.mjs .",
+      "exitCode": 0
+    },
+    {
+      "name": "runtime",
+      "command": "python tools/hosted_smoke.py .",
+      "exitCode": 0,
+      "note": "Full rerun after async specification assertion fix: 18/18."
+    },
+    {
+      "name": "visual",
+      "command": "python tools/design_snapshots.py .",
+      "exitCode": 0
+    },
+    {
+      "name": "motion",
+      "command": "python tools/tidal_motion.py .",
+      "exitCode": 1,
+      "status": "BLOCKED",
+      "note": "Missing Playwright FFmpeg; official install returned 403 Domain forbidden. No bypass attempted."
+    },
+    {
+      "name": "previewUI",
+      "command": "python tools/six_paths_ui.py .",
+      "exitCode": 0
+    },
+    {
+      "name": "navigation",
+      "command": "python tools/nav_contrast.py .",
+      "exitCode": 0
+    },
+    {
+      "name": "development",
+      "exitCode": 0,
+      "tests": 13
+    },
+    {
+      "name": "workbench-shell",
+      "exitCode": 0,
+      "tests": 8,
+      "fullThemeRouteMatrixRerun": false
+    },
+    {
+      "name": "premium-strict",
+      "exitCode": 1,
+      "baselineErrors": 29,
+      "candidateErrors": 29,
+      "identicalFindings": true
+    }
+  ]
+}
