@@ -2,10 +2,12 @@
 window.V4=(()=>{
  'use strict';
  const {esc,button:B,link:L,icon}=UI;
- let C,importCandidate=null,lastMeta='';
+ let C,importCandidate=null,lastMeta='',previewAction=null;
+ const previewActions=['daily','all-factors','v3-preferences','context','quota','source-report'];
+ document.addEventListener('click',e=>{const action=e.target.closest('[data-action]')?.dataset.action;if(action){previewAction=previewActions.includes(action)?action:null;setTimeout(notify,0);}});
  const priorData=Views.map.data;
  Views.map.data=(s,p)=>priorData(s,p)+`<section class="v4-transfer"><h2>延续以前的记录</h2><p>V4 使用独立空间。旧版本仍保留原样；确认后可以复制有效的本机记录。</p>${B('检查旧版或导入文件','v4-import',{cls:'btn secondary full space-12',icon:'folder'})}<p class="small muted space-12">本地文件与线上站点属于不同来源，网页无法自动读取彼此的数据。可先在旧版导出，再到这里选择文件。认证和购买权益不会从文件恢复。</p></section>`;
- function meta(){return {type:'jianji-preview-state',version:4,route:C.current(),theme:C.state.theme,density:C.state.density,reduced:C.state.reduced,blocked:C.blocked};}
+ function meta(){return {type:'jianji-preview-state',version:4,reviewSession:new URLSearchParams(location.search).get('reviewSession'),route:C.current(),stage:AssessmentPreview.getStage(),action:document.querySelector('[role=dialog]')?previewAction:null,theme:C.state.theme,density:C.state.density,reduced:C.state.reduced,blocked:C.blocked};}
  function notify(){if(parent===window||!C)return;const m=meta(),key=JSON.stringify(m);if(key===lastMeta)return;lastMeta=key;parent.postMessage(m,location.origin==='null'?'*':location.origin);}
  function safeState(raw){
   if(!raw||typeof raw!=='object'||Array.isArray(raw))throw Error('文件内容必须是一个记录对象。');
@@ -50,7 +52,9 @@ window.V4=(()=>{
   if(m.command==='navigate'){
    const r=String(m.route||''),[base,q]=r.split('?');if(!Object.hasOwn(Views.map,base))return;
    const p=Object.fromEntries(new URLSearchParams(q||''));if(Object.keys(p).some(k=>!['id','topic','kind','tab'].includes(k)))return;C.nav(base,p);
-   if(m.action&&['daily','all-factors','v3-preferences'].includes(m.action)&&!C.blocked)C.dispatch(m.action,{dataset:{}});
+   previewAction=null;
+   if(m.action&&previewActions.includes(m.action)&&!C.blocked){previewAction=m.action;C.dispatch(m.action,{dataset:{}});}
+   if(m.stage&&['single-factor','daily-checkin','short-16pf','personality-sandbox'].includes(base)&&['config','process','result'].includes(m.stage)&&!C.blocked)C.dispatch('preview-stage',{dataset:{id:base,stage:m.stage}});
   }else if(m.command==='theme'&&D.themes.some(t=>t.id===m.value)){if(C.commit(s=>s.theme=m.value))C.repaint();}
   else if(m.command==='density'&&['balanced','compact'].includes(m.value)){if(C.commit(s=>s.density=m.value))C.repaint();}
   else if(m.command==='motion'&&typeof m.value==='boolean'){if(C.commit(s=>s.reduced=m.value))C.repaint();}
@@ -64,5 +68,5 @@ window.V4=(()=>{
   document.querySelectorAll('textarea').forEach(el=>{el.style.resize='none';const grow=()=>{el.style.height='auto';el.style.height=Math.min(480,Math.max(136,el.scrollHeight+2))+'px';};el.addEventListener('input',grow);grow();});
   notify();
  }
- return {bind(c){C=c;},dispatch,afterRender,notify};
+ return {bind(c){C=c;if(parent!==window)new MutationObserver(notify).observe(document.getElementById('overlays'),{childList:true});},dispatch,afterRender,notify};
 })();

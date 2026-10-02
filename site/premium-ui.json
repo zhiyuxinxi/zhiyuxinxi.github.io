@@ -25,7 +25,8 @@
     "recordContract",
     "motion",
     "previewUI",
-    "navigation"
+    "navigation",
+    "workbench"
   ],
   "commands": {
     "themes": "python tools/build_themes.py",
@@ -34,7 +35,8 @@
     "recordContract": "node tools/record_loop_contract.mjs .",
     "motion": "python tools/tidal_motion.py .",
     "previewUI": "python tools/six_paths_ui.py .",
-    "navigation": "python tools/nav_contrast.py ."
+    "navigation": "python tools/nav_contrast.py .",
+    "workbench": "python tools/build_workbench.py && python tools/workbench_coverage.py ."
   },
   "evidence": {
     "crudFullFlow": "tools/hosted_smoke.py",

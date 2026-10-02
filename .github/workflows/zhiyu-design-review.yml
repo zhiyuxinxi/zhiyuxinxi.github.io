@@ -1,7 +1,7 @@
 name: Review Zhiyu design candidate
 on:
   push:
-    branches: [design/zhiyu-refinement, design/zhiyu-living-tide, design/zhiyu-six-paths, design/zhiyu-soft-fields]
+    branches: [design/zhiyu-refinement, design/zhiyu-living-tide, design/zhiyu-six-paths, design/zhiyu-soft-fields, design/zhiyu-complete-workbench]
 permissions:
   contents: read
 concurrency:
@@ -10,7 +10,7 @@ concurrency:
 jobs:
   review:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v6
       - name: Install browser and Chinese fonts
@@ -21,6 +21,8 @@ jobs:
       - name: Verify theme generation and record contracts
         run: |
           python site/tools/build_themes.py
+          python site/tools/build_workbench.py
+          git diff --exit-code -- site/workbench-data.js
           node site/tools/record_loop_contract.mjs site
       - name: Verify native workflows
         run: python site/tools/hosted_smoke.py site
@@ -36,6 +38,9 @@ jobs:
       - name: Verify all twelve themes and four navigation states
         if: always()
         run: python site/tools/nav_contrast.py site
+      - name: Verify complete workbench and all route theme shells
+        if: always()
+        run: python site/tools/workbench_coverage.py site
       - name: Preserve independent review evidence
         if: always()
         uses: actions/upload-artifact@v4

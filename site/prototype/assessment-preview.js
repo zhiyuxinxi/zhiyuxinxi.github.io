@@ -40,5 +40,5 @@ window.AssessmentPreview=(()=>{
  }}
  document.addEventListener('input',e=>{const code=e.target.dataset.previewScore;if(!D.factors.some(f=>f[0]===code))return;state.scores[code]=Math.min(10,Math.max(0,Number(e.target.value)));document.getElementById('value-'+code).textContent=state.scores[code];document.getElementById('sandbox-count').textContent='已设置 '+Object.keys(state.scores).length+' / 16';});
  Object.assign(Views.map,{'single-factor':single,'daily-checkin':daily,'short-16pf':short,'personality-sandbox':sandbox,'ai-reset':ai});
- return {home,isQuiet(){return C&&state.screen[C.current().split('?')[0]]==='process';},bind(c){C=c;},dispatch,afterRender(){const r=C.current().split('?')[0];if(names[r])document.title=names[r]+' · 知遇测评';}};
+ return {home,getStage(){return state.screen[C?.current().split('?')[0]]||'config';},isQuiet(){return C&&state.screen[C.current().split('?')[0]]==='process';},bind(c){C=c;},dispatch,afterRender(){const r=C.current().split('?')[0];if(names[r])document.title=names[r]+' · 知遇测评';}};
 })();
