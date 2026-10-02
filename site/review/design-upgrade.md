@@ -1,4 +1,4 @@
-# 知遇：保留式界面升级
+# 知遇测评：保留式界面升级
 
 ## 实施前保留清单
 - [x] 不回退V4；存储键、对象ID、修订、引用、订单快照、导入与冲突保护不改
@@ -30,19 +30,20 @@ How We Feel（https://howwefeel.org/）：低负担单步选择；stoic（https:
 
 ## 已验证证据
 
-最终运行：[Review Zhiyu design candidate · 36967743901](https://github.com/zhiyuxinxi/zhiyuxinxi.github.io/actions/runs/36967743901)
+最终品牌验收运行：[Review Zhiyu design candidate · 36968432865](https://github.com/zhiyuxinxi/zhiyuxinxi.github.io/actions/runs/36968432865)
 
-运行时源码：[a52dff68eaeef44e5955c9ea93a89780c294f271](https://github.com/zhiyuxinxi/zhiyuxinxi.github.io/commit/a52dff68eaeef44e5955c9ea93a89780c294f271)
+运行时源码：[245d19a4](https://github.com/zhiyuxinxi/zhiyuxinxi.github.io/commit/245d19a4)
 
 - 真实HTTP来源、Playwright 1.57.0、Chromium 143.0.7499.4、Noto中文字体
 - 原有13组浏览器门禁全部通过，0失败；包含33条路由、8主题×6页面、刷新恢复、跨窗口冲突、保存失败、来源引用、原订单、iframe桥接与主题/人物独立性
-- 新增28项检查全部通过：27种页面/尺寸/主题/大字组合，加一组28秒完整装饰周期与对话框Escape/焦点恢复检查
+- 新增30项检查全部通过：27种页面/尺寸/主题/大字组合、2种工作台品牌视口，加一组28秒完整装饰周期与对话框Escape/焦点恢复检查
 - 报告断言覆盖“我的观察”→“依据”→回到顶部“要点”，同时检查正文不被目录遮挡
 - 320/390/430px重点视口、原人物≥160px中央锚点、图片加载、无横向文档溢出、主题与专题入口均通过
 - 12套主题JSON与生成的JS/CSS一致；8套原主题和4套历史候选保持分组
+- 新名称、Logo资源加载、原始940×940尺寸、contain显示、无滤镜，以及320px大字首页名称/工具按钮不碰撞通过；工作台1480px和390px品牌布局通过
 - JavaScript与Python语法检查、git diff检查通过；DESIGN.md lint为0错误、3警告
 
-此前未通过的目录状态检查保留在[运行36967163015](https://github.com/zhiyuxinxi/zhiyuxinxi.github.io/actions/runs/36967163015)，不计入最终通过数。
+品牌最终确认之前的界面验证通过运行[36967743901](https://github.com/zhiyuxinxi/zhiyuxinxi.github.io/actions/runs/36967743901)。此前未通过的目录状态检查保留在[运行36967163015](https://github.com/zhiyuxinxi/zhiyuxinxi.github.io/actions/runs/36967163015)，不计入最终通过数。
 
 ## 未验证与剩余边界
 
@@ -50,7 +51,7 @@ How We Feel（https://howwefeel.org/）：低负担单步选择；stoic（https:
 - 已检验关键键盘、焦点、减少动态和配色角色；没有完成屏幕阅读器矩阵或WCAG全站符合性认证
 - Premium静态审计已执行但未达到零报告：其按钮规则只识别内联点击，不识别本项目的data-action事件委托；其文本框规则不识别共享CSS/渲染器的resize:none。运行时检查单独记录，不把静态审计说成通过
 - 本机Chromium受执行环境socket限制未能启动，实际浏览器验证来自上述只读CI分支；该评审工作流没有部署和仓库写权限
-- 新Logo素材尚未提供，产品继续使用原有抽象环形标记；工作台文字标记与名称更新为“知 / 知遇”，未设计替代Logo
+- 最终名称已确认为“知遇测评”；首页、助理与工作台采用用户提供的940×940原图标志，文件SHA256为97fb52e8d68378b91dcd77ac3937b8c1c4cd1a6dc494fa5c07d40564a49ffdc3。资源原字节保留，以object-fit:contain显示，不裁剪、染色、变形或重画；中央选中的人物没有替换
 - 原人物使用现有WebP资产，没有重新生成或替换人物；高分辨率最终素材仍需原稿
 - 真实题源、计分、常模、模型、认证、支付、退款与同步均未在此次界面设计中接入
 
