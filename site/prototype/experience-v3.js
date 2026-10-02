@@ -4,7 +4,7 @@
 window.V3 = (() => {
   'use strict';
   const {esc,icon,button:B,link:L,top,row,mark,bottleGrid,composer,empty}=UI;
-  let C, previousRoute=null, chapterObserver=null;
+  let C, previousRoute=null, chapterObserver=null, chapterScroll=null, chapterFrame=0;
   const workspaceSteps=new Map();
   const baseDefaults=D.defaultState.bind(D);
   D.defaultState=()=>({...baseDefaults(),theme:'violet',density:'balanced',workspaceMode:'overview'});
@@ -66,7 +66,7 @@ window.V3 = (() => {
   function topic(s,p){
     const t=D.topics.find(x=>x.id===p.id);if(!t)return savedViews.topic(s,p);const m=topicMeta[t.id],note=s.observations.filter(x=>x.topicId===t.id).sort((a,b)=>(b.updatedAt||b.createdAt||'').localeCompare(a.updatedAt||a.createdAt||''))[0];
     return `${top('探索',B('','favorite',{cls:'iconbtn',icon:'bookmark','data-id':t.id,'aria-label':s.favorites.includes(t.id)?'取消收藏':'收藏这个主题','aria-pressed':s.favorites.includes(t.id)}))}
-      <header class="v3-topic-intro ${m.color}">${badge(t.category+' · 自助整理')}<h1>${m.title}</h1><p>${t.desc}</p><span class="v3-intro-symbol" aria-hidden="true">${icon(m.ic)}</span></header>
+      <header class="v3-topic-intro ${m.color}">${badge(t.category+' · 自助整理')}<h1>${t.id==='work-choice'?'留下，<br>还是换个方向？':m.title}</h1><p>${t.desc}</p><span class="v3-intro-symbol" aria-hidden="true">${icon(m.ic)}</span></header>
       <div class="v3-facts"><span>${icon('edit','sm')}${V2.schemas[t.id].length} 个问题</span><span>${icon('pause','sm')}随时暂停</span><span>${icon('shield','sm')}不计分</span></div>
       <section class="topic-start"><h2>带走${m.output}</h2><p>跟着问题，一步步把想法整理清楚。</p>${note?L('继续上次的整理','topic-workspace',{cls:'btn full',after:'arrow','data-topic':t.id,'data-id':note.id}):B('开始整理','topic-journal',{cls:'btn full','data-id':t.id,after:'arrow'})}${note?B('另建一份整理','topic-journal',{cls:'textbtn full','data-id':t.id}):''}</section><details class="topic-outline"><summary>这次会聊到什么<span>${V2.schemas[t.id].length} 个问题 ${icon('chevron','sm')}</span></summary>
       <ol class="v3-outline">${V2.schemas[t.id].map(([key,label,ph],i)=>`<li><span>${String(i+1).padStart(2,'0')}</span><div><strong>${label}</strong><p>${ph}</p></div></li>`).join('')}</ol></details>
@@ -178,7 +178,22 @@ window.V3 = (() => {
     if(active&&!reduced()){document.querySelector('main')?.animate([{opacity:.35,transform:'translateY(7px)'},{opacity:1,transform:'translateY(0)'}],{duration:200,easing:'cubic-bezier(.2,.8,.2,1)'});}
     document.querySelectorAll('.report-chapters button').forEach(b=>b.setAttribute('aria-current',b.dataset.id==='report-overview'?'location':'false'));
     chapterObserver?.disconnect();chapterObserver=null;
-    if(document.querySelector('.report-chapters')){chapterObserver=new IntersectionObserver(entries=>{const candidates=entries.filter(e=>e.isIntersecting).sort((a,b)=>a.boundingClientRect.top-b.boundingClientRect.top);if(!candidates.length)return;const id=candidates[0].target.id;document.querySelectorAll('.report-chapters button').forEach(b=>b.setAttribute('aria-current',b.dataset.id===id?'location':'false'));},{rootMargin:'-64px 0px -55% 0px',threshold:0});document.querySelectorAll('.report-block').forEach(el=>chapterObserver.observe(el));}
+    if(chapterScroll)window.removeEventListener('scroll',chapterScroll);chapterScroll=null;
+    if(chapterFrame)cancelAnimationFrame(chapterFrame);chapterFrame=0;
+    if(document.querySelector('.report-chapters')){
+      const syncChapter=()=>{
+        const bar=document.querySelector('.report-chapters'),blocks=[...document.querySelectorAll('.report-block')];if(!bar||!blocks.length)return;
+        // Derive from all sections, not only an observer's changed entries. The
+        // offset includes the chapter anchor's scroll margin and works both ways.
+        const threshold=bar.getBoundingClientRect().bottom+48;
+        const active=blocks.filter(el=>el.getBoundingClientRect().top<=threshold).at(-1)||blocks[0];
+        bar.querySelectorAll('button').forEach(b=>b.setAttribute('aria-current',b.dataset.id===active.id?'location':'false'));
+      };
+      chapterScroll=()=>{if(!chapterFrame)chapterFrame=requestAnimationFrame(()=>{chapterFrame=0;syncChapter();});};
+      window.addEventListener('scroll',chapterScroll,{passive:true});
+      chapterObserver=new IntersectionObserver(syncChapter,{rootMargin:'-64px 0px -55% 0px',threshold:0});
+      document.querySelectorAll('.report-block').forEach(el=>chapterObserver.observe(el));syncChapter();
+    }
     updateCounts();
   }
   function updateCounts(){
