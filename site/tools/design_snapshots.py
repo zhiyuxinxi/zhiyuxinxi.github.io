@@ -34,6 +34,8 @@ CASES=[
  ('report','report?id=report-sample-01','default',390,'sunrise',False),
  ('question','question?id=session-demo-seed','question',390,'sunrise',False),
  ('appearance','appearance','default',390,'sunrise',False),
+ ('appearance-320','appearance','default',320,'sunrise',False),
+ ('appearance-dark-320','appearance','default',320,'nebula',False),
  ('home-320','home','default',320,'sunrise',False),
  ('explore-320','explore','default',320,'sunrise',False),
  ('assistant-320','assistant','default',320,'sunrise',False),
@@ -97,6 +99,12 @@ with sync_playwright() as pw:
     if scenario=='ongoing-action':check(page.locator('.v3-action-resume').count()==1,'Active attempt lost its continuation')
     nav=page.locator('.nav').bounding_box();check(nav['y']+nav['height']<=845,'Navigation left viewport')
     check(page.locator('.nav button').all_text_contents()==['认识','探索','助理','我的'],'Four entry roles changed')
+   if route=='appearance':
+    person=page.locator('.v4-live-preview>.v4-person-scene').bounding_box();halo=page.locator('.v4-live-preview>.v4-person-scene>span').bounding_box()
+    check(abs(halo['width']-halo['height'])<1,'Preview halo is not circular')
+    check(.84<=halo['width']/person['width']<=.88,'Preview halo does not scale with its portrait')
+    check(abs(halo['x']+halo['width']/2-person['x']-person['width']/2)<1 and abs(halo['y']+halo['height']/2-person['y']-person['height']/2)<1,'Preview halo not centered')
+    card=page.locator('.v4-live-preview').bounding_box();check(halo['x']>=card['x'] and halo['x']+halo['width']<=card['x']+card['width'] and halo['y']>=card['y'] and halo['y']+halo['height']<=card['y']+card['height'],'Preview halo clipped')
    if route.startswith('topic?id='):
     primary=page.locator('.topic-start .btn');check(primary.bounding_box()['y']<670,'Topic start is below the main task area')
     check(not page.locator('.topic-outline').get_attribute('open'),'Outline must start collapsed')
@@ -121,6 +129,18 @@ with sync_playwright() as pw:
     row['reportGeometry']=page.evaluate("""() => ({scrollY, padding:getComputedStyle(document.documentElement).scrollPaddingTop, active:document.querySelector('.report-chapters [aria-current=location]')?.dataset.id, navEnd:document.querySelector('.report-chapters')?.getBoundingClientRect().bottom, sections:[...document.querySelectorAll('.report-block')].map(e=>({id:e.id,y:e.getBoundingClientRect().top,margin:getComputedStyle(e).scrollMarginTop}))})""")
    page.screenshot(path=str(OUT/(name+'-failure.png')),full_page=True)
   results.append(row);print(row['status'],name,row.get('error',''),flush=True);ctx.close()
+ # Narrow dark dialog uses the real personal settings entry and preserves focus.
+ ctx=browser.new_context(viewport={'width':320,'height':844},locale='zh-CN',reduced_motion='reduce');page=ctx.new_page()
+ try:
+  page.goto(BASE+'/prototype/index.html?reset=1&scenario=default&theme=nebula#me',wait_until='networkidle')
+  page.click('[data-route=settings]');page.locator('[data-action=v3-preferences]').focus();page.keyboard.press('Enter');page.wait_for_selector('.dialog')
+  check(page.evaluate('document.documentElement.scrollWidth<=innerWidth'),'Narrow dark dialog overflows')
+  box=page.locator('.dialog').bounding_box();check(box['x']>=0 and box['y']>=0 and box['x']+box['width']<=320,'Narrow dark dialog clipped')
+  page.screenshot(path=str(OUT/'settings-dialog-dark-320.png'));page.keyboard.press('Escape')
+  check(page.locator('.dialog').count()==0 and page.evaluate("document.activeElement.dataset.action==='v3-preferences'"),'Dark dialog did not restore settings focus')
+  results.append({'name':'settings-dialog-dark-320','status':'PASS'})
+ except Exception as e:results.append({'name':'settings-dialog-dark-320','status':'FAIL','error':str(e)})
+ ctx.close()
  # The review shell shares the same unchanged supplied logo at desktop and phone widths.
  for shell_width in [1480,390]:
   ctx=browser.new_context(viewport={'width':shell_width,'height':1100},locale='zh-CN');page=ctx.new_page()

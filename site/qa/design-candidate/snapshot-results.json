@@ -1,5 +1,5 @@
 {
-  "capturedAt": "2026-10-02T08:50:38.246634+00:00",
+  "capturedAt": "2026-10-02T08:59:54.672943+00:00",
   "pass": true,
   "results": [
     {
@@ -220,6 +220,24 @@
       "route": "appearance",
       "width": 390,
       "theme": "sunrise",
+      "largeText": false,
+      "primaryActions": [],
+      "status": "PASS"
+    },
+    {
+      "name": "appearance-320",
+      "route": "appearance",
+      "width": 320,
+      "theme": "sunrise",
+      "largeText": false,
+      "primaryActions": [],
+      "status": "PASS"
+    },
+    {
+      "name": "appearance-dark-320",
+      "route": "appearance",
+      "width": 320,
+      "theme": "nebula",
       "largeText": false,
       "primaryActions": [],
       "status": "PASS"
@@ -468,6 +486,10 @@
           "y": 2400.421875
         }
       ],
+      "status": "PASS"
+    },
+    {
+      "name": "settings-dialog-dark-320",
       "status": "PASS"
     },
     {
