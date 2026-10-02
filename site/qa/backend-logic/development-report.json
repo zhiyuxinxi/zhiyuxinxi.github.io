@@ -1,0 +1,91 @@
+{
+  "status": "PASS",
+  "counts": {
+    "routes": 39,
+    "buttonGroups": 299,
+    "representativeStates": 146,
+    "mobileResponsibilities": 119,
+    "mobileActions": 551,
+    "backendDomains": 22,
+    "backendActions": 66,
+    "meaningfulGaps": 13
+  },
+  "tests": [
+    {
+      "name": "audited-data-integrity",
+      "status": "PASS",
+      "detail": {
+        "routes": 39,
+        "buttonGroups": 299,
+        "representativeStates": 146,
+        "mobileResponsibilities": 119,
+        "mobileActions": 551,
+        "backendDomains": 22,
+        "backendActions": 66,
+        "meaningfulGaps": 13
+      }
+    },
+    {
+      "name": "publication-boundary",
+      "status": "PASS",
+      "detail": "Only public-safe audited chunks; source IDs and hashes retained."
+    },
+    {
+      "name": "lazy-initial-load",
+      "status": "PASS",
+      "detail": "Product preview does not load development datasets."
+    },
+    {
+      "name": "all-page-contracts",
+      "status": "PASS",
+      "detail": "39 route-specific document panels load and show their correct route."
+    },
+    {
+      "name": "hidden-preview-initialization",
+      "status": "PASS",
+      "detail": "Direct contract/history/review entry initializes Ambient; showing preview restores a rendered canvas and full-size viewport; real Explore clicks synchronize the tree without page errors."
+    },
+    {
+      "name": "page-search-and-ime",
+      "status": "PASS",
+      "detail": "Filtering, no results, clear focus and composition boundaries verified."
+    },
+    {
+      "name": "confirmed-versus-undecided",
+      "status": "PASS",
+      "detail": "Install-local question banks and conditional local scoring/report/cloud-storage decisions are visible in shared contracts."
+    },
+    {
+      "name": "history-search-filter-links",
+      "status": "PASS",
+      "detail": "119/551 and22/66,15 omissions vs13 valuable gaps,8 deletion proposals, action-ID search, pagination reset, URL reload and backend links verified."
+    },
+    {
+      "name": "destination-and-evidence-links",
+      "status": "PASS",
+      "detail": "History destination opens matching contract; source links pinned to public repo commit."
+    },
+    {
+      "name": "narrow-document-panels",
+      "status": "PASS",
+      "detail": "390px contract, input detail and history controls; no horizontal document overflow."
+    },
+    {
+      "name": "load-failure-retry",
+      "status": "PASS",
+      "detail": "Resource error stays actionable; retry recovers without reloading the product."
+    },
+    {
+      "name": "stale-contract-response",
+      "status": "PASS",
+      "detail": "Delayed home data cannot replace the newer explore selection."
+    },
+    {
+      "name": "documentation-network-boundary",
+      "status": "PASS",
+      "detail": "Observed requests stay on the local static origin; no business service request."
+    }
+  ],
+  "pageErrors": [],
+  "sourceDataCommit": "5f2d14e153ed166c015de363fbfcbade2706f748"
+}

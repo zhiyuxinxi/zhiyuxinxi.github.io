@@ -1,0 +1,33 @@
+{
+  "sourceCommit": "fe35cf7aa010d718c967679616bd1a44de71908c",
+  "zipBytes": 97837,
+  "zipSha256": "9ca8da6cdef79d2a0c4e6d669b1ac7054b825f2ea4aad4f10cea87abe53de2ae",
+  "sourceFiles": {
+    "architecture-plan.json": {
+      "bytes": 95477,
+      "sha256": "e9e1470a6ae9a8365d109dda0ea00fd4fe9b9e4582e56c8d52d9e764c8e67635"
+    },
+    "architecture-plan.md": {
+      "bytes": 59600,
+      "sha256": "53d856a129dc3ea36dc568767d5645248b7cc95d4b6f950f476928c00223202a"
+    },
+    "architecture-plan-validation.json": {
+      "bytes": 896,
+      "sha256": "fbfac1158f80f4b64164bcb560933a088fdf5f5b545dae46c39fbaee048a99cf"
+    },
+    "cloud-boundaries.json": {
+      "bytes": 104713,
+      "sha256": "255f16651af2de5b5c3a5ff66ae9d10b0fb736d2e7239163738dd9ae36002279"
+    },
+    "cloud-boundaries.md": {
+      "bytes": 82682,
+      "sha256": "1bf38b69f011c9dc0b8dd60074a996df5ced90eabdbff12dd0d164841c58d69f"
+    }
+  },
+  "publishedFiles": [
+    "architecture-plan.json",
+    "architecture-plan-validation.json",
+    "cloud-boundaries.json"
+  ],
+  "implementation": "Read-only documentation; no APP business implemented"
+}

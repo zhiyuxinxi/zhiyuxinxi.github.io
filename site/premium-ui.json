@@ -5,7 +5,8 @@
     "index.html",
     "workbench.js",
     "workbench.css",
-    "development-review.js"
+    "development-review.js",
+    "backend-logic-review.js"
   ],
   "locale": "zh-CN",
   "canonicalMap": "UX-CONTRACT.md",
@@ -28,7 +29,8 @@
     "previewUI",
     "navigation",
     "workbench",
-    "development"
+    "development",
+    "backendLogic"
   ],
   "commands": {
     "themes": "python tools/build_themes.py",
@@ -39,7 +41,8 @@
     "previewUI": "python tools/six_paths_ui.py .",
     "navigation": "python tools/nav_contrast.py .",
     "workbench": "python tools/build_workbench.py && python tools/workbench_coverage.py .",
-    "development": "python tools/development_review_test.py ."
+    "development": "python tools/development_review_test.py .",
+    "backendLogic": "python tools/backend_logic_test.py ."
   },
   "evidence": {
     "crudFullFlow": "tools/hosted_smoke.py",

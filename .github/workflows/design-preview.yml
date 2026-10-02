@@ -35,6 +35,7 @@ jobs:
         run: |
           python site/tools/hosted_smoke.py site
           python site/tools/development_review_test.py site
+          python site/tools/backend_logic_test.py site
       - name: Preserve browser verification evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -49,7 +50,7 @@ jobs:
           from pathlib import Path
           import shutil,json
           source=Path('site');published=[]
-          allowed=['index.html','workbench.css','workbench.js','workbench-data.js','development-review.js','README.html','README.md','DESIGN.md','UX-CONTRACT.md','prototype','handoff','review','qa','tools','robots.txt','404.html','.nojekyll']
+          allowed=['index.html','workbench.css','workbench.js','workbench-data.js','development-review.js','backend-logic-review.js','README.html','README.md','DESIGN.md','UX-CONTRACT.md','prototype','handoff','review','qa','tools','robots.txt','404.html','.nojekyll']
           for name in allowed:
               src=source/name;dst=Path(name)
               if not src.exists(): continue
