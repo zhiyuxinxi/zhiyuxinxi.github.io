@@ -43,7 +43,7 @@ window.UI = (()=>{
  };
  function esc(v=''){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
  function icon(name,cls=''){return `<svg class="icon ${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name]||paths.info}</svg>`;}
- function mark(){return '<svg class="brand-mark" viewBox="0 0 36 36" fill="none" aria-hidden="true"><path d="M7 27c-6-11 0-22 10-21 10 1 14 14 7 22-5 6-15 4-18-5" stroke="currentColor" stroke-width="2"/><path d="M12 25c-4-6-1-12 5-12 7 0 9 8 6 12-3 5-7 6-11 0Z" fill="currentColor" opacity=".16"/><circle cx="27" cy="8" r="3" fill="currentColor"/></svg>';}
+ function mark(){return '<img class="brand-mark brand-logo" src="assets/zhiyu-logo.png" alt="知遇测评标志" width="40" height="40">';}
  function attrs(obj={}){return Object.entries(obj).map(([k,v])=>v===false||v==null?'':` ${k}="${esc(v===true?'':v)}"`).join('');}
  function button(label,action,options={}){const {cls='btn',icon:ic='',after='',...a}=options;return `<button class="${cls}" data-action="${action}"${attrs(a)}>${ic?icon(ic):''}${label}${after?icon(after,'end'):''}</button>`;}
  function link(label,route,options={}){return button(label,'nav',{'data-route':route,...options});}

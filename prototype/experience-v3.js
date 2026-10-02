@@ -4,7 +4,7 @@
 window.V3 = (() => {
   'use strict';
   const {esc,icon,button:B,link:L,top,row,mark,bottleGrid,composer,empty}=UI;
-  let C, previousRoute=null, chapterObserver=null;
+  let C, previousRoute=null, chapterObserver=null, chapterScroll=null, chapterFrame=0;
   const workspaceSteps=new Map();
   const baseDefaults=D.defaultState.bind(D);
   D.defaultState=()=>({...baseDefaults(),theme:'violet',density:'balanced',workspaceMode:'overview'});
@@ -28,23 +28,29 @@ window.V3 = (() => {
   const activeAction=s=>s.actions.find(a=>a.status==='active');
   function home(s){
     const sess=s.sessions.find(x=>x.id===s.activeSession),unfinished=sess?.status==='in-progress',done=sess?.status==='completed',a=activeAction(s);
-    const portrait=`<div class="v4-person-scene" aria-hidden="true"><span></span><img src="assets/person-${s.avatar}.svg" alt=""></div>`;
-    let task='';
-    if(unfinished){task=`<div class="task-head">${badge('继续上次','light')}<span class="task-meta">${Object.keys(sess.answers).length} / 3 题已存</span></div><div class="v4-hero-body"><div><h2>16PF 性格探索</h2><p>体验答卷还在。<br>从第 ${sess.index+1} 题接着来。</p></div>${portrait}</div><div class="v3-task-progress" aria-hidden="true"><i style="width:${Object.keys(sess.answers).length/3*100}%"></i></div>${B('继续答题','resume',{cls:'btn full',after:'arrow'})}<div class="task-foot"><span>交互示例 · 不计分</span>${L('查看已答','review',{cls:'textbtn','data-id':sess.id})}</div>`;}
-    else if(a){task=`<div class="task-head">${badge('我的小尝试','light')}<span class="task-meta">按自己的节奏</span></div><div class="v4-hero-body"><div><h2 class="short-action-title">${esc(a.text)}</h2><p>发生了什么？还没尝试，也可以如实写。</p></div>${portrait}</div>${L('留下这次观察','action-detail',{cls:'btn full',after:'arrow','data-id':a.id})}<div class="task-foot">${B('体验 16PF 作答流程','start',{cls:'textbtn'})}${L('全部尝试','actions',{cls:'textbtn'})}</div>`;}
-    else if(done){task=`<div class="task-head">${badge('体验已完成','light')}<span class="task-meta">3 / 3 题已存</span></div><div class="v4-hero-body"><div><h2>留住当时的选择。</h2><p>回看这次体验，<br>不从三道示例题推断性格。</p></div>${portrait}</div>${L('回看这次作答','review',{cls:'btn full',after:'arrow','data-id':sess.id})}<div class="task-foot">${L('看报告样例','report',{cls:'textbtn','data-id':D.report.id})}${B('再体验一次','start-new',{cls:'textbtn'})}</div>`;}
-    else{task=`<div class="task-head">${badge('从性格与情境开始','light')}<span class="task-meta">先试一次流程</span></div><div class="v4-hero-body"><div><h2>16PF<br>性格探索</h2><p>看见倾向，<br>也留意真实生活里的不同。</p></div>${portrait}</div>${B('体验 3 道示例题','start',{cls:'btn full',after:'arrow'})}<div class="task-foot"><span>约 1 分钟 · 不计分</span>${L('先看报告样例','report',{cls:'textbtn','data-id':D.report.id})}</div>`;}
-    return `<div class="topline brandline"><div class="wordmark">${mark()}<strong>见己</strong>${badge('交互原型')}</div><div class="v3-tools">${tools()}${L('','appearance',{cls:'iconbtn',icon:'palette','aria-label':'切换主题与形象'})}</div></div>
-      <header class="v3-home-heading"><h1>${unfinished||a?'从上次，接着来。':'你的样子，不止一种。'}</h1><p>理解自己，也保留改变的空间。</p></header>
-      <section class="primary-task v3-primary v4-primary">${task}</section>
+    const portrait=`<div class="v4-person-scene" aria-hidden="true"><span></span><i></i><i></i><img src="assets/person-${s.avatar}.svg" alt=""></div>`;
+    let heading='16PF 性格探索',sub='每一种你，都值得了解。',action=B('开始了解自己','start',{cls:'btn full',after:'arrow'}),foot='<span>3 道交互示例 · 不计分 · 正式题源待接入</span>';
+    if(unfinished){sub=`从第 ${sess.index+1} 题接着来，已保存 ${Object.keys(sess.answers).length} / 3 题。`;action=B('继续上次的探索','resume',{cls:'btn full',after:'arrow'});foot=L('回看已保存的选择','review',{cls:'textbtn','data-id':sess.id});}
+    else if(a){heading='把想法，带进生活';sub='你留给自己的小尝试，还可以接着走。';action=L('留下这次观察','action-detail',{cls:'btn full',after:'arrow','data-id':a.id});foot=B('体验 16PF 作答流程','start',{cls:'textbtn'});}
+    else if(done){heading='每次选择，都有来处';sub='留住当时的自己，也给变化留点空间。';action=L('回看这次作答','review',{cls:'btn full',after:'arrow','data-id':sess.id});foot=B('再体验一次','start-new',{cls:'textbtn'});}
+    return `<div class="topline brandline"><div class="wordmark">${mark()}<strong>知遇测评</strong><span class="prototype-label">设计体验</span></div><div class="v3-tools">${tools()}${L('','appearance',{cls:'iconbtn',icon:'palette','aria-label':'切换主题与形象'})}</div></div>
+      <header class="v3-home-heading"><h1>${unfinished||a?'从上次，接着来。':'你好，今天的你'}</h1><p>留一点时间，认识自己</p></header>
+      <section class="home-scene" aria-label="16PF 性格探索">
+        <div class="home-portrait">${portrait}${L('换形象','appearance',{cls:'home-avatar-link',after:'chevron'})}</div>
+        <h2>${heading}</h2><p class="home-scene-sub">${sub}</p>
+        ${!unfinished&&!a&&!done?`<div class="v4-version"><div class="v3-segment" aria-label="16PF 探索版本">${B('原版 16PF','mode',{cls:'selected','data-id':'original','aria-pressed':'true'})}${B('AI 重置版 <span class="version-status">待开放</span>','mode',{cls:'','data-id':'ai','aria-pressed':'false','aria-label':'AI 重置版，待开放'})}</div></div>`:''}
+        ${a&&!unfinished?`<p class="home-action-excerpt">${esc(a.text)}</p>`:''}
+        ${action}<div class="home-task-foot">${foot}</div>${unfinished||done?'<p class="home-session-boundary">3 题交互体验 · 不计分，不生成性格结论</p>':''}
+        ${L('想聊聊，从这里开始','assistant',{cls:'textbtn home-chat',after:'chat'})}
+      </section>
       ${unfinished&&a?`<button class="v3-action-resume v4-priority" data-action="nav" data-route="action-detail" data-id="${a.id}">${icon('flag')}<span class="grow"><strong>还有一件自己的小尝试</strong><small>${esc(a.text)}</small></span>${icon('arrow','sm')}</button>`:''}
-      <div class="v4-version"><div class="v3-segment" aria-label="16PF 探索版本">${B('原版','mode',{cls:'selected','data-id':'original','aria-pressed':'true'})}${B('AI 重置版','mode',{cls:'','data-id':'ai',icon:'lock','aria-pressed':'false'})}</div><small>正式题源与常模<br>待接入</small></div>
-      ${section('最近，想理清什么？',L('全部探索','explore',{cls:'textbtn',after:'arrow'}))}
-      <div class="v3-life-pair">${['work-choice','relationships'].map(id=>{const m=topicMeta[id];return `<button class="v3-life ${m.color}" data-action="nav" data-route="topic" data-id="${id}"><span class="v3-tile-icon">${icon(m.ic)}</span><strong>${m.name}</strong><small>${m.output}</small><span class="v3-corner-arrow">${icon('arrow','sm')}</span></button>`;}).join('')}</div>
+      ${section('按自己的节奏','<span class="section-note">慢慢来，也很好</span>')}
+      <div class="home-support-grid">${B(`<span class="v3-tile-icon">${icon('bottle')}</span><strong>单因子探索</strong><small>一次了解一个角度</small>`,'all-factors',{cls:'home-support'})}${B(`<span class="v3-tile-icon">${icon('sun')}</span><strong>每日轻探索</strong><small>从一个小问题开始</small>`,'daily',{cls:'home-support'})}</div>
       <button class="v3-capture" data-action="nav" data-route="journal"><span class="v3-capture-symbol">${icon('edit')}</span><span class="grow"><strong>给今天留一句话</strong><small>一件事，一个发现，都可以记下。</small></span>${icon('plus')}</button>
-      ${section('换个角度看自己')}
-      <div class="v3-quick-row v4-quick-row">${B('单因子探索','all-factors',{cls:'v3-quick',icon:'bottle'})}${B('每日轻探索','daily',{cls:'v3-quick',icon:'sun'})}${L('假设实验','simulation',{cls:'v3-quick',icon:'explore'})}${L('找回记录','records',{cls:'v3-quick',icon:'clock'})}</div>
-      <div class="v3-editorial"><span>阅读</span>${L('高一点、低一点，都不代表更好','article',{cls:'','data-id':'read-traits',after:'arrow'})}</div><p class="v3-endnote">留住具体的自己，不急着下定义。</p>`;
+      ${section('生活里，也认识自己',L('全部探索','explore',{cls:'textbtn',after:'arrow'}))}
+      <div class="v3-life-pair">${['work-choice','relationships'].map(id=>{const m=topicMeta[id];return `<button class="v3-life ${m.color}" data-action="nav" data-route="topic" data-id="${id}"><strong>${m.name}</strong><small>${m.output}</small><span class="v3-corner-arrow">${icon('arrow','sm')}</span></button>`;}).join('')}</div>
+      <div class="v3-quick-row v4-quick-row space-16">${L('假设实验','simulation',{cls:'v3-quick',icon:'explore'})}${L('找回记录','records',{cls:'v3-quick',icon:'clock'})}</div>
+      <div class="v3-editorial">${L('先看一份报告样例','report',{cls:'','data-id':D.report.id,after:'arrow'})}${L('高一点、低一点，都不代表更好','article',{cls:'','data-id':'read-traits',after:'arrow'})}</div><p class="v3-endnote">留住具体的自己，不急着下定义。</p>`;
   }
   function explore(s){
     const text=s.exploreSearch.trim().toLowerCase();const filtered=D.topics.filter(t=>(s.exploreCategory==='全部'||t.category===s.exploreCategory)&&(!text||[t.title,t.desc,t.category,topicMeta[t.id].name].join(' ').toLowerCase().includes(text)));
@@ -58,13 +64,12 @@ window.V3 = (() => {
       <p class="v3-endnote">选题清单，不替你决定职业、关系或生活。</p>`;
   }
   function topic(s,p){
-    const t=D.topics.find(x=>x.id===p.id);if(!t)return savedViews.topic(s,p);const m=topicMeta[t.id],note=s.observations.find(x=>x.topicId===t.id);
+    const t=D.topics.find(x=>x.id===p.id);if(!t)return savedViews.topic(s,p);const m=topicMeta[t.id],note=s.observations.filter(x=>x.topicId===t.id).sort((a,b)=>(b.updatedAt||b.createdAt||'').localeCompare(a.updatedAt||a.createdAt||''))[0];
     return `${top('探索',B('','favorite',{cls:'iconbtn',icon:'bookmark','data-id':t.id,'aria-label':s.favorites.includes(t.id)?'取消收藏':'收藏这个主题','aria-pressed':s.favorites.includes(t.id)}))}
-      <header class="v3-topic-intro ${m.color}">${badge(t.category+' · 自助整理')}<h1>${m.title}</h1><p>${t.desc}</p><span class="v3-intro-symbol" aria-hidden="true">${icon(m.ic)}</span></header>
+      <header class="v3-topic-intro ${m.color}">${badge(t.category+' · 自助整理')}<h1>${t.id==='work-choice'?'留下，<br>还是换个方向？':m.title}</h1><p>${t.desc}</p><span class="v3-intro-symbol" aria-hidden="true">${icon(m.ic)}</span></header>
       <div class="v3-facts"><span>${icon('edit','sm')}${V2.schemas[t.id].length} 个问题</span><span>${icon('pause','sm')}随时暂停</span><span>${icon('shield','sm')}不计分</span></div>
-      ${section('这次，带走'+m.output)}
-      <ol class="v3-outline">${V2.schemas[t.id].map(([key,label,ph],i)=>`<li><span>${String(i+1).padStart(2,'0')}</span><div><strong>${label}</strong><p>${ph}</p></div></li>`).join('')}</ol>
-      ${B(note?'新建一份整理':'开始整理','topic-journal',{cls:'btn full','data-id':t.id,after:'arrow'})}${note?L('继续上次的整理','topic-workspace',{cls:'btn secondary full space-12','data-topic':t.id,'data-id':note.id}):''}
+      <section class="topic-start"><h2>带走${m.output}</h2><p>跟着问题，一步步把想法整理清楚。</p>${note?L('继续上次的整理','topic-workspace',{cls:'btn full',after:'arrow','data-topic':t.id,'data-id':note.id}):B('开始整理','topic-journal',{cls:'btn full','data-id':t.id,after:'arrow'})}${note?B('另建一份整理','topic-journal',{cls:'textbtn full','data-id':t.id}):''}</section><details class="topic-outline"><summary>这次会聊到什么<span>${V2.schemas[t.id].length} 个问题 ${icon('chevron','sm')}</span></summary>
+      <ol class="v3-outline">${V2.schemas[t.id].map(([key,label,ph],i)=>`<li><span>${String(i+1).padStart(2,'0')}</span><div><strong>${label}</strong><p>${ph}</p></div></li>`).join('')}</ol></details>
       <p class="quiet-boundary">原创自助框架；不预测结果。由你填写，也由你决定下一步。</p>`;
   }
   function topicWorkspace(s,p){
@@ -92,11 +97,11 @@ window.V3 = (() => {
       <p class="v3-report-caption">虚构情境与因子位置示意，均与三道示例题无关。</p>
       <nav class="report-chapters" aria-label="报告目录">${[['report-overview','要点'],['report-evidence','依据'],['report-personal','我的观察'],['report-action','下一步']].map(([id,n])=>B(n,'report-jump',{cls:'','data-id':id})).join('')}</nav>
       <section id="report-overview" class="report-block" tabindex="-1"><div class="v3-context-heading"><h2>先看这三个点</h2><div class="context-switch" aria-label="阅读情境">${[['work','工作'],['relationship','相处']].map(([id,l])=>B(l,'report-context',{cls:s.reportContext===id?'active':'','data-id':id,'aria-pressed':s.reportContext===id})).join('')}</div></div>
-        <div class="v3-insights">${heads.map((h,i)=>`<article><span class="v3-insight-number">0${i+1}</span><div><h3>${h}</h3><p>${bodies[i]}</p></div></article>`).join('')}</div>
+        <div class="v3-insights">${heads.map((h,i)=>`<article><span class="v3-insight-number" aria-hidden="true">${icon(['sun','leaf','explore'][i])}</span><div><h3>${h}</h3><p>${bodies[i]}</p></div></article>`).join('')}</div>
         ${B('这些解读从哪里来','report-jump',{cls:'v3-evidence-link','data-id':'report-evidence',icon:'link',after:'arrow'})}
       </section>
       <section id="report-evidence" class="report-block" tabindex="-1"><div class="row between"><h2>看见依据，再理解</h2>${badge('样例情境')}</div><blockquote class="quote"><span class="caption">小林 · 虚构生活片段</span>${src.excerpt}</blockquote><p class="body-copy">这段经历有多种可能解释。单次表现不能推导出人格分数。</p>${B('核对来源与版本','source-report',{cls:'source-row',icon:'link',after:'chevron'})}
-        <details class="factor-detail" open><summary><span>16 个因子角度</span><small>点开看说明</small></summary><p class="small muted">位置仅为示意；B、O 暂无依据。水位更满不代表更好。</p>${bottleGrid()}</details>
+        <details class="factor-detail"><summary><span>16 个因子角度</span><small>点开看说明</small></summary><p class="small muted">位置仅为示意；B、O 暂无依据。水位更满不代表更好。</p>${bottleGrid()}</details>
       </section>
       <section id="report-personal" class="report-block" tabindex="-1">${badge('本人观察 · 独立保存','own')}<h2 class="space-12">你的经历，哪里不同？</h2><p class="body-copy">写下自己的情境，也可以直接质疑这段解释。</p><label class="field-label space-16" for="report-note">我自己的真实经历</label><textarea id="report-note" class="textarea" data-input="report-note" maxlength="1500" placeholder="例如：在熟悉的小组里，我不太需要准备就能说清楚。">${esc(V2.getDraft('report:'+s.reportContext,''))}</textarea>${saveState()}${B('保存本人观察','save-report-note',{cls:'btn secondary full space-12',icon:'edit'})}${s.reportNotes.length?L('查看已保存的观察','records',{cls:'textbtn full'}):''}</section>
       <section id="report-action" class="report-block" tabindex="-1"><div class="next-step-panel v3-next"><span class="eyebrow">下次，试个小变化</span><h2>${work?'从两个要点说起':'从一个细节加入'}</h2><p>${work?'临时被问到时，先给自己一点整理时间，再说最想表达的两点。':'想参与对话时，先回应对方刚说的一个具体细节。'}</p>${B('留下这个小尝试','add-action',{cls:'btn full',icon:'flag','data-context':work?'work':'relationship'})}<small>可修改。只保存你选择的尝试，不建立性格结论。</small></div>${B('带着样例情境问助理','quote-report',{cls:'btn secondary full space-16',icon:'chat'})}</section>
@@ -105,12 +110,12 @@ window.V3 = (() => {
   function assistant(s){
     const sample=s.assistantSources.some(x=>x.kind==='sample-report');
     return `<div class="topline"><span class="eyebrow">个人助理</span>${B(s.logged?`演示剩余 ${Math.max(0,10-s.used)} / 10`:'登录后共享 10 次 / 天','quota',{cls:'quota-pill',icon:'info'})}</div>
-      <header class="v3-assistant-head">${emblem('flower')}<div>${badge('预写演示 · 未接入模型')}<h1>思绪有点乱？<br>从一件事聊起。</h1><p>先把发生的事说清楚。</p></div></header>
-      <div class="v3-prompts">${B('理清最近一件事','prompt',{cls:'v3-prompt','data-id':'recent',icon:'leaf',after:'arrow'})}${B('带上一份记录','context',{cls:'v3-prompt',icon:'book',after:'plus'})}</div>
+      <header class="v3-assistant-head"><div class="assistant-emblem" aria-hidden="true">${mark()}</div><div><h1>有什么，<br>想一起理清？</h1><p>从一件具体的事开始，慢慢说就好。</p></div></header>
       ${sample?'<div class="source-warning">'+icon('info','sm')+'本次含虚构样例，不作为你的个人记忆。</div>':''}
       ${composer(s.assistantDraft,s.assistantSources,s.logged)}
+      <div class="v3-prompts">${B('理清最近一件事','prompt',{cls:'v3-prompt','data-id':'recent',icon:'leaf',after:'arrow'})}</div>
       <div class="v3-trust-line"><span>${icon('link','sm')}资料由你选</span><span>${icon('memory','sm')}记忆另行确认</span></div>
-      <p class="demo-caption">不联网；登录模拟不会自动发送草稿。</p>
+      <p class="demo-caption">预写演示 · 未接入模型；登录不会自动发送草稿。</p>
       ${section('接着上次聊',L('全部对话','conversations',{cls:'textbtn',after:'arrow'}))}
       ${s.conversations.length?s.conversations.slice(-3).reverse().map(c=>`<button class="history-row" data-action="nav" data-route="conversation" data-id="${c.id}">${icon('chat')}<span class="grow"><h3>${esc(c.title)}</h3><small>${c.messages.length} 条消息 · 本机</small></span>${icon('chevron','sm')}</button>`).join(''):'<div class="v3-chat-empty">'+icon('chat')+'<span>第一段对话，从你想说的开始。<small>草稿会留在本机，不必一次说完整。</small></span></div>'}
       <div class="plain-list space-16">${row('助理记住了什么','查看、修改或停用','memories','memory')}</div>`;
@@ -173,7 +178,27 @@ window.V3 = (() => {
     if(active&&!reduced()){document.querySelector('main')?.animate([{opacity:.35,transform:'translateY(7px)'},{opacity:1,transform:'translateY(0)'}],{duration:200,easing:'cubic-bezier(.2,.8,.2,1)'});}
     document.querySelectorAll('.report-chapters button').forEach(b=>b.setAttribute('aria-current',b.dataset.id==='report-overview'?'location':'false'));
     chapterObserver?.disconnect();chapterObserver=null;
-    if(document.querySelector('.report-chapters')){chapterObserver=new IntersectionObserver(entries=>{const candidates=entries.filter(e=>e.isIntersecting).sort((a,b)=>a.boundingClientRect.top-b.boundingClientRect.top);if(!candidates.length)return;const id=candidates[0].target.id;document.querySelectorAll('.report-chapters button').forEach(b=>b.setAttribute('aria-current',b.dataset.id===id?'location':'false'));},{rootMargin:'-64px 0px -55% 0px',threshold:0});document.querySelectorAll('.report-block').forEach(el=>chapterObserver.observe(el));}
+    if(chapterScroll)window.removeEventListener('scroll',chapterScroll);chapterScroll=null;
+    if(chapterFrame)cancelAnimationFrame(chapterFrame);chapterFrame=0;
+    if(document.querySelector('.report-chapters')){
+      const syncChapter=()=>{
+        const bar=document.querySelector('.report-chapters'),blocks=[...document.querySelectorAll('.report-block')];if(!bar||!blocks.length)return;
+        // scrollIntoView applies both document scroll-padding and target
+        // scroll-margin. Use those actual offsets so anchor clicks and manual
+        // scrolling agree, in both directions and at every text size.
+        const padding=parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop)||0;
+        const navEnd=bar.getBoundingClientRect().bottom;
+        const active=blocks.filter(el=>{
+          const margin=parseFloat(getComputedStyle(el).scrollMarginTop)||0;
+          return el.getBoundingClientRect().top<=Math.max(navEnd+8,padding+margin)+1;
+        }).at(-1)||blocks[0];
+        bar.querySelectorAll('button').forEach(b=>b.setAttribute('aria-current',b.dataset.id===active.id?'location':'false'));
+      };
+      chapterScroll=()=>{if(!chapterFrame)chapterFrame=requestAnimationFrame(()=>{chapterFrame=0;syncChapter();});};
+      window.addEventListener('scroll',chapterScroll,{passive:true});
+      chapterObserver=new IntersectionObserver(syncChapter,{rootMargin:'-64px 0px -55% 0px',threshold:0});
+      document.querySelectorAll('.report-block').forEach(el=>chapterObserver.observe(el));syncChapter();
+    }
     updateCounts();
   }
   function updateCounts(){
