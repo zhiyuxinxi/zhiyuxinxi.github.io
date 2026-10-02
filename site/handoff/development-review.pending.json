@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "stage": "page-design-and-historical-reconciliation",
+  "deliveryState": "awaiting-audits",
+  "baselineMain": "afd1bf2af36ef130c8636c137b131183b3ffab54",
+  "sources": [
+    {
+      "id": "parent-history-audit-summary",
+      "title": "父线程转达的独立历史审计摘要",
+      "kind": "audit-summary",
+      "locator": null,
+      "revision": null,
+      "reviewState": "summary-only",
+      "notes": "119职责=107独立页+12页内模块；119移动预览；725有效操作契约。等待原始page-atlas/refined-routes/buttons逐项审计。"
+    },
+    {
+      "id": "current-user-decision",
+      "title": "当前用户阶段顺序与本地题库要求",
+      "kind": "user-decision",
+      "locator": null,
+      "revision": null,
+      "reviewState": "item-reviewed",
+      "notes": "先页面交付与完整逐项追溯，复核后再进入无界面架构分析。"
+    },
+    {
+      "id": "current-content-page",
+      "title": "当前原型本机内容说明",
+      "kind": "repository-file",
+      "locator": "site/prototype/views.js: content",
+      "revision": "481e89aa67620c04c6a990bfb70509db587bffe1",
+      "reviewState": "item-reviewed",
+      "notes": "3题原创交互示例已随包；正式题源/计分/常模未接入。"
+    }
+  ],
+  "baselines": [
+    {
+      "id": "original-119-725",
+      "label": "最初完整职责与操作基线",
+      "countUnit": "职责节点、独立页、页内模块、移动预览、操作契约分别计数",
+      "counts": {
+        "responsibilityNodes": 119,
+        "independentPages": 107,
+        "inlineModules": 12,
+        "mobilePreviews": 119,
+        "actionContracts": 725
+      },
+      "evidenceRefs": [
+        "parent-history-audit-summary"
+      ],
+      "itemInventoryState": "awaiting-items"
+    },
+    {
+      "id": "converged-551",
+      "label": "后续收敛动作基线",
+      "countUnit": "另一阶段的动作基线，不与原725等同",
+      "counts": {
+        "actionContracts": 551
+      },
+      "evidenceRefs": [
+        "parent-history-audit-summary"
+      ],
+      "itemInventoryState": "awaiting-items"
+    }
+  ],
+  "confirmedRequirements": [
+    {
+      "statement": "所有题库必须随APP默认安装在本地；首启不依赖题库下载。此为目标要求，不表示当前已内置获准正式题源。",
+      "decisionState": "confirmed-requirement",
+      "evidenceRefs": [
+        "current-user-decision"
+      ]
+    },
+    {
+      "statement": "未取得题源合法授权和质量批准的正式题库，不得标为已内置。授权、版本、安装体积及更新策略保留后续分析；当前原型只有3题原创交互示例。",
+      "decisionState": "confirmed-requirement",
+      "evidenceRefs": [
+        "current-user-decision",
+        "current-content-page"
+      ]
+    }
+  ],
+  "unconfirmedArchitectureRequests": [
+    {
+      "statement": "本地计分引擎与因子计算公式。",
+      "decisionState": "needs-confirmation",
+      "evidenceRefs": [
+        "current-user-decision"
+      ]
+    },
+    {
+      "statement": "本地生成报告。",
+      "decisionState": "needs-confirmation",
+      "evidenceRefs": [
+        "current-user-decision"
+      ]
+    },
+    {
+      "statement": "报告在本地保存。",
+      "decisionState": "needs-confirmation",
+      "evidenceRefs": [
+        "current-user-decision"
+      ]
+    },
+    {
+      "statement": "会员部分关键分析数据上传云数据库；具体字段、范围和权限待确认。",
+      "decisionState": "needs-confirmation",
+      "evidenceRefs": [
+        "current-user-decision"
+      ]
+    }
+  ],
+  "pageContracts": [],
+  "historicalItems": [],
+  "coverage": {
+    "originalItemsExpected": null,
+    "mappedItems": 0,
+    "unresolvedItems": null,
+    "completenessClaim": "not-assessed",
+    "notes": "等待两份审计的逐项源数据；不把39渲染路由、119→42职责映射、551动作索引等同于原725操作全部保留。 父线程新转达：画像的逐条认识/情境差异/未知选择/矛盾澄清、记忆原文溯源/更改历史、交流偏好回答长度/协作方式/避免表达均存在待补设计；等待完整映射后逐项落节点，不据此新增真实业务。"
+  }
+}

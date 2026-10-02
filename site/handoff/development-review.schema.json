@@ -1,0 +1,976 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "stage": {
+      "const": "page-design-and-historical-reconciliation"
+    },
+    "deliveryState": {
+      "enum": [
+        "awaiting-audits",
+        "partial",
+        "ready-for-review",
+        "reviewed"
+      ]
+    },
+    "baselineMain": {
+      "type": "string"
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/source"
+      }
+    },
+    "baselines": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/baseline"
+      }
+    },
+    "confirmedRequirements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/fact"
+      }
+    },
+    "unconfirmedArchitectureRequests": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/fact"
+      }
+    },
+    "pageContracts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/pageContract"
+      }
+    },
+    "historicalItems": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/historicalItem"
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "originalItemsExpected": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "mappedItems": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unresolvedItems": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "completenessClaim": {
+          "enum": [
+            "not-assessed",
+            "incomplete",
+            "complete-with-evidence"
+          ]
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "originalItemsExpected",
+        "mappedItems",
+        "unresolvedItems",
+        "completenessClaim",
+        "notes"
+      ]
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "stage",
+    "deliveryState",
+    "baselineMain",
+    "sources",
+    "baselines",
+    "confirmedRequirements",
+    "unconfirmedArchitectureRequests",
+    "pageContracts",
+    "historicalItems",
+    "coverage"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "知遇逐页开发说明与历史逐项追溯承载结构",
+  "$defs": {
+    "fact": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "statement": {
+          "type": "string"
+        },
+        "decisionState": {
+          "enum": [
+            "confirmed-requirement",
+            "verified-current",
+            "planned",
+            "needs-confirmation",
+            "unknown"
+          ]
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "statement",
+        "decisionState",
+        "evidenceRefs"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "decisionState": {
+                "const": "verified-current"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "evidenceRefs": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "original-document",
+            "repository-file",
+            "runtime-observation",
+            "audit-summary",
+            "user-decision"
+          ]
+        },
+        "locator": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "revision": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reviewState": {
+          "enum": [
+            "summary-only",
+            "awaiting-items",
+            "item-reviewed"
+          ]
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "kind",
+        "locator",
+        "revision",
+        "reviewState",
+        "notes"
+      ]
+    },
+    "baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "countUnit": {
+          "type": "string"
+        },
+        "counts": {
+          "type": "object",
+          "additionalProperties": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          }
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "itemInventoryState": {
+          "enum": [
+            "awaiting-items",
+            "partial",
+            "complete"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "countUnit",
+        "counts",
+        "evidenceRefs",
+        "itemInventoryState"
+      ]
+    },
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "fromNodeId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "controlLabel": {
+          "type": "string"
+        },
+        "trigger": {
+          "type": "string"
+        },
+        "targetSurfaceId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "runtimeReachability": {
+          "enum": [
+            "verified",
+            "not-verified",
+            "not-implemented"
+          ]
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "fromNodeId",
+        "controlLabel",
+        "trigger",
+        "targetSurfaceId",
+        "runtimeReachability",
+        "evidenceRefs"
+      ]
+    },
+    "surface": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "page",
+            "step",
+            "modal",
+            "inline",
+            "specification"
+          ]
+        },
+        "routeFamily": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "routeVariant": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "entryEvidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/entry"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "routeFamily",
+        "routeVariant",
+        "entryEvidence"
+      ]
+    },
+    "state": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "preconditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        },
+        "postconditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        },
+        "allowedTransitions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "prototypeImplementation": {
+          "$ref": "#/$defs/fact"
+        },
+        "plannedImplementation": {
+          "$ref": "#/$defs/fact"
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "preconditions",
+        "postconditions",
+        "allowedTransitions",
+        "prototypeImplementation",
+        "plannedImplementation"
+      ]
+    },
+    "dataField": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "sensitivity": {
+          "enum": [
+            "public",
+            "personal",
+            "sensitive",
+            "unknown"
+          ]
+        },
+        "scope": {
+          "type": "string"
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "name",
+        "description",
+        "sensitivity",
+        "scope",
+        "evidenceRefs"
+      ]
+    },
+    "operation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "purpose": {
+          "type": "string"
+        },
+        "execution": {
+          "enum": [
+            "local",
+            "cloud",
+            "none",
+            "undecided"
+          ]
+        },
+        "implementationState": {
+          "enum": [
+            "prototype-only",
+            "implemented-with-evidence",
+            "planned",
+            "undecided"
+          ]
+        },
+        "endpoint": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "endpointEvidenceRefs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "requestData": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/dataField"
+          }
+        },
+        "responseData": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/dataField"
+          }
+        },
+        "permissions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        },
+        "failureRecovery": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        },
+        "idempotencyConcurrency": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        },
+        "openDecisions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "purpose",
+        "execution",
+        "implementationState",
+        "endpoint",
+        "endpointEvidenceRefs",
+        "requestData",
+        "responseData",
+        "permissions",
+        "failureRecovery",
+        "idempotencyConcurrency",
+        "openDecisions"
+      ]
+    },
+    "storage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "purpose": {
+          "type": "string"
+        },
+        "implementationState": {
+          "enum": [
+            "prototype-only",
+            "implemented-with-evidence",
+            "planned",
+            "undecided"
+          ]
+        },
+        "mechanismOrContract": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/dataField"
+          }
+        },
+        "readWriteTriggers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "retentionAndDeletion": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        },
+        "versionAndConflictRules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "openDecisions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "purpose",
+        "implementationState",
+        "mechanismOrContract",
+        "fields",
+        "readWriteTriggers",
+        "retentionAndDeletion",
+        "versionAndConflictRules",
+        "evidenceRefs",
+        "openDecisions"
+      ]
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "canonicalEventId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sourceActionRefs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "controlLabel": {
+          "type": "string"
+        },
+        "trigger": {
+          "type": "string"
+        },
+        "businessFlowId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "preconditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        },
+        "postconditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        },
+        "targetSurfaceId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "prototypeImplementation": {
+          "$ref": "#/$defs/fact"
+        },
+        "plannedImplementation": {
+          "$ref": "#/$defs/fact"
+        },
+        "apiOperationRefs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "storageEffectRefs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "cancelAndReturn": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        },
+        "failureRecovery": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        },
+        "verificationRefs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "openDecisions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "canonicalEventId",
+        "sourceActionRefs",
+        "controlLabel",
+        "trigger",
+        "businessFlowId",
+        "preconditions",
+        "postconditions",
+        "targetSurfaceId",
+        "prototypeImplementation",
+        "plannedImplementation",
+        "apiOperationRefs",
+        "storageEffectRefs",
+        "cancelAndReturn",
+        "failureRecovery",
+        "verificationRefs",
+        "openDecisions"
+      ]
+    },
+    "pageContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "workbenchNodeId": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "businessFlowId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "purpose": {
+          "$ref": "#/$defs/fact"
+        },
+        "surfaces": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/surface"
+          }
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/entry"
+          }
+        },
+        "returnRules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        },
+        "states": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/state"
+          }
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/event"
+          }
+        },
+        "prototypeImplementation": {
+          "$ref": "#/$defs/fact"
+        },
+        "plannedImplementation": {
+          "$ref": "#/$defs/fact"
+        },
+        "apiOperations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/operation"
+          }
+        },
+        "storage": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "local": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/storage"
+              }
+            },
+            "cloud": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/storage"
+              }
+            }
+          },
+          "required": [
+            "local",
+            "cloud"
+          ]
+        },
+        "permissions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        },
+        "failureRecovery": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        },
+        "idempotencyConcurrency": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        },
+        "verificationRefs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "openDecisions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        }
+      },
+      "required": [
+        "workbenchNodeId",
+        "title",
+        "businessFlowId",
+        "purpose",
+        "surfaces",
+        "entries",
+        "returnRules",
+        "states",
+        "events",
+        "prototypeImplementation",
+        "plannedImplementation",
+        "apiOperations",
+        "storage",
+        "permissions",
+        "failureRecovery",
+        "idempotencyConcurrency",
+        "verificationRefs",
+        "openDecisions"
+      ]
+    },
+    "historicalTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "workbenchNodeId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "surfaceId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "eventId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "userEntryEvidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/entry"
+          }
+        },
+        "preservedMeaning": {
+          "$ref": "#/$defs/fact"
+        },
+        "lostOrChangedMeaning": {
+          "$ref": "#/$defs/fact"
+        },
+        "verificationRefs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "workbenchNodeId",
+        "surfaceId",
+        "eventId",
+        "userEntryEvidence",
+        "preservedMeaning",
+        "lostOrChangedMeaning",
+        "verificationRefs"
+      ]
+    },
+    "historicalItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "baselineId": {
+          "type": "string"
+        },
+        "originalId": {
+          "type": "string"
+        },
+        "originalTitle": {
+          "type": "string"
+        },
+        "originalKind": {
+          "enum": [
+            "independent-page",
+            "inline-module",
+            "action-contract",
+            "preview",
+            "other"
+          ]
+        },
+        "sourceRefs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "disposition": {
+          "enum": [
+            "present-page",
+            "present-step",
+            "present-modal",
+            "merged-preserved",
+            "not-designed",
+            "missing",
+            "needs-confirmation"
+          ]
+        },
+        "targets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/historicalTarget"
+          }
+        },
+        "assessment": {
+          "$ref": "#/$defs/fact"
+        },
+        "openDecisions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        }
+      },
+      "required": [
+        "baselineId",
+        "originalId",
+        "originalTitle",
+        "originalKind",
+        "sourceRefs",
+        "disposition",
+        "targets",
+        "assessment",
+        "openDecisions"
+      ]
+    }
+  },
+  "description": "仅定义承载结构。复用原workbench/routes/events/requirements稳定ID；未知值明确待确认，不制造接口URL、已实现云服务或动作保留结论。"
+}
