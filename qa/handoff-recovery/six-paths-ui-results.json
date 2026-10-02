@@ -1,0 +1,43 @@
+{
+  "capturedAt": "2026-10-02T15:10:50.864949+00:00",
+  "passed": true,
+  "syntheticOnly": true,
+  "results": [
+    {
+      "test": "eight-theme-narrow-sunrise",
+      "status": "PASS"
+    },
+    {
+      "test": "eight-theme-narrow-candy",
+      "status": "PASS"
+    },
+    {
+      "test": "eight-theme-narrow-berry",
+      "status": "PASS"
+    },
+    {
+      "test": "eight-theme-narrow-lime",
+      "status": "PASS"
+    },
+    {
+      "test": "eight-theme-narrow-aurora",
+      "status": "PASS"
+    },
+    {
+      "test": "eight-theme-narrow-sea",
+      "status": "PASS"
+    },
+    {
+      "test": "eight-theme-narrow-nebula",
+      "status": "PASS"
+    },
+    {
+      "test": "eight-theme-narrow-amber",
+      "status": "PASS"
+    },
+    {
+      "test": "selection-keyboard-process-results-isolated-state",
+      "status": "PASS"
+    }
+  ]
+}

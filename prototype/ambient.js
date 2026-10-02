@@ -17,6 +17,9 @@ window.Ambient=(()=>{
   if(next.join()!==signature){signature=next.join();colors=next.map(rgb);}
  }
  function resize(){
+  // Hidden workbench tabs can initialize their iframe at 0 × 0. Defer
+  // allocation until resize supplies a real viewport; keep the API available.
+  if(innerWidth<=0||innerHeight<=0)return;
   canvas.width=144;canvas.height=Math.max(96,Math.min(400,Math.round(144*innerHeight/innerWidth)));
   values=new Float32Array(canvas.width*canvas.height);pixels=ctx.createImageData(canvas.width,canvas.height);const saved=time;if(reduced||preference.matches||contrast.matches)time=0;draw();time=saved;
  }

@@ -1,0 +1,137 @@
+{
+  "version": "4.0.0-preservation",
+  "environment": "Local workspace / real HTTP resource loading / native Chromium localStorage and iframe messaging",
+  "timestampUTC": "2026-10-02T15:12:17.211571+00:00",
+  "browser": "151.0.7922.173",
+  "playwright": "1.62.0",
+  "passed": 18,
+  "failed": 0,
+  "results": [
+    {
+      "test": "root_resources",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "test": "bridge_theme_width_density",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "test": "tree_keyboard_search_specs",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "test": "unsaved_scene_guard",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "test": "native_reload_persistence",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "test": "native_cross_window_guard",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "test": "answer_sample_boundaries",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "test": "topic_edit_source_roundtrip",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "test": "real_problem_record_action_review",
+      "status": "PASS",
+      "details": {
+        "recordIdStable": true,
+        "sourceRevisionImmutable": true,
+        "noAssessmentOrLoginRequired": true,
+        "unresolvedAccepted": true
+      }
+    },
+    {
+      "test": "record_failure_legacy_offline",
+      "status": "PASS",
+      "details": {
+        "oldFieldsPreserved": true,
+        "offlineLocalSave": true,
+        "failedWriteRecoverable": true
+      }
+    },
+    {
+      "test": "record_snapshot_export_delete_scope",
+      "status": "PASS",
+      "details": {
+        "exportSelectionHonored": true,
+        "deletedSourcePlaintextRemoved": true,
+        "actionRetained": true
+      }
+    },
+    {
+      "test": "original_order_snapshot",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "test": "theme_gallery_isolation",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "test": "persona_setting_independence",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "test": "relocated_entries_and_settings",
+      "status": "PASS",
+      "details": {
+        "movedToolsReachable": true,
+        "settingsOnlyAppearanceEntry": true,
+        "darkDialogKeyboardRecovery": true
+      }
+    },
+    {
+      "test": "home_state_priority",
+      "status": "PASS",
+      "details": {
+        "firstWithAction": "start",
+        "combined": "resume",
+        "completed": "original review",
+        "stableHeadline": true
+      }
+    },
+    {
+      "test": "route_mappings",
+      "status": "PASS",
+      "details": {
+        "route_mappings": 65,
+        "scope": "Valid named fixture IDs. Native page rendering, console and overflow checks; not full backend actions."
+      }
+    },
+    {
+      "test": "eight_themes_six_pages",
+      "status": "PASS",
+      "details": {
+        "combinations": 48
+      }
+    }
+  ],
+  "notVerified": [
+    "Actual end-user browser/network",
+    "Android/iOS devices and soft keyboards",
+    "Real 16PF scoring/norms",
+    "Real model/auth/payment/sync",
+    "Complete WCAG audit",
+    "Target-user preference"
+  ],
+  "sourceEntrySHA256": "b77a191ae939c074c242260ab2f57ce41e4c6eda2e26715545e11f89974f26c7"
+}
