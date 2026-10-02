@@ -12,21 +12,33 @@
     },
     {
       "id": "assessment",
-      "title": "性格探索与结果",
+      "title": "认识 · 测评与轻探索",
       "items": [
-        "content",
         "question",
         "review",
         "recovery",
-        "report",
+        "ai-reset",
+        "single-factor",
+        "daily-checkin",
+        "short-16pf",
+        "personality-sandbox",
         "light-suite",
+        "content"
+      ]
+    },
+    {
+      "id": "reading",
+      "title": "结果 · 报告与阅读",
+      "items": [
+        "report",
         "article",
-        "compare"
+        "compare",
+        "share"
       ]
     },
     {
       "id": "life",
-      "title": "生活问题与积累",
+      "title": "探索 · 生活问题与记录",
       "items": [
         "assessment-detail",
         "topic-workspace",
@@ -38,7 +50,7 @@
     },
     {
       "id": "assist",
-      "title": "助理、引用与记忆",
+      "title": "助理 · 对话与长期理解",
       "items": [
         "conversations",
         "conversation",
@@ -53,14 +65,13 @@
     },
     {
       "id": "personal",
-      "title": "外观、数据与服务",
+      "title": "我的 · 外观与资料管理",
       "items": [
-        "appearance",
         "settings",
+        "appearance",
         "privacy",
         "data",
         "sync",
-        "share",
         "reminders",
         "notifications",
         "support"
@@ -68,7 +79,7 @@
     },
     {
       "id": "commerce",
-      "title": "身份与会员服务",
+      "title": "现有身份与会员示例",
       "items": [
         "auth",
         "account",
@@ -76,6 +87,17 @@
         "checkout",
         "orders",
         "order"
+      ]
+    },
+    {
+      "id": "planned",
+      "title": "最新需求 · 仅记录",
+      "items": [
+        "login-requirement",
+        "phone-requirement",
+        "payments-requirement",
+        "moments-requirement",
+        "abuse-requirement"
       ]
     }
   ],
@@ -89,6 +111,11 @@
       "id": "resume",
       "title": "继续答题",
       "route": "home"
+    },
+    {
+      "id": "question",
+      "title": "正在作答 · 三题示例",
+      "route": "question?id=session-demo-seed"
     },
     {
       "id": "combined",

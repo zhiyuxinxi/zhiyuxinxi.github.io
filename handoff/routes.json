@@ -24,7 +24,8 @@
     ],
     "route": "home",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "explore",
@@ -52,7 +53,8 @@
     ],
     "route": "explore",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "assessment-detail",
@@ -77,7 +79,8 @@
     "eventIds": [],
     "route": "topic?id=work-choice",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "content",
@@ -101,7 +104,8 @@
     "eventIds": [],
     "route": "content",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "说明 / 空状态 · 业务待实现",
+    "previewKind": "interaction"
   },
   {
     "id": "question",
@@ -128,7 +132,8 @@
     ],
     "route": "question?id=session-demo-seed",
     "scenario": "question",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "review",
@@ -154,7 +159,8 @@
     ],
     "route": "review?id=session-demo-seed",
     "scenario": "complete",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "recovery",
@@ -162,7 +168,7 @@
     "lane": "本地探索",
     "surface": "就地恢复面板",
     "task": "找回未完成任务，不凭最新题库猜进度",
-    "architecture": "展示原答卷名称、已保存题数、停留题、版本；多份草稿让用户明确选择。",
+    "architecture": "展示原答卷名称、已保存题数、停留题、版本；多份草稿让用户明确选择。 已有首页续答入口；通过“关键状态检查 → 继续答题”查看，不新增恢复页面。",
     "objects": "sessionId,packVersion,lastSavedQuestionId",
     "exceptions": "包丢失/数据损坏/空间归属不明分别说明；不可恢复时保留原始数据。",
     "returnRule": "继续原任务；取消仍留在原入口；不隐式合并。",
@@ -180,7 +186,8 @@
     ],
     "route": null,
     "scenario": "default",
-    "status": "流程规格"
+    "status": "流程内状态 · 非独立页面",
+    "previewKind": "specification"
   },
   {
     "id": "report",
@@ -214,7 +221,8 @@
     ],
     "route": "report?id=report-sample-01",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "records",
@@ -238,7 +246,8 @@
     "eventIds": [],
     "route": "records",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "compare",
@@ -261,7 +270,8 @@
     "eventIds": [],
     "route": "compare",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "说明 / 空状态 · 业务待实现",
+    "previewKind": "interaction"
   },
   {
     "id": "share",
@@ -286,7 +296,8 @@
     ],
     "route": "share",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "light-suite",
@@ -319,7 +330,8 @@
     ],
     "route": "simulation",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "article",
@@ -345,7 +357,8 @@
     ],
     "route": "article?id=read-traits",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "assistant",
@@ -369,7 +382,8 @@
     ],
     "route": "assistant",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "conversations",
@@ -391,7 +405,8 @@
     "eventIds": [],
     "route": "conversations",
     "scenario": "history",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "conversation",
@@ -420,7 +435,8 @@
     ],
     "route": "conversation?id=conversation-demo-history",
     "scenario": "history",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "context",
@@ -437,16 +453,18 @@
       "context-select",
       "context-preview"
     ],
-    "prototypeRoute": null,
-    "runtimeLevel": "无独立交互页面；展示任务、对象、失败与返回规则",
+    "prototypeRoute": "assistant",
+    "runtimeLevel": "已有本次引用选择弹层；不代表真实AI或服务端资料检索已接入。",
     "tabBar": false,
     "eventIds": [
       "source.select",
       "source.remove"
     ],
-    "route": null,
+    "route": "assistant",
     "scenario": "default",
-    "status": "流程规格"
+    "status": "交互示例 · 服务待实现",
+    "previewKind": "interaction",
+    "previewAction": "context"
   },
   {
     "id": "usage",
@@ -463,15 +481,17 @@
       "ai-quota",
       "ai-usage-history"
     ],
-    "prototypeRoute": null,
-    "runtimeLevel": "无独立交互页面；展示任务、对象、失败与返回规则",
+    "prototypeRoute": "assistant",
+    "runtimeLevel": "已有本机额度说明弹层；真实配额账本与防刷服务尚未接入。",
     "tabBar": false,
     "eventIds": [
       "quota.inspect"
     ],
-    "route": null,
+    "route": "assistant",
     "scenario": "default",
-    "status": "流程规格"
+    "status": "交互示例 · 服务待实现",
+    "previewKind": "interaction",
+    "previewAction": "quota"
   },
   {
     "id": "analysis",
@@ -496,7 +516,8 @@
     ],
     "route": null,
     "scenario": "default",
-    "status": "流程规格"
+    "status": "流程规格 · 待实现",
+    "previewKind": "specification"
   },
   {
     "id": "portrait",
@@ -522,7 +543,8 @@
     "eventIds": [],
     "route": "portrait",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "memories",
@@ -555,7 +577,8 @@
     ],
     "route": "memories",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "actions",
@@ -585,7 +608,8 @@
     ],
     "route": "actions",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "journal",
@@ -616,7 +640,8 @@
     ],
     "route": "journal",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "life-spaces",
@@ -641,7 +666,8 @@
     ],
     "route": null,
     "scenario": "default",
-    "status": "流程规格"
+    "status": "流程规格 · 待实现",
+    "previewKind": "specification"
   },
   {
     "id": "skills",
@@ -666,7 +692,8 @@
     ],
     "route": null,
     "scenario": "default",
-    "status": "流程规格"
+    "status": "流程规格 · 待实现",
+    "previewKind": "specification"
   },
   {
     "id": "reminders",
@@ -691,7 +718,8 @@
     ],
     "route": null,
     "scenario": "default",
-    "status": "流程规格"
+    "status": "流程规格 · 待实现",
+    "previewKind": "specification"
   },
   {
     "id": "me",
@@ -714,7 +742,8 @@
     "eventIds": [],
     "route": "me",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "auth",
@@ -740,7 +769,8 @@
     ],
     "route": "auth",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "account",
@@ -767,7 +797,8 @@
     ],
     "route": "account",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "settings",
@@ -793,7 +824,8 @@
     ],
     "route": "settings",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "appearance",
@@ -824,7 +856,8 @@
     ],
     "route": "appearance",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "privacy",
@@ -853,7 +886,8 @@
     ],
     "route": "privacy",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "data",
@@ -884,7 +918,8 @@
     ],
     "route": "data",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "sync",
@@ -909,7 +944,8 @@
     ],
     "route": null,
     "scenario": "default",
-    "status": "流程规格"
+    "status": "流程规格 · 待实现",
+    "previewKind": "specification"
   },
   {
     "id": "support",
@@ -937,7 +973,8 @@
     ],
     "route": "support",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "notifications",
@@ -962,7 +999,8 @@
     ],
     "route": null,
     "scenario": "default",
-    "status": "流程规格"
+    "status": "流程规格 · 待实现",
+    "previewKind": "specification"
   },
   {
     "id": "membership",
@@ -990,7 +1028,8 @@
     ],
     "route": "membership",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "checkout",
@@ -1014,7 +1053,8 @@
     ],
     "route": "checkout",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "orders",
@@ -1038,7 +1078,8 @@
     ],
     "route": "orders",
     "scenario": "paid-annual",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "order",
@@ -1069,7 +1110,8 @@
     ],
     "route": "order?id=DEMO-ANNUAL-001",
     "scenario": "paid-annual",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "topic-workspace",
@@ -1096,7 +1138,8 @@
     ],
     "route": "topic-workspace?topic=work-choice",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "action-detail",
@@ -1121,7 +1164,8 @@
     ],
     "route": "action-detail?id=action-demo-v2",
     "scenario": "ongoing-action",
-    "status": "交互原型"
+    "status": "交互示例",
+    "previewKind": "interaction"
   },
   {
     "id": "single-factor",
@@ -1141,7 +1185,9 @@
     "eventIds": [],
     "route": "single-factor",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "设计预览 · 业务待实现",
+    "previewKind": "design",
+    "previewStage": "config"
   },
   {
     "id": "daily-checkin",
@@ -1161,7 +1207,9 @@
     "eventIds": [],
     "route": "daily-checkin",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "设计预览 · 业务待实现",
+    "previewKind": "design",
+    "previewStage": "config"
   },
   {
     "id": "short-16pf",
@@ -1181,7 +1229,9 @@
     "eventIds": [],
     "route": "short-16pf",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "设计预览 · 业务待实现",
+    "previewKind": "design",
+    "previewStage": "config"
   },
   {
     "id": "personality-sandbox",
@@ -1201,7 +1251,9 @@
     "eventIds": [],
     "route": "personality-sandbox",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "设计预览 · 业务待实现",
+    "previewKind": "design",
+    "previewStage": "config"
   },
   {
     "id": "ai-reset",
@@ -1221,6 +1273,553 @@
     "eventIds": [],
     "route": "ai-reset",
     "scenario": "default",
-    "status": "交互原型"
+    "status": "设计预览 · 业务待实现",
+    "previewKind": "design"
+  },
+  {
+    "id": "complete",
+    "name": "作答完成（3题示例）",
+    "route": "complete?id=session-demo-seed",
+    "prototypeRoute": "complete",
+    "parentId": "review",
+    "scenario": "complete",
+    "status": "交互示例",
+    "previewKind": "interaction",
+    "task": "作答完成（3题示例）",
+    "architecture": "复用现有真实页面；示例数据仅用于设计评审。",
+    "objects": "隔离评审空间中的合成对象",
+    "exceptions": "正式量表、计分、AI、身份、支付与服务端能力尚未接入。",
+    "returnRule": "回到原页面；不更改其他场景资料。",
+    "eventIds": [],
+    "legacyIds": [],
+    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+  },
+  {
+    "id": "single-factor-process",
+    "name": "作答过程布局",
+    "route": "single-factor",
+    "prototypeRoute": "single-factor",
+    "parentId": "single-factor",
+    "scenario": "default",
+    "status": "设计预览 · 业务待实现",
+    "previewKind": "design",
+    "task": "作答过程布局",
+    "architecture": "复用现有真实页面；示例数据仅用于设计评审。",
+    "objects": "隔离评审空间中的合成对象",
+    "exceptions": "正式量表、计分、AI、身份、支付与服务端能力尚未接入。",
+    "returnRule": "回到原页面；不更改其他场景资料。",
+    "eventIds": [],
+    "legacyIds": [],
+    "runtimeLevel": "本机交互示例，不代表业务服务已实现。",
+    "previewStage": "process"
+  },
+  {
+    "id": "single-factor-result",
+    "name": "结果空状态",
+    "route": "single-factor",
+    "prototypeRoute": "single-factor",
+    "parentId": "single-factor",
+    "scenario": "default",
+    "status": "设计预览 · 业务待实现",
+    "previewKind": "design",
+    "task": "结果空状态",
+    "architecture": "复用现有真实页面；示例数据仅用于设计评审。",
+    "objects": "隔离评审空间中的合成对象",
+    "exceptions": "正式量表、计分、AI、身份、支付与服务端能力尚未接入。",
+    "returnRule": "回到原页面；不更改其他场景资料。",
+    "eventIds": [],
+    "legacyIds": [],
+    "runtimeLevel": "本机交互示例，不代表业务服务已实现。",
+    "previewStage": "result"
+  },
+  {
+    "id": "daily-checkin-process",
+    "name": "作答过程布局",
+    "route": "daily-checkin",
+    "prototypeRoute": "daily-checkin",
+    "parentId": "daily-checkin",
+    "scenario": "default",
+    "status": "设计预览 · 业务待实现",
+    "previewKind": "design",
+    "task": "作答过程布局",
+    "architecture": "复用现有真实页面；示例数据仅用于设计评审。",
+    "objects": "隔离评审空间中的合成对象",
+    "exceptions": "正式量表、计分、AI、身份、支付与服务端能力尚未接入。",
+    "returnRule": "回到原页面；不更改其他场景资料。",
+    "eventIds": [],
+    "legacyIds": [],
+    "runtimeLevel": "本机交互示例，不代表业务服务已实现。",
+    "previewStage": "process"
+  },
+  {
+    "id": "daily-checkin-result",
+    "name": "结果空状态",
+    "route": "daily-checkin",
+    "prototypeRoute": "daily-checkin",
+    "parentId": "daily-checkin",
+    "scenario": "default",
+    "status": "设计预览 · 业务待实现",
+    "previewKind": "design",
+    "task": "结果空状态",
+    "architecture": "复用现有真实页面；示例数据仅用于设计评审。",
+    "objects": "隔离评审空间中的合成对象",
+    "exceptions": "正式量表、计分、AI、身份、支付与服务端能力尚未接入。",
+    "returnRule": "回到原页面；不更改其他场景资料。",
+    "eventIds": [],
+    "legacyIds": [],
+    "runtimeLevel": "本机交互示例，不代表业务服务已实现。",
+    "previewStage": "result"
+  },
+  {
+    "id": "short-16pf-process",
+    "name": "作答过程布局",
+    "route": "short-16pf",
+    "prototypeRoute": "short-16pf",
+    "parentId": "short-16pf",
+    "scenario": "default",
+    "status": "设计预览 · 业务待实现",
+    "previewKind": "design",
+    "task": "作答过程布局",
+    "architecture": "复用现有真实页面；示例数据仅用于设计评审。",
+    "objects": "隔离评审空间中的合成对象",
+    "exceptions": "正式量表、计分、AI、身份、支付与服务端能力尚未接入。",
+    "returnRule": "回到原页面；不更改其他场景资料。",
+    "eventIds": [],
+    "legacyIds": [],
+    "runtimeLevel": "本机交互示例，不代表业务服务已实现。",
+    "previewStage": "process"
+  },
+  {
+    "id": "short-16pf-result",
+    "name": "结果空状态",
+    "route": "short-16pf",
+    "prototypeRoute": "short-16pf",
+    "parentId": "short-16pf",
+    "scenario": "default",
+    "status": "设计预览 · 业务待实现",
+    "previewKind": "design",
+    "task": "结果空状态",
+    "architecture": "复用现有真实页面；示例数据仅用于设计评审。",
+    "objects": "隔离评审空间中的合成对象",
+    "exceptions": "正式量表、计分、AI、身份、支付与服务端能力尚未接入。",
+    "returnRule": "回到原页面；不更改其他场景资料。",
+    "eventIds": [],
+    "legacyIds": [],
+    "runtimeLevel": "本机交互示例，不代表业务服务已实现。",
+    "previewStage": "result"
+  },
+  {
+    "id": "personality-sandbox-result",
+    "name": "假设配置结果",
+    "route": "personality-sandbox",
+    "prototypeRoute": "personality-sandbox",
+    "parentId": "personality-sandbox",
+    "scenario": "default",
+    "status": "设计预览 · 业务待实现",
+    "previewKind": "design",
+    "task": "假设配置结果",
+    "architecture": "复用现有真实页面；示例数据仅用于设计评审。",
+    "objects": "隔离评审空间中的合成对象",
+    "exceptions": "正式量表、计分、AI、身份、支付与服务端能力尚未接入。",
+    "returnRule": "回到原页面；不更改其他场景资料。",
+    "eventIds": [],
+    "legacyIds": [],
+    "runtimeLevel": "本机交互示例，不代表业务服务已实现。",
+    "previewStage": "result"
+  },
+  {
+    "id": "topic-relationships",
+    "name": "表达与相处 · 说明",
+    "route": "topic?id=relationships",
+    "prototypeRoute": "topic",
+    "parentId": "assessment-detail",
+    "scenario": "default",
+    "status": "交互示例",
+    "previewKind": "interaction",
+    "task": "表达与相处 · 说明",
+    "architecture": "复用现有真实页面；示例数据仅用于设计评审。",
+    "objects": "隔离评审空间中的合成对象",
+    "exceptions": "正式量表、计分、AI、身份、支付与服务端能力尚未接入。",
+    "returnRule": "回到原页面；不更改其他场景资料。",
+    "eventIds": [],
+    "legacyIds": [],
+    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+  },
+  {
+    "id": "workspace-relationships",
+    "name": "表达与相处 · 整理",
+    "route": "topic-workspace?topic=relationships",
+    "prototypeRoute": "topic-workspace",
+    "parentId": "topic-workspace",
+    "scenario": "default",
+    "status": "交互示例",
+    "previewKind": "interaction",
+    "task": "表达与相处 · 整理",
+    "architecture": "复用现有真实页面；示例数据仅用于设计评审。",
+    "objects": "隔离评审空间中的合成对象",
+    "exceptions": "正式量表、计分、AI、身份、支付与服务端能力尚未接入。",
+    "returnRule": "回到原页面；不更改其他场景资料。",
+    "eventIds": [],
+    "legacyIds": [],
+    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+  },
+  {
+    "id": "topic-city-choice",
+    "name": "城市与生活 · 说明",
+    "route": "topic?id=city-choice",
+    "prototypeRoute": "topic",
+    "parentId": "assessment-detail",
+    "scenario": "default",
+    "status": "交互示例",
+    "previewKind": "interaction",
+    "task": "城市与生活 · 说明",
+    "architecture": "复用现有真实页面；示例数据仅用于设计评审。",
+    "objects": "隔离评审空间中的合成对象",
+    "exceptions": "正式量表、计分、AI、身份、支付与服务端能力尚未接入。",
+    "returnRule": "回到原页面；不更改其他场景资料。",
+    "eventIds": [],
+    "legacyIds": [],
+    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+  },
+  {
+    "id": "workspace-city-choice",
+    "name": "城市与生活 · 整理",
+    "route": "topic-workspace?topic=city-choice",
+    "prototypeRoute": "topic-workspace",
+    "parentId": "topic-workspace",
+    "scenario": "default",
+    "status": "交互示例",
+    "previewKind": "interaction",
+    "task": "城市与生活 · 整理",
+    "architecture": "复用现有真实页面；示例数据仅用于设计评审。",
+    "objects": "隔离评审空间中的合成对象",
+    "exceptions": "正式量表、计分、AI、身份、支付与服务端能力尚未接入。",
+    "returnRule": "回到原页面；不更改其他场景资料。",
+    "eventIds": [],
+    "legacyIds": [],
+    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+  },
+  {
+    "id": "topic-learning",
+    "name": "学习与动力 · 说明",
+    "route": "topic?id=learning",
+    "prototypeRoute": "topic",
+    "parentId": "assessment-detail",
+    "scenario": "default",
+    "status": "交互示例",
+    "previewKind": "interaction",
+    "task": "学习与动力 · 说明",
+    "architecture": "复用现有真实页面；示例数据仅用于设计评审。",
+    "objects": "隔离评审空间中的合成对象",
+    "exceptions": "正式量表、计分、AI、身份、支付与服务端能力尚未接入。",
+    "returnRule": "回到原页面；不更改其他场景资料。",
+    "eventIds": [],
+    "legacyIds": [],
+    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+  },
+  {
+    "id": "workspace-learning",
+    "name": "学习与动力 · 整理",
+    "route": "topic-workspace?topic=learning",
+    "prototypeRoute": "topic-workspace",
+    "parentId": "topic-workspace",
+    "scenario": "default",
+    "status": "交互示例",
+    "previewKind": "interaction",
+    "task": "学习与动力 · 整理",
+    "architecture": "复用现有真实页面；示例数据仅用于设计评审。",
+    "objects": "隔离评审空间中的合成对象",
+    "exceptions": "正式量表、计分、AI、身份、支付与服务端能力尚未接入。",
+    "returnRule": "回到原页面；不更改其他场景资料。",
+    "eventIds": [],
+    "legacyIds": [],
+    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+  },
+  {
+    "id": "topic-self-space",
+    "name": "与自己相处 · 说明",
+    "route": "topic?id=self-space",
+    "prototypeRoute": "topic",
+    "parentId": "assessment-detail",
+    "scenario": "default",
+    "status": "交互示例",
+    "previewKind": "interaction",
+    "task": "与自己相处 · 说明",
+    "architecture": "复用现有真实页面；示例数据仅用于设计评审。",
+    "objects": "隔离评审空间中的合成对象",
+    "exceptions": "正式量表、计分、AI、身份、支付与服务端能力尚未接入。",
+    "returnRule": "回到原页面；不更改其他场景资料。",
+    "eventIds": [],
+    "legacyIds": [],
+    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+  },
+  {
+    "id": "workspace-self-space",
+    "name": "与自己相处 · 整理",
+    "route": "topic-workspace?topic=self-space",
+    "prototypeRoute": "topic-workspace",
+    "parentId": "topic-workspace",
+    "scenario": "default",
+    "status": "交互示例",
+    "previewKind": "interaction",
+    "task": "与自己相处 · 整理",
+    "architecture": "复用现有真实页面；示例数据仅用于设计评审。",
+    "objects": "隔离评审空间中的合成对象",
+    "exceptions": "正式量表、计分、AI、身份、支付与服务端能力尚未接入。",
+    "returnRule": "回到原页面；不更改其他场景资料。",
+    "eventIds": [],
+    "legacyIds": [],
+    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+  },
+  {
+    "id": "workspace-saved",
+    "name": "已保存整理与版本",
+    "route": "topic-workspace?topic=work-choice&id=topic-note-demo-v2",
+    "prototypeRoute": "topic-workspace",
+    "parentId": "topic-workspace",
+    "scenario": "topic-record",
+    "status": "交互示例",
+    "previewKind": "interaction",
+    "task": "已保存整理与版本",
+    "architecture": "复用现有真实页面；示例数据仅用于设计评审。",
+    "objects": "隔离评审空间中的合成对象",
+    "exceptions": "正式量表、计分、AI、身份、支付与服务端能力尚未接入。",
+    "returnRule": "回到原页面；不更改其他场景资料。",
+    "eventIds": [],
+    "legacyIds": [],
+    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+  },
+  {
+    "id": "action-observed",
+    "name": "已留下观察与原依据",
+    "route": "action-detail?id=action-demo-v2",
+    "prototypeRoute": "action-detail",
+    "parentId": "action-detail",
+    "scenario": "action-review",
+    "status": "交互示例",
+    "previewKind": "interaction",
+    "task": "已留下观察与原依据",
+    "architecture": "复用现有真实页面；示例数据仅用于设计评审。",
+    "objects": "隔离评审空间中的合成对象",
+    "exceptions": "正式量表、计分、AI、身份、支付与服务端能力尚未接入。",
+    "returnRule": "回到原页面；不更改其他场景资料。",
+    "eventIds": [],
+    "legacyIds": [],
+    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+  },
+  {
+    "id": "report-source",
+    "name": "报告来源与版本说明",
+    "route": "report?id=report-sample-01",
+    "prototypeRoute": "report",
+    "parentId": "report",
+    "scenario": "default",
+    "status": "交互示例",
+    "previewKind": "interaction",
+    "task": "报告来源与版本说明",
+    "architecture": "复用现有真实页面；示例数据仅用于设计评审。",
+    "objects": "隔离评审空间中的合成对象",
+    "exceptions": "正式量表、计分、AI、身份、支付与服务端能力尚未接入。",
+    "returnRule": "回到原页面；不更改其他场景资料。",
+    "eventIds": [],
+    "legacyIds": [],
+    "runtimeLevel": "本机交互示例，不代表业务服务已实现。",
+    "previewAction": "source-report"
+  },
+  {
+    "id": "settings-preferences",
+    "name": "密度、动态与字号",
+    "route": "settings",
+    "prototypeRoute": "settings",
+    "parentId": "settings",
+    "scenario": "default",
+    "status": "交互示例",
+    "previewKind": "interaction",
+    "task": "密度、动态与字号",
+    "architecture": "复用现有真实页面；示例数据仅用于设计评审。",
+    "objects": "隔离评审空间中的合成对象",
+    "exceptions": "正式量表、计分、AI、身份、支付与服务端能力尚未接入。",
+    "returnRule": "回到原页面；不更改其他场景资料。",
+    "eventIds": [],
+    "legacyIds": [],
+    "runtimeLevel": "本机交互示例，不代表业务服务已实现。",
+    "previewAction": "v3-preferences"
+  },
+  {
+    "id": "factor-library",
+    "name": "16个因子说明",
+    "route": "explore",
+    "prototypeRoute": "explore",
+    "parentId": "article",
+    "scenario": "default",
+    "status": "交互示例",
+    "previewKind": "interaction",
+    "task": "16个因子说明",
+    "architecture": "复用现有真实页面；示例数据仅用于设计评审。",
+    "objects": "隔离评审空间中的合成对象",
+    "exceptions": "正式量表、计分、AI、身份、支付与服务端能力尚未接入。",
+    "returnRule": "回到原页面；不更改其他场景资料。",
+    "eventIds": [],
+    "legacyIds": [],
+    "runtimeLevel": "本机交互示例，不代表业务服务已实现。",
+    "previewAction": "all-factors"
+  },
+  {
+    "id": "login-requirement",
+    "name": "登录方式与流程",
+    "route": null,
+    "prototypeRoute": null,
+    "parentId": null,
+    "scenario": "default",
+    "status": "需求已记录 · 未设计/开发",
+    "previewKind": "planned",
+    "task": "登录方式与流程",
+    "architecture": "只记录需求，不新增产品页面或假接入控件。",
+    "objects": "隔离评审空间中的合成对象",
+    "exceptions": "正式量表、计分、AI、身份、支付与服务端能力尚未接入。",
+    "returnRule": "回到原页面；不更改其他场景资料。",
+    "eventIds": [],
+    "legacyIds": [],
+    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+  },
+  {
+    "id": "phone-requirement",
+    "name": "手机号登录",
+    "route": null,
+    "prototypeRoute": null,
+    "parentId": null,
+    "scenario": "default",
+    "status": "需求已记录 · 未设计/开发",
+    "previewKind": "planned",
+    "task": "手机号登录",
+    "architecture": "只记录需求，不新增产品页面或假接入控件。",
+    "objects": "隔离评审空间中的合成对象",
+    "exceptions": "正式量表、计分、AI、身份、支付与服务端能力尚未接入。",
+    "returnRule": "回到原页面；不更改其他场景资料。",
+    "eventIds": [],
+    "legacyIds": [],
+    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+  },
+  {
+    "id": "payments-requirement",
+    "name": "微信 / 支付宝支付",
+    "route": null,
+    "prototypeRoute": null,
+    "parentId": null,
+    "scenario": "default",
+    "status": "需求已记录 · 未设计/开发",
+    "previewKind": "planned",
+    "task": "微信 / 支付宝支付",
+    "architecture": "只记录需求，不新增产品页面或假接入控件。",
+    "objects": "隔离评审空间中的合成对象",
+    "exceptions": "正式量表、计分、AI、身份、支付与服务端能力尚未接入。",
+    "returnRule": "回到原页面；不更改其他场景资料。",
+    "eventIds": [],
+    "legacyIds": [],
+    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+  },
+  {
+    "id": "moments-requirement",
+    "name": "朋友圈分享",
+    "route": null,
+    "prototypeRoute": null,
+    "parentId": null,
+    "scenario": "default",
+    "status": "需求已记录 · 未设计/开发",
+    "previewKind": "planned",
+    "task": "朋友圈分享",
+    "architecture": "只记录需求，不新增产品页面或假接入控件。",
+    "objects": "隔离评审空间中的合成对象",
+    "exceptions": "正式量表、计分、AI、身份、支付与服务端能力尚未接入。",
+    "returnRule": "回到原页面；不更改其他场景资料。",
+    "eventIds": [],
+    "legacyIds": [],
+    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+  },
+  {
+    "id": "abuse-requirement",
+    "name": "防刷与服务端校验",
+    "route": null,
+    "prototypeRoute": null,
+    "parentId": null,
+    "scenario": "default",
+    "status": "需求已记录 · 未设计/开发",
+    "previewKind": "planned",
+    "task": "防刷与服务端校验",
+    "architecture": "只记录需求，不新增产品页面或假接入控件。",
+    "objects": "隔离评审空间中的合成对象",
+    "exceptions": "正式量表、计分、AI、身份、支付与服务端能力尚未接入。",
+    "returnRule": "回到原页面；不更改其他场景资料。",
+    "eventIds": [],
+    "legacyIds": [],
+    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+  },
+  {
+    "id": "memory-flow",
+    "name": "记忆候选、确认与来源",
+    "parentId": "memories",
+    "route": "memories",
+    "prototypeRoute": "memories",
+    "scenario": "default",
+    "status": "流程内状态 · 从页面操作",
+    "previewKind": "flow",
+    "task": "在现有记忆页查看候选和来源；有候选时可确认。此节点不自动生成候选。",
+    "architecture": "在现有记忆页查看候选和来源；有候选时可确认。此节点不自动生成候选。",
+    "objects": "仅当前隔离示例空间",
+    "exceptions": "示例交互，不代表真实业务服务已接入。",
+    "returnRule": "按产品内返回或取消，不自动执行资料变更。",
+    "eventIds": [],
+    "legacyIds": []
+  },
+  {
+    "id": "data-transfer-flow",
+    "name": "导入、导出与范围选择",
+    "parentId": "data",
+    "route": "data",
+    "prototypeRoute": "data",
+    "scenario": "default",
+    "status": "流程内状态 · 从页面操作",
+    "previewKind": "flow",
+    "task": "在我的数据页选择导出范围，或检查旧版/导入文件；导入需用户选择文件并确认。此节点不执行导出/导入。",
+    "architecture": "在我的数据页选择导出范围，或检查旧版/导入文件；导入需用户选择文件并确认。此节点不执行导出/导入。",
+    "objects": "仅当前隔离示例空间",
+    "exceptions": "示例交互，不代表真实业务服务已接入。",
+    "returnRule": "按产品内返回或取消，不自动执行资料变更。",
+    "eventIds": [],
+    "legacyIds": []
+  },
+  {
+    "id": "data-delete-flow",
+    "name": "删除确认与失败保护",
+    "parentId": "data",
+    "route": "data",
+    "prototypeRoute": "data",
+    "scenario": "default",
+    "status": "流程内状态 · 从页面操作",
+    "previewKind": "flow",
+    "task": "在我的数据页选择清理范围后查看确认；本节点不触发删除，也不伪造删除成功。",
+    "architecture": "在我的数据页选择清理范围后查看确认；本节点不触发删除，也不伪造删除成功。",
+    "objects": "仅当前隔离示例空间",
+    "exceptions": "示例交互，不代表真实业务服务已接入。",
+    "returnRule": "按产品内返回或取消，不自动执行资料变更。",
+    "eventIds": [],
+    "legacyIds": []
+  },
+  {
+    "id": "save-failure-flow",
+    "name": "保存失败与重试",
+    "parentId": "question",
+    "route": "question?id=session-demo-seed",
+    "prototypeRoute": "question",
+    "scenario": "save-failure",
+    "status": "流程内状态 · 从页面操作",
+    "previewKind": "flow",
+    "task": "在保存失败隔离场景选择答案，查看保存失败与重试。",
+    "architecture": "在保存失败隔离场景选择答案，查看保存失败与重试。",
+    "objects": "仅当前隔离示例空间",
+    "exceptions": "示例交互，不代表真实业务服务已接入。",
+    "returnRule": "按产品内返回或取消，不自动执行资料变更。",
+    "eventIds": [],
+    "legacyIds": []
   }
 ]

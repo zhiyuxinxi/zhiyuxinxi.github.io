@@ -1,7 +1,7 @@
 {
   "version": "4.0.0-preservation",
   "environment": "GitHub Actions / real HTTP resource loading / native Chromium localStorage and iframe messaging",
-  "timestampUTC": "2026-10-02T12:26:27.348368+00:00",
+  "timestampUTC": "2026-10-02T14:07:38.532654+00:00",
   "browser": "143.0.7499.4",
   "playwright": "1.57.0",
   "passed": 18,
@@ -113,7 +113,7 @@
       "test": "route_mappings",
       "status": "PASS",
       "details": {
-        "route_mappings": 38,
+        "route_mappings": 65,
         "scope": "Valid named fixture IDs. Native page rendering, console and overflow checks; not full backend actions."
       }
     },
@@ -133,5 +133,5 @@
     "Complete WCAG audit",
     "Target-user preference"
   ],
-  "sourceEntrySHA256": "5c576e850be5ec41b37bac44b59f53c864aeff7e154e2b2effb7513c9217eadb"
+  "sourceEntrySHA256": "3070bcc383874b4303daabaae4d1add2c18e1ed45af6b68a5a5c29a694be3ce1"
 }
