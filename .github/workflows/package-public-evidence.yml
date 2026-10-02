@@ -1,0 +1,38 @@
+name: Package existing public verification evidence
+on:
+  push:
+    branches: [verify/zhiyu-public-evidence-package]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: soft-fields-public-release
+          run-id: 37006969271
+          github-token: ${{ github.token }}
+          path: evidence
+      - name: Select reports and representative original screenshots
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import shutil
+          root=Path('evidence');out=Path('review')
+          selected=list(root.rglob('*.json'))+list((root/'live-release').glob('*.png'))
+          selected+=list((root/'nav-contrast').glob('peach-home-*.png'))+list((root/'nav-contrast').glob('blue-assistant-*.png'))
+          selected+=list((root/'soft-fields-restored').glob('natural-*.png'))
+          for name in ['sunrise-home-8.png','sunrise-home-24.png','amber-home-8.png','amber-home-24.png','nebula-home-8.png','nebula-home-24.png']:
+              p=root/'soft-fields-restored'/name
+              if p.exists():selected.append(p)
+          for p in selected:
+              dst=out/p.relative_to(root);dst.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,dst)
+          print('Copied original evidence files:',len(selected))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: public-release-review-small
+          path: review
+          retention-days: 14
