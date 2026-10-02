@@ -1,0 +1,5134 @@
+{
+  "date": "2026-10-01",
+  "status": "需求与验收标准设计稿；范围与实施批次待收敛，非开发完成或验收通过清单",
+  "scopeNote": "56项功能记录（原54项＋2项后续候选）、24项全局要求、8组后台能力；119职责映射不新增页面。启用前置与例外条件不等于已批准MVP；验收与用户价值列是待执行标准。",
+  "sourceRegistry": {
+    "PROJECT_CONTEXT.md": "项目愿景与事实",
+    "AGENTS.md": "项目工作规则",
+    "TASK_HANDOFF.md": "当前交接",
+    "design/04-vision-to-requirements.md": "愿景展开",
+    "design/05-mvp-scope-and-delivery.md": "首批范围建议",
+    "design/06-four-tab-product-concept.md": "四TAB产品理解",
+    "design/07-backend-capabilities.md": "后台配套设计",
+    "design/08-mobile-architecture.md": "移动架构方案",
+    "design/page-atlas/review/route-refinement-20261001/refined-routes.json": "路由收敛数据",
+    "design/page-atlas/review/route-refinement-20261001/decisions.json": "路由争议裁决",
+    "design/page-atlas/review/standards-20261001/REVIEW.md": "逐页评审结论",
+    "design/page-atlas/ROUTE_REFINEMENT.md": "路由收敛说明",
+    "design/requirements/README.md": "矩阵补充说明"
+  },
+  "functional": [
+    {
+      "id": "FR-001",
+      "module": "入口与探索",
+      "name": "四个主入口与首次认识",
+      "scenario": "首次进入或跨任务切换。",
+      "requirement": "维持16PF首页、多主题测评、个人助理、我的四TAB职责与顺序；首次用途说明融入首页。四TAB是入口，不把所有功能堆成同级跳转。",
+      "acceptance": "四个入口均可辨认；第四名为“我的”，第二不叫“测评集市”；Tab切换保留各自位置，进入长任务有明确返回，首次说明可结束且不反复拦截。",
+      "phase": "基础本地",
+      "confirmation": "用户明确能力；具体名称、入口密度与首次提示形式为设计建议",
+      "pageIds": [
+        "home",
+        "explore",
+        "assistant",
+        "profile",
+        "welcome"
+      ],
+      "dataBoundary": "主入口保存本机导航与展示状态；不因进入首页载入全部题库和历史。",
+      "permissions": "本地浏览不要求AI账号；发起联网AI另核对身份与权益。",
+      "openQuestions": "前三Tab最终名称、首批可用入口仍待收敛。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/refined-routes.json / pages[home,explore,assistant,profile,welcome]；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由收敛数据 / pages[home,explore,assistant,profile,welcome]；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "四TAB壳与实际可用入口就绪；首次介绍不依赖注册或联网。",
+      "dependencies": [
+        {
+          "id": "NFR-003",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "未登录首次打开",
+          "expected": "仍可浏览可用本地入口；AI入口说明登录条件"
+        },
+        {
+          "scenario": "返回某TAB",
+          "expected": "恢复原位置，不重启未完成任务"
+        }
+      ],
+      "valueEvidence": "代表用户能指出从哪里开始或继续，而非只认识四个图标。"
+    },
+    {
+      "id": "FR-002",
+      "module": "入口与探索",
+      "name": "16PF双版本选择与版本透明",
+      "scenario": "用户决定开始原版或AI重置版。",
+      "requirement": "在首页明确切换两种内容身份，说明题源与适用边界；开始时绑定内容版本，不在作答中静默切换。AI改编不得被描述为已验证原版。",
+      "acceptance": "切换后名称、详情、作答与报告版本一致；已有答卷继续原版本；版本差异可读，未具备使用依据时明确展示当前可用程度。",
+      "phase": "基础本地",
+      "confirmation": "用户明确双版本能力；首版双版本同时可用未确认",
+      "pageIds": [
+        "home",
+        "assessment-detail",
+        "assessment-versions"
+      ],
+      "dataBoundary": "assessmentId、packVersion和模式写入本次答卷与结果；版本说明可本地读取。",
+      "permissions": "选版本不要求登录或AI额度；可发布题源与计分依据分别核实。",
+      "openQuestions": "正式原版来源、AI重置题文、计分与解释依据未定。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/decisions.json D02；design/page-atlas/review/route-refinement-20261001/refined-routes.json / pages[assessment-versions]；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由争议裁决 D02；路由收敛数据 / pages[assessment-versions]；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "有可辨认身份的候选/正式内容元数据；双版本正式开放各自满足依据，不要求同时首发。",
+      "dependencies": [
+        {
+          "id": "NFR-008",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        },
+        {
+          "id": "NFR-010",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "作答中外部更新版本",
+          "expected": "继续原版本，不静默替换题目"
+        },
+        {
+          "scenario": "某版本暂不可正式使用",
+          "expected": "可解释当前状态，不伪装能开始正式测量"
+        }
+      ],
+      "valueEvidence": "用户能区分原版、AI改编和当前可用范围，并知道自己的报告来自哪版。"
+    },
+    {
+      "id": "FR-003",
+      "module": "入口与探索",
+      "name": "按生活问题发现与保留题组",
+      "scenario": "用户想了解某个问题，或想把题组留到以后。",
+      "requirement": "搜索、议题、角度、适用阶段、轻量题组与收藏作为同一探索目录的可组合视图；保留筛选，不强制经过层层目录。",
+      "acceptance": "输入问题后显示相关结果或可解释的无结果；返回目录保留搜索/筛选/滚动；收藏状态可辨认且不自动开始答题；适用范围和投入能辅助选择。",
+      "phase": "基础本地",
+      "confirmation": "用户明确多主题测评方向；目录合并、筛选与收藏细节为设计建议",
+      "pageIds": [
+        "explore",
+        "topic-list",
+        "assessment-search",
+        "assessment-favorites",
+        "light-intro",
+        "exploration-perspectives"
+      ],
+      "dataBoundary": "目录及已获取内容可本地浏览；收藏属于当前个人空间；搜索若联网须明确。",
+      "permissions": "浏览不要求AI权限；未开放内容不显示可立即开始的假按钮。",
+      "openQuestions": "首批专题、适用年龄和每套规则待定；不推定青少年题组可直接发布。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/decisions.json D01；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由争议裁决 D01；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "探索目录有真实可用题组及用途、适用范围、投入信息；不把不存在内容列成可开始。",
+      "dependencies": [
+        {
+          "id": "FR-004",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "搜索无结果",
+          "expected": "保留关键词并提供调整路径"
+        },
+        {
+          "scenario": "从详情返回",
+          "expected": "筛选、收藏和滚动位置保留"
+        }
+      ],
+      "valueEvidence": "用户能围绕自己的实际问题选出适用题组，并说出为什么选它。"
+    },
+    {
+      "id": "FR-004",
+      "module": "内容与答题",
+      "name": "题组用途与依据透明",
+      "scenario": "开始前需要知道测什么、需多久、结果凭什么解释。",
+      "requirement": "详情说明用途、适用对象、投入、局限与当前可用程度；题文来源、使用依据、计算及解释证据分别披露，长来源保留独立阅读空间。",
+      "acceptance": "从详情可查到对应版本的来源；未知依据明确为未知；不会只因有题数和算分代码就称正式测量；读完能回原题组和原位置。",
+      "phase": "基础本地",
+      "confirmation": "用户明确可信内容目标；详情组织为设计建议",
+      "pageIds": [
+        "assessment-detail",
+        "assessment-source",
+        "assessment-versions",
+        "session-prepare"
+      ],
+      "dataBoundary": "内容元数据与来源随版本保存；读取来源不改答卷和计分。",
+      "permissions": "概念和来源阅读不要求个人报告或AI权限；开始时才校验内容可用。",
+      "openQuestions": "具体题源、使用许可、中文版本、计分常模及解释适用范围待落实。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/decisions.json D02/D03；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由争议裁决 D02/D03；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "对应版本有来源元数据；未知证据如实标明，正式使用须先满足内容依据。",
+      "dependencies": [
+        {
+          "id": "NFR-008",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "来源暂不可联网打开",
+          "expected": "显示已有说明与未核实范围，不捏造出处"
+        },
+        {
+          "scenario": "阅读完长来源返回",
+          "expected": "回原题组与原位置"
+        }
+      ],
+      "valueEvidence": "用户能理解题组回答什么、不能回答什么，不因漂亮报告误以为已获专业定论。"
+    },
+    {
+      "id": "FR-005",
+      "module": "内容与答题",
+      "name": "本地内容包与按需更新",
+      "scenario": "用户离线使用题组或更新题目解释。",
+      "requirement": "查看本机已备内容，按需获取、暂停后恢复与更新；更新前说明大小和对草稿、结果的影响，不把下载另设必经页面。首次可使用版本须明确内置合格内容与需下载内容；无包离线时如实说明可用范围。区分停止分发、内容纠错、不再适用及其影响，分别决定是否允许新答、续答和继续用作依据；不把所有撤回简单处理成删除本机历史。",
+      "acceptance": "断网时已备且符合最近已知使用条件的内容仍能打开；下载失败不损坏旧包，新包完整就绪后才切换；旧答卷与报告仍绑定原版本，缺包有明确恢复路径。首次无包断网与已下载后断网分别验收；联网更新后能识别撤回原因及受影响对象，已知无效版本不再用于有效新结果；历史报告标明影响和修订关系，不静默改分。",
+      "phase": "基础本地",
+      "confirmation": "用户明确本地优先方向；包管理与更新机制为设计补充",
+      "pageIds": [
+        "content-library",
+        "content-download",
+        "content-updates"
+      ],
+      "dataBoundary": "内容包、解释及最近已知内容状态可本地保存；获取和更新联网，离线不能承诺即时获知远程撤回。历史可保留范围按撤回依据分别确定；不得以保留历史为由承诺无限保留全部题项。",
+      "permissions": "普通内容浏览独立于AI额度；是否需账号取决于已确认内容权益，不能预设。",
+      "openQuestions": "首批内置题包、更新来源、保留空间、版本兼容及付费内容边界待定；撤回依据涉及的具体新答/续答限制、题项保留范围与用户说明需随真实题源明确。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/refined-routes.json / pages[content-library,content-download,content-updates]；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由收敛数据 / pages[content-library,content-download,content-updates]；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "本地包须具有明确版本、完整性及适用说明；作为正式测评提供前落实正式使用依据。联网分发或撤回启用时，须能取得和解释版本状态。",
+      "dependencies": [
+        {
+          "id": "NFR-008",
+          "when": "内容用于正式测评时，题源、计分解释和使用资格须具备相应依据"
+        },
+        {
+          "id": "NFR-010",
+          "when": "已有草稿、结果或历史包参与更新、恢复和撤回处理时"
+        },
+        {
+          "id": "BR-004",
+          "when": "启用在线内容分发、版本状态更新或撤回时；仅本地封装不强制建设后台页面"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "首次安装后无网络且无题包",
+          "expected": "说明当前没有可作答的本地内容，已有可用功能仍可进入，不无限显示加载。"
+        },
+        {
+          "scenario": "已有草稿的版本收到计分纠错撤回",
+          "expected": "按明确影响暂停受影响的新结果生成，保留可恢复答卷并说明后续路径，不偷偷换新题续答。"
+        },
+        {
+          "scenario": "断网读取历史报告",
+          "expected": "显示已保存的版本及最近已知状态；不宣称已核对最新撤回，也不把远程不可达误当报告丢失。"
+        }
+      ],
+      "valueEvidence": "用户能判断自己现在能否离线作答、更新会影响什么，以及旧报告为何需谨慎使用。通过首次离线和旧包撤回情境试用，观察用户能否找到可用内容并理解受影响范围；这是待执行验证，不预设成功率。"
+    },
+    {
+      "id": "FR-006",
+      "module": "内容与答题",
+      "name": "稳定作答与题内操作",
+      "scenario": "用户集中完成当前题组。",
+      "requirement": "题目、选项、进度和前后操作统一，明确选择状态；已知用途与版本后直接作答，只有信息缺失才补准备说明。区分进行中答卷、已完成答卷与重新测评；进行中修改遵循当前题组规则，阅读已完成答卷不进入可覆盖旧结果的编辑状态。",
+      "acceptance": "点击选项有即时可见反馈；回上一题保留选择；当前题、总量与未答状态明确；保存失败不显示成功；页面切换不混入另一题组或版本答案。已有可用本地包时作答及保存不等待网络或AI；已完成答卷只读，重新测评另建答卷。若后续启用完成后纠正，必须按关联修订处理。",
+      "phase": "基础本地",
+      "confirmation": "用户明确核心能力与流畅要求；控件布局细节建议",
+      "pageIds": [
+        "session-prepare",
+        "question"
+      ],
+      "dataBoundary": "答案与当前位置保存在明确sessionId并固定内容/规则版本；本地保存不等待AI。完成后新测评与原答卷分开，不能因共用题组ID而覆写原答案；存储实现未定。",
+      "permissions": "本地答题不要求登录AI；正式题包可用性独立判断。",
+      "openQuestions": "跳题/必答/反向题展示等规则由题组依据决定；性能阈值待定。完成后是否开放答案纠正未定，基础方案以查看原答卷和重新测评区分，不强制首版增加纠正功能。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/decisions.json D02；design/page-atlas/review/route-refinement-20261001/decisions.json J01；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由争议裁决 D02；路由争议裁决 J01；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "题包和作答规则可用、草稿能真实保存；开始前能辨认当前是继续答题还是另开一次测评。本地作答不以登录、AI或会员为默认前置。",
+      "dependencies": [
+        {
+          "id": "FR-004",
+          "when": "进入某题组作答时，需要可核对的题组用途、适用条件和版本"
+        },
+        {
+          "id": "FR-005",
+          "when": "题组依赖本地内容包，或首次需下载内容时"
+        },
+        {
+          "id": "NFR-014",
+          "when": "保存答案及当前位置时，必须区分已选择、待保存与实际保存结果"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "选择后本机保存失败",
+          "expected": "保留当前可见选择并显示未保存状态，提供恢复操作，不显示已自动保存。"
+        },
+        {
+          "scenario": "从历史结果返回同一题组",
+          "expected": "保持原答卷只读；用户主动重测时建立新答卷，旧答案和结果仍可找回。"
+        },
+        {
+          "scenario": "作答期间断网",
+          "expected": "具备有效本地包的题目和本地保存继续可用；恢复网络不自动触发AI或支付。"
+        }
+      ],
+      "valueEvidence": "用户能专注回答，并知道答案是否已保存、这次是否是一份新测评。通过返回修改、离线继续和历史重测的短任务观察，不靠用户记住技术ID分辨答卷。"
+    },
+    {
+      "id": "FR-007",
+      "module": "内容与答题",
+      "name": "中断恢复与多份草稿",
+      "scenario": "用户退出、进程中断、版本缺失后继续。",
+      "requirement": "单份未完成在首页直续，多份在记录中选择；正常恢复回原题，异常才展示恢复状态，即使旧包或题号缺失也能按sessionId处理。游客草稿与已登录账号空间分开；登录返回时允许本人选择沿用本机草稿，认领/复制与云上传分别说明，不自动把游客资料并入任何账号。空间不足或升级迁移中断时保留可识别的旧保存版本，不把未落盘选择当作已恢复。",
+      "acceptance": "退出再进入能找回同一份已保存答案和位置；多草稿名称/版本/时间可分辨；损坏或缺包时说明可恢复范围，取消不删原草稿。游客取消资料沿用后仍能回原空间续答；账号B不能沿用A的草稿；磁盘满或迁移中断后说明最后成功保存位置，不显示虚假的全部恢复。",
+      "phase": "基础本地",
+      "confirmation": "用户明确恢复与历史能力；异常处理细节建议",
+      "pageIds": [
+        "home",
+        "unfinished",
+        "records",
+        "question",
+        "session-recovery"
+      ],
+      "dataBoundary": "草稿按个人空间/sessionId/版本隔离；未保存部分与已保存部分分开标明。资料沿用需记录原空间、目标空间与对象关系；账号归属变化不代表云端已有副本；不能承诺卸载/设备损坏后本机独有草稿仍可找回。",
+      "permissions": "本机未登录草稿允许继续；登录不自动合并或覆盖本机资料。",
+      "openQuestions": "草稿保留期限、异常数据救援、认领或复制的具体方式、迁移失败可恢复范围待定。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/decisions.json D02/J02；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由争议裁决 D02/J02；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "存在可识别的本机草稿及可靠保存状态；跨空间沿用仅在真实账号能力启用且本人明确选择时提供。",
+      "dependencies": [
+        {
+          "id": "NFR-014",
+          "when": "保存、退出和恢复草稿时"
+        },
+        {
+          "id": "NFR-012",
+          "when": "支持登录后沿用或切换资料空间时"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "游客作答后登录，但取消沿用本机草稿",
+          "expected": "保留原草稿与已保存位置，不合并、不上传；可回原任务"
+        },
+        {
+          "scenario": "保存时空间不足或升级中断",
+          "expected": "不覆盖最后可读版本；标明未保存部分及可恢复范围"
+        },
+        {
+          "scenario": "从A切到B再打开继续作答",
+          "expected": "不显示或接管A的草稿"
+        }
+      ],
+      "valueEvidence": "试用者在中断后能继续同一份已保存答卷，并能说清最后保存在哪里；观察是否发生重答、误认归属或以为已上传，尚未执行试用。"
+    },
+    {
+      "id": "FR-008",
+      "module": "内容与答题",
+      "name": "答卷检查与确定性结果保存",
+      "scenario": "用户完成题组并确认生成结果。",
+      "requirement": "检查已答/未答和可修改范围；同一答卷的确认、计算、结果保存与打开分别表达；结果已保存时按原resultId找回。提交完成后保留当时输入与结果；重新测评另建答卷和结果。若启用答案纠正或计分规则纠错，创建与原结果关联的修订，说明修订原因和受影响部分，不原地覆盖旧报告、画像或AI已经引用的快照。",
+      "acceptance": "可定位遗漏题并回检查；重复提交不生成含义不明的重复结果；保存失败保留答卷；打开报告失败后能读取原结果，不重新作答或重算替换。历史查阅不产生新结果；新测评与修订身份可区分；修订后旧引用仍可追溯原输入，原版失效或受纠错影响能说明，不把旧依据继续伪装成最新有效依据。",
+      "phase": "基础本地",
+      "confirmation": "用户明确闭环与可靠性目标；提交状态与幂等设计建议",
+      "pageIds": [
+        "answer-review",
+        "assessment-submit",
+        "report"
+      ],
+      "dataBoundary": "输入、内容版本、引擎/解释版本与结果可追溯；计算本地确定性优先，不交给AI猜分。修订保存与原结果的关系及原因，原引用不悄悄改指向；后续画像是否改用修订结果须遵守明确的来源选择规则。",
+      "permissions": "完成本地测评不要求AI权限；结果仅本人空间可读。",
+      "openQuestions": "有效答卷、缺失处理与计分规则待题库依据确定；完成后答案纠正是否启用及具体适用条件未定，题库纠错的重算范围也需依据确认，不默认所有历史结果都可重算。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/decisions.json D02/J01；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由争议裁决 D02/J01；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "已有可识别答卷、确定的有效答卷和计算规则、可靠结果存储。只有正式依据具备时才能输出正式结果；查看已有结果不要求AI或新会员权益。",
+      "dependencies": [
+        {
+          "id": "FR-006",
+          "when": "生成作答结果时，需要绑定同一答卷的有效输入"
+        },
+        {
+          "id": "NFR-009",
+          "when": "执行正式计分与解释时，必须依照确定规则而非AI猜测"
+        },
+        {
+          "id": "NFR-010",
+          "when": "保存、修订或重开历史结果时，须固定版本及引用关系"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "用户连续点击提交且首次保存已成功",
+          "expected": "返回同一个结果，不生成两份难以区分的报告。"
+        },
+        {
+          "scenario": "旧报告被AI引用后启用答案纠正",
+          "expected": "新修订另有身份并关联旧版；原AI结果仍说明采用旧快照，不随新答案暗改。"
+        },
+        {
+          "scenario": "题库纠错后无法可靠重算旧答卷",
+          "expected": "标明受影响与缺失条件，保留可解释的历史记录，不补造分数或要求无提示覆盖。"
+        }
+      ],
+      "valueEvidence": "用户可以找回一次已完成的测评，分清原结果、重测和修订。以提交重试及修订后找回原引用的任务观察，确认用户能解释结果为何改变，而非仅看到保存按钮成功。"
+    },
+    {
+      "id": "FR-009",
+      "module": "报告与记录",
+      "name": "可阅读的因子瓶报告",
+      "scenario": "用户理解本次结果及生活中的含义。",
+      "requirement": "16PF与单因子用因子瓶呈现，解释靠近图形；主内容直接阅读，说明分值含义、情境、优势与代价，不把高低当好坏。",
+      "acceptance": "对应16因子的标签与数值匹配；未知/无效不是零水位；可点瓶子就近查看对应因子解释；无双极谱和单因子/16因素雷达入口；基础报告无需等待AI。",
+      "phase": "基础本地",
+      "confirmation": "用户明确因子瓶、图形化与不使用双极谱/雷达；解释布局为建议",
+      "pageIds": [
+        "report",
+        "factor-detail",
+        "report-explanation",
+        "report-evidence"
+      ],
+      "dataBoundary": "报告保存原始计算依据和版本；图形映射规则可解释；示例水位不得称真实个人分数。",
+      "permissions": "本人已保存报告本地可读；概念因子说明无需resultId。",
+      "openQuestions": "正式分数范围、水位映射与解释模板待测量依据确定。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；PROJECT_CONTEXT.md / 两套设计的长期分工；design/page-atlas/review/route-refinement-20261001/decisions.json D03；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；项目愿景与事实 / 两套设计的长期分工；路由争议裁决 D03；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "结果已持久化且有原始计算输出、因子对应关系与解释依据；不依赖AI成功。",
+      "dependencies": [
+        {
+          "id": "FR-008",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        },
+        {
+          "id": "NFR-007",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "部分因子无有效值",
+          "expected": "显示未知/无效，不画为零分"
+        },
+        {
+          "scenario": "点B因子瓶",
+          "expected": "解释仍对应B且能回原阅读位置"
+        }
+      ],
+      "valueEvidence": "读完能说清一项倾向及适用情境，理解高低不等于优劣，并能指出不符合本人经历的内容。"
+    },
+    {
+      "id": "FR-010",
+      "module": "报告与记录",
+      "name": "对报告表达异议和补充情境",
+      "scenario": "用户觉得解释不像自己或想记下经历。",
+      "requirement": "报告就地补充本人经历或不同意见，区分计分结果、原解释与本人陈述；不要求新建行动或先开AI。",
+      "acceptance": "补充可保存、再打开和修订；原始得分不被文字补充悄悄改写；后续引用能识别这是本人陈述及对应结果。",
+      "phase": "基础本地",
+      "confirmation": "用户明确允许质疑和补充；页内编辑方案建议",
+      "pageIds": [
+        "report",
+        "report-feedback",
+        "portrait-reflection"
+      ],
+      "dataBoundary": "补充保存typed sourceRef、时间和所属空间；引用至AI前另由用户选择。",
+      "permissions": "本地记录不消耗AI次数；本人可修改自己的补充。",
+      "openQuestions": "补充如何影响未来画像展示及历史版本待细化。",
+      "source": "PROJECT_CONTEXT.md / 已确认的最终愿景 1/4/5；design/page-atlas/review/route-refinement-20261001/decisions.json D03/D06；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 已确认的最终愿景 1/4/5；路由争议裁决 D03/D06；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "存在本人报告或明确的情境补充目标；补充与测评分数分开。",
+      "dependencies": [
+        {
+          "id": "FR-009",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "取消补充",
+          "expected": "原报告不变，草稿去向明确"
+        },
+        {
+          "scenario": "保存自述后再读报告",
+          "expected": "得分未变，能辨认新增内容出自本人"
+        }
+      ],
+      "valueEvidence": "用户能表达哪里不符合，而非被迫接受标签；再次查看能找回自己的补充。"
+    },
+    {
+      "id": "FR-011",
+      "module": "报告与记录",
+      "name": "历史找回与情境时间线",
+      "scenario": "用户想再次阅读旧结果和每日观察。",
+      "requirement": "按时间、题组、模式、版本查找保存记录；每日观察、本人情境与结果可联系回看，不合成统一进步分。",
+      "acceptance": "选中一条记录打开原resultId与原版本；返回保留筛选/位置；正式、AI改编、单因子、每日和模拟性质清楚；无记录有明确下一步。",
+      "phase": "基础本地",
+      "confirmation": "用户明确长期记录与回看；时间线/筛选形态建议",
+      "pageIds": [
+        "records",
+        "record-timeline",
+        "daily-review",
+        "unfinished"
+      ],
+      "dataBoundary": "索引与原始结果分离但对象一致；按个人空间保存，历史查回不重生成。",
+      "permissions": "本机历史阅读不要求新AI额度；历史云资料若存在须身份验证。",
+      "openQuestions": "历史保留、归档及大型记录性能策略待定。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/decisions.json J08；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由争议裁决 J08；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "已有可定位个人空间的草稿/结果索引；空历史也是正常状态。",
+      "dependencies": [
+        {
+          "id": "NFR-012",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        },
+        {
+          "id": "NFR-013",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "原版本材料暂缺",
+          "expected": "历史身份仍可定位并说明恢复范围"
+        },
+        {
+          "scenario": "筛选后打开结果再返回",
+          "expected": "保留筛选和位置"
+        }
+      ],
+      "valueEvidence": "用户能找回某次真实探索及当时情境，不必重新测一遍。"
+    },
+    {
+      "id": "FR-012",
+      "module": "报告与记录",
+      "name": "有条件的两次结果比较",
+      "scenario": "用户想了解两次探索的差异。",
+      "requirement": "选择两份不同记录，先判断版本、模式及计分是否可比；不可比时并读并说明原因，不制造趋势和进步结论。",
+      "acceptance": "同一记录不能选作两端；可比较项与不可比较项明确；时间与情境可查；返回选择列表保留原选择；不同版本不直接计算无依据差值。",
+      "phase": "按需扩展",
+      "confirmation": "用户明确长期变化方向；比较能力与可比规则为设计补充",
+      "pageIds": [
+        "records",
+        "compare-select",
+        "compare-report"
+      ],
+      "dataBoundary": "对照引用两个既有resultId及各自版本，不覆盖原结果。",
+      "permissions": "查看既有结果不消耗AI次数；AI追加解释另发新请求。",
+      "openQuestions": "版本间可比依据、可靠变化判断未确定。",
+      "source": "PROJECT_CONTEXT.md / 已确认的最终愿景 7；design/page-atlas/review/route-refinement-20261001/decisions.json D03；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 已确认的最终愿景 7；路由争议裁决 D03；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "有两份不同的本人记录及可比依据；不具备依据时只并读。",
+      "dependencies": [
+        {
+          "id": "FR-011",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        },
+        {
+          "id": "NFR-010",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "选择同一条作为两端",
+          "expected": "提醒换一条，不伪造变化"
+        },
+        {
+          "scenario": "版本不兼容",
+          "expected": "明确不可直接比较，不算进步分"
+        }
+      ],
+      "valueEvidence": "用户能区分有依据的变化、情境差异和不能比较的情况。"
+    },
+    {
+      "id": "FR-013",
+      "module": "报告与记录",
+      "name": "分享预览与分享范围",
+      "scenario": "用户主动把部分结果发给他人。",
+      "requirement": "分享前选择内容并看实际预览，区分本地导出文件与未来在线链接；不过度承诺导出后仍可撤回。",
+      "acceptance": "预览与输出的字段一致；默认不夹带原始答卷、隐私记忆或聊天；取消不发送；本地文件和可撤销链接显示各自控制边界。",
+      "phase": "按需扩展",
+      "confirmation": "设计补充；分享方式与首版范围未确认",
+      "pageIds": [
+        "share-preview",
+        "share-records",
+        "records"
+      ],
+      "dataBoundary": "只导出本人选定的快照；在线链接若启用需另行定义服务、权限和有效期。",
+      "permissions": "分享由本人明确触发；系统分享权限按实际渠道申请。",
+      "openQuestions": "图片/文件/链接具体格式与链接服务是否启用待定。",
+      "source": "design/page-atlas/review/route-refinement-20261001/refined-routes.json / pages[share-preview,share-records]；design/page-atlas/review/route-refinement-20261001/decisions.json D03；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "路由收敛数据 / pages[share-preview,share-records]；路由争议裁决 D03；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "本人选择具体输出内容，渠道和导出形式实际可用；在线链接仅在服务启用时另定控制。",
+      "dependencies": [
+        {
+          "id": "FR-009",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        },
+        {
+          "id": "NFR-012",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "取消系统分享",
+          "expected": "不宣称已经发送"
+        },
+        {
+          "scenario": "只选摘要",
+          "expected": "输出不夹带完整答卷或私人记忆"
+        }
+      ],
+      "valueEvidence": "用户分享前能看清接收方实际会看到什么。"
+    },
+    {
+      "id": "FR-014",
+      "module": "轻量探索",
+      "name": "单因子选择与局部探索",
+      "scenario": "用户暂时不想完成整套16PF。",
+      "requirement": "可先了解因子概念，再按有依据的局部题组探索；沿途保持所选因子与版本，不把单因子结果充作整套测评。",
+      "acceptance": "选择B后说明、开始、答题和结果均对应B；概念阅读无需已有报告；题量和解释限制可见；短题组缺乏依据时明确限制，不显示虚构正式结论。",
+      "phase": "基础本地",
+      "confirmation": "用户明确单因子能力；可用内容与首批开放条件待确认",
+      "pageIds": [
+        "single-factor-list",
+        "single-factor-detail",
+        "factor-detail",
+        "assessment-detail",
+        "question",
+        "report"
+      ],
+      "dataBoundary": "factorId与assessmentId/版本绑定；局部结果以独立模式存储。",
+      "permissions": "浏览与本地作答不要求AI账号；内容有效性另核实。",
+      "openQuestions": "是否有独立可靠短题组及其计分/解释依据待题库任务落实。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/decisions.json J07；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由争议裁决 J07；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "因子概念可独立阅读；开始局部题组须具备对应factorId、版本及局部解释依据。",
+      "dependencies": [
+        {
+          "id": "FR-004",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        },
+        {
+          "id": "FR-006",
+          "when": "开始局部作答时；概念阅读不依赖作答"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "仅看概念",
+          "expected": "不要求已有报告或登录"
+        },
+        {
+          "scenario": "从B进入作答",
+          "expected": "题组与结果均保持B的身份"
+        }
+      ],
+      "valueEvidence": "用户可以低投入探索一个角度，同时知道这不等于完整16PF测评。"
+    },
+    {
+      "id": "FR-015",
+      "module": "轻量探索",
+      "name": "每日随机自我观察",
+      "scenario": "用户想用少量时间认识当天的反应。",
+      "requirement": "给出用途清楚的当日小组问题，开始后固定所选题；允许回看本人观察，不以打卡压力替代理解。",
+      "acceptance": "同一当日任务恢复不随机换题；日期、题组/选择ID与结果性质可识别；没有依据时不称完整16PF得分；跳过一天不惩罚已有记录。",
+      "phase": "按需扩展",
+      "confirmation": "用户明确每日随机方向；随机规则与首批范围建议",
+      "pageIds": [
+        "daily",
+        "daily-review",
+        "question",
+        "records"
+      ],
+      "dataBoundary": "dailySelectionId与题组版本、观察日期本地保存；不混入正式整套得分。",
+      "permissions": "本地观察可不登录；AI解读另受0/10规则。",
+      "openQuestions": "日界线、随机池、是否复用正式题目及解释边界待定。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/decisions.json J07；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由争议裁决 J07；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "有明确用途的当日题池与选择规则；日界线和题组解释依据确定后才提供对应结论。",
+      "dependencies": [
+        {
+          "id": "FR-006",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        },
+        {
+          "id": "NFR-009",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "暂停后同日继续",
+          "expected": "不随机换掉已开始问题"
+        },
+        {
+          "scenario": "漏一天未参与",
+          "expected": "不惩罚已有记录，不填造观察"
+        }
+      ],
+      "valueEvidence": "用户能留下当日一条有情境的认识，不被签到压力驱动。"
+    },
+    {
+      "id": "FR-016",
+      "module": "轻量探索",
+      "name": "模拟人格组合与假设解释",
+      "scenario": "用户想了解不同倾向组合意味着什么。",
+      "requirement": "调节假设位置或选择命名预设，原位阅读模拟说明；始终清楚标记非本人测量，不默认写入个人画像。",
+      "acceptance": "同名预设每次还原同一组合；调整后解释对应当前值；保存标记为假设；转向真实测评或AI讨论保留假设身份。",
+      "phase": "按需扩展",
+      "confirmation": "用户明确模拟方向；操作与保存细节建议",
+      "pageIds": [
+        "simulation",
+        "simulation-presets",
+        "simulation-result"
+      ],
+      "dataBoundary": "模拟独立类型和ID，不写真实得分；AI引用标明假设数据。",
+      "permissions": "本地模拟不要求AI权限；聊天使用另校验登录与次数。",
+      "openQuestions": "模拟维度、解释依据、保存与导出形式待定。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/decisions.json J07；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由争议裁决 J07；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "本地模拟规则与命名预设有来源；假设数据独立存储，不作为本人正式测量。",
+      "dependencies": [
+        {
+          "id": "NFR-007",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        },
+        {
+          "id": "NFR-009",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "调节后保存",
+          "expected": "保存当前组合并标为假设"
+        },
+        {
+          "scenario": "选择同一预设",
+          "expected": "恢复相同组合，不随机改变含义"
+        }
+      ],
+      "valueEvidence": "用户能探索不同假设并明确知道“这不是我的测评分数”。"
+    },
+    {
+      "id": "FR-017",
+      "module": "轻量探索",
+      "name": "现实选择的条件梳理",
+      "scenario": "用户面对考研、换城市等现实问题。",
+      "requirement": "选择题组前可梳理备选项、在意的事和现实限制，把结果作为自我理解材料，不以一个分数代替决定。",
+      "acceptance": "能够保留多个选项与未知条件；题组结果不自动输出必须选择某一选项的结论；可回到原问题继续补充。",
+      "phase": "按需扩展",
+      "confirmation": "用户明确现实问题题组方向；独立梳理能力为设计补充",
+      "pageIds": [
+        "decision-context",
+        "assessment-detail",
+        "explore"
+      ],
+      "dataBoundary": "问题草稿与相关资料本地关联；敏感生活描述不默认外发。",
+      "permissions": "浏览/记录独立于AI账号；AI讨论只发送本人选择部分。",
+      "openQuestions": "首批场景、目标人群和题组适用性待定。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/refined-routes.json / pages[decision-context]；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由收敛数据 / pages[decision-context]；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "明确本次现实问题，允许条件未知；不以测评结果自动代替决定。",
+      "dependencies": [
+        {
+          "id": "FR-003",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "暂时不知道某条件",
+          "expected": "允许保留未知并继续整理"
+        },
+        {
+          "scenario": "回到原问题",
+          "expected": "原备选项与补充仍在，不重新开空白问题"
+        }
+      ],
+      "valueEvidence": "用户能说清自己在意的条件与仍需了解的信息。"
+    },
+    {
+      "id": "FR-018",
+      "module": "轻量探索",
+      "name": "可选记录当时状态",
+      "scenario": "用户希望日后理解测评时的情境。",
+      "requirement": "测评前后可选记下状态和感受，短内容就地处理；不变成额外必答问卷或诊断评分。",
+      "acceptance": "跳过不阻止作答/报告；记录能关联本次任务并独立识别为自述；修改不会改变正式计分。",
+      "phase": "基础本地",
+      "confirmation": "设计补充；情境理解方向已有用户明确愿景",
+      "pageIds": [
+        "session-checkin",
+        "assessment-detail",
+        "report-feedback"
+      ],
+      "dataBoundary": "自述与计分输入分开保存，是否给AI使用另行选择。",
+      "permissions": "本人本地记录不需要AI权限。",
+      "openQuestions": "状态选项与记录保留规则待具体设计。",
+      "source": "PROJECT_CONTEXT.md / 已确认的最终愿景 1/7；design/page-atlas/review/route-refinement-20261001/refined-routes.json / pages[session-checkin]；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 已确认的最终愿景 1/7；路由收敛数据 / pages[session-checkin]；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "明确关联的测评或观察情境；记录可跳过且不参与无依据计分。",
+      "dependencies": [
+        {
+          "id": "NFR-009",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "跳过状态记录",
+          "expected": "不阻断答题或报告"
+        },
+        {
+          "scenario": "修改当时感受",
+          "expected": "改变自述记录，不改正式得分"
+        }
+      ],
+      "valueEvidence": "用户能辨认当时状态可能影响理解的情境，而非多完成一张必填问卷。"
+    },
+    {
+      "id": "FR-019",
+      "module": "轻量探索",
+      "name": "概念阅读与带出处提问",
+      "scenario": "用户不理解一个性格概念或报告用语。",
+      "requirement": "提供简明概念及长文阅读，保留出处；需要AI时把选中片段与来源带入可编辑草稿，不先发再征求确认。",
+      "acceptance": "阅读无需个人结果；返回原位置；选片段提问后草稿含正确片段与出处，取消/认证返回不丢内容，发送仍由用户触发。",
+      "phase": "基础本地",
+      "confirmation": "可信易懂解释为用户明确目标；知识阅读与片段提问方案建议",
+      "pageIds": [
+        "personality-guide",
+        "knowledge-detail",
+        "conversation-detail"
+      ],
+      "dataBoundary": "阅读素材本地优先；待发送引用与提交快照分开。",
+      "permissions": "只阅读不需登录；AI提问需注册登录与可用额度。",
+      "openQuestions": "首批文章、来源使用依据和离线范围待定。",
+      "source": "PROJECT_CONTEXT.md / 已确认的最终愿景 4/6；design/page-atlas/review/route-refinement-20261001/decisions.json J03；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 已确认的最终愿景 4/6；路由争议裁决 J03；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "有可用概念/文章和来源；阅读可本地完成，发AI另满足实际访问条件。",
+      "dependencies": [
+        {
+          "id": "FR-022",
+          "when": "选择片段作为AI资料时；仅阅读不依赖"
+        },
+        {
+          "id": "FR-023",
+          "when": "发起AI问题时；仅阅读不依赖"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "仅阅读",
+          "expected": "不要求AI登录或可用次数"
+        },
+        {
+          "scenario": "认证取消或返回",
+          "expected": "选中片段与出处仍在草稿且未自动发送"
+        }
+      ],
+      "valueEvidence": "用户能把不懂的具体概念带着出处询问，并回到原阅读位置。"
+    },
+    {
+      "id": "FR-020",
+      "module": "个人助理",
+      "name": "连续对话与可控生成",
+      "scenario": "用户围绕真实困惑与AI交流。",
+      "requirement": "助理入口与专注会话分工；输入、来源、生成状态按个人空间和conversationId隔离；可停止、澄清、重试，首发只执行一次。发起时固定账号、conversationId与逻辑requestId；退出或切账号不能把在途输出交给新账号。原账号重新认证后查询原请求，网络重连重取与用户主动重新生成分别处理；恢复联网不静默补发未经确认的新请求。",
+      "acceptance": "从入口发送后在同一会话看到一次请求；切换任务再回不串草稿；停止/失败有明确状态；编辑会话名称或删除不误删其他会话。A发起后切到B，B看不到A的输入、通知预览或结果；回A查询原任务不会再次生成或扣次；停止、重取和重新生成的名称及后果可区分。",
+      "phase": "助理闭环",
+      "confirmation": "用户明确个人助理方向；会话组织和生成控制建议",
+      "pageIds": [
+        "assistant",
+        "conversation-detail",
+        "conversation-settings"
+      ],
+      "dataBoundary": "聊天本地优先保留；实际AI调用联网；requestId关联输出与依据快照。迟到输出保留发起主体及依据快照；当前身份不符时只保留受控任务状态，私密内容按原账号访问。请求已有输出的保存与当前是否允许新生成分别判断。",
+      "permissions": "匿名/未登录禁止AI；注册登录非会员受每日共用10次约束。",
+      "openQuestions": "模型与服务、消息保留、流式中断后的可保存范围、停止/重新生成计次和请求完成结算规则待定。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/decisions.json D04/J03；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由争议裁决 D04/J03；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "真实会话生成需认证、共享次数裁决及可查询的请求记录；旧会话读取不以剩余新生成额度为前提。",
+      "dependencies": [
+        {
+          "id": "FR-037",
+          "when": "首次发起真实AI调用前"
+        },
+        {
+          "id": "FR-023",
+          "when": "新发起或明确重新生成时"
+        },
+        {
+          "id": "BR-002",
+          "when": "真实AI生成、恢复与额度结算时"
+        },
+        {
+          "id": "NFR-013",
+          "when": "连续会话与请求返回时"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "A发起生成后切到B，A的结果迟到",
+          "expected": "B界面与通知不展示A内容；A重新认证后可查原请求"
+        },
+        {
+          "scenario": "结果已生成但连接中断，用户点查看结果",
+          "expected": "查同一requestId，不生成第二次、不重复扣次"
+        },
+        {
+          "scenario": "停止生成后再次打开会话",
+          "expected": "展示真实停止状态及已保存部分，不自动续发"
+        }
+      ],
+      "valueEvidence": "试用者能从一次中断中找回原对话，区分查结果与重新生成；观察是否重复表达问题、误点重试或出现跨账号内容，尚未验收。"
+    },
+    {
+      "id": "FR-021",
+      "module": "个人助理",
+      "name": "会话历史与原任务找回",
+      "scenario": "用户接着以前聊过的问题继续。",
+      "requirement": "按问题或时间找到已有会话，恢复原消息、草稿和当前位置；不以新欢迎内容替代旧会话。",
+      "acceptance": "点击任一历史项打开对应conversationId及原消息；不存在/已删时明确说明；回历史列表保留筛选；查旧结果不重发请求。",
+      "phase": "助理闭环",
+      "confirmation": "用户明确长期个人助理与记忆方向；历史实现细节建议",
+      "pageIds": [
+        "conversation-list",
+        "conversation-detail"
+      ],
+      "dataBoundary": "会话、消息、草稿按个人空间隔离；历史读取不重新生成。",
+      "permissions": "本机已有会话的阅读与新AI调用分开；云历史需有效身份。",
+      "openQuestions": "历史搜索、跨设备同步与保留期限待定。",
+      "source": "PROJECT_CONTEXT.md / 已确认的最终愿景 5/7；design/page-atlas/review/route-refinement-20261001/decisions.json D04/J08；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 已确认的最终愿景 5/7；路由争议裁决 D04/J08；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "已有会话索引与对应个人空间；本地已存消息读取不等于新AI调用。",
+      "dependencies": [
+        {
+          "id": "NFR-012",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        },
+        {
+          "id": "NFR-013",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "历史对象已删除",
+          "expected": "解释已不存在，不回落新欢迎页"
+        },
+        {
+          "scenario": "用完AI额度后查旧会话",
+          "expected": "仍读取已有资料，不扣新次数"
+        }
+      ],
+      "valueEvidence": "用户能接上之前的问题，看到原消息和草稿。"
+    },
+    {
+      "id": "FR-022",
+      "module": "个人助理",
+      "name": "本次AI资料选择与快照核对",
+      "scenario": "用户决定让AI参考哪些报告、记忆或经历。",
+      "requirement": "单来源以可移除引用卡呈现，多来源才进入完整选择；提交前可增减，提交后依据快照只读。区分用户已选资料、实际采用原文、采用的摘要和未采用资料；超过单次处理能力时说明范围，可缩小问题或按明确范围分批，不把选过的资料等同全部已读。",
+      "acceptance": "来源标题、类型、时间与关键内容可核对；移除后不再随本次发送；发起请求保存实际发送与采用范围，摘要可追溯原来源及版本；取消返回草稿且不丢已选来源。资料过长或读取失败时不得静默删去来源仍宣称全面分析；未采用项及原因可核对。",
+      "phase": "助理闭环",
+      "confirmation": "用户明确结合分析/描述/记忆方向；资料选择与快照控制为设计补充",
+      "pageIds": [
+        "context-select",
+        "context-preview",
+        "assistant",
+        "ai-analysis"
+      ],
+      "dataBoundary": "本机资料仅按本次选择/已说明权限最小发送；候选、自述和测量类型保持。快照区分原始选择、外发内容与实际处理范围；采用摘要时保留可追溯关系，不因标题可见就断言模型已处理全文。",
+      "permissions": "资料选择不消耗次数；实际发送才核对AI身份与权益。",
+      "openQuestions": "默认可引用类别、字段裁剪、单次处理容量、摘要生成方式及外部模型数据规则待确定；分批分析是否作为首批能力及每批计次方式待随服务明确。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/decisions.json D05；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由争议裁决 D05；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "选择范围和资料归属明确，可读取本次选择的来源；实际发送前能够说明外发内容及缩减范围。选择和预览本身不要求AI次数。",
+      "dependencies": [
+        {
+          "id": "NFR-012",
+          "when": "读取个人资料、衔接本机空间与账号或向模型发送资料时"
+        },
+        {
+          "id": "FR-023",
+          "when": "实际发起AI分析，或生成摘要本身需要调用计次AI服务时"
+        },
+        {
+          "id": "NFR-016",
+          "when": "选择的来源包含个人记忆时，须采用当前有效版本和引用控制"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "选择的报告超过单次容量",
+          "expected": "显示采用原文、摘要和未采用范围；用户可缩小范围，不以全部已分析文案收尾。"
+        },
+        {
+          "scenario": "某份资料在发送前被删除或失去可读权限",
+          "expected": "指出受影响项并重新确认范围，不用同名示例或他人资料补位。"
+        },
+        {
+          "scenario": "用户取消缩减或分批安排",
+          "expected": "保留问题草稿和仍有效的选择，不自动发起多次模型请求。"
+        }
+      ],
+      "valueEvidence": "用户知道助理依据了哪些资料，也能主动减少外发范围。让试用者核对一次多资料分析并指出一份未被采用的材料，观察是否能理解结果边界；不采集无关私密原文作为验证成本。"
+    },
+    {
+      "id": "FR-023",
+      "module": "个人助理",
+      "name": "AI访问与共享次数",
+      "scenario": "用户发起分析、对话或遇到额度不足。",
+      "requirement": "访客和未登录AI为0；注册并登录非会员每日分析+对话共用10次；用尽保留草稿并解释后续选择。会员按最终权益执行。次数以用户可理解的逻辑请求计量，分析/对话及内部多次模型调用的关系需在规则中说明。同一请求的查询、重取与恢复不是新请求；主动重新生成、停止、失败、内部摘要是否占次逐项定案后再启用真实服务。会员到期后新增请求按当前权益，运行中请求按发起前已告知规则收尾；设计建议本人已有报告、聊天、记忆仍可读取和导出。",
+      "acceptance": "同一账号不同入口显示一致额度；未登录不能绕入口调用；用尽不丢输入；查看旧输出不作为新生成；升级/到期不重置当天已用。第10/11次并发请求按服务端同一额度事实裁决，不能都被当作免费第10次；已完成请求跨设备重取不重扣；到期不删除已有个人资料，旧结果访问和新生成资格分开表达。",
+      "phase": "助理闭环",
+      "confirmation": "用户明确0/10共享规则；预占/完成扣次/失败释放为设计建议",
+      "pageIds": [
+        "ai-quota",
+        "assistant",
+        "ai-analysis",
+        "membership"
+      ],
+      "dataBoundary": "服务端负责身份、额度与请求事实；本机展示缓存不能作为放行依据。请求保留发起账号、规则版本与计量记录；内部模型调用账目不得未经说明逐次当作用户请求；本地旧资料读取不依赖在线扣次成功。",
+      "permissions": "AI发送需已登录且具备权益；查看规则不要求购买。",
+      "openQuestions": "每日时区、逻辑请求边界、主动停止/失败/重新生成/内部整理记忆计次、会员额度和在途结算规则待定；到期后旧资料可读可导出为本轮纳入的设计建议，付费题包许可另定。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/refined-routes.json / pages[ai-quota]；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由收敛数据 / pages[ai-quota]；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "接入真实AI前必须明确日界线、逻辑请求定义和失败/停止/重取结算；会员部分仅在正式权益规则确定后启用。",
+      "dependencies": [
+        {
+          "id": "FR-037",
+          "when": "发起真实AI请求时"
+        },
+        {
+          "id": "BR-001",
+          "when": "核对账号与有效权益时"
+        },
+        {
+          "id": "BR-002",
+          "when": "额度原子裁决和请求计量时"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "剩余1次时两端同时发请求",
+          "expected": "按已确定规则最多一个新增免费请求获得该名额，另一请求保留输入并说明额度不足"
+        },
+        {
+          "scenario": "结果已完成但用户未收到，重新查询",
+          "expected": "返回原结果，记录和剩余额度不再次扣减"
+        },
+        {
+          "scenario": "请求运行中会员到期",
+          "expected": "按发起前可见规则结算原请求；后续新请求按当前权益，既有资料不因到期被删除"
+        }
+      ],
+      "valueEvidence": "让试用者解释一次实际操作会不会占次，并将其理解与用量记录核对；关注是否因为额度不透明不敢使用，样本与目标另定。"
+    },
+    {
+      "id": "FR-024",
+      "module": "个人助理",
+      "name": "AI用量与请求核对",
+      "scenario": "用户不清楚为何扣次或任务是否完成。",
+      "requirement": "按请求查看分析/对话、预占/完成/释放等状态，能查原结果及支持凭据；不把查询设计成再次生成。区分一个用户逻辑请求与其内部执行、查询、重取；用量记录关联发起账号和当时计量规则，并可解释停止/失败/已生成未送达等情形。同一请求跨设备查询不产生新的扣次记录。",
+      "acceptance": "用量记录可定位requestId和关联会话/分析；失败/取消状态与可用额度一致；刷新或恢复同一请求不二次扣次。用户可从剩余额度追到对应请求和规则说明；切账号只看到当前账号记录；内部重试不伪装成用户主动新请求，尚未定案的计次场景不能展示为既定收费事实。",
+      "phase": "助理闭环",
+      "confirmation": "设计补充；服务端额度事实为当前配套设计要求",
+      "pageIds": [
+        "ai-usage-history",
+        "ai-quota",
+        "ai-analysis-result"
+      ],
+      "dataBoundary": "最小请求账目由服务端维护；不在用量列表展示不必要聊天正文。最小计量记录与聊天正文分离，保留实际请求关联与规则版本；不向另一账号暴露原会话摘要。",
+      "permissions": "本人仅查看本账号用量；查原结果不要求剩余新生成次数。",
+      "openQuestions": "账目保留、显示粒度、争议反馈及各类取消/失败的结算规则待定。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/refined-routes.json / pages[ai-usage-history]；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由收敛数据 / pages[ai-usage-history]；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "依赖真实请求和结算事实；纯设计期标注示例，不使用虚构用量证明服务已生效。",
+      "dependencies": [
+        {
+          "id": "BR-002",
+          "when": "真实用量与状态查询时"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "一个逻辑请求内部重试多次",
+          "expected": "按已公布用户请求规则显示一次逻辑请求及真实结算，内部重试不额外伪造用户请求"
+        },
+        {
+          "scenario": "A查询用量时切到B",
+          "expected": "迟到账目不进入B的列表"
+        },
+        {
+          "scenario": "原结果已完成，跨设备查同一请求",
+          "expected": "返回一致记录，不追加消费"
+        }
+      ],
+      "valueEvidence": "试用者能解释一天已用次数的来源，并定位一条争议请求；观察是否需要重复发起AI才能确认结果，尚未验证。"
+    },
+    {
+      "id": "FR-025",
+      "module": "个人助理",
+      "name": "主动AI分析与结果阅读",
+      "scenario": "用户希望围绕报告或画像获得更深入解释。",
+      "requirement": "先说明本次问题及所用来源，再由本人触发新分析；完成后作为可找回结果阅读，说明证据、不确定处和可选下一步。结果引用实际采用的范围，说明摘要或缺失对结论的限制；发送后来源有修订、停用或删除时，区分历史分析快照与当前有效认识，迟到输出不得自动更新当前画像或记忆。",
+      "acceptance": "分析绑定原来源、实际采用范围与requestId；结果不改测评分数、不编造个人事实，不声称处理了未采用资料；失败后草稿保留；打开已完成结果不新扣次数。来源状态变化后可辨认旧依据，历史结果的留存/删除按本人控制和实际范围执行；迟到分析不把已停用认识恢复为当前事实。",
+      "phase": "助理闭环",
+      "confirmation": "用户明确AI分析能力；分析任务/结果组织建议",
+      "pageIds": [
+        "ai-analysis",
+        "ai-analysis-result"
+      ],
+      "dataBoundary": "基础结果与AI解释分开保存；模型/提示或解释版本按需可追溯。请求快照不等同当前画像，不以追溯为由强制保留用户已要求删除的内容；无法撤回已外发资料时如实说明。",
+      "permissions": "生成受共享AI次数；读取本人既有结果与新调用分开。",
+      "openQuestions": "服务、解释深度、输出结构与不适用情境待定；来源变更后的结果提示及用户要求删除时的快照处理需与真实服务能力对齐。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/decisions.json J03/J05；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由争议裁决 J03/J05；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "有本人明确的问题、可核对的实际资料范围和可用AI服务；新生成通过身份与额度核对，已有本机结果阅读与新调用分开。",
+      "dependencies": [
+        {
+          "id": "FR-022",
+          "when": "分析引用报告、画像、记忆或经历等个人资料时"
+        },
+        {
+          "id": "FR-023",
+          "when": "主动发起一次新的AI分析时"
+        },
+        {
+          "id": "BR-002",
+          "when": "接入真实联网AI生成、任务恢复和额度核算时"
+        },
+        {
+          "id": "NFR-016",
+          "when": "分析采用记忆，或准备把结果作为新的画像/记忆依据时"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "摘要仅覆盖部分历史报告",
+          "expected": "结果说明已采用范围和局限，不给出基于全部历史的表述。"
+        },
+        {
+          "scenario": "请求发出后用户停用某记忆",
+          "expected": "返回的分析标明旧依据状态，不能自动把该记忆重新纳入当前画像或下次上下文。"
+        },
+        {
+          "scenario": "分析已完成但客户端断线",
+          "expected": "按原请求找回已有结果，不为阅读再生成一次或重复计次。"
+        }
+      ],
+      "valueEvidence": "用户能从分析中找到一条有依据、与自身情境相关的认识，并辨认推测和信息缺口。通过要求用户指出依据、适用情境及可纠正处观察价值，不用篇幅长或成功出字代替任务成功。"
+    },
+    {
+      "id": "FR-026",
+      "module": "画像与认识",
+      "name": "多角度个人画像",
+      "scenario": "用户想看目前了解了自己哪些方面。",
+      "requirement": "用图形展示有依据的性格/能力认识，未知灰色；可按情境阅读，不强行统一量纲或贴固定标签。原版、AI重置、单因子、自述或观察中的同名因子不默认平均、取最大或以最新覆盖；每个显示值明确采用来源，缺乏可比依据时分别阅读。来源失效或被移除后明确留空及原因，不静默替换另一量纲。",
+      "acceptance": "图中每个角度可追溯来源、版本、时间与含义；未测/无效/撤回不显示为低分；性格高低不当强弱；能力强弱须有对应依据。多来源同名因子不会生成无依据综合分；当前来源不可用时状态可辨认，切换来源前后有明确标识；可查看认识局限。",
+      "phase": "助理闭环",
+      "confirmation": "用户明确图形化画像、未知灰色；拓扑形式和情境视图建议",
+      "pageIds": [
+        "my-portrait",
+        "portrait-insight",
+        "situational-self",
+        "understanding-gaps"
+      ],
+      "dataBoundary": "画像是来源可追溯的汇总，不替代原始报告和自述；来源类型、量纲、适用情境和有效状态分开。图形采用的来源关系须可解释，来源变化后更新局限，不无依据合成统一人格总分。",
+      "permissions": "查看本地画像不需新AI调用；刷新AI解释另核对权限。",
+      "openQuestions": "维度体系、图形布局及首批支持来源待定；同一维度多份可比结果的默认展示顺序、切换方式与更新时机需明确，尚未具备依据的跨版本合成不开放。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/decisions.json D06；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由争议裁决 D06；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "至少能区分有效来源与未知角度，并能说明图形值代表什么；没有完整测评时仍可显示未知，不要求先完成全部16PF或调用AI。",
+      "dependencies": [
+        {
+          "id": "NFR-007",
+          "when": "展示任何画像图形值、强弱或未知状态时"
+        },
+        {
+          "id": "NFR-010",
+          "when": "整合多份结果或跨版本展示同名因子时"
+        },
+        {
+          "id": "FR-008",
+          "when": "画像值采用本APP正式作答结果时，需要可追溯的结果及版本"
+        },
+        {
+          "id": "NFR-016",
+          "when": "画像采用本人记忆、陈述或AI假设时"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "原版、AI重置版和单因子各有同名分值",
+          "expected": "分别注明来源和含义，不默认算平均水位或综合排名。"
+        },
+        {
+          "scenario": "用户删除当前图形采用的来源",
+          "expected": "该值转为来源不可用/待选择，不自动用另一量纲补位。"
+        },
+        {
+          "scenario": "某角度尚未测量但有本人观察",
+          "expected": "以观察性质表达，不填入伪造测评分数，也不将未知显示为零分。"
+        }
+      ],
+      "valueEvidence": "用户能看懂自己已了解和尚未了解的角度，并说清某个图形值来自哪次资料。通过找来源和识别未知任务观察，避免把图形漂亮或分值更多当成理解更准确。"
+    },
+    {
+      "id": "FR-027",
+      "module": "画像与认识",
+      "name": "本人纠正与不同来源并读",
+      "scenario": "用户认为AI理解错了，或报告与经历不同。",
+      "requirement": "允许补充情境、指出不符和并排核对测量、自述、观察；保留来源类型，不强制融合成一个事实。新补充不必已有insightId。本人纠正用于更新当前理解，不能直接改写原始测评分数；同名维度矛盾时保留可并读的差异和来源。",
+      "acceptance": "纠正可保存且回到原认识；原始结果保持；再次引用时旧说法不悄悄恢复为当前事实；没有相关认识时仍能用草稿记录。纠正前发出的迟到结果不能覆盖已保存的当前补充；无法兼容的不同来源不被折算成假综合值。",
+      "phase": "助理闭环",
+      "confirmation": "用户明确纠正和情境理解；并读与来源规则建议",
+      "pageIds": [
+        "portrait-reflection",
+        "insight-reconcile",
+        "portrait-insight"
+      ],
+      "dataBoundary": "typed sourceRef与draftId区分编辑/新建；本人陈述不自动升级正式测量。当前纠正、原始依据与历史快照分开；更新画像或记忆引用须采用相应的当前有效状态。",
+      "permissions": "本人可控制自己的认识与补充；本地修订不必调用AI。",
+      "openQuestions": "矛盾标记、历史修订展示与后续重新生成策略待定；补充内容进入画像或长期记忆的默认范围需与本人控制一致。",
+      "source": "PROJECT_CONTEXT.md / 已确认的最终愿景 1/5/7；design/page-atlas/review/route-refinement-20261001/decisions.json D06；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 已确认的最终愿景 1/5/7；路由争议裁决 D06；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "可记录本人补充及其情境、来源和当前状态；无已有画像也能新记一条。保存纠正不要求新AI调用或会员。",
+      "dependencies": [
+        {
+          "id": "NFR-010",
+          "when": "纠正涉及既有测评结果或比较不同版本来源时"
+        },
+        {
+          "id": "NFR-016",
+          "when": "纠正需要影响当前记忆、画像引用或后续AI上下文时"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "用户认为某报告不符合当前工作情境",
+          "expected": "保存情境补充并保留原报告分数，不把异议操作当重算。"
+        },
+        {
+          "scenario": "两份来源结论相反且不可比",
+          "expected": "保留并读和类型说明，不自动选高分或新日期覆盖。"
+        },
+        {
+          "scenario": "保存纠正后旧请求返回相同旧说法",
+          "expected": "历史结果可说明旧依据，当前纠正不被覆盖，下次引用采用有效状态。"
+        }
+      ],
+      "valueEvidence": "用户能把不符合自己的描述纠正过来，并在后续使用中看到纠正生效。观察一次纠正后回到原认识及下一次引用的结果，确认用户不需要反复解释同一个已纠正问题。"
+    },
+    {
+      "id": "FR-028",
+      "module": "记忆与控制",
+      "name": "记忆候选与确认",
+      "scenario": "用户希望助理记住有用前情而非全部聊天。",
+      "requirement": "少量候选集中到记忆列表，由本人确认、修改或拒绝；AI建议不静默成为长期事实。接收候选及确认采用前核对相关来源和当前控制：生成期间已被停用、删除或纠正的依据，不得借迟到输出重新进入候选队列或已确认记忆；需要重新提出时须有新的有效依据并明确差异。",
+      "acceptance": "能看清候选来源及用途；拒绝不会再作为已确认事实引用；确认后能在同一列表找回；不逐句强制弹出确认。迟到候选不恢复已停用内容，候选确认前来源状态变化可被识别；关闭长期记忆后不因后台任务完成而写入新记忆。",
+      "phase": "助理闭环",
+      "confirmation": "用户明确个人记忆方向；候选确认机制为设计建议",
+      "pageIds": [
+        "memory-list",
+        "memory-inbox",
+        "memory-detail"
+      ],
+      "dataBoundary": "候选与已确认记忆状态分开，本地保存优先；发送模型受引用控制。候选保留必要来源版本，不以改写措辞绕过已拒绝、停用或删除的当前控制。",
+      "permissions": "本人可确认或拒绝；生成候选若调用AI另遵守次数规则。",
+      "openQuestions": "哪些类型可候选、候选期限与提醒频率待定；重新提出已有认识的触发条件和当前状态冲突提示需细化，不默认建设复杂自动合并引擎。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/decisions.json D06/J04；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由争议裁决 D06/J04；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "候选来源可追溯，用户能确认、修改或拒绝并保存结果。管理候选不以AI或会员为前提；仅实际AI生成候选时核对调用规则。",
+      "dependencies": [
+        {
+          "id": "NFR-016",
+          "when": "任何候选进入列表或成为已确认记忆时"
+        },
+        {
+          "id": "FR-023",
+          "when": "生成候选实际调用计次AI服务时；手动确认、修改和拒绝不依赖次数"
+        },
+        {
+          "id": "BR-002",
+          "when": "候选由真实联网AI任务产生，需要遵守任务和计量规则时"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "AI整理进行中用户停用其来源记忆",
+          "expected": "迟到候选不把该旧认识重新投进待确认列表或自动记住。"
+        },
+        {
+          "scenario": "候选打开后、确认前来源被纠正",
+          "expected": "提示采用依据已变化，保留用户编辑，不把旧版本直接当当前事实。"
+        },
+        {
+          "scenario": "本人拒绝候选后出现换措辞的同一旧依据",
+          "expected": "不能因此当成已确认记忆或绕过拒绝反复打扰。"
+        }
+      ],
+      "valueEvidence": "用户可少量、主动地决定助理记住什么，而不是被迫逐句管理聊天。观察用户处理一个候选后能否在列表找到采用结果，以及被拒绝旧认识是否仍反复出现。"
+    },
+    {
+      "id": "FR-029",
+      "module": "记忆与控制",
+      "name": "记忆修订与来源追溯",
+      "scenario": "用户更正偏好、停用旧认识或核对AI为何记住。",
+      "requirement": "记忆详情承载更改记录，专注编辑保留完整空间；短来源直接回原对象，长材料另开阅读；可更正、停用、删除。修改生效后的当前状态优先于在途请求的旧快照；迟到结果可依实际留存规则解释当时依据，但不得重新激活被停用或删除的记忆，也不能覆盖用户较新的修订。",
+      "acceptance": "编辑带出原内容；保存后显示新内容与适用情境；停用后后续引用排除；来源缺失明确说明而非回落示例；修改历史关联同一memoryId。请求生成期间的修改、停用与删除均在结果归入当前资料前再次生效；已发送外部内容无法立即撤回时如实说明，不显示虚假撤回成功。",
+      "phase": "助理闭环",
+      "confirmation": "用户明确记忆可理解可修正方向；编辑/历史/来源细节建议",
+      "pageIds": [
+        "memory-detail",
+        "memory-edit",
+        "memory-source",
+        "memory-changes"
+      ],
+      "dataBoundary": "记忆版本、来源引用和当前有效状态本地可追溯；删除范围、历史版本与已提交快照分开说明。历史追溯不构成永久保留被删内容的默认授权；需要保留的最小状态不能变成新的可引用个人内容。",
+      "permissions": "本人管理自己的记忆；查看/更正不要求新AI次数。",
+      "openQuestions": "删除关联快照、历史版本保留和导出范围待定；服务端及外部模型已处理内容的实际处置边界随服务方案明确。",
+      "source": "PROJECT_CONTEXT.md / 已确认的最终愿景 5/7；design/page-atlas/review/route-refinement-20261001/decisions.json D05/D06；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 已确认的最终愿景 5/7；路由争议裁决 D05/D06；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "本人的记忆有稳定身份、可读取原内容并能可靠保存当前控制。编辑、停用、删除和本地查看不要求AI调用或会员。",
+      "dependencies": [
+        {
+          "id": "NFR-016",
+          "when": "编辑、停用、删除或追溯记忆时"
+        },
+        {
+          "id": "NFR-014",
+          "when": "提交记忆变更与重复保存时"
+        },
+        {
+          "id": "BR-006",
+          "when": "操作范围涉及服务端已保存资料或账号删除请求时；纯本机编辑不强制联网"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "发出分析后停用一条记忆",
+          "expected": "迟到结果不重新激活该记忆；后续请求排除它，历史发送范围可如实说明。"
+        },
+        {
+          "scenario": "用户先后两次修订同一记忆，第一请求较晚返回",
+          "expected": "较早内容不能覆盖较新的已保存修订。"
+        },
+        {
+          "scenario": "用户删除记忆但服务端处理尚未完成",
+          "expected": "区分本地已删除与远端待处理，新的可控引用先排除，不宣称所有副本已清除。"
+        }
+      ],
+      "valueEvidence": "用户一次更正或停用后，助理后续不再沿用旧说法。以编辑后的下一次资料选择和迟到结果归入情境观察，确认控制真实生效，而非只有开关外观改变。"
+    },
+    {
+      "id": "FR-030",
+      "module": "记忆与控制",
+      "name": "聊天留存与长期记忆分别控制",
+      "scenario": "用户只想交流、不想长期被记住。",
+      "requirement": "分别控制聊天留存、长期记忆和模型引用；只聊不记、暂停与停用有清楚效果，不能用一个模糊开关代替全部。设置变更影响后续处理和在途任务返回后的保存、候选采用与默认引用；历史已外发内容与现在可控制的留存分开说明。",
+      "acceptance": "每个控制说明影响范围；关闭长期记忆后不产生已确认新记忆；撤回某来源后新请求不继续默认带入；不误称已撤回外部已发送内容。在途任务返回时服从当前留存与记忆控制，不能用发起时开启过的状态绕过新设置；调整设置不自动删除用户未要求清理的其他资料。",
+      "phase": "助理闭环",
+      "confirmation": "用户明确个人资料控制目标；具体开关与默认值为设计补充",
+      "pageIds": [
+        "memory-controls",
+        "privacy",
+        "conversation-settings"
+      ],
+      "dataBoundary": "本机留存、服务端留存和模型处理分别说明；控制影响未来引用及实际保存行为。聊天留存关闭是否适用本次已发请求须明确说明，实际无法控制的远端副本如实标注；不把关闭记忆等同删除全部历史。",
+      "permissions": "本人可调整自己的控制；非必要权限拒绝不阻断本地测评。",
+      "openQuestions": "默认策略、服务端保留及外部模型处理协议待确定；暂停长期记忆是否仍生成临时候选、关闭聊天留存对在途回复的展示和关闭页面后保存策略需明确。",
+      "source": "PROJECT_CONTEXT.md / 已确认的最终愿景 5/7；design/page-atlas/review/route-refinement-20261001/refined-routes.json / pages[memory-controls]；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 已确认的最终愿景 5/7；路由收敛数据 / pages[memory-controls]；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "能区分并执行各类控制的真实作用范围；纯本机设置和既有资料管理不以AI或会员为前提。涉及远端留存须与实际服务能力一致。",
+      "dependencies": [
+        {
+          "id": "NFR-016",
+          "when": "长期记忆、候选或后续引用受控制时"
+        },
+        {
+          "id": "NFR-012",
+          "when": "控制作用于账号资料和模型外发范围时"
+        },
+        {
+          "id": "BR-006",
+          "when": "执行服务端资料清理等请求时；本机设置不强制依赖服务端"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "AI生成期间关闭长期记忆",
+          "expected": "回复可以按实际聊天规则呈现，但不会把它自动采用为新长期记忆。"
+        },
+        {
+          "scenario": "关闭某来源默认引用后继续聊天",
+          "expected": "新请求不再自动携带该来源，旧发送记录不伪装成已经被远端撤回。"
+        },
+        {
+          "scenario": "用户只关闭聊天留存",
+          "expected": "说明当前与后续会话实际保存后果，不连带删除未授权清理的测评报告或已确认记忆。"
+        }
+      ],
+      "valueEvidence": "用户能准确选择只聊天、保留聊天或允许记忆，并预期操作后果。通过让用户选择一种目标并复述资料会留在哪里的任务观察，不要求理解内部存储术语。"
+    },
+    {
+      "id": "FR-031",
+      "module": "行动与观察",
+      "name": "一次轻量尝试与回看",
+      "scenario": "用户把理解转成愿意尝试的一步。",
+      "requirement": "由本人选择行动候选并调整目标/负担，围绕同一行动记录尝试和回看；基础一次尝试不随Skills整体后置。",
+      "acceptance": "AI建议不自动成为待办；进行中不再显示重复开始；可继续/调整/结束；回看能关联原目标与观察；长期任务不靠强制打卡体现价值。",
+      "phase": "助理闭环",
+      "confirmation": "愿景明确理解联系行动；基础行动闭环为近期设计建议，非已批准MVP",
+      "pageIds": [
+        "action-list",
+        "action-detail",
+        "action-edit",
+        "action-review",
+        "strength-experiment"
+      ],
+      "dataBoundary": "actionId关联本人目标、来源和观察；AI建议与本人选择分开。",
+      "permissions": "本地创建/编辑不必调用AI；AI生成候选另按身份额度。",
+      "openQuestions": "最小行动字段、回看频率及首版呈现待定。",
+      "source": "PROJECT_CONTEXT.md / 已确认的最终愿景 3/4/5；design/page-atlas/review/route-refinement-20261001/decisions.json D07/J04；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 已确认的最终愿景 3/4/5；路由争议裁决 D07/J04；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "本人选择一次尝试及可承受目标；基础行动无需先接Skills或AI。",
+      "dependencies": [
+        {
+          "id": "NFR-014",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "AI只给建议",
+          "expected": "不自动成为待办"
+        },
+        {
+          "scenario": "进行中回看",
+          "expected": "继续同一行动，可调整或结束而非重复开始"
+        }
+      ],
+      "valueEvidence": "用户能将一个认识转成愿意尝试的小动作，并回看实际体验。"
+    },
+    {
+      "id": "FR-032",
+      "module": "行动与观察",
+      "name": "独立观察与经历记录",
+      "scenario": "用户想记下感受，但并没有行动计划。",
+      "requirement": "观察可以独立创建，也可关联某次行动；按情境回看，不强制先建行动、调用AI或填成绩。",
+      "acceptance": "无actionId也能保存并再次打开；有关联时回到正确行动；修改保留当前草稿；不同经历不被画成统一进步曲线。",
+      "phase": "助理闭环",
+      "confirmation": "长期认识记录为用户明确方向；独立观察能力为设计补充",
+      "pageIds": [
+        "observation-edit",
+        "observation-history",
+        "action-list",
+        "action-detail"
+      ],
+      "dataBoundary": "observationId独立，actionId可选；本人记录类型和日期明确。",
+      "permissions": "本地观察不需AI权限或先有报告。",
+      "openQuestions": "记录字段、附件与删除关联方式待定。",
+      "source": "PROJECT_CONTEXT.md / 已确认的最终愿景 1/7；design/page-atlas/review/route-refinement-20261001/decisions.json D07；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 已确认的最终愿景 1/7；路由争议裁决 D07；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "本人空间可保存独立观察；actionId可为空，关联行动时核对归属。",
+      "dependencies": [
+        {
+          "id": "NFR-012",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        },
+        {
+          "id": "NFR-014",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "无行动或报告",
+          "expected": "仍可记录经历"
+        },
+        {
+          "scenario": "关联行动被移除",
+          "expected": "观察保留自身身份，说明关联状态"
+        }
+      ],
+      "valueEvidence": "用户无需先建复杂计划，就能保存一段经历并再次找回。"
+    },
+    {
+      "id": "FR-033",
+      "module": "扩展能力",
+      "name": "持续生活问题空间",
+      "scenario": "用户围绕长期困惑积累资料和后续观察。",
+      "requirement": "按一个生活问题组织现实条件、依据、未知和下一步，可关联报告/对话/观察，避免复制多套相同资料系统。",
+      "acceptance": "一个问题能关联多个原对象；来源修改/删除有明确状态；没有证据的判断不显示为事实；可以结束或归档问题。",
+      "phase": "按需扩展",
+      "confirmation": "设计补充；复杂容器不是已批准首版要求",
+      "pageIds": [
+        "life-space-list",
+        "life-space-detail",
+        "decision-context"
+      ],
+      "dataBoundary": "空间保存引用与本人描述，不重建所有源数据；AI引用按本次选择。",
+      "permissions": "本地整理与AI生成分开；仅本人空间可读写。",
+      "openQuestions": "是否首发、最小字段和归档策略未定。",
+      "source": "design/page-atlas/review/route-refinement-20261001/refined-routes.json / pages[life-space-list,life-space-detail]；design/page-atlas/review/route-refinement-20261001/decisions.json deliverySlices/按需扩展；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "路由收敛数据 / pages[life-space-list,life-space-detail]；路由争议裁决 deliverySlices/按需扩展；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "明确持续问题整理确有价值后按需启用；已有原对象可引用，不复制多套资料体系。",
+      "dependencies": [
+        {
+          "id": "NFR-013",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "某来源已删除",
+          "expected": "标明缺失，不用旧缓存冒充仍有效"
+        },
+        {
+          "scenario": "归档问题",
+          "expected": "不顺带删除报告、聊天或观察原件"
+        }
+      ],
+      "valueEvidence": "用户能围绕一个生活问题看清已有依据、未知和下一步。"
+    },
+    {
+      "id": "FR-034",
+      "module": "扩展能力",
+      "name": "助理Skills与协作方法",
+      "scenario": "用户希望助理扩展某种任务能力。",
+      "requirement": "展示真实可用能力的输入、过程、结果和授权范围；未接入内容明确为方案，不伪装可执行工具。",
+      "acceptance": "启用前可看会用何资料、做何动作；未接入不触发假执行；取消不留半启用状态；采用方法不改变正式计分事实。",
+      "phase": "按需扩展",
+      "confirmation": "用户明确Skills可后置；具体能力与接入方式未确认",
+      "pageIds": [
+        "skills-list",
+        "skill-detail"
+      ],
+      "dataBoundary": "各能力数据边界单独声明；不默认获取全部记忆或对外发消息。",
+      "permissions": "能力所需权限逐项依实际操作申请；当前设计不授权付费/外发。",
+      "openQuestions": "首批Skills、外部工具、费用和运行平台待定。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/decisions.json deliverySlices/按需扩展；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由争议裁决 deliverySlices/按需扩展；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "有真实可执行能力、输入输出及权限说明后才启用；当前可保留方案，不预建生态。",
+      "dependencies": [
+        {
+          "id": "NFR-012",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        },
+        {
+          "id": "NFR-024",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "尚未接入",
+          "expected": "明确不可执行而非假成功"
+        },
+        {
+          "scenario": "取消授权",
+          "expected": "不继续执行或留下含糊的半启用状态"
+        }
+      ],
+      "valueEvidence": "用户能理解该方法会做什么、使用什么资料，以及得到什么可检查结果。"
+    },
+    {
+      "id": "FR-035",
+      "module": "扩展能力",
+      "name": "本人选择的回看提醒",
+      "scenario": "用户愿意在合适时间回看一个尝试。",
+      "requirement": "提醒作为行动的可选设置，可随时关闭；系统通知需要真实平台能力，不以原型提示冒充已安排。",
+      "acceptance": "可看到目标、时间和启用状态；拒绝系统通知仍能使用行动；关闭后不再产生对应未来提醒；点击定位原对象或说明对象已不存在。",
+      "phase": "按需扩展",
+      "confirmation": "设计补充；系统提醒明确按需扩展",
+      "pageIds": [
+        "reminder-settings",
+        "action-detail",
+        "notification-settings"
+      ],
+      "dataBoundary": "提醒绑定actionId或明确对象与时区；本地/服务器调度待定。",
+      "permissions": "需时按实际平台申请通知权限；无许可不显示安排成功。",
+      "openQuestions": "频率、跨设备去重、系统调度和时区策略待定。",
+      "source": "design/page-atlas/review/route-refinement-20261001/refined-routes.json / pages[reminder-settings]；design/page-atlas/review/route-refinement-20261001/decisions.json D07；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "路由收敛数据 / pages[reminder-settings]；路由争议裁决 D07；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "确有回看需要、目标对象和时间；系统通知按能力请求权限。",
+      "dependencies": [
+        {
+          "id": "FR-031",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "拒绝通知权限",
+          "expected": "行动仍可使用，提醒未安排状态真实"
+        },
+        {
+          "scenario": "点击提醒时原对象已不存在",
+          "expected": "解释情况，不落入错误对象"
+        }
+      ],
+      "valueEvidence": "提醒帮助找回自己的尝试，关闭后不继续打扰。"
+    },
+    {
+      "id": "FR-036",
+      "module": "账号与个人",
+      "name": "我的与个人信息维护",
+      "scenario": "用户查看自身记录、资料与控制入口。",
+      "requirement": "“我的”组织个人记录、画像、账号及数据控制；称呼和可选背景可修改，避免把权益营销压过个人任务。",
+      "acceptance": "可辨认当前身份与本机空间；编辑预填原值，保存/取消含义清楚；可选背景不填不阻断本地探索；资料变化不改测评分数。",
+      "phase": "基础本地",
+      "confirmation": "用户明确我的和个人资料功能；字段与布局建议",
+      "pageIds": [
+        "profile",
+        "profile-edit"
+      ],
+      "dataBoundary": "称呼/背景属于个人空间；哪些同步到账号、哪些供AI使用分别说明。",
+      "permissions": "本机基础偏好可不登录；账号资料写入需有效身份。",
+      "openQuestions": "必填字段、适用年龄信息和账号资料同步范围待定。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/refined-routes.json / pages[profile,profile-edit]；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由收敛数据 / pages[profile,profile-edit]；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "本人空间与账号字段职责区分；可选背景不作为本地使用前提。",
+      "dependencies": [
+        {
+          "id": "NFR-012",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "取消编辑",
+          "expected": "原信息保持"
+        },
+        {
+          "scenario": "不填可选背景",
+          "expected": "不阻断本地探索，不推断不存在的个人事实"
+        }
+      ],
+      "valueEvidence": "用户知道哪些是显示信息、哪些可能用于解释，并能方便修改。"
+    },
+    {
+      "id": "FR-037",
+      "module": "账号与个人",
+      "name": "登录注册与验证承接",
+      "scenario": "用户从AI或购买任务进入认证。",
+      "requirement": "登录、创建账号与验证码作为连续认证任务，明确用途；保存authIntent与原草稿，成功后回原任务但不自动发送AI/付款/合并资料。游客本机资料接入账号通过原任务中的明确选择完成，展示对象、原空间与目标账号；认领/复制、提交给AI和云同步分别说明。拒绝或取消认领不删除原资料，不要求上传全历史才能继续。",
+      "acceptance": "取码与验证完成分开；错误或过期可重试且输入说明明确；创建不被静默替代为登录；返回原任务保留内容并由本人决定下一步。游客做完测评后注册，可选择该份报告供后续分析，真实发送前仍展示实际采用范围；取消后报告留原空间；已有账号A资料不能因登录B被认领；认证成功本身不会消耗AI次数。",
+      "phase": "助理闭环",
+      "confirmation": "用户明确注册登录与AI门槛；手机号等方式仍待定",
+      "pageIds": [
+        "login",
+        "register",
+        "verify-code"
+      ],
+      "dataBoundary": "认证流程ID、挑战和返回意图连续；验证码等秘密不写长期个人记忆。游客空间到账号空间的关系有记录；认证凭据、资料归属、本次外发范围分别处理。认领本机资料不能被表述为已云备份。",
+      "permissions": "认证前无需已有账号；验证按实际用途绑定，不复用错用途凭据。",
+      "openQuestions": "身份方式、注册同意流程、年龄适用、验证码服务、资料认领或复制方式及同名冲突规则待定。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/decisions.json D08；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由争议裁决 D08；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "真实认证方式与服务可用；资料衔接需能识别本机资料原归属，不以云同步为前提。",
+      "dependencies": [
+        {
+          "id": "BR-001",
+          "when": "真实注册登录与身份验证时"
+        },
+        {
+          "id": "NFR-012",
+          "when": "认证返回并选择沿用本机资料时"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "游客完成测评后注册，选择沿用单份报告",
+          "expected": "只沿用本人选择的对象并标明归属；实际发AI前仍确认依据，不上传全历史"
+        },
+        {
+          "scenario": "认证完成但取消资料沿用或原任务",
+          "expected": "保留原草稿与游客资料，不发送、不付款、不合并"
+        },
+        {
+          "scenario": "账号B登录时发现设备内A的记录",
+          "expected": "不向B提供认领A资料的入口"
+        }
+      ],
+      "valueEvidence": "试用者不必重做游客测评就能明确选择可沿用资料，并能分辨登录、认领与外发三个动作；观察取消是否令人担心资料丢失。"
+    },
+    {
+      "id": "FR-038",
+      "module": "账号与个人",
+      "name": "账号恢复与安全状态",
+      "scenario": "用户失去登录方式或需要退出/换号。",
+      "requirement": "可查看当前账号和安全状态，提供与真实身份机制匹配的恢复路径；退出后的本地资料处理需说明，不悄悄丢弃或串账号。退出或切账号后，在途AI、同步和付款核验仍绑定发起账号，不把迟到结果写进新空间。同一账号重新认证可查询原任务；凭据失效后暂停新调用，不以恢复操作重新生成或购买。",
+      "acceptance": "收不到验证码时有有效下一步；换号/恢复显示当前处理状态；退出后AI不可继续用旧身份调用；其他空间资料不自动显示给新账号。A任务在B登录期间完成，B的页面、通知与本地索引不出现A私密内容；回A查询保留原requestId/orderId和实际状态，不重复扣次或下单。",
+      "phase": "助理闭环",
+      "confirmation": "用户明确基础账号管理方向；恢复机制为设计补充",
+      "pageIds": [
+        "account-recovery",
+        "account-security"
+      ],
+      "dataBoundary": "账号身份与本机数据空间分离；敏感恢复证据按最小需要提交。本机保留与可见性分别控制；退出不等于删除云数据，也不等于取消渠道已受理交易。系统备份恢复后的旧凭据不得自动被当作有效身份。",
+      "permissions": "恢复/换号需相应身份核验；查看帮助不需先登录。",
+      "openQuestions": "认证方式、恢复证据、退出后的本机保留策略、在途任务可取消范围与旧凭据恢复规则待定。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/refined-routes.json / pages[account-recovery,account-security]；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由收敛数据 / pages[account-recovery,account-security]；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "与选定身份方式匹配的恢复和失效机制；存在真实联网任务时同时建立固定发起主体及查询路径。",
+      "dependencies": [
+        {
+          "id": "BR-001",
+          "when": "真实账号恢复、退出与身份失效时"
+        },
+        {
+          "id": "NFR-012",
+          "when": "切账号、保留本机资料或接收迟到结果时"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "付款核验中由A切到B",
+          "expected": "交易继续归A；B不获得A的会员或订单详情，回A可查询原单"
+        },
+        {
+          "scenario": "退出后AI完成并发来通知",
+          "expected": "不在已退出或B的界面显示A内容；不能用旧身份发新请求"
+        },
+        {
+          "scenario": "从设备备份恢复了旧登录数据",
+          "expected": "核验实际会话有效性，不能因缓存存在直接取得在线权限"
+        }
+      ],
+      "valueEvidence": "试用者能安全换号并说明原账号任务在哪里找回，观察是否把退出误认为退款、删除或任务取消，尚未实测。"
+    },
+    {
+      "id": "FR-039",
+      "module": "账号与个人",
+      "name": "账号注销与范围明确的删除",
+      "scenario": "用户决定停止使用账号。",
+      "requirement": "清楚说明注销涉及账号、云资料、购买与本机副本的范围；保留核验、处理中、失败和完成状态，不以一个清缓存按钮冒充注销。",
+      "acceptance": "确认前看到不可逆影响和未完成交易处理说明；申请后可查询状态；本机/服务端/外部已发资料分别说明；注销完成不再能以旧身份调用AI。",
+      "phase": "助理闭环",
+      "confirmation": "账号/资料控制为用户明确方向；注销状态和流程设计补充",
+      "pageIds": [
+        "account-delete",
+        "account-security",
+        "privacy"
+      ],
+      "dataBoundary": "注销账号、删除云资料和清理本机不是同一动作；实际保留规则需与服务一致。",
+      "permissions": "敏感操作需相应身份核验；具体核验和法定处理规则待确认。",
+      "openQuestions": "注销范围、等待期、订单保留与第三方处理政策待定。",
+      "source": "design/page-atlas/review/route-refinement-20261001/refined-routes.json / pages[account-delete]；design/page-atlas/review/route-refinement-20261001/decisions.json D10；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "路由收敛数据 / pages[account-delete]；路由争议裁决 D10；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "账号注销真实服务及本机/云端/交易处理范围明确；如有未结交易先说明适用处理。",
+      "dependencies": [
+        {
+          "id": "BR-001",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        },
+        {
+          "id": "BR-006",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "申请成功但仍处理中",
+          "expected": "不显示全部删除完成"
+        },
+        {
+          "scenario": "中途失败",
+          "expected": "可查进度/未完成范围，不丢失处理凭据"
+        }
+      ],
+      "valueEvidence": "用户知道删了什么、尚未删什么以及剩余处理路径。"
+    },
+    {
+      "id": "FR-040",
+      "module": "外观与偏好",
+      "name": "阅读与助理表达偏好",
+      "scenario": "用户调整文字阅读和AI表达方式。",
+      "requirement": "短设置就地处理，区分字号/可访问性与助理语气；偏好不改变事实、得分或身份权限。",
+      "acceptance": "调整后相关界面响应且返回不丢设置；控制有默认/选中/禁用状态；减少动态可覆盖装饰动效；助理偏好不会篡改量表解释依据。",
+      "phase": "基础本地",
+      "confirmation": "用户明确统一成熟体验；具体阅读与表达设置为设计补充",
+      "pageIds": [
+        "settings",
+        "display-settings",
+        "ai-settings"
+      ],
+      "dataBoundary": "显示与表达偏好本地优先，是否账号同步待定。",
+      "permissions": "本地显示设置无需登录或AI额度；生成时才应用表达偏好。",
+      "openQuestions": "字号档位、对比方案与表达选项待设计收敛。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/decisions.json D10；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由争议裁决 D10；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "相关显示/阅读组件支持设置；助理表达偏好仅在实际生成时生效。",
+      "dependencies": [
+        {
+          "id": "NFR-006",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "字号变大或输入法打开",
+          "expected": "必要操作可见可触达"
+        },
+        {
+          "scenario": "减少动态开启",
+          "expected": "装饰动画停止，信息仍完整"
+        }
+      ],
+      "valueEvidence": "用户能以舒适方式读懂并完成任务，设置不会改测评事实。"
+    },
+    {
+      "id": "FR-041",
+      "module": "外观与偏好",
+      "name": "主题切换与潮汐呼吸",
+      "scenario": "用户选择喜欢的整体氛围。",
+      "requirement": "采用可切换的四字多色渐变主题，尽量亮色，整体年轻且有明确潮汐呼吸感；所有页面遵循同一主题角色，提供减少动态。",
+      "acceptance": "切换可预览且各页文字/按钮/图形保持可读；主题不只替换一个纯色；动效停止时内容完整；两套设计独立维护，不未经指示全量互相覆盖。",
+      "phase": "基础本地",
+      "confirmation": "用户明确主题、多色亮色、动态呼吸方向；配色与时长参数未确认",
+      "pageIds": [
+        "theme",
+        "display-settings",
+        "home"
+      ],
+      "dataBoundary": "主题和动效偏好本地保存；不记录为性格证据。",
+      "permissions": "本地外观不需账号或AI权限。",
+      "openQuestions": "最终主题集合、动效参数、设备性能与可访问性验收阈值待定。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；PROJECT_CONTEXT.md / 两套设计的长期分工；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；项目愿景与事实 / 两套设计的长期分工；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "统一主题角色与动效控制就绪；按目标设备/减少动态条件验证后逐批推广。",
+      "dependencies": [
+        {
+          "id": "NFR-004",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        },
+        {
+          "id": "NFR-005",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "切主题后打开错误/弹层",
+          "expected": "文字与操作仍可辨认"
+        },
+        {
+          "scenario": "关闭动态",
+          "expected": "完整内容与反馈保留，操作无需等动画"
+        }
+      ],
+      "valueEvidence": "用户能选喜欢的明亮多色氛围，同时顺畅阅读和作答。"
+    },
+    {
+      "id": "FR-042",
+      "module": "外观与偏好",
+      "name": "个人形象切换与编辑预览",
+      "scenario": "用户选择代表自己的卡通形象。",
+      "requirement": "首页保留人物方向，不使用小安机器人；可切换形象并预览，捏脸/部件组合按成熟可用方案再确定。",
+      "acceptance": "形象选择可保存与还原；离开未保存编辑有明确处理；预览和首页一致；外貌不改变得分、画像和AI对人格的判断。",
+      "phase": "基础本地",
+      "confirmation": "用户明确形象保留/可切换研究方向；捏脸与素材库为条件能力",
+      "pageIds": [
+        "avatar",
+        "avatar-editor",
+        "home"
+      ],
+      "dataBoundary": "外观配置与心理资料隔离；本地素材授权需可追溯。",
+      "permissions": "本地选择无需AI权限；相机/相册仅在实际启用时申请。",
+      "openQuestions": "角色、素材许可、二维部件库与首批编辑范围待定。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/decisions.json D10；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由争议裁决 D10；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "有授权可用形象素材与可保存配置；部件编辑仅在方案成立时开放。",
+      "dependencies": [
+        {
+          "id": "NFR-004",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "未保存就离开",
+          "expected": "能辨认保存或放弃结果"
+        },
+        {
+          "scenario": "换形象后查看画像",
+          "expected": "心理数据不因外观变化"
+        }
+      ],
+      "valueEvidence": "首页形象符合个人偏好，预览与保存一致，外貌不被当人格证据。"
+    },
+    {
+      "id": "FR-043",
+      "module": "通知与支持",
+      "name": "服务消息与通知偏好",
+      "scenario": "用户查看服务变化、反馈回复或已选择的提醒。",
+      "requirement": "应用内消息按真实对象组织，短详情原位展开；通知类别可管理，不把所有营销和服务消息默认等价。",
+      "acceptance": "消息状态可辨认；点击进入对应订单/反馈/行动或解释对象缺失；返回保留位置；关闭某类别后不继续发送同类可选通知。",
+      "phase": "按需扩展",
+      "confirmation": "基础服务配套设计补充；系统通知条件启用",
+      "pageIds": [
+        "notifications",
+        "notification-detail",
+        "notification-settings"
+      ],
+      "dataBoundary": "消息引用真实对象和时间；本地未读状态与服务端事实分开。",
+      "permissions": "访问本人消息需匹配账号或本机空间；系统通知按需授权。",
+      "openQuestions": "消息渠道、类别默认值与留存期待定。",
+      "source": "design/page-atlas/review/route-refinement-20261001/refined-routes.json / pages[notifications,notification-detail,notification-settings]；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "路由收敛数据 / pages[notifications,notification-detail,notification-settings]；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "有真实消息来源和对象；仅在需要时启用独立消息组织，通知按平台权限。",
+      "dependencies": [
+        {
+          "id": "BR-005",
+          "when": "接入服务消息/反馈通知时；本机通知按来源单独判断"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "点消息对象已缺失",
+          "expected": "说明缺失，不进入错误订单或行动"
+        },
+        {
+          "scenario": "关闭可选通知类别",
+          "expected": "后续不再发送该类别"
+        }
+      ],
+      "valueEvidence": "用户能知道与自己有关的处理进展并找到对应任务，免受无关消息打扰。"
+    },
+    {
+      "id": "FR-044",
+      "module": "通知与支持",
+      "name": "用途说明、系统权限与协议阅读",
+      "scenario": "用户想了解资料用途或决定是否授予权限。",
+      "requirement": "隐私说明、服务协议与权限用途可独立阅读；系统权限只在相关能力需要时申请；拒绝无关权限不阻断本地测评。",
+      "acceptance": "用户能辨认本机/服务端/模型分别处理什么；长说明有阅读空间；拒绝权限出现有效替代路径；设计草案不冒充正式生效法律文本。",
+      "phase": "持续适用",
+      "confirmation": "用户明确轻联网及个人控制目标；协议与权限设计配套，非法律结论",
+      "pageIds": [
+        "privacy",
+        "privacy-policy",
+        "terms",
+        "permission-settings"
+      ],
+      "dataBoundary": "实际数据流与说明一致；可选权限不推导为全部资料可发送。",
+      "permissions": "权限按平台最小能力请求；阅读说明不要求先同意或登录。",
+      "openQuestions": "真实服务商、数据类别、保留、法域和正式文本待确定。",
+      "source": "PROJECT_CONTEXT.md / 已确认的最终愿景 6/7；design/page-atlas/review/route-refinement-20261001/refined-routes.json / pages[privacy,privacy-policy,terms,permission-settings]；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 已确认的最终愿景 6/7；路由收敛数据 / pages[privacy,privacy-policy,terms,permission-settings]；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "真实数据流、权限用途与已接入服务可解释；正式文本随实际方案落实。",
+      "dependencies": [
+        {
+          "id": "NFR-012",
+          "when": "对应能力启用时同步满足；不是要求所有关联页面先独立开发"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "拒绝无关系统权限",
+          "expected": "本地测评仍可用"
+        },
+        {
+          "scenario": "不同意可选外发",
+          "expected": "对应AI未发送，本人本地记录保留"
+        }
+      ],
+      "valueEvidence": "用户在作决定前能理解资料去哪里、为什么需要，以及拒绝的实际影响。"
+    },
+    {
+      "id": "FR-045",
+      "module": "数据管理",
+      "name": "资料总览与选择导出",
+      "scenario": "用户想掌握或带走自己的资料。",
+      "requirement": "按答案、报告、对话、记忆、观察等类别看保存位置与范围；可选择导出并预览私密内容，不把导出默认当同步。显示资料仅在本机、已有用户导出副本、应用云端或可能受系统备份管理的实际边界；导出空间不足、写入中断或目标不可用不能报告成功。设计建议会员到期/退款不阻止本人读取和导出已保存个人资料；付费内容包的再分发权限另行判断。",
+      "acceptance": "选择范围与输出类别一致；明确文件包含哪些私人资料；空类别不虚报成功；取消不改变原资料；导出可标识版本和归属。导出失败保留原资料，说明是否有不完整文件及后续处理；只保存到本机不称已完成异地备份；切账号时导出范围重新核对，不能沿用另一账号的选中项。",
+      "phase": "基础本地",
+      "confirmation": "用户明确数据控制与本地优先；导出交付形式设计建议",
+      "pageIds": [
+        "data-center",
+        "data-export"
+      ],
+      "dataBoundary": "导出包含明确快照与格式版本；不导出认证秘密；导出文件由用户掌握。导出对象归属与格式版本随包可识别；报告/个人记录与受许可题包分别列范围，不因导出个人数据默认复制全部题库。",
+      "permissions": "本人主动导出；敏感范围按实际账号与设备保护措施核验。",
+      "openQuestions": "格式、加密选项、导出范围、空间预估与大小限制待定；既有个人资料到期可导出为设计建议，付费内容许可另定。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/decisions.json D10；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由争议裁决 D10；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "有可读的本人资料及明确导出格式/范围；确认目标位置、可用空间和真实写入结果。",
+      "dependencies": [
+        {
+          "id": "NFR-012",
+          "when": "选择身份空间和私人资料范围时"
+        },
+        {
+          "id": "NFR-014",
+          "when": "生成及保存导出文件时"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "导出中目标空间不足",
+          "expected": "不写导出成功，不删除原资料，说明可重试方式及不完整文件状态"
+        },
+        {
+          "scenario": "会员到期后导出既有报告与记忆",
+          "expected": "按当前设计建议允许本人导出已保存个人资料，新AI权限单独判断"
+        },
+        {
+          "scenario": "A选好资料后切到B再触发导出",
+          "expected": "撤销或重新校验选择，不导出A资料给B"
+        }
+      ],
+      "valueEvidence": "试用者能带走所选资料并说清文件包含什么、保存在哪；检查是否把本机副本误认为换机可恢复的备份，未开展试用。"
+    },
+    {
+      "id": "FR-046",
+      "module": "数据管理",
+      "name": "备份导入与冲突处理",
+      "scenario": "用户从已有备份恢复或合并资料。",
+      "requirement": "导入先核对来源、版本和归属，再预览变化；发生冲突才处理，保留双方候选；导入启用时必要冲突处理同批成立。导入前检查目标空间和实际归属，空间不足或格式迁移中断时保护原数据；先形成可核对恢复结果，再切换到新数据，不能以导入旧备份恢复过期在线身份或支付权限。",
+      "acceptance": "取消/失败不覆盖原资料；不兼容格式有解释；可知道导入成功/跳过/冲突项；冲突解决后状态真实变化；本地导入不要求先有云同步。导入失败或升级迁移中断仍能识别原资料及恢复范围；部分成功必须逐类说明，不能全称成功；恢复的过期/停用资料不能自动重新成为AI有效记忆。",
+      "phase": "按需扩展",
+      "confirmation": "资料可迁移方向明确；导入与冲突具体能力为条件设计补充",
+      "pageIds": [
+        "data-import",
+        "sync-conflicts",
+        "data-center"
+      ],
+      "dataBoundary": "导入事务、原资料与冲突候选隔离；匹配对象ID及格式版本，不依标题覆盖。离线备份与在线身份分离；恢复来源版本、时间及对象关系可核对；导入不自带云同步授权或有效认证会话。",
+      "permissions": "本人选择文件与归属，陌生账号资料不自动并入。",
+      "openQuestions": "支持格式、版本迁移、加密、合并优先级、部分恢复策略和目标空间不足处理细节待定。",
+      "source": "design/page-atlas/review/route-refinement-20261001/refined-routes.json / pages[data-import,sync-conflicts]；design/page-atlas/review/route-refinement-20261001/decisions.json D10/J06；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "路由收敛数据 / pages[data-import,sync-conflicts]；路由争议裁决 D10/J06；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "格式与归属可核验，具备保持原数据及处理真实冲突的能力；不要求先有云同步。",
+      "dependencies": [
+        {
+          "id": "NFR-010",
+          "when": "读取不同格式/内容版本的备份时"
+        },
+        {
+          "id": "NFR-014",
+          "when": "执行导入和本地版本迁移时"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "导入或迁移进行一半进程中断",
+          "expected": "原资料仍可识别；下次能说明完成范围和恢复路径，不静默使用半成品"
+        },
+        {
+          "scenario": "旧备份含已停用记忆与旧登录凭据",
+          "expected": "不直接恢复在线权限；说明冲突，不自动激活已知停用资料"
+        },
+        {
+          "scenario": "发现备份属于另一账号",
+          "expected": "阻止静默并入，说明归属不匹配并允许取消"
+        }
+      ],
+      "valueEvidence": "用户能分辨哪些资料已恢复、哪些未恢复，并找到原有记录；观察是否把导入成功误认为恢复所有账号权限，尚未验证。"
+    },
+    {
+      "id": "FR-047",
+      "module": "数据管理",
+      "name": "备份和多设备同步边界",
+      "scenario": "用户担心丢机或希望换设备继续。",
+      "requirement": "清楚区分本地备份、云备份和多设备同步；显示实际保存/上传状态；同步作为后续独立能力，不成为本地作答的前提。应用云同步与操作系统自动备份/设备迁移分开声明和控制，分别明确私人数据库、可重下资源及认证信息的范围。首次使用、重装、换机、丢机及升级失败时，按真实备份状态说明可找回内容，不承诺本机独有资料永久可恢复。",
+      "acceptance": "只完成本机保存时不写已同步；同步停用不阻断本地核心；跨设备冲突有来源/版本，不静默覆盖；未启用能力明确是方案。系统备份策略与实际纳入/排除范围对应；恢复后不自动启用旧账号在线权限或未经确认的AI/付款请求；只存在同机副本时明确卸载、设备损坏可能失去资料。",
+      "phase": "按需扩展",
+      "confirmation": "用户明确长期多端与资料控制方向；同步服务未定",
+      "pageIds": [
+        "backup-sync",
+        "sync-conflicts",
+        "data-center"
+      ],
+      "dataBoundary": "本地为核心资料驻留方向；上云类别、范围和传输策略需明确授权。系统备份能否外发及设备迁移行为按实际平台配置核对；应用声明“本地优先”不能替代系统备份范围说明或用户选择。",
+      "permissions": "云能力需真实账号与服务权益；不默认把全部记忆外发。",
+      "openQuestions": "是否提供云同步、服务、容量、费用、跨端兼容、平台系统备份/设备迁移纳入范围及相应开关待定。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/refined-routes.json / pages[backup-sync]；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由收敛数据 / pages[backup-sync]；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "保存真实资料前明确本机与系统备份边界；应用云能力仅在服务、账户、授权和恢复策略成立时启用。",
+      "dependencies": [
+        {
+          "id": "NFR-012",
+          "when": "确定系统备份或云端资料范围时"
+        },
+        {
+          "id": "FR-046",
+          "when": "提供备份恢复或同步冲突合并时"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "未导出也未启用有效备份便卸载或损坏设备",
+          "expected": "事前说明本机独有资料可能不可恢复，重装后不虚报已找回"
+        },
+        {
+          "scenario": "系统自动恢复了私人数据库和旧任务状态",
+          "expected": "按已定范围与身份核验展示，不自动发送旧AI请求或付款"
+        },
+        {
+          "scenario": "用户关闭应用云同步",
+          "expected": "本地作答仍可用；系统备份状态单独说明，不能声称因此所有外发均已停用"
+        }
+      ],
+      "valueEvidence": "试用者能说清换机后哪些资料可找回、依靠哪份副本；观察备份信心是否与实际恢复范围一致，恢复演练尚未执行。"
+    },
+    {
+      "id": "FR-048",
+      "module": "数据管理",
+      "name": "按范围清理本机资料",
+      "scenario": "用户释放空间或删除某类私密记录。",
+      "requirement": "先选择对象与范围，区分可重下内容包、未完成答案、报告、记忆和缓存；清本机不冒充删除云端或注销。空间不足时优先说明可安全释放的缓存或可重下资源，不诱导用户删除唯一的答案/报告/记忆；删除前说明备份和关联引用的实际状态，清理行为不得导致后台迟到写入又恢复已明确删除的对象。",
+      "acceptance": "确认页写出实际会删内容和不可恢复后果；取消不变化；完成后被清对象不继续显示可读取；未选类别仍完整。清缓存后已保存私人资料完整；删除关联资料后旧引用显示来源缺失或适用状态，而非伪造内容；因空间满尚未保存的输入与可删缓存分开提示。",
+      "phase": "基础本地",
+      "confirmation": "用户明确个人资料控制方向；分类清理为设计补充",
+      "pageIds": [
+        "clear-data",
+        "data-center",
+        "content-library"
+      ],
+      "dataBoundary": "清理作用域明确，关联引用缺失可解释；不顺带删除其它账号空间。系统备份、应用云端与本机删除的传播边界分别说明；本人未授权的其他空间及云端不在本机清理范围。",
+      "permissions": "本人显式确认；敏感删除按实际身份/设备保护策略处理。",
+      "openQuestions": "级联引用、备份排除、恢复窗口、删除后同步传播及迟到写入处理机制待定。",
+      "source": "design/page-atlas/review/route-refinement-20261001/refined-routes.json / pages[clear-data]；design/page-atlas/review/route-refinement-20261001/decisions.json D10；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "路由收敛数据 / pages[clear-data]；路由争议裁决 D10；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "可区分资源包、缓存和不可重建的个人记录，并准确估计实际清理范围；云端传播只在相应服务启用后处理。",
+      "dependencies": [
+        {
+          "id": "NFR-014",
+          "when": "执行清理和确认结果时"
+        },
+        {
+          "id": "NFR-012",
+          "when": "处理多个账号空间或云端边界时"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "空间不足时选择仅清缓存",
+          "expected": "释放可清资源，私人答卷/报告/记忆仍可读取"
+        },
+        {
+          "scenario": "删除资料时旧AI任务随后返回",
+          "expected": "不得以迟到结果重新创建被明确删除或停用的源对象"
+        },
+        {
+          "scenario": "本机清理完成但云端/系统备份仍可能有副本",
+          "expected": "分别说明范围，不称已从所有位置删除"
+        }
+      ],
+      "valueEvidence": "用户能释放空间而不误删唯一私人资料，并理解删除作用范围；观察选择与预期是否一致，未进行实测。"
+    },
+    {
+      "id": "FR-049",
+      "module": "通知与支持",
+      "name": "使用帮助与可追踪反馈",
+      "scenario": "用户遇到问题、要知道版本或联系支持。",
+      "requirement": "帮助可查具体操作说明；反馈保留问题对象和用户选择的附件；若有在线受理则可追踪回复，未接入不假称已提交。",
+      "acceptance": "搜索有结果/无结果反馈；帮助回原任务；提交前显示附带信息；反馈详情对应同一反馈ID和状态；取消不外发资料。",
+      "phase": "基础本地",
+      "confirmation": "用户明确基础管理配套与持续交付目标；支持实现形式为设计补充",
+      "pageIds": [
+        "help",
+        "help-article",
+        "feedback",
+        "feedback-detail",
+        "about"
+      ],
+      "dataBoundary": "默认最小诊断信息；对话/答案/记忆不自动打包进日志。",
+      "permissions": "查看帮助可离线；向支持发送资料由本人明确选择。",
+      "openQuestions": "受理渠道、回复时效、附件范围与本地反馈草稿待定。",
+      "source": "PROJECT_CONTEXT.md / 已确认的最终愿景 12；design/page-atlas/review/route-refinement-20261001/refined-routes.json / pages[help,feedback,about]；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 已确认的最终愿景 12；路由收敛数据 / pages[help,feedback,about]；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "帮助内容与真实受理方式可用；只附本人选择的诊断信息。",
+      "dependencies": [
+        {
+          "id": "BR-005",
+          "when": "在线提交与受理反馈启用时；只读本地帮助不依赖"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "离线提交反馈",
+          "expected": "保留草稿并说明未发送"
+        },
+        {
+          "scenario": "上传附件失败",
+          "expected": "不宣称已提交全部资料"
+        }
+      ],
+      "valueEvidence": "用户遇到问题能获得具体出路，并查回同一反馈的处理结果。"
+    },
+    {
+      "id": "FR-050",
+      "module": "会员与交易",
+      "name": "会员方案与权益理解",
+      "scenario": "用户了解免费和会员差异。",
+      "requirement": "清楚展示已确认免费规则与候选会员范围，方案只选择一次，详情就地解释；未定价格/额度不能装成可正式售卖。会员到期、退款、再次购买对新服务和已有个人资料分别说明；设计建议已有本人报告、聊天、记忆继续可读可导出。已有会员再次购买时首期明确采用延期/替换/不支持中的简单规则，不默认复杂折算；未定案前不开放存在歧义的重叠售卖。",
+      "acceptance": "未登录也能了解方案；当前权益、候选方案与未定事项明确区分；无需先有orderId；选择周期后购买确认沿用同一方案。付款前能看到新方案生效时间、到期时间和对现有权益的影响；同一规则贯穿方案说明、确认与订单；到期不会将旧个人资料误列为需要续费才能读取。",
+      "phase": "商业启用时",
+      "confirmation": "用户明确会员/充值能力；价格、额度与具体权益未确认",
+      "pageIds": [
+        "membership",
+        "plan-detail",
+        "ai-quota"
+      ],
+      "dataBoundary": "权益由服务端事实裁决；本地说明需版本化，与实际售卖一致。权益说明保留规则版本；既有个人资料与新生成服务、付费内容包许可分开定义。",
+      "permissions": "了解不需购买；实际开通需身份和可用售卖方案。",
+      "openQuestions": "价格、会员AI额度、周期、试用、商业模式、重叠购买规则及付费题包权限待定；本人旧资料可读可导出为设计建议。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/decisions.json D09；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由争议裁决 D09；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "阅读候选方案可先提供；正式售卖需定案价格、权益、有效期和重叠购买处理，并具备配套交易服务。",
+      "dependencies": [
+        {
+          "id": "FR-023",
+          "when": "展示免费与会员AI差异时"
+        },
+        {
+          "id": "BR-003",
+          "when": "提供正式可购买方案与生效承诺时"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "月会员尚未到期时选择年度",
+          "expected": "明确实际延续/替换/不支持方式和生效时间；规则未定不进入模糊收费"
+        },
+        {
+          "scenario": "会员到期后打开已保存聊天或报告",
+          "expected": "按设计建议继续本人读取，新增AI另查当前权益"
+        },
+        {
+          "scenario": "方案说明与服务端有效方案版本不同",
+          "expected": "刷新并重新核对实质差异，不按过期金额继续确认"
+        }
+      ],
+      "valueEvidence": "用户不联系客服也能说清自己花钱得到什么、何时生效、到期后保留什么；未定价格不用于声称购买意愿已验证。"
+    },
+    {
+      "id": "FR-051",
+      "module": "会员与交易",
+      "name": "一次购买确认与支付返回",
+      "scenario": "用户决定付费并返回原分析或对话。",
+      "requirement": "付款前一次核对方案、金额、身份和渠道；付款、核验、权益生效为不同状态，在同一订单承载可恢复结果，返回原草稿不自动调用AI。订单绑定发起账号、所选方案版本与适用重叠规则；已有会员再次购买前展示实际权益区间，不替用户默选复杂折算。切账号或支付应用返回时只恢复原订单核验，不把订单或权益归给当前另一个账号。",
+      "acceptance": "所选年度方案在确认、结果和订单保持一致；重复点击不重复下单；状态未知不当未付款；付款成功权益待生效可查询；取消返回原任务不丢输入。A付款后切到B，B不获得A的订单/权益；回A查询原单不再次下单；同一付款回调重复到达不重复延长会员；原方案、生效区间和已有权益影响在确认与结果中一致。",
+      "phase": "商业启用时",
+      "confirmation": "用户明确支付设计；渠道与交易状态细节为条件设计补充",
+      "pageIds": [
+        "checkout",
+        "payment-result",
+        "order-detail",
+        "membership"
+      ],
+      "dataBoundary": "服务端处理订单、渠道事实和权益；本地演示不是真实收款，回调不能只信客户端。付款意图、orderId、账号和方案快照稳定关联；渠道处理中的订单不能因当前登录变化改归属。",
+      "permissions": "真实购买需已验证身份和可用渠道；明确金额后本人触发。",
+      "openQuestions": "渠道、币种、支付形态、权益生效策略、延期/替换/不支持的重叠规则以及同渠道重复提交处理待定。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/decisions.json D09/J05；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由争议裁决 D09/J05；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "正式方案、购买主体、金额和适用重叠规则已明确，订单核验、权益及适用售后服务同批可用。",
+      "dependencies": [
+        {
+          "id": "FR-050",
+          "when": "选择可正式售卖的方案时"
+        },
+        {
+          "id": "FR-037",
+          "when": "确认实际购买身份时"
+        },
+        {
+          "id": "BR-003",
+          "when": "实际创建订单、付款、核验和权益发放时"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "A支付中切到B后收到渠道返回",
+          "expected": "仅核对原A订单，不向B展示私密详情或发权益；A认证后可查"
+        },
+        {
+          "scenario": "年度订单重复收到成功回调",
+          "expected": "保持同一订单与一次权益变更，不重复延长"
+        },
+        {
+          "scenario": "当前已有月会员，新购买规则尚未确定",
+          "expected": "停止有歧义的付款确认并说明，保留选择，不先收款再解释"
+        }
+      ],
+      "valueEvidence": "试用者从付款返回后能确认买的是哪个方案、归哪个账号、何时生效，并能回原草稿；真实支付尚未验收。"
+    },
+    {
+      "id": "FR-052",
+      "module": "会员与交易",
+      "name": "订单查询与交易一致性",
+      "scenario": "用户核对某一笔开通、续费或退款。",
+      "requirement": "订单列表按实际状态筛选，详情贯穿订单、支付、权益和关联申请；查询旧单不依赖当前方案仍在销售。订单展示发起身份、原方案及权益生效区间的事实快照；与当前销售页面或登录切换脱钩。原订单核验迟到时更新原订单，不追加新购买；到期、退款或停售后仍能按本人身份核对历史事实。",
+      "acceptance": "任一订单打开相同orderId；筛选真实影响结果；已支付订单不显示取消未付款；查询不重新购买或消耗AI次数；异常可带订单对象求助。同一订单在购买结果、列表、详情与售后保持方案和期限一致；账号B无法凭A残留orderId读取其订单；重复核验不触发付款或权益再次发放。",
+      "phase": "商业启用时",
+      "confirmation": "用户明确订单管理配套；具体查询设计建议",
+      "pageIds": [
+        "orders",
+        "order-detail",
+        "payment-result"
+      ],
+      "dataBoundary": "交易事实保留原方案快照与渠道标识；展示状态与服务端核验一致。原订单与后续权益/退款事件关联但不互相覆盖；已停卖方案快照可用于历史解释，不代表当前可再次购买。",
+      "permissions": "本人只能查本账号订单；停售不阻断已有订单查询。",
+      "openQuestions": "订单留存、状态刷新、对账、支持凭证和权益区间展示粒度待定。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/decisions.json D09/J05；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由争议裁决 D09/J05；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "有真实订单身份、核验及权限边界；查看已有订单不要求当前方案仍销售或还有AI额度。",
+      "dependencies": [
+        {
+          "id": "BR-003",
+          "when": "读取订单、付款、权益和售后事实时"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "A订单核验结果在B登录后返回",
+          "expected": "不更新B的可见订单；原A订单仍可在重新认证后查询"
+        },
+        {
+          "scenario": "旧年度方案已停售",
+          "expected": "原订单仍展示原价格与区间，不替换成当前月度方案"
+        },
+        {
+          "scenario": "网络中断后重复刷新已支付订单",
+          "expected": "仅重新查询，不再次付款或发放权益"
+        }
+      ],
+      "valueEvidence": "用户能用一条订单记录解释某次权益变化与付款事实；观察是否误以为刷新将再次收费，真实交易验证待后续。"
+    },
+    {
+      "id": "FR-053",
+      "module": "会员与交易",
+      "name": "退款申请与到账进度",
+      "scenario": "用户需要按适用规则申请退款。",
+      "requirement": "先看本订单适用条件与影响，再提交申请；申请、受理、执行与到账分别表达，不能将申请成功称退款到账。退款对权益和在途请求的影响在申请前说明；设计建议退款不删除或锁住已保存的本人报告、聊天、记忆，新AI请求按退款后的实际权益执行。原任务结算依据发起前公开规则，不因退款状态变化重复扣次。",
+      "acceptance": "申请关联原orderId；提交重复有明确处理；付款事实不因申请被改为未支付；能查状态与失败原因；停售不阻断已有单适用退款路径。退款后旧个人资料仍按设计建议可读可导出；权益回收时间与退款状态区分；账号切换不把退款申请或到账消息归给另一账号。",
+      "phase": "商业启用时",
+      "confirmation": "商业闭环条件能力；具体退款资格与规则未确认",
+      "pageIds": [
+        "refund-request",
+        "refund-status",
+        "order-detail"
+      ],
+      "dataBoundary": "退款事实、原付款和权益变化分开记录；后台/渠道结果决定实际状态。商业权益变化与本人既有资料的存取分离；保留适用退款规则版本和原订单事实，不篡改历史付款。",
+      "permissions": "本人经身份核验按适用规则发起；无资格时说明规则与支持路径。",
+      "openQuestions": "退款条件、金额、时限、渠道、权益回收及在途结算规则待定；既有个人资料持续可读可导出为设计建议，付费题包许可另定。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/decisions.json D09；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由争议裁决 D09；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "实际收费前确定适用退款路径、核验和权益影响；不把申请页存在当成真实退款服务。",
+      "dependencies": [
+        {
+          "id": "BR-003",
+          "when": "核验原付款、退款资格、执行及权益调整时"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "退款已受理但尚未到账",
+          "expected": "显示受理和待到账事实，不称退款完成"
+        },
+        {
+          "scenario": "退款造成会员失效后打开旧资料",
+          "expected": "按设计建议允许本人读与导出；新增AI按当前权益判断"
+        },
+        {
+          "scenario": "A提交退款后切B收到处理结果",
+          "expected": "结果归A订单；B界面和通知不泄露A申请内容"
+        }
+      ],
+      "valueEvidence": "用户能说清退款当前在哪一步、多久或通过何渠道继续核对，以及哪些权益会改变；规则未定不声称可退款。"
+    },
+    {
+      "id": "FR-054",
+      "module": "会员与交易",
+      "name": "已有购买恢复与续费管理",
+      "scenario": "用户重装/换设备或管理未来续费。",
+      "requirement": "按渠道能力核对已有购买，恢复不重复购买；若采用订阅，提供到期、续费和取消路径，不预设会员必然自动续费。恢复购买只恢复经核验的原权益，不重复延长或当作新付费；明确恢复会员不等于恢复本机丢失的报告/聊天。续费或再次购买对现有有效期按已定简单规则表达，到期后的新服务权限与旧资料访问分开。",
+      "acceptance": "恢复先核验身份并定位已有权益；原方案停售仍可核对；显示当前生效范围；订阅取消说明何时失效且不误写即时退款。重复恢复同一凭据保持相同权益事实；重装后无备份的本机资料不能因恢复会员被宣称已找回；取消续费不会自动发起退款或立即删除已有资料。",
+      "phase": "商业启用时",
+      "confirmation": "用户明确会员方向；购买恢复和续费属于随渠道启用的条件能力",
+      "pageIds": [
+        "purchase-restore",
+        "subscription-settings",
+        "membership"
+      ],
+      "dataBoundary": "服务端/渠道购买凭据与账号关联；恢复和新购买是不同动作。购买凭据只能在核验归属后关联账号；会员恢复、个人数据恢复和跨平台互认各自独立，不以一种成功代替全部成功。",
+      "permissions": "本人验证身份后恢复；订阅管理需实际渠道支持。",
+      "openQuestions": "是否订阅、跨平台权益互认、恢复凭据、取消规则和重叠购买规则待定；既有个人资料到期可读可导出为设计建议。",
+      "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/decisions.json D09；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实 / 当前必须沿用的事实；路由争议裁决 D09；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "实际渠道支持已有购买核验；订阅管理仅随真实订阅启用，数据恢复另依赖有效个人备份。",
+      "dependencies": [
+        {
+          "id": "BR-003",
+          "when": "恢复已有购买或管理真实续费时"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "同一购买凭据连续点恢复",
+          "expected": "核对同一权益，不重复发放或延长"
+        },
+        {
+          "scenario": "重装后恢复了会员但本机报告没有备份",
+          "expected": "如实说明会员已恢复、报告无法据此恢复"
+        },
+        {
+          "scenario": "取消自动续费",
+          "expected": "说明原有效期和未来扣款变化，不写成即时退款或自动删除旧资料"
+        }
+      ],
+      "valueEvidence": "用户能区分恢复权益与恢复资料，并理解取消续费何时生效；观察是否因术语含糊产生重复购买，尚未验证。"
+    },
+    {
+      "id": "FR-055",
+      "module": "数据管理",
+      "name": "本人资料跨类别本地检索",
+      "scenario": "历史资料积累后，用户记得一个话题却不记得出现在报告、聊天还是记忆中。",
+      "requirement": "按本人当前资料空间在本机检索报告、对话、记忆等已保存资料，给出来源类别与上下文片段并回到原对象；沿现有“我的数据”等入口提供就地搜索，不新增第五TAB或独立资料门户。当前有效资料与已停用/历史资料的展示范围分别说明，命中不自动将内容重新用于AI。",
+      "acceptance": "相同关键词可定位不同类别的真实对象并保留查询返回位置；无结果、索引未完成和无权限分别表达；账号切换、删除后不残留其他账号或已删除正文片段；打开命中结果不触发AI或消耗次数。",
+      "phase": "按需扩展",
+      "confirmation": "用户授权纳入候选；具体实施、索引方式及首版未确认",
+      "pageIds": [
+        "data-center",
+        "records",
+        "conversation-list",
+        "memory-list"
+      ],
+      "dataBoundary": "默认本地索引按资料空间隔离；不为搜索上传全部私密正文；索引随删除和归属变化更新，短期未完成时如实说明；云检索另行决定。",
+      "permissions": "本人只能搜当前可访问空间；游客可搜本机游客资料；无AI或会员额度也不因此限制已保存本人资料的基础检索。",
+      "openQuestions": "真实资料量触发条件、首批检索类别、全文/关键词方式、索引资源预算和历史停用资料筛选方式待定。",
+      "source": "design/requirements/README.md：2026-10-01复核/可选扩展与暂不增加的内容；当前用户授权补充；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "矩阵补充说明：2026-10-01复核/可选扩展与暂不增加的内容；当前用户授权补充；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "仅在已有资料积累造成查找困难且可以可靠按归属更新本地索引时启用；复用既有入口与原对象阅读，不要求云同步。",
+      "dependencies": [
+        {
+          "id": "NFR-012",
+          "when": "跨类别建立或查询本人资料索引时"
+        },
+        {
+          "id": "NFR-013",
+          "when": "打开原对象并返回搜索位置时"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "A搜索后切到B",
+          "expected": "清除A的结果与片段，重新在B可访问空间查询"
+        },
+        {
+          "scenario": "对象已删除但索引尚未更新",
+          "expected": "不得继续泄露旧正文；清除无效命中并说明结果不可用"
+        },
+        {
+          "scenario": "索引尚未完成或资料未在本机",
+          "expected": "如实说明当前范围，不用无结果误称全部资料都没有相关内容"
+        }
+      ],
+      "valueEvidence": "资料查找试用中观察用户是否能找到记得的话题并辨认来源，记录是否仍需在多个类别反复翻找；不采集私密搜索正文来证明价值，尚未试用。"
+    },
+    {
+      "id": "FR-056",
+      "module": "账号与个人",
+      "name": "设备私密查看保护",
+      "scenario": "用户临时把手机交给他人，或担心最近任务预览露出私人报告和对话。",
+      "requirement": "在现有隐私/设置中提供按实际平台可行性选定的私密查看选项，例如最近任务预览遮挡或应用重新进入时的设备认证；说明保护覆盖范围和限制。它独立于服务端登录，不替代账号隔离、资料加密等必要保护；不预设另建一套密码或新安全中心页面。",
+      "acceptance": "开启的保护在声明场景真实生效；用户能理解启用/关闭及合理恢复路径；取消设备认证不暴露正文也不删除资料；离线或设备认证不可用时状态与可行恢复方式明确，不声称能够阻止所有截图或系统级访问。",
+      "phase": "按需扩展",
+      "confirmation": "用户授权纳入候选；具体保护方式、实施及首版未确认",
+      "pageIds": [
+        "privacy",
+        "settings",
+        "account-security"
+      ],
+      "dataBoundary": "优先复用设备已有保护能力；不保存生物识别原始数据或另造认证秘密；隐私显示状态不能被误当作服务器权限。平台截图、通知、最近任务各自覆盖范围需核对。",
+      "permissions": "本人主动启用并可按设备机制恢复；设备认证成功不自动取得失效账号的联网权限，也不允许查看其他账号资料。",
+      "openQuestions": "具体平台支持、应用锁/预览遮挡选项、触发时机、设备认证不可用的恢复路径及通知私密显示范围待定。",
+      "source": "design/requirements/README.md：2026-10-01复核/可选扩展与暂不增加的内容；当前用户授权补充；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "矩阵补充说明：2026-10-01复核/可选扩展与暂不增加的内容；当前用户授权补充；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）",
+      "enablement": "出现明确私密查看场景后，再根据实际Android及后续平台能力选定最小保护项；已有设备安全机制和可解释恢复路径成立才启用相应选项。",
+      "dependencies": [
+        {
+          "id": "NFR-012",
+          "when": "显示本人私密内容及设备验证后解锁时"
+        },
+        {
+          "id": "NFR-006",
+          "when": "提供认证、取消和保护设置操作时"
+        }
+      ],
+      "exceptionAcceptance": [
+        {
+          "scenario": "打开保护后应用进入最近任务",
+          "expected": "在已声明支持的平台与场景中按设定遮挡，不显示私密正文"
+        },
+        {
+          "scenario": "本人取消设备认证或当前设备无法验证",
+          "expected": "保持私密内容遮挡，说明合法恢复方式，不删除数据或要求新建额外密码"
+        },
+        {
+          "scenario": "设备验证成功但账号会话已失效",
+          "expected": "仅恢复允许的本机查看，联网AI和账号服务仍要求有效身份"
+        }
+      ],
+      "valueEvidence": "观察试用者能否在借用手机前理解并使用保护，且本人回来不会因额外流程放弃查看；检验真实遮挡效果与表述范围，尚未原生平台验证。"
+    }
+  ],
+  "crosscutting": [
+    {
+      "id": "NFR-001",
+      "category": "设计标准",
+      "name": "中文表达与任务层级",
+      "requirement": "围绕用户此刻的一个主要任务组织内容，使用普通中文、轻量文案和适量表情；专业词在使用处解释。首页突出开始/继续，报告先给主要认识，正文不变成导航目录。",
+      "acceptance": "代表任务的首屏到末尾能辨认主要内容、主操作、条件说明和次级信息；用户能复述该页面解决什么问题及下一步；不以AI评分或文案流畅代替真人理解证据。",
+      "phase": "当前设计持续适用；实现及试用随相应页面落实",
+      "confirmation": "简单直接好看、轻文案方向已明确；具体版式与措辞为待打磨设计",
+      "relatedVisionIds": [
+        "V01",
+        "V04",
+        "V08"
+      ],
+      "relatedPageIds": [
+        "home",
+        "report",
+        "assistant",
+        "profile"
+      ],
+      "openQuestions": "具体品牌词汇、首版专题文案与真人理解反馈尚未定案。",
+      "source": "PROJECT_CONTEXT.md：已确认愿景V01/V04/V08及两套设计；design/04-vision-to-requirements.md：V01-01～05、V08-03",
+      "sourceLabel": "项目愿景与事实：已确认愿景V01/V04/V08及两套设计；愿景展开：V01-01～05、V08-03"
+    },
+    {
+      "id": "NFR-002",
+      "category": "设计标准",
+      "name": "所有操作默认可辨认",
+      "requirement": "按钮、可点卡片、因子瓶、展开项与正文在默认状态就明确区分；用合适外形、触区和状态表达可操作性，保留主次层级，不依赖悬停、颜色猜测或统一放大所有按钮。",
+      "acceptance": "不移动鼠标即可指出可点击项；按下、选中、禁用和等待与实际行为一致；重复点击语义明确；图形可操作时有可辨认入口，普通说明不伪装成按钮。",
+      "phase": "当前设计及后续所有交互实现持续适用",
+      "confirmation": "用户明确要求；具体尺寸与组件参数待按平台定案",
+      "relatedVisionIds": [
+        "V03",
+        "V08"
+      ],
+      "openQuestions": "目标平台组件尺寸、状态标记与辅助阅读语义需在实现时明确。",
+      "source": "AGENTS.md：所有可操作项默认可识别；design/04-vision-to-requirements.md：V03-02、V08-02",
+      "sourceLabel": "项目工作规则：所有可操作项默认可识别；愿景展开：V03-02、V08-02"
+    },
+    {
+      "id": "NFR-003",
+      "category": "设计标准",
+      "name": "连续导航与适度页面拆分",
+      "requirement": "保留四TAB职责；页面打开与执行动作的条件分开，短解释/设置/常规状态就地承载，长答卷、报告、对话、多资料选择及付款确认保留完整空间。必要返回和正文标题随内容滚动，不保留固定标题或模拟状态栏。",
+      "acceptance": "页面矩阵有入口、事件、目标、返回和TabBar策略；普通开始/恢复不必经无作用中转；登录、支付、编辑取消能回真实发起位置。长内容与关键确认没有因缩减页数被挤成难用弹层。",
+      "phase": "当前路由设计；页面重构时按批次实施",
+      "confirmation": "四TAB、无固定标题栏和减少无意义入口已明确；65承载映射是建议，未全量实现",
+      "relatedVisionIds": [
+        "V03",
+        "V08",
+        "V10"
+      ],
+      "openQuestions": "具体手势、各任务TabBar策略及路由方案的实现批次待按范围确认。",
+      "source": "AGENTS.md：四TAB、标题栏及两套分工；design/page-atlas/review/route-refinement-20261001/decisions.json：D01～D12",
+      "sourceLabel": "项目工作规则：四TAB、标题栏及两套分工；路由争议裁决：D01～D12"
+    },
+    {
+      "id": "NFR-004",
+      "category": "设计标准",
+      "name": "统一视觉与主题形象分离",
+      "requirement": "字体、间距、圆角、图标、卡片和状态组件使用统一语言；主题协调背景、文字、卡片、按钮、底栏和面板。保留可切换、偏亮的多色渐变方向与首页人物，不使用小安机器人；主题和个人形象是不同设置。",
+      "acceptance": "切换主题后相关组件含加载/错误/弹层均能辨读；四主TAB及答题/报告没有各自一套风格；形象变化不改变测评、计分或用户画像事实。",
+      "phase": "当前视觉小样；后续获准统一推广及组件实现",
+      "confirmation": "方向已明确；具体配色、最终形象和资产尚未获最终认可",
+      "relatedVisionIds": [
+        "V08"
+      ],
+      "relatedPageIds": [
+        "theme",
+        "avatar",
+        "avatar-editor",
+        "home"
+      ],
+      "openQuestions": "主题最终数量、颜色参数、角色素材与捏脸库未选定。",
+      "source": "PROJECT_CONTEXT.md：必须沿用的事实及两套设计；design/04-vision-to-requirements.md：V08-01～04",
+      "sourceLabel": "项目愿景与事实：必须沿用的事实及两套设计；愿景展开：V08-01～04"
+    },
+    {
+      "id": "NFR-005",
+      "category": "设计标准",
+      "name": "潮汐呼吸与减少动态",
+      "requirement": "提供与主题匹配、明确可感知的渐变潮汐和呼吸感，动效服务层级及反馈；不能延迟操作、干扰答题阅读或成为唯一状态提示。减少动态后保留完整信息和功能。",
+      "acceptance": "正常动效与减少动态两种模式均可完成代表任务；输入与主要操作不等待装饰动画结束；文字、对比和位置保持稳定，开关状态与实际动画一致。",
+      "phase": "当前独立小样；正式实现时随全局样式落实",
+      "confirmation": "年轻、动态、呼吸感已明确；强度、节奏与减少动态实现细节为设计要求草案",
+      "relatedVisionIds": [
+        "V08",
+        "V09"
+      ],
+      "relatedPageIds": [
+        "theme",
+        "display-settings"
+      ],
+      "openQuestions": "动效时长、强度、性能预算及目标设备体验需实测后确定。",
+      "source": "PROJECT_CONTEXT.md：主题/呼吸要求；design/04-vision-to-requirements.md：V08-02、V08-04、V09-03",
+      "sourceLabel": "项目愿景与事实：主题/呼吸要求；愿景展开：V08-02、V08-04、V09-03"
+    },
+    {
+      "id": "NFR-006",
+      "category": "设计标准",
+      "name": "可读可操作与辅助访问",
+      "requirement": "在目标手机宽度、字体设置、输入法和辅助阅读条件下维持内容顺序、触达、选中/焦点语义；图形不能只依靠颜色传递全部含义。",
+      "acceptance": "本次相关屏幕没有关键文字截断、横向溢出或输入法遮住必要操作；选择、展开、错误等可被辅助技术识别；图形有等价名称与含义说明。",
+      "phase": "设计及实现相关页面时适用",
+      "confirmation": "来自已确认稳定一致体验的设计标准细化；不声明已达成无障碍合规",
+      "relatedVisionIds": [
+        "V03",
+        "V08"
+      ],
+      "openQuestions": "设备范围、字体倍率、辅助技术和采用标准版本在相应实现/验收任务确定。",
+      "source": "design/04-vision-to-requirements.md：V08-05；design/page-atlas/review/standards-20261001/REVIEW.md",
+      "sourceLabel": "愿景展开：V08-05；逐页评审结论"
+    },
+    {
+      "id": "NFR-007",
+      "category": "内容依据",
+      "name": "图形含义与未知表达",
+      "requirement": "16PF整套及单因子只用因子瓶，不再提供双极谱或雷达切换。个人画像可用有来源的能力/性格图，未知为灰色；性格高低不是优劣，未知、无效、撤回不当成零分。",
+      "acceptance": "水位/刻度附近能找到数值含义与依据；选择某因子后解释仍是同一因子；模拟标记持续可见；画像每个角度能查来源、时间和性质，没有凭空综合总分。",
+      "phase": "当前报告/画像设计；随正式内容接入复核语义",
+      "confirmation": "因子瓶、画像图形化及未知灰色已明确；具体图形参数与评分依据未定",
+      "relatedVisionIds": [
+        "V04",
+        "V06",
+        "V08"
+      ],
+      "relatedPageIds": [
+        "report",
+        "single-factor-list",
+        "factor-detail",
+        "my-portrait",
+        "portrait-insight"
+      ],
+      "openQuestions": "瓶子刻度与正式得分的转换、能力维度测量依据需随题库确定。",
+      "source": "AGENTS.md：因子瓶和图形化；PROJECT_CONTEXT.md：画像/报告边界；design/04-vision-to-requirements.md：V04-02～04",
+      "sourceLabel": "项目工作规则：因子瓶和图形化；项目愿景与事实：画像/报告边界；愿景展开：V04-02～04"
+    },
+    {
+      "id": "NFR-008",
+      "category": "内容依据",
+      "name": "题源与正式使用资格",
+      "requirement": "每套内容记录来源、许可/使用依据、中文及原版关系、适用人群/目的、已知缺口；原版16PF、AI改编、研究候选与模拟分开。题库存在或可计算不等于允许正式测评。",
+      "acceptance": "内容说明可定位证据和版本；缺依据项明确标待核实，未正式可用内容不会被当成正式量表发布或写入本人正式报告；软件校验、专业测量证据与用户理解分别呈现。",
+      "phase": "每套内容进入正式测评前；内容变化时持续维护",
+      "confirmation": "跨端题库维护及可信内容目标已明确；具体题库正式资格逐套待核实",
+      "relatedVisionIds": [
+        "V02",
+        "V04",
+        "V06"
+      ],
+      "relatedPageIds": [
+        "assessment-source",
+        "assessment-detail",
+        "assessment-versions",
+        "content-library"
+      ],
+      "openQuestions": "首套正式题库、合法使用范围、适用证据与解释审核未定。",
+      "source": "PROJECT_CONTEXT.md：本地优先与跨端题库；design/04-vision-to-requirements.md：V06-01～05",
+      "sourceLabel": "项目愿景与事实：本地优先与跨端题库；愿景展开：V06-01～05"
+    },
+    {
+      "id": "NFR-009",
+      "category": "内容依据",
+      "name": "确定性计算与AI职责边界",
+      "requirement": "计分明确题目/选项/因子、反向项、缺答、无效输入和转换版本；AI只做有边界的解释/澄清，不改正式得分、常模或题源。测量结果、自述、AI推断和建议保持类型区分。",
+      "acceptance": "同一有效输入和规则版本得到同一结果；异常输入按规则处理；图文能追溯原计算输出；要求模型改分也不会改变底层结果，AI推断不会自动升级为事实。",
+      "phase": "正式计分/解释及AI功能接入时",
+      "confirmation": "有依据结果与助理边界属于愿景细化；具体算法与解释包待题库核实",
+      "relatedVisionIds": [
+        "V04",
+        "V05",
+        "V06"
+      ],
+      "relatedPageIds": [
+        "question",
+        "report",
+        "ai-analysis-result",
+        "conversation-detail"
+      ],
+      "openQuestions": "各题库缺答阈值、无效判定、转换与解释规则不得先填猜测值。",
+      "source": "design/04-vision-to-requirements.md：V04-02～05、V05-02～03、V06-02；design/page-atlas/review/route-refinement-20261001/decisions.json：D06",
+      "sourceLabel": "愿景展开：V04-02～05、V05-02～03、V06-02；路由争议裁决：D06"
+    },
+    {
+      "id": "NFR-010",
+      "category": "内容依据",
+      "name": "版本固定与比较边界",
+      "requirement": "一次作答固定内容/规则版本；结果保留当时解释依据，更新不静默重算历史。不同版本、专题和模式只有具备可比依据才计算变化，否则只并列阅读并解释差异。 区分草稿修改、完成后纠正和重新测评；已完成结果与旧引用不原地改写。内容撤回按原因声明新答、续答和作为依据的范围，离线只展示最近已知状态。",
+      "acceptance": "重开原结果可找到原版本与来源；内容更新不把未完成答卷接到新题；不具备依据的对照不显示进步差值、排名或人格总分；缺旧包时可进入异常恢复。 旧报告纠错后仍可追溯原快照与修订；多来源同名因子不自动合成或换量纲。",
+      "phase": "首批正式答题与历史存储即需要；比较能力按需启用",
+      "confirmation": "长期积累和可靠恢复已确认；版本锁等实现方案为架构建议",
+      "relatedVisionIds": [
+        "V02",
+        "V04",
+        "V07",
+        "V09"
+      ],
+      "relatedPageIds": [
+        "question",
+        "session-recovery",
+        "records",
+        "compare-select",
+        "compare-report"
+      ],
+      "openQuestions": "旧包保留、迁移、撤回及各版本可比依据需逐项设计。",
+      "source": "design/04-vision-to-requirements.md：V02-05、V04-05、V07-05；design/page-atlas/review/route-refinement-20261001/refined-routes.json：contracts.assessment；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "愿景展开：V02-05、V04-05、V07-05；路由收敛数据：contracts.assessment；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）"
+    },
+    {
+      "id": "NFR-011",
+      "category": "架构要求",
+      "name": "本地优先与轻量联网",
+      "requirement": "已具备内容的核心作答、恢复、确定性计算、基础报告和个人记录主要在本地完成；按需读取题库/历史，首页不一次加载全部资产。账号/模型服务故障不阻断可独立完成的本地任务。 首批明确内置可用内容与按需下载范围；读本地、仅留草稿、必须在线的操作分别定义，联网恢复不自动发AI或付款。",
+      "acceptance": "断网仍能完成已下载内容的本地旅程并重开结果；缺包时明确缺少内容而非白屏；AI失败仍可读基础报告；首屏读取范围能说明与当前任务的关联。 首次无包离线与已有包离线分别完成适用任务；恢复网络不触发未经确认的敏感新请求。",
+      "phase": "首批真实业务架构与实现",
+      "confirmation": "重本地、减少联网已由用户明确；数据库、缓存和更新技术待定",
+      "relatedVisionIds": [
+        "V07",
+        "V09",
+        "V10"
+      ],
+      "openQuestions": "数据库、内容分发、备份/同步、加密及端侧模型方案未定。",
+      "source": "PROJECT_CONTEXT.md：用户提出的本地优先方向；design/04-vision-to-requirements.md：V09-01～02；design/07-backend-capabilities.md：本地与服务端责任；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实：用户提出的本地优先方向；愿景展开：V09-01～02；后台配套设计：本地与服务端责任；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）"
+    },
+    {
+      "id": "NFR-012",
+      "category": "架构要求",
+      "name": "身份隔离与最小数据外发",
+      "requirement": "本机个人空间、账号、额度和服务器数据归属分开；切账号不混入他人答卷/聊天/记忆。联网AI仅发送本次允许的必要上下文，管理员不默认读取私人原文，普通日志不记录答案、验证码或记忆全文。 本机资料沿用账号须本人明确选择，认领/复制不等于上云。任务归属固定发起账号。系统云备份与设备迁移同应用同步分开声明。",
+      "acceptance": "账号A/B和未登录本机空间切换后各自对象、草稿与权限正确；发送前可辨认本次引用；登录不会自动上传全部历史或合并空间；服务日志和管理列表只含实际需要的信息。 A任务在切B后返回不泄露A内容；备份恢复后核验空间与身份，不直接恢复旧账号执行权限。",
+      "phase": "首批真实个人数据、账号或联网AI接入时分别触发",
+      "confirmation": "每人独立、本地优先与资料可控已明确；技术方案及外发告知细节待定",
+      "relatedVisionIds": [
+        "V05",
+        "V07",
+        "V09"
+      ],
+      "relatedPageIds": [
+        "login",
+        "context-select",
+        "privacy",
+        "data-center",
+        "account-security"
+      ],
+      "openQuestions": "身份方式、空间认领、供应商保留、数据恢复窗口与加密实现需在接入前明确。",
+      "source": "PROJECT_CONTEXT.md：个人理解助理与移动架构；design/04-vision-to-requirements.md：V05-01、V07-03；design/07-backend-capabilities.md：第2、4节；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实：个人理解助理与移动架构；愿景展开：V05-01、V07-03；后台配套设计：第2、4节；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）"
+    },
+    {
+      "id": "NFR-013",
+      "category": "架构要求",
+      "name": "对象身份与返回上下文连续",
+      "requirement": "报告、会话、记忆、行动、订单沿同一对象ID及版本传递；携带草稿、来源片段、筛选、滚动与返回意图。新建意图和已有对象打开分开，不强制不存在的报告/行动/订单作为前提。",
+      "acceptance": "单因子选B解释B；文章提问带原片段；历史会话打开原消息；订单与原购买方案一致。认证/购买返回不自动发AI；查看概念因子、独立观察、了解会员不要求先有个人结果、行动或订单。",
+      "phase": "当前路由契约；对应页面实现/修订时",
+      "confirmation": "完整连续体验已明确；对象契约为路由收敛方案，仍需实现",
+      "relatedVisionIds": [
+        "V03",
+        "V05",
+        "V07",
+        "V09"
+      ],
+      "openQuestions": "原生导航与持久化对象模型的具体实现尚未开始。",
+      "source": "design/page-atlas/review/route-refinement-20261001/refined-routes.json：contracts；decisions.json：D02～D12；design/page-atlas/review/standards-20261001/REVIEW.md",
+      "sourceLabel": "路由收敛数据：contracts；decisions.json：D02～D12；逐页评审结论"
+    },
+    {
+      "id": "NFR-014",
+      "category": "架构要求",
+      "name": "真实保存与重复操作恢复",
+      "requirement": "保存提示对应真实持久化；提交、结果保存与打开分开建模。断网/响应丢失时查回原任务，重复操作不会另造答卷、AI消费或订单；未知状态不能猜作失败。 空间不足不伪报已保存，升级迁移中断有保留原资料与可恢复范围；不自动以清库重建处理私人记录。",
+      "acceptance": "进程退出后可恢复正确答案、题号和版本；结果打不开能按原结果找回；首次响应丢失后按操作编号查原状态。重复点击、取消与完成相撞的结果和额度有一致解释。 模拟写入失败/升级中断时，界面和真实保存状态一致，原有效资料不被静默丢弃。",
+      "phase": "首批保存实现；AI/交易接入时扩展到对应服务",
+      "confirmation": "可靠恢复目标明确；幂等、原子状态和计次细则为当前架构/后端建议",
+      "relatedVisionIds": [
+        "V03",
+        "V07",
+        "V09"
+      ],
+      "relatedPageIds": [
+        "question",
+        "assessment-submit",
+        "session-recovery",
+        "ai-analysis",
+        "order-detail"
+      ],
+      "openQuestions": "自动保存时机、恢复期限、取消终态及幂等保留时间待实现前确定。",
+      "source": "design/04-vision-to-requirements.md：V03-03～05、V07-02、V09-04；design/page-atlas/review/route-refinement-20261001/decisions.json：J01/J02/J05；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "愿景展开：V03-03～05、V07-02、V09-04；路由争议裁决：J01/J02/J05；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）"
+    },
+    {
+      "id": "NFR-015",
+      "category": "架构要求",
+      "name": "跨端共享语义与适度模块分工",
+      "requirement": "Android先行，跨端共享题目、选项、因子、算分/解释规则与产品概念；界面、身份和个人数据实现按平台处理。UI、状态、数据、计算职责清楚，不恢复旧全局事件体系或为未来端预造大量层次。",
+      "acceptance": "同一内容包在消费者契约下含义一致；平台适配不私自改计分；个人答案与共享内容分开。当前Android底座可按具体业务扩展，而不承诺直接复用界面代码或三端同时上线。",
+      "phase": "首批业务架构及后续新平台接入",
+      "confirmation": "跨端内容维护、Android先行已明确；模块组织与技术细节为实施建议",
+      "relatedVisionIds": [
+        "V02",
+        "V09",
+        "V10"
+      ],
+      "openQuestions": "消费契约版本、模块边界及小程序/iOS具体接入批次待范围确定。",
+      "source": "PROJECT_CONTEXT.md：跨端测评内容与Android基础；design/04-vision-to-requirements.md：V02-03～04、V09-01、V10-03",
+      "sourceLabel": "项目愿景与事实：跨端测评内容与Android基础；愿景展开：V02-03～04、V09-01、V10-03"
+    },
+    {
+      "id": "NFR-016",
+      "category": "架构要求",
+      "name": "个人记忆全生命周期",
+      "requirement": "本人陈述、测评证据、AI假设、候选记忆及正式采用的记忆区分来源与类型。用户能纠正、停用、删除和控制引用；撤回作用到后续检索/摘要，不从旧来源自动重新记入。 资料停用/纠正与在途AI采用快照分开；迟到结果不得重新启用撤回内容。摘要、候选记忆和检索引用同时尊重当前有效状态。",
+      "acceptance": "编辑打开原内容；纠正保留必要版本和来源；停用后下一次AI上下文不再引用；只聊不记不产生长期记忆；删除/导出明确本机、账号及服务端范围和未完成部分。 发请求后停用来源，返回结果仍标实际旧快照，但不能自动写回当前画像或长期记忆；下一请求排除已停用来源。",
+      "phase": "最小助理记忆进入范围时；后续持续维护",
+      "confirmation": "可控个人记忆与助理理解已明确；保存策略、保留期限和具体界面为提案",
+      "relatedVisionIds": [
+        "V05",
+        "V07"
+      ],
+      "relatedPageIds": [
+        "memory-list",
+        "memory-edit",
+        "memory-controls",
+        "memory-source",
+        "data-center"
+      ],
+      "openQuestions": "记忆采纳方式、删除传播范围、备份残留和供应商保留策略未定。",
+      "source": "PROJECT_CONTEXT.md：个人理解助理方向；design/04-vision-to-requirements.md：V05-03～05、V07-01/04；decisions.json：D05/D06/D10；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实：个人理解助理方向；愿景展开：V05-03～05、V07-01/04；decisions.json：D05/D06/D10；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）"
+    },
+    {
+      "id": "NFR-017",
+      "category": "质量要求",
+      "name": "关键状态与反馈真实一致",
+      "requirement": "按功能需要呈现加载、空、离线、失败、取消、等待和恢复；状态改变后可用操作同步改变，字段错误靠近字段，不能只弹通用成功提示却保持原数据。",
+      "acceptance": "用户能分辨未开始、处理中、已成功和状态未知；失败保留输入并有具体恢复路径；已支付不出现取消未付款，已开始行动不仍显示开始，筛选确实改变范围或明确不可用。",
+      "phase": "每个实际能力设计/实现时",
+      "confirmation": "稳定连续与按钮反馈已明确；具体状态机为当前设计细化",
+      "relatedVisionIds": [
+        "V03",
+        "V09"
+      ],
+      "openQuestions": "部分关键异常仅原型说明，真实服务接入后需对应实现。",
+      "source": "design/04-vision-to-requirements.md：V03-02/05、V09-04；design/page-atlas/review/standards-20261001/REVIEW.md",
+      "sourceLabel": "愿景展开：V03-02/05、V09-04；逐页评审结论"
+    },
+    {
+      "id": "NFR-018",
+      "category": "质量要求",
+      "name": "首开与导航性能证据",
+      "requirement": "分别定义首帧、可操作、导航和数据就绪，注明目标设备、冷/热启动及网络条件；不得以热缓存、截图、构建或页面存在证明不卡顿。性能数值在实施任务中确定，不捏造阈值。",
+      "acceptance": "相关旅程有可复现测量与条件说明，用户操作及时反馈；首开和页面返回没有无解释等待/白屏；发现耗时能定位读取、计算、网络或渲染范围。",
+      "phase": "对应真实页面与服务实现时",
+      "confirmation": "流畅、避免十几秒等待和白屏是明确目标；量化门槛未定",
+      "relatedVisionIds": [
+        "V09",
+        "V12"
+      ],
+      "openQuestions": "目标机型、数据规模、网络条件及性能硬指标待定。",
+      "source": "design/04-vision-to-requirements.md：V09-02～03；PROJECT_CONTEXT.md：本地优先与历史痛点",
+      "sourceLabel": "愿景展开：V09-02～03；项目愿景与事实：本地优先与历史痛点"
+    },
+    {
+      "id": "NFR-019",
+      "category": "质量要求",
+      "name": "验证对应用户任务和证据边界",
+      "requirement": "只验证当前变更及直接影响范围，沿真实入口覆盖主要任务和相关风险；内容依据、计算正确、原型交互、真机体验及真人理解分别评价。通过后推进，不做无依据全仓回归。 除操作完成，记录用户能否理解结果、联系情境、纠正不符并在下次继续的价值证据；无需默认收集私人原文或预建埋点平台。",
+      "acceptance": "每个交付结论说明实际执行、通过/失败/未验证；历史重点缺陷有对应路径证据；单页截图、静态引用或浏览器模拟不会被写作全业务、测量有效、支付或审美通过。 试用能观察用户是否复述倾向及局限、是否找回原任务、纠正后AI是否仍用旧事实；样本、任务和阈值在相应试用前确定，未执行不记通过。",
+      "phase": "每批交付持续适用",
+      "confirmation": "用户与项目明确的执行规范",
+      "relatedVisionIds": [
+        "V06",
+        "V09",
+        "V10",
+        "V12"
+      ],
+      "openQuestions": "各批验收范围与硬指标随已确认工作确定，不先要求完整UAT。",
+      "source": "AGENTS.md：检查范围、事实与验收、止损；design/04-vision-to-requirements.md：V06-04、V09-05、V10-04、V12-01～02；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目工作规则：检查范围、事实与验收、止损；愿景展开：V06-04、V09-05、V10-04、V12-01～02；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）"
+    },
+    {
+      "id": "NFR-020",
+      "category": "过程规范",
+      "name": "完整愿景与首版切片分开",
+      "requirement": "保留长期愿景与完整职责，按一条可完成、可恢复的用户价值分批实施。119职责、65承载及后台20项旧首批标签均不等于获批MVP；暂缓能力不冒充开放，也不删除方向。 功能行列出启用前置和直接配套ID，条件依赖明确触发场景；FR-055/056仅为本轮授权纳入的后续候选，不自动进入首版。",
+      "acceptance": "矩阵逐项标性质、触发时机和确认状态；首批候选明确入口、结果、依赖和边界。基础本地测评不冒充个人助理目标已交付；免费AI与付费闭环分别按真实启用触发。 选定一项准备实施能力时可看清必要数据、规则与服务；浏览不因关联AI而被强制登录，付费未启用不提前强制商业后台。",
+      "phase": "当前需求整理及后续批次决定持续适用",
+      "confirmation": "愿景已确认；具体MVP仍为建议",
+      "relatedVisionIds": [
+        "V02",
+        "V10",
+        "V12"
+      ],
+      "openQuestions": "正式首版范围、首套内容、AI服务和商业启用批次未定。",
+      "source": "PROJECT_CONTEXT.md：当前建议与未定；design/04-vision-to-requirements.md：V10-01～04；decisions.json：D11/D12及deliverySlices；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实：当前建议与未定；愿景展开：V10-01～04；decisions.json：D11/D12及deliverySlices；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）"
+    },
+    {
+      "id": "NFR-021",
+      "category": "过程规范",
+      "name": "两套设计隔离与按授权推广",
+      "requirement": "完整结构版维护页面/按钮/路由/事件/状态，独立五页小样维护头像、布局、轻文案、主题及动效。视觉试验默认不通过共享运行时样式/资产暗中影响结构版。",
+      "acceptance": "两套各自可打开且用途明确；小样改动不意外改变全量页面；只有用户明确要求的共用修改才同步；被否定/撤回样稿仍标历史，不充当当前基线。",
+      "phase": "当前设计期持续适用",
+      "confirmation": "用户明确长期保留两套",
+      "relatedVisionIds": [
+        "V08",
+        "V10",
+        "V11"
+      ],
+      "openQuestions": "视觉方案何时推广以及推广范围随用户后续明确指示。",
+      "source": "AGENTS.md：两套设计长期分工；PROJECT_CONTEXT.md：两套设计的长期分工",
+      "sourceLabel": "项目工作规则：两套设计长期分工；项目愿景与事实：两套设计的长期分工"
+    },
+    {
+      "id": "NFR-022",
+      "category": "过程规范",
+      "name": "单人项目的多AI接续与关键变更维护",
+      "requirement": "主AI承担协调集成，各协作者明确输入/输出及独占文件；沿已有PROJECT_CONTEXT、TASK_HANDOFF和专题维护事实。重要变化当次同步，不要求用户逐页签字，不另建重复台账或定时监控。",
+      "acceptance": "新AI能从当前入口看懂目标、授权、已完成证据与下一步；同文件无多人竞争写入；新增事实只更新受影响材料；执行状态及TODO仍以TASK_HANDOFF为唯一入口。",
+      "phase": "协作及关键变更时持续适用",
+      "confirmation": "用户明确单人负责、多个AI协作和事件触发文档维护",
+      "relatedVisionIds": [
+        "V10",
+        "V11"
+      ],
+      "openQuestions": "无须为当前矩阵增建审批、Hook或项目管理系统。",
+      "source": "AGENTS.md：开始恢复、持续记录、关键变更时同步；design/04-vision-to-requirements.md：V10-05、V11-01～05",
+      "sourceLabel": "项目工作规则：开始恢复、持续记录、关键变更时同步；愿景展开：V10-05、V11-01～05"
+    },
+    {
+      "id": "NFR-023",
+      "category": "过程规范",
+      "name": "历史复用和错误保留",
+      "requirement": "旧项目仅作只读来源，沿归档证据复用产品、交互和内容成果，不自动继承旧运行框架/冻结/门禁。实际错误当次留事实、原因或未知、修正及验证，下次同类操作先查结论。",
+      "acceptance": "采用历史内容能定位来源及适用边界；旧current/done不被当成今日状态；错误原经过不覆盖，重复失败按既有止损规则换路径；不因局部修改重新全扫历史。",
+      "phase": "引用历史或发生实际错误时",
+      "confirmation": "用户与项目明确规则",
+      "relatedVisionIds": [
+        "V09",
+        "V11"
+      ],
+      "openQuestions": "待核实历史材料继续保持参考身份，不补造来源。",
+      "source": "AGENTS.md：资料修改边界、错误记录、执行止损；design/04-vision-to-requirements.md：V10-05、V11-02/05",
+      "sourceLabel": "项目工作规则：资料修改边界、错误记录、执行止损；愿景展开：V10-05、V11-02/05"
+    },
+    {
+      "id": "NFR-024",
+      "category": "质量要求",
+      "name": "实际服务可维护与交付可辨认",
+      "requirement": "只对已接入能力提供必要故障定位、恢复、支持、版本与成本信息；交付区分样例、真实试用、制品、发布和实际运行。无需预建庞大运维后台，发布/费用等按实际授权处理。 数据升级、磁盘不足及平台备份恢复随真实个人数据启用考虑；故障记录限必要状态和对象，不直接采集私密原文。",
+      "acceptance": "用户遇到已上线能力故障有出路，维护者用必要对象ID及状态能定位；版本变更和数据迁移有适用恢复说明；成本/失败统计不默认收集私人原文，未发布不写成已上线。 已有数据不能因升级失败或更换版本被默认清空；说明可恢复与不可恢复范围，并与实际支持一致。",
+      "phase": "实际接入服务及获授权发布时",
+      "confirmation": "可持续实际交付为已确认愿景；具体监控、支持与发布方案待触发",
+      "relatedVisionIds": [
+        "V09",
+        "V12"
+      ],
+      "openQuestions": "服务供应商、费用预算、保留期限、发布渠道与支持安排未定。",
+      "source": "design/04-vision-to-requirements.md：V12-01～04；decisions.json：D11；AGENTS.md：交付终点与真实证据；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "愿景展开：V12-01～04；decisions.json：D11；项目工作规则：交付终点与真实证据；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）"
+    }
+  ],
+  "backend": [
+    {
+      "id": "BR-001",
+      "module": "身份与访问",
+      "name": "账号、管理访问及基础权益",
+      "requirement": "服务端负责认证、账号状态、会话撤销、必要管理权限及免费/受限访问依据；本机个人空间不等于账号。基础权益随免费登录AI出现，不等到会员付费才建设，管理员不默认拥有私人内容读取权。 认证返回沿用本机资料需本人选择，空间归属与账号会话分开；异步任务按发起账号授权访问。",
+      "acceptance": "未登录AI请求被服务端拒绝；登录用户只访问本人对象；失效会话/受限账号有准确原因；管理操作绑定目标账号及操作者。免费访问和付费权益来源能区分，不由客户端自授权限。 切账号/认证过期后迟到结果只能由原账号查询；重新认证同账号不重复创建原任务。",
+      "activation": "真实账号与免费登录AI启用时落实必要后端；仅本地测评无此依赖；完整权限管理UI按实际规模组合。",
+      "backendIds": [
+        "users",
+        "user-detail",
+        "access",
+        "entitlements"
+      ],
+      "confirmation": "账号/用户管理/AI准入已明确；身份方式、角色细节与管理承载是提案。权益节点亦被BR-003引用其付费部分。",
+      "source": "PROJECT_CONTEXT.md：0/10规则；design/07-backend-capabilities.md：第1/2/4节；refined-routes.json：backend.entitlements；decisions.json：D11；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实：0/10规则；后台配套设计：第1/2/4节；refined-routes.json：backend.entitlements；decisions.json：D11；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）"
+    },
+    {
+      "id": "BR-002",
+      "module": "AI服务与用量",
+      "name": "共享额度、任务恢复与服务约束",
+      "requirement": "分析与对话共用登录非会员每日10次；额度以账号为主体跨设备统一，AI逻辑请求与供应商调用分离。支持同任务状态/结果重取、必要频率/并发/成本控制和模型配置，管理员只查所需状态与对象。 一次额度按已确定的逻辑请求规则解释，区别内部模型调用、重取与重新生成；日界线、停止和失败的计次规则接入前确定。执行快照与当前来源状态分别保留必要依据。",
+      "acceptance": "未登录为0，分析/对话不能各领10次；换设备不重置；查旧结果不再消费。失败、取消、并发和断线按已确定状态规则结算；错误能区分额度、权限、网络未知与供应商故障，任务列表/详情保持同一ID。 第10/11次并发不越额；同请求重取不重扣；来源撤回后迟到输出不能重新形成当前可用记忆。",
+      "activation": "首个真实联网AI能力启用时；模型/任务/额度管理可以组合成小规模工作界面，不强制逐职责独立页面。",
+      "backendIds": [
+        "quota",
+        "ai-tasks",
+        "ai-task-detail",
+        "models",
+        "risks"
+      ],
+      "confirmation": "0/10共享规则已确认；日界线、预占/消费/释放细则、恢复窗口、会员额度和供应商待定。",
+      "source": "PROJECT_CONTEXT.md：AI额度；design/07-backend-capabilities.md：第5节；refined-routes.json：backend；decisions.json：D04/D05/D11；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实：AI额度；后台配套设计：第5节；refined-routes.json：backend；decisions.json：D04/D05/D11；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）"
+    },
+    {
+      "id": "BR-003",
+      "module": "会员与交易",
+      "name": "收款到权益及售后完整闭环",
+      "requirement": "一旦收款，同批落实方案/报价版本、订单、付款验真、权益授予、旧单查询、适用退款/恢复及差异核对。支付事实、权益状态和退款分开；停售不阻断旧单处理，不能先收款后补基础管理。 售卖前明确已有资料访问、在途任务跨到期/退款的处理及重叠购买规则。建议到期后本人既有资料仍可读/导出；确切权益和续购方案仍待定。",
+      "acceptance": "同订单的方案/金额/付款/权益一致；已支付不显示取消未付款；回调重复不重复授予；未知先核验不重买；退款处理可追溯原交易与权益。取消购买回原任务且不自动发AI，旧方案停止售卖仍可查询原单。 再次购买的生效时间与订单一致，同回调不重复延长；旧资料访问与新增服务权限分别核对，不靠锁死私人资料制造续费压力。",
+      "activation": "商业收款启用前闭环成立；未启用付费时保留设计即可。基本交易核对随收款，独立对账大屏可后置。",
+      "backendIds": [
+        "plans",
+        "entitlements",
+        "orders",
+        "order-detail",
+        "payments",
+        "refunds",
+        "reconciliation"
+      ],
+      "confirmation": "会员/充值/配套后台已纳入完整设计；价格、渠道、会员额度、续费与退款政策未定，未授权真实收款。",
+      "source": "design/04-vision-to-requirements.md：V12-05；design/07-backend-capabilities.md：会员支付退款；decisions.json：D09/D11、J05、商业启用条件；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "愿景展开：V12-05；后台配套设计：会员支付退款；decisions.json：D09/D11、J05、商业启用条件；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）"
+    },
+    {
+      "id": "BR-004",
+      "module": "内容维护",
+      "name": "内容版本和发布条件",
+      "requirement": "按题组/版本维护来源、适用范围、计分解释资格、发布/撤回和兼容信息，分发只提供实际允许的内容；草案、候选和正式包不混用。后台发布按钮不能替代内容依据核实。 内容声明区分停售/停止分发、纠错和不再适用，给出草稿/旧报告的具体影响；修订结果与原版本关联，不覆盖原快照。",
+      "acceptance": "每个版本能辨认就绪与未知条件；客户端取得声明版本并能校验完整性/兼容性；撤回说明影响，原结果不被静默重算；未具备正式资格的包不进入正式允许清单。 客户端获知撤回后按原因处理新答/续答/引用；离线状态不伪装已实时同步最新撤回信息。",
+      "activation": "正式内容分发/更新启用时；本地封装阶段可先用版本文件和必要维护操作，不强制先做完整后台页面。",
+      "backendIds": [
+        "content-versions"
+      ],
+      "confirmation": "题库跨端维护已明确；后台发布方式与正式内容清单待定。",
+      "source": "PROJECT_CONTEXT.md：跨端测评内容；design/07-backend-capabilities.md：内容状态/发布；refined-routes.json：backend.content-versions；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "项目愿景与事实：跨端测评内容；后台配套设计：内容状态/发布；refined-routes.json：backend.content-versions；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）"
+    },
+    {
+      "id": "BR-005",
+      "module": "服务支持",
+      "name": "反馈、服务消息与回复",
+      "requirement": "用户能就真实问题提交必要上下文、查看处理结果；维护者沿同一反馈对象处理和回复。需要公告时明确受众、时效、内容和影响，不用运营消息替代具体故障反馈。",
+      "acceptance": "反馈详情沿原对象保留内容和状态，回复与结案区分；所附材料由用户选择且可辨；公告发布前能预览受众/时间/正文，未具备能力不显示假成功入口。",
+      "activation": "实际用户试用/服务需要支持时先落实最小路径；公告和复杂工单管理按实际规模启用。",
+      "backendIds": [
+        "support",
+        "announcements"
+      ],
+      "confirmation": "支持维护属于长期愿景与完整设计；具体渠道、响应安排和公告机制未定。",
+      "source": "design/04-vision-to-requirements.md：V12-03；design/07-backend-capabilities.md：支持/公共配置；refined-routes.json：backend",
+      "sourceLabel": "愿景展开：V12-03；后台配套设计：支持/公共配置；refined-routes.json：backend"
+    },
+    {
+      "id": "BR-006",
+      "module": "个人资料权利",
+      "name": "资料与账号请求的真实执行范围",
+      "requirement": "账号删除、服务端资料处理、导出和用户控制请求辨认身份、数据类别及本机/服务端/外部服务边界；本机清理不冒充账号注销，未接入云端不能宣称已同步删除。 资料认领、云上传、系统备份与账号删除范围分别说明；迟到任务结果不得绕过停用/删除策略重新写入当前资料。",
+      "acceptance": "请求能查到对象、范围、状态、未完成部分及后续出路；用户确认前知道后果；失败不显示全部完成；私人原文不因支持请求默认开放给管理员。 更正/停用后再到达的任务结果不恢复已撤回的当前记忆；备份恢复不误称恢复云权限或完成全部云删除。",
+      "activation": "相关账号或服务端个人数据实际启用时；纯本地导入导出由本地能力承担，云同步不作为前置依赖。",
+      "backendIds": [
+        "privacy-requests"
+      ],
+      "confirmation": "个人控制方向已明确；保留期限、具体数据范围和服务方配合机制待定。",
+      "source": "design/04-vision-to-requirements.md：V07-03～04；design/07-backend-capabilities.md：数据边界；decisions.json：D10、J06；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
+      "sourceLabel": "愿景展开：V07-03～04；后台配套设计：数据边界；decisions.json：D10、J06；2026-10-01用户授权需求矩阵补充（矩阵补充说明复核与落实说明）"
+    },
+    {
+      "id": "BR-007",
+      "module": "服务概览",
+      "name": "实际服务状态与成本概览",
+      "requirement": "只汇总已启用业务的服务状态、必要失败、用量/成本和待处理异常，区分数据覆盖时段与未知，不依赖收集全部用户原始内容。",
+      "acceptance": "数字有统计范围、更新时间与可追溯对象；异常可进入对应任务/订单/请求，而不是只有总数；无数据与服务正常可区分；仪表盘不冒充真实监控已接通。",
+      "activation": "出现需要集中维护的真实服务时；单人早期可以用必要状态查询，概览大屏不是本地基础MVP前提。",
+      "backendIds": [
+        "dashboard"
+      ],
+      "confirmation": "可维护服务属长期愿景；具体指标和后台承载是设计提案。",
+      "source": "design/04-vision-to-requirements.md：V12-03；refined-routes.json：backend.dashboard；decisions.json：D11",
+      "sourceLabel": "愿景展开：V12-03；refined-routes.json：backend.dashboard；decisions.json：D11"
+    },
+    {
+      "id": "BR-008",
+      "module": "配置与变更追溯",
+      "name": "有效配置与必要管理记录",
+      "requirement": "服务/权限/额度/内容/交易相关管理变更保留目标、前后值、执行者、原因及结果；区分配置已保存和运行端已生效。按真实能力提供权限和追溯，不建立多人审批链。",
+      "acceptance": "必要变更能定位记录和实际生效版本；失败、待生效和生效有不同反馈；不能在日志暴露密钥、验证码或用户私密原文；更正追加记录，不改写已有交易/额度事实。",
+      "activation": "具有真实服务配置或敏感管理操作时同步落实必要追溯；完整审计/配置页面按维护需求组合。",
+      "backendIds": [
+        "audit",
+        "system-settings"
+      ],
+      "confirmation": "后台配套与真实交付已明确；具体审计范围、保留期和配置管理方式待定。",
+      "source": "design/07-backend-capabilities.md：共用数据/权限与两本账；refined-routes.json：backend.audit/system-settings；decisions.json：D11",
+      "sourceLabel": "后台配套设计：共用数据/权限与两本账；refined-routes.json：backend.audit/system-settings；decisions.json：D11"
+    }
+  ],
+  "pageMappings": [
+    {
+      "id": "home",
+      "title": "首页",
+      "requirementIds": [
+        "FR-001",
+        "FR-002",
+        "FR-007",
+        "FR-041",
+        "FR-042"
+      ],
+      "hostId": "home",
+      "hostTitle": "首页",
+      "surface": "主入口",
+      "ownerTab": "首页",
+      "tabBar": "显示，仅四主入口",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：独立页面；建议：主入口。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[home]"
+    },
+    {
+      "id": "explore",
+      "title": "探索",
+      "requirementIds": [
+        "FR-001",
+        "FR-003",
+        "FR-017"
+      ],
+      "hostId": "explore",
+      "hostTitle": "探索",
+      "surface": "主入口",
+      "ownerTab": "探索",
+      "tabBar": "显示，仅四主入口",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：独立页面；建议：主入口。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[explore]"
+    },
+    {
+      "id": "topic-list",
+      "title": "生活议题",
+      "requirementIds": [
+        "FR-003"
+      ],
+      "hostId": "explore",
+      "hostTitle": "探索",
+      "surface": "同页模式",
+      "ownerTab": "探索",
+      "tabBar": "随调用宿主；根页内展开保留底栏，专注任务不显示",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：独立页面；建议：同页模式。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[topic-list]"
+    },
+    {
+      "id": "assessment-search",
+      "title": "寻找题组",
+      "requirementIds": [
+        "FR-003"
+      ],
+      "hostId": "explore",
+      "hostTitle": "探索",
+      "surface": "同页模式",
+      "ownerTab": "探索",
+      "tabBar": "随调用宿主；根页内展开保留底栏，专注任务不显示",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：独立页面；建议：同页模式。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[assessment-search]"
+    },
+    {
+      "id": "assessment-detail",
+      "title": "测评详情",
+      "requirementIds": [
+        "FR-002",
+        "FR-004",
+        "FR-014",
+        "FR-017",
+        "FR-018"
+      ],
+      "hostId": "assessment-detail",
+      "hostTitle": "测评详情",
+      "surface": "独立任务页",
+      "ownerTab": "首页",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[assessment-detail]"
+    },
+    {
+      "id": "assessment-source",
+      "title": "题源与解释依据",
+      "requirementIds": [
+        "FR-004"
+      ],
+      "hostId": "assessment-source",
+      "hostTitle": "题源与解释依据",
+      "surface": "独立任务页",
+      "ownerTab": "首页",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[assessment-source]"
+    },
+    {
+      "id": "assessment-versions",
+      "title": "版本与适用范围",
+      "requirementIds": [
+        "FR-002",
+        "FR-004"
+      ],
+      "hostId": "assessment-detail",
+      "hostTitle": "测评详情",
+      "surface": "页内内容",
+      "ownerTab": "首页",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：独立页面；建议：页内内容。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[assessment-versions]"
+    },
+    {
+      "id": "content-library",
+      "title": "本地内容包",
+      "requirementIds": [
+        "FR-005",
+        "FR-048"
+      ],
+      "hostId": "content-library",
+      "hostTitle": "本机题包与版本",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[content-library]"
+    },
+    {
+      "id": "content-download",
+      "title": "获取内容包",
+      "requirementIds": [
+        "FR-005"
+      ],
+      "hostId": "content-library",
+      "hostTitle": "本机题包与版本",
+      "surface": "任务状态",
+      "ownerTab": "我的",
+      "tabBar": "随调用宿主；根页内展开保留底栏，专注任务不显示",
+      "availability": "相关状态发生时呈现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：任务状态。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[content-download]"
+    },
+    {
+      "id": "content-updates",
+      "title": "内容更新说明",
+      "requirementIds": [
+        "FR-005"
+      ],
+      "hostId": "content-library",
+      "hostTitle": "本机题包与版本",
+      "surface": "页内内容",
+      "ownerTab": "我的",
+      "tabBar": "随调用宿主；根页内展开保留底栏，专注任务不显示",
+      "availability": "相关状态发生时呈现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：页内内容。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[content-updates]"
+    },
+    {
+      "id": "session-prepare",
+      "title": "开始之前",
+      "requirementIds": [
+        "FR-004",
+        "FR-006"
+      ],
+      "hostId": "assessment-detail",
+      "hostTitle": "测评详情",
+      "surface": "轻面板",
+      "ownerTab": "首页",
+      "tabBar": "随调用宿主；根页内展开保留底栏，专注任务不显示",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：独立页面；建议：轻面板。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[session-prepare]"
+    },
+    {
+      "id": "question",
+      "title": "专注答题",
+      "requirementIds": [
+        "FR-006",
+        "FR-007",
+        "FR-014",
+        "FR-015"
+      ],
+      "hostId": "question",
+      "hostTitle": "专注答题",
+      "surface": "独立任务页",
+      "ownerTab": "首页",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[question]"
+    },
+    {
+      "id": "answer-review",
+      "title": "检查这次作答",
+      "requirementIds": [
+        "FR-008"
+      ],
+      "hostId": "answer-review",
+      "hostTitle": "检查这次作答",
+      "surface": "独立任务页",
+      "ownerTab": "首页",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[answer-review]"
+    },
+    {
+      "id": "assessment-submit",
+      "title": "提交与生成结果",
+      "requirementIds": [
+        "FR-008"
+      ],
+      "hostId": "answer-review",
+      "hostTitle": "检查这次作答",
+      "surface": "任务状态",
+      "ownerTab": "首页",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：独立页面；建议：任务状态。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[assessment-submit]"
+    },
+    {
+      "id": "session-recovery",
+      "title": "恢复未完成测评",
+      "requirementIds": [
+        "FR-007"
+      ],
+      "hostId": "question",
+      "hostTitle": "专注答题",
+      "surface": "任务状态",
+      "ownerTab": "首页",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：独立页面；建议：任务状态。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[session-recovery]"
+    },
+    {
+      "id": "unfinished",
+      "title": "未完成的探索",
+      "requirementIds": [
+        "FR-007",
+        "FR-011"
+      ],
+      "hostId": "records",
+      "hostTitle": "我的测评与探索记录",
+      "surface": "同页模式",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：同页模式。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[unfinished]"
+    },
+    {
+      "id": "report",
+      "title": "我的探索报告",
+      "requirementIds": [
+        "FR-008",
+        "FR-009",
+        "FR-010",
+        "FR-014"
+      ],
+      "hostId": "report",
+      "hostTitle": "我的探索报告",
+      "surface": "独立任务页",
+      "ownerTab": "首页",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[report]"
+    },
+    {
+      "id": "factor-detail",
+      "title": "理解一个因子",
+      "requirementIds": [
+        "FR-009",
+        "FR-014"
+      ],
+      "hostId": "report",
+      "hostTitle": "我的探索报告",
+      "surface": "页内内容",
+      "ownerTab": "首页",
+      "tabBar": "随调用宿主；根页内展开保留底栏，专注任务不显示",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：页内模块；建议：页内内容。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[factor-detail]"
+    },
+    {
+      "id": "report-evidence",
+      "title": "这份认识从哪里来",
+      "requirementIds": [
+        "FR-009"
+      ],
+      "hostId": "report",
+      "hostTitle": "我的探索报告",
+      "surface": "页内内容",
+      "ownerTab": "首页",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：页内模块；建议：页内内容。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[report-evidence]"
+    },
+    {
+      "id": "report-feedback",
+      "title": "补充我的真实经历",
+      "requirementIds": [
+        "FR-010",
+        "FR-018"
+      ],
+      "hostId": "report",
+      "hostTitle": "我的探索报告",
+      "surface": "页内内容",
+      "ownerTab": "首页",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：页内模块；建议：页内内容。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[report-feedback]"
+    },
+    {
+      "id": "report-explanation",
+      "title": "完整解释与相处建议",
+      "requirementIds": [
+        "FR-009"
+      ],
+      "hostId": "report",
+      "hostTitle": "我的探索报告",
+      "surface": "页内内容",
+      "ownerTab": "首页",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：页内模块；建议：页内内容。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[report-explanation]"
+    },
+    {
+      "id": "records",
+      "title": "测评记录",
+      "requirementIds": [
+        "FR-007",
+        "FR-011",
+        "FR-012",
+        "FR-013",
+        "FR-015",
+        "FR-055"
+      ],
+      "hostId": "records",
+      "hostTitle": "我的测评与探索记录",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[records]"
+    },
+    {
+      "id": "record-timeline",
+      "title": "认识变化的时间线",
+      "requirementIds": [
+        "FR-011"
+      ],
+      "hostId": "records",
+      "hostTitle": "我的测评与探索记录",
+      "surface": "同页模式",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：同页模式。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[record-timeline]"
+    },
+    {
+      "id": "compare-select",
+      "title": "选择可比较的记录",
+      "requirementIds": [
+        "FR-012"
+      ],
+      "hostId": "records",
+      "hostTitle": "我的测评与探索记录",
+      "surface": "同页模式",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：同页模式。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[compare-select]"
+    },
+    {
+      "id": "compare-report",
+      "title": "两次探索怎样看",
+      "requirementIds": [
+        "FR-012"
+      ],
+      "hostId": "compare-report",
+      "hostTitle": "两次探索怎样看",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[compare-report]"
+    },
+    {
+      "id": "share-preview",
+      "title": "分享前先看看",
+      "requirementIds": [
+        "FR-013"
+      ],
+      "hostId": "share-preview",
+      "hostTitle": "分享前先看看",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[share-preview]"
+    },
+    {
+      "id": "share-records",
+      "title": "分享记录与控制",
+      "requirementIds": [
+        "FR-013"
+      ],
+      "hostId": "records",
+      "hostTitle": "我的测评与探索记录",
+      "surface": "同页模式",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "相关状态发生时呈现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：同页模式。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[share-records]"
+    },
+    {
+      "id": "single-factor-list",
+      "title": "先了解一个角度",
+      "requirementIds": [
+        "FR-014"
+      ],
+      "hostId": "single-factor-list",
+      "hostTitle": "先了解一个角度",
+      "surface": "独立任务页",
+      "ownerTab": "首页",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[single-factor-list]"
+    },
+    {
+      "id": "single-factor-detail",
+      "title": "单因子探索说明",
+      "requirementIds": [
+        "FR-014"
+      ],
+      "hostId": "assessment-detail",
+      "hostTitle": "测评详情",
+      "surface": "同页模式",
+      "ownerTab": "首页",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：独立页面；建议：同页模式。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[single-factor-detail]"
+    },
+    {
+      "id": "daily",
+      "title": "每日随机探索",
+      "requirementIds": [
+        "FR-015"
+      ],
+      "hostId": "daily",
+      "hostTitle": "每日随机探索",
+      "surface": "独立任务页",
+      "ownerTab": "首页",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[daily]"
+    },
+    {
+      "id": "daily-review",
+      "title": "每日观察回看",
+      "requirementIds": [
+        "FR-011",
+        "FR-015"
+      ],
+      "hostId": "records",
+      "hostTitle": "我的测评与探索记录",
+      "surface": "同页模式",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：同页模式。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[daily-review]"
+    },
+    {
+      "id": "light-intro",
+      "title": "轻量探索",
+      "requirementIds": [
+        "FR-003"
+      ],
+      "hostId": "explore",
+      "hostTitle": "探索",
+      "surface": "同页模式",
+      "ownerTab": "探索",
+      "tabBar": "随调用宿主；根页内展开保留底栏，专注任务不显示",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：独立页面；建议：同页模式。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[light-intro]"
+    },
+    {
+      "id": "simulation",
+      "title": "模拟一种人格组合",
+      "requirementIds": [
+        "FR-016"
+      ],
+      "hostId": "simulation",
+      "hostTitle": "模拟一种人格组合",
+      "surface": "独立任务页",
+      "ownerTab": "首页",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[simulation]"
+    },
+    {
+      "id": "simulation-presets",
+      "title": "模拟组合起点",
+      "requirementIds": [
+        "FR-016"
+      ],
+      "hostId": "simulation",
+      "hostTitle": "模拟一种人格组合",
+      "surface": "轻面板",
+      "ownerTab": "首页",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：独立页面；建议：轻面板。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[simulation-presets]"
+    },
+    {
+      "id": "simulation-result",
+      "title": "假设组合的观察",
+      "requirementIds": [
+        "FR-016"
+      ],
+      "hostId": "simulation",
+      "hostTitle": "模拟一种人格组合",
+      "surface": "页内内容",
+      "ownerTab": "首页",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：独立页面；建议：页内内容。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[simulation-result]"
+    },
+    {
+      "id": "assessment-favorites",
+      "title": "想以后探索的题组",
+      "requirementIds": [
+        "FR-003"
+      ],
+      "hostId": "explore",
+      "hostTitle": "探索",
+      "surface": "同页模式",
+      "ownerTab": "探索",
+      "tabBar": "随调用宿主；根页内展开保留底栏，专注任务不显示",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：独立页面；建议：同页模式。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[assessment-favorites]"
+    },
+    {
+      "id": "personality-guide",
+      "title": "先读懂这些概念",
+      "requirementIds": [
+        "FR-019"
+      ],
+      "hostId": "explore",
+      "hostTitle": "探索",
+      "surface": "页内内容",
+      "ownerTab": "探索",
+      "tabBar": "随调用宿主；根页内展开保留底栏，专注任务不显示",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：独立页面；建议：页内内容。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[personality-guide]"
+    },
+    {
+      "id": "exploration-perspectives",
+      "title": "换几个角度认识自己",
+      "requirementIds": [
+        "FR-003"
+      ],
+      "hostId": "explore",
+      "hostTitle": "探索",
+      "surface": "同页模式",
+      "ownerTab": "探索",
+      "tabBar": "随调用宿主；根页内展开保留底栏，专注任务不显示",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：独立页面；建议：同页模式。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[exploration-perspectives]"
+    },
+    {
+      "id": "decision-context",
+      "title": "梳理这次的现实问题",
+      "requirementIds": [
+        "FR-017",
+        "FR-033"
+      ],
+      "hostId": "decision-context",
+      "hostTitle": "梳理这次的现实问题",
+      "surface": "独立任务页",
+      "ownerTab": "探索",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[decision-context]"
+    },
+    {
+      "id": "session-checkin",
+      "title": "此刻的状态与感受",
+      "requirementIds": [
+        "FR-018"
+      ],
+      "hostId": "assessment-detail",
+      "hostTitle": "测评详情",
+      "surface": "轻面板",
+      "ownerTab": "首页",
+      "tabBar": "随调用宿主；根页内展开保留底栏，专注任务不显示",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：页内模块；建议：轻面板。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[session-checkin]"
+    },
+    {
+      "id": "knowledge-detail",
+      "title": "性格解释应该怎样读",
+      "requirementIds": [
+        "FR-019"
+      ],
+      "hostId": "knowledge-detail",
+      "hostTitle": "性格解释应该怎样读",
+      "surface": "独立任务页",
+      "ownerTab": "探索",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[knowledge-detail]"
+    },
+    {
+      "id": "assistant",
+      "title": "个人助理",
+      "requirementIds": [
+        "FR-001",
+        "FR-020",
+        "FR-022",
+        "FR-023"
+      ],
+      "hostId": "assistant",
+      "hostTitle": "个人助理入口",
+      "surface": "主入口",
+      "ownerTab": "助理",
+      "tabBar": "显示，仅四主入口",
+      "availability": "按任务需要可发现",
+      "returnRule": "回到原对话/分析草稿和阅读位置；调用前核对本次资料，登录/购买返回不自动发送、不重复扣次。",
+      "currentStatus": "当前：独立页面；建议：主入口。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[assistant]"
+    },
+    {
+      "id": "conversation-list",
+      "title": "过去聊过的",
+      "requirementIds": [
+        "FR-021",
+        "FR-055"
+      ],
+      "hostId": "conversation-list",
+      "hostTitle": "过去聊过的",
+      "surface": "独立任务页",
+      "ownerTab": "助理",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "回到原对话/分析草稿和阅读位置；调用前核对本次资料，登录/购买返回不自动发送、不重复扣次。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[conversation-list]"
+    },
+    {
+      "id": "conversation-detail",
+      "title": "连续对话",
+      "requirementIds": [
+        "FR-019",
+        "FR-020",
+        "FR-021"
+      ],
+      "hostId": "conversation-detail",
+      "hostTitle": "专注对话",
+      "surface": "独立任务页",
+      "ownerTab": "助理",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "回到原对话/分析草稿和阅读位置；调用前核对本次资料，登录/购买返回不自动发送、不重复扣次。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[conversation-detail]"
+    },
+    {
+      "id": "conversation-settings",
+      "title": "这段对话",
+      "requirementIds": [
+        "FR-020",
+        "FR-030"
+      ],
+      "hostId": "conversation-detail",
+      "hostTitle": "专注对话",
+      "surface": "轻面板",
+      "ownerTab": "助理",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "回到原对话/分析草稿和阅读位置；调用前核对本次资料，登录/购买返回不自动发送、不重复扣次。",
+      "currentStatus": "当前：页内模块；建议：轻面板。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[conversation-settings]"
+    },
+    {
+      "id": "context-select",
+      "title": "选择本次依据",
+      "requirementIds": [
+        "FR-022"
+      ],
+      "hostId": "context-select",
+      "hostTitle": "选择本次依据",
+      "surface": "独立任务页",
+      "ownerTab": "助理",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "回到原对话/分析草稿和阅读位置；调用前核对本次资料，登录/购买返回不自动发送、不重复扣次。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[context-select]"
+    },
+    {
+      "id": "context-preview",
+      "title": "本次会参考什么",
+      "requirementIds": [
+        "FR-022"
+      ],
+      "hostId": "context-select",
+      "hostTitle": "选择本次依据",
+      "surface": "页内内容",
+      "ownerTab": "助理",
+      "tabBar": "随调用宿主；根页内展开保留底栏，专注任务不显示",
+      "availability": "按任务需要可发现",
+      "returnRule": "回到原对话/分析草稿和阅读位置；调用前核对本次资料，登录/购买返回不自动发送、不重复扣次。",
+      "currentStatus": "当前：页内模块；建议：页内内容。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[context-preview]"
+    },
+    {
+      "id": "ai-quota",
+      "title": "AI共用次数",
+      "requirementIds": [
+        "FR-023",
+        "FR-024",
+        "FR-050"
+      ],
+      "hostId": "assistant",
+      "hostTitle": "个人助理入口",
+      "surface": "轻面板",
+      "ownerTab": "助理",
+      "tabBar": "随调用宿主；根页内展开保留底栏，专注任务不显示",
+      "availability": "按任务需要可发现",
+      "returnRule": "回到原对话/分析草稿和阅读位置；调用前核对本次资料，登录/购买返回不自动发送、不重复扣次。",
+      "currentStatus": "当前：独立页面；建议：轻面板。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[ai-quota]"
+    },
+    {
+      "id": "ai-usage-history",
+      "title": "AI使用记录",
+      "requirementIds": [
+        "FR-024"
+      ],
+      "hostId": "ai-usage-history",
+      "hostTitle": "AI使用记录",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[ai-usage-history]"
+    },
+    {
+      "id": "my-portrait",
+      "title": "我正在了解的自己",
+      "requirementIds": [
+        "FR-026"
+      ],
+      "hostId": "my-portrait",
+      "hostTitle": "我正在了解的自己",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[my-portrait]"
+    },
+    {
+      "id": "portrait-insight",
+      "title": "一条认识的来由",
+      "requirementIds": [
+        "FR-026",
+        "FR-027"
+      ],
+      "hostId": "portrait-insight",
+      "hostTitle": "一条认识的来由",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[portrait-insight]"
+    },
+    {
+      "id": "portrait-reflection",
+      "title": "补充我的情境",
+      "requirementIds": [
+        "FR-010",
+        "FR-027"
+      ],
+      "hostId": "portrait-reflection",
+      "hostTitle": "补充我的情境",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[portrait-reflection]"
+    },
+    {
+      "id": "memory-list",
+      "title": "助理记住了什么",
+      "requirementIds": [
+        "FR-028",
+        "FR-055"
+      ],
+      "hostId": "memory-list",
+      "hostTitle": "助理记住了什么",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[memory-list]"
+    },
+    {
+      "id": "memory-detail",
+      "title": "一条记忆",
+      "requirementIds": [
+        "FR-028",
+        "FR-029"
+      ],
+      "hostId": "memory-detail",
+      "hostTitle": "一条记忆",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[memory-detail]"
+    },
+    {
+      "id": "memory-inbox",
+      "title": "这些值得记住吗",
+      "requirementIds": [
+        "FR-028"
+      ],
+      "hostId": "memory-list",
+      "hostTitle": "助理记住了什么",
+      "surface": "同页模式",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：同页模式。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[memory-inbox]"
+    },
+    {
+      "id": "memory-edit",
+      "title": "编辑一条记忆",
+      "requirementIds": [
+        "FR-029"
+      ],
+      "hostId": "memory-edit",
+      "hostTitle": "编辑一条记忆",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[memory-edit]"
+    },
+    {
+      "id": "memory-source",
+      "title": "这条信息的来源",
+      "requirementIds": [
+        "FR-029"
+      ],
+      "hostId": "memory-source",
+      "hostTitle": "这条信息的来源",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[memory-source]"
+    },
+    {
+      "id": "memory-controls",
+      "title": "记忆怎样使用",
+      "requirementIds": [
+        "FR-030"
+      ],
+      "hostId": "privacy",
+      "hostTitle": "隐私与控制",
+      "surface": "页内内容",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "预览→本人确认→结果；失败保留原资料与可恢复草稿，取消不宣称删除/同步。",
+      "currentStatus": "当前：独立页面；建议：页内内容。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[memory-controls]"
+    },
+    {
+      "id": "memory-changes",
+      "title": "记忆的更改记录",
+      "requirementIds": [
+        "FR-029"
+      ],
+      "hostId": "memory-detail",
+      "hostTitle": "一条记忆",
+      "surface": "页内内容",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：页内内容。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[memory-changes]"
+    },
+    {
+      "id": "action-list",
+      "title": "我想试试的事",
+      "requirementIds": [
+        "FR-031",
+        "FR-032"
+      ],
+      "hostId": "action-list",
+      "hostTitle": "我想试试的事",
+      "surface": "独立任务页",
+      "ownerTab": "助理",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "回实际调用位置；独立观察可从每日/记录进入，保存后仍独立存在。编辑和回看保留各自草稿，不统一退回对话。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[action-list]"
+    },
+    {
+      "id": "action-detail",
+      "title": "一个小尝试",
+      "requirementIds": [
+        "FR-031",
+        "FR-032",
+        "FR-035"
+      ],
+      "hostId": "action-detail",
+      "hostTitle": "一个小尝试",
+      "surface": "独立任务页",
+      "ownerTab": "助理",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "回实际调用位置；独立观察可从每日/记录进入，保存后仍独立存在。编辑和回看保留各自草稿，不统一退回对话。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[action-detail]"
+    },
+    {
+      "id": "action-edit",
+      "title": "安排一个小尝试",
+      "requirementIds": [
+        "FR-031"
+      ],
+      "hostId": "action-edit",
+      "hostTitle": "安排一个小尝试",
+      "surface": "独立任务页",
+      "ownerTab": "助理",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "回实际调用位置；独立观察可从每日/记录进入，保存后仍独立存在。编辑和回看保留各自草稿，不统一退回对话。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[action-edit]"
+    },
+    {
+      "id": "observation-edit",
+      "title": "记下一点观察",
+      "requirementIds": [
+        "FR-032"
+      ],
+      "hostId": "observation-edit",
+      "hostTitle": "记下一点观察",
+      "surface": "独立任务页",
+      "ownerTab": "助理",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "回实际调用位置；独立观察可从每日/记录进入，保存后仍独立存在。编辑和回看保留各自草稿，不统一退回对话。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[observation-edit]"
+    },
+    {
+      "id": "observation-history",
+      "title": "我的观察与变化",
+      "requirementIds": [
+        "FR-032"
+      ],
+      "hostId": "action-list",
+      "hostTitle": "我想试试的事",
+      "surface": "同页模式",
+      "ownerTab": "助理",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "回实际调用位置；独立观察可从每日/记录进入，保存后仍独立存在。编辑和回看保留各自草稿，不统一退回对话。",
+      "currentStatus": "当前：独立页面；建议：同页模式。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[observation-history]"
+    },
+    {
+      "id": "action-review",
+      "title": "回看这次尝试",
+      "requirementIds": [
+        "FR-031"
+      ],
+      "hostId": "action-detail",
+      "hostTitle": "一个小尝试",
+      "surface": "同页模式",
+      "ownerTab": "助理",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "回实际调用位置；独立观察可从每日/记录进入，保存后仍独立存在。编辑和回看保留各自草稿，不统一退回对话。",
+      "currentStatus": "当前：独立页面；建议：同页模式。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[action-review]"
+    },
+    {
+      "id": "ai-settings",
+      "title": "我希望怎样交流",
+      "requirementIds": [
+        "FR-040"
+      ],
+      "hostId": "settings",
+      "hostTitle": "设置",
+      "surface": "页内内容",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：页内模块；建议：页内内容。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[ai-settings]"
+    },
+    {
+      "id": "skills-list",
+      "title": "后续协作能力",
+      "requirementIds": [
+        "FR-034"
+      ],
+      "hostId": "skills-list",
+      "hostTitle": "后续协作能力",
+      "surface": "独立任务页",
+      "ownerTab": "助理",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "后续能力成立后呈现",
+      "returnRule": "回到原对话/分析草稿和阅读位置；调用前核对本次资料，登录/购买返回不自动发送、不重复扣次。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[skills-list]"
+    },
+    {
+      "id": "skill-detail",
+      "title": "一种协作方法",
+      "requirementIds": [
+        "FR-034"
+      ],
+      "hostId": "skill-detail",
+      "hostTitle": "一种协作方法",
+      "surface": "独立任务页",
+      "ownerTab": "助理",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "后续能力成立后呈现",
+      "returnRule": "回到原对话/分析草稿和阅读位置；调用前核对本次资料，登录/购买返回不自动发送、不重复扣次。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[skill-detail]"
+    },
+    {
+      "id": "reminder-settings",
+      "title": "回看提醒方案",
+      "requirementIds": [
+        "FR-035"
+      ],
+      "hostId": "action-detail",
+      "hostTitle": "一个小尝试",
+      "surface": "轻面板",
+      "ownerTab": "助理",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "后续能力成立后呈现",
+      "returnRule": "回实际调用位置；独立观察可从每日/记录进入，保存后仍独立存在。编辑和回看保留各自草稿，不统一退回对话。",
+      "currentStatus": "当前：独立页面；建议：轻面板。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[reminder-settings]"
+    },
+    {
+      "id": "life-space-list",
+      "title": "我持续关心的问题",
+      "requirementIds": [
+        "FR-033"
+      ],
+      "hostId": "life-space-list",
+      "hostTitle": "我持续关心的问题",
+      "surface": "独立任务页",
+      "ownerTab": "助理",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "后续能力成立后呈现",
+      "returnRule": "回到原对话/分析草稿和阅读位置；调用前核对本次资料，登录/购买返回不自动发送、不重复扣次。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[life-space-list]"
+    },
+    {
+      "id": "life-space-detail",
+      "title": "围绕一个生活问题",
+      "requirementIds": [
+        "FR-033"
+      ],
+      "hostId": "life-space-detail",
+      "hostTitle": "围绕一个生活问题",
+      "surface": "独立任务页",
+      "ownerTab": "助理",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "后续能力成立后呈现",
+      "returnRule": "回到原对话/分析草稿和阅读位置；调用前核对本次资料，登录/购买返回不自动发送、不重复扣次。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[life-space-detail]"
+    },
+    {
+      "id": "situational-self",
+      "title": "不同情境中的我",
+      "requirementIds": [
+        "FR-026"
+      ],
+      "hostId": "my-portrait",
+      "hostTitle": "我正在了解的自己",
+      "surface": "同页模式",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：同页模式。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[situational-self]"
+    },
+    {
+      "id": "understanding-gaps",
+      "title": "我们知道什么，还缺什么",
+      "requirementIds": [
+        "FR-026"
+      ],
+      "hostId": "my-portrait",
+      "hostTitle": "我正在了解的自己",
+      "surface": "页内内容",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：页内内容。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[understanding-gaps]"
+    },
+    {
+      "id": "insight-reconcile",
+      "title": "把不同说法放在一起",
+      "requirementIds": [
+        "FR-027"
+      ],
+      "hostId": "insight-reconcile",
+      "hostTitle": "把不同说法放在一起",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[insight-reconcile]"
+    },
+    {
+      "id": "strength-experiment",
+      "title": "让一个优势用在生活里",
+      "requirementIds": [
+        "FR-031"
+      ],
+      "hostId": "action-edit",
+      "hostTitle": "安排一个小尝试",
+      "surface": "同页模式",
+      "ownerTab": "助理",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "回实际调用位置；独立观察可从每日/记录进入，保存后仍独立存在。编辑和回看保留各自草稿，不统一退回对话。",
+      "currentStatus": "当前：独立页面；建议：同页模式。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[strength-experiment]"
+    },
+    {
+      "id": "ai-analysis",
+      "title": "AI分析",
+      "requirementIds": [
+        "FR-022",
+        "FR-023",
+        "FR-025"
+      ],
+      "hostId": "ai-analysis",
+      "hostTitle": "AI分析",
+      "surface": "独立任务页",
+      "ownerTab": "助理",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "回到原对话/分析草稿和阅读位置；调用前核对本次资料，登录/购买返回不自动发送、不重复扣次。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[ai-analysis]"
+    },
+    {
+      "id": "ai-analysis-result",
+      "title": "AI分析结果",
+      "requirementIds": [
+        "FR-024",
+        "FR-025"
+      ],
+      "hostId": "ai-analysis-result",
+      "hostTitle": "AI分析结果",
+      "surface": "独立任务页",
+      "ownerTab": "助理",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "回到原对话/分析草稿和阅读位置；调用前核对本次资料，登录/购买返回不自动发送、不重复扣次。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[ai-analysis-result]"
+    },
+    {
+      "id": "profile",
+      "title": "我的",
+      "requirementIds": [
+        "FR-001",
+        "FR-036"
+      ],
+      "hostId": "profile",
+      "hostTitle": "我的",
+      "surface": "主入口",
+      "ownerTab": "我的",
+      "tabBar": "显示，仅四主入口",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：主入口。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[profile]"
+    },
+    {
+      "id": "welcome",
+      "title": "从认识自己开始",
+      "requirementIds": [
+        "FR-001"
+      ],
+      "hostId": "home",
+      "hostTitle": "首页",
+      "surface": "页内内容",
+      "ownerTab": "首页",
+      "tabBar": "随调用宿主；根页内展开保留底栏，专注任务不显示",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存当前题/筛选/滚动与草稿；正常继续回同一sessionId，已保存结果按resultId打开，不重算旧结果。",
+      "currentStatus": "当前：独立页面；建议：页内内容。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[welcome]"
+    },
+    {
+      "id": "login",
+      "title": "登录",
+      "requirementIds": [
+        "FR-037"
+      ],
+      "hostId": "login",
+      "hostTitle": "登录",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "根据authIntent完成登录/建号/恢复，或只完成原敏感操作所需验证；回原任务，保留草稿、引用与位置。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[login]"
+    },
+    {
+      "id": "register",
+      "title": "创建账号",
+      "requirementIds": [
+        "FR-037"
+      ],
+      "hostId": "login",
+      "hostTitle": "登录",
+      "surface": "同页模式",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "根据authIntent完成登录/建号/恢复，或只完成原敏感操作所需验证；回原任务，保留草稿、引用与位置。",
+      "currentStatus": "当前：独立页面；建议：同页模式。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[register]"
+    },
+    {
+      "id": "verify-code",
+      "title": "验证身份",
+      "requirementIds": [
+        "FR-037"
+      ],
+      "hostId": "login",
+      "hostTitle": "登录",
+      "surface": "任务状态",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "根据authIntent完成登录/建号/恢复，或只完成原敏感操作所需验证；回原任务，保留草稿、引用与位置。",
+      "currentStatus": "当前：独立页面；建议：任务状态。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[verify-code]"
+    },
+    {
+      "id": "account-recovery",
+      "title": "账号恢复",
+      "requirementIds": [
+        "FR-038"
+      ],
+      "hostId": "account-recovery",
+      "hostTitle": "账号恢复",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "根据authIntent完成登录/建号/恢复，或只完成原敏感操作所需验证；回原任务，保留草稿、引用与位置。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[account-recovery]"
+    },
+    {
+      "id": "account-security",
+      "title": "账号与安全",
+      "requirementIds": [
+        "FR-038",
+        "FR-039",
+        "FR-056"
+      ],
+      "hostId": "account-security",
+      "hostTitle": "账号与安全",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[account-security]"
+    },
+    {
+      "id": "account-delete",
+      "title": "注销账号",
+      "requirementIds": [
+        "FR-039"
+      ],
+      "hostId": "account-delete",
+      "hostTitle": "注销账号",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "相关状态发生时呈现",
+      "returnRule": "预览→本人确认→结果；失败保留原资料与可恢复草稿，取消不宣称删除/同步。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[account-delete]"
+    },
+    {
+      "id": "profile-edit",
+      "title": "个人信息",
+      "requirementIds": [
+        "FR-036"
+      ],
+      "hostId": "profile-edit",
+      "hostTitle": "个人信息",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[profile-edit]"
+    },
+    {
+      "id": "settings",
+      "title": "设置",
+      "requirementIds": [
+        "FR-040",
+        "FR-056"
+      ],
+      "hostId": "settings",
+      "hostTitle": "设置",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[settings]"
+    },
+    {
+      "id": "theme",
+      "title": "主题与呼吸效果",
+      "requirementIds": [
+        "FR-041"
+      ],
+      "hostId": "theme",
+      "hostTitle": "主题与呼吸效果",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[theme]"
+    },
+    {
+      "id": "avatar",
+      "title": "自己的形象",
+      "requirementIds": [
+        "FR-042"
+      ],
+      "hostId": "avatar",
+      "hostTitle": "自己的形象",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[avatar]"
+    },
+    {
+      "id": "avatar-editor",
+      "title": "形象编辑方案",
+      "requirementIds": [
+        "FR-042"
+      ],
+      "hostId": "avatar",
+      "hostTitle": "自己的形象",
+      "surface": "同页模式",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：同页模式。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[avatar-editor]"
+    },
+    {
+      "id": "display-settings",
+      "title": "阅读与可访问性",
+      "requirementIds": [
+        "FR-040",
+        "FR-041"
+      ],
+      "hostId": "settings",
+      "hostTitle": "设置",
+      "surface": "页内内容",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：页内模块；建议：页内内容。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[display-settings]"
+    },
+    {
+      "id": "notification-settings",
+      "title": "通知偏好",
+      "requirementIds": [
+        "FR-035",
+        "FR-043"
+      ],
+      "hostId": "settings",
+      "hostTitle": "设置",
+      "surface": "页内内容",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：页内模块；建议：页内内容。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[notification-settings]"
+    },
+    {
+      "id": "privacy",
+      "title": "隐私与控制",
+      "requirementIds": [
+        "FR-030",
+        "FR-039",
+        "FR-044",
+        "FR-056"
+      ],
+      "hostId": "privacy",
+      "hostTitle": "隐私与控制",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "预览→本人确认→结果；失败保留原资料与可恢复草稿，取消不宣称删除/同步。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[privacy]"
+    },
+    {
+      "id": "privacy-policy",
+      "title": "隐私说明",
+      "requirementIds": [
+        "FR-044"
+      ],
+      "hostId": "privacy-policy",
+      "hostTitle": "隐私说明",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[privacy-policy]"
+    },
+    {
+      "id": "terms",
+      "title": "用户协议",
+      "requirementIds": [
+        "FR-044"
+      ],
+      "hostId": "terms",
+      "hostTitle": "用户协议",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[terms]"
+    },
+    {
+      "id": "permission-settings",
+      "title": "系统权限",
+      "requirementIds": [
+        "FR-044"
+      ],
+      "hostId": "privacy",
+      "hostTitle": "隐私与控制",
+      "surface": "页内内容",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "预览→本人确认→结果；失败保留原资料与可恢复草稿，取消不宣称删除/同步。",
+      "currentStatus": "当前：独立页面；建议：页内内容。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[permission-settings]"
+    },
+    {
+      "id": "data-center",
+      "title": "我的数据",
+      "requirementIds": [
+        "FR-045",
+        "FR-046",
+        "FR-047",
+        "FR-048",
+        "FR-055"
+      ],
+      "hostId": "data-center",
+      "hostTitle": "我的数据",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "预览→本人确认→结果；失败保留原资料与可恢复草稿，取消不宣称删除/同步。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[data-center]"
+    },
+    {
+      "id": "data-export",
+      "title": "导出资料",
+      "requirementIds": [
+        "FR-045"
+      ],
+      "hostId": "data-export",
+      "hostTitle": "导出资料",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "预览→本人确认→结果；失败保留原资料与可恢复草稿，取消不宣称删除/同步。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[data-export]"
+    },
+    {
+      "id": "data-import",
+      "title": "导入备份",
+      "requirementIds": [
+        "FR-046"
+      ],
+      "hostId": "data-import",
+      "hostTitle": "导入备份",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "预览→本人确认→结果；失败保留原资料与可恢复草稿，取消不宣称删除/同步。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[data-import]"
+    },
+    {
+      "id": "backup-sync",
+      "title": "备份与同步方案",
+      "requirementIds": [
+        "FR-047"
+      ],
+      "hostId": "data-center",
+      "hostTitle": "我的数据",
+      "surface": "页内内容",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "后续能力成立后呈现",
+      "returnRule": "预览→本人确认→结果；失败保留原资料与可恢复草稿，取消不宣称删除/同步。",
+      "currentStatus": "当前：独立页面；建议：页内内容。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[backup-sync]"
+    },
+    {
+      "id": "sync-conflicts",
+      "title": "处理资料冲突",
+      "requirementIds": [
+        "FR-046",
+        "FR-047"
+      ],
+      "hostId": "sync-conflicts",
+      "hostTitle": "处理资料冲突",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "相关状态发生时呈现",
+      "returnRule": "预览→本人确认→结果；失败保留原资料与可恢复草稿，取消不宣称删除/同步。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[sync-conflicts]"
+    },
+    {
+      "id": "clear-data",
+      "title": "清理本机数据",
+      "requirementIds": [
+        "FR-048"
+      ],
+      "hostId": "clear-data",
+      "hostTitle": "清理本机数据",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "预览→本人确认→结果；失败保留原资料与可恢复草稿，取消不宣称删除/同步。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[clear-data]"
+    },
+    {
+      "id": "help",
+      "title": "帮助与反馈",
+      "requirementIds": [
+        "FR-049"
+      ],
+      "hostId": "help",
+      "hostTitle": "帮助与反馈",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[help]"
+    },
+    {
+      "id": "help-article",
+      "title": "使用说明",
+      "requirementIds": [
+        "FR-049"
+      ],
+      "hostId": "help",
+      "hostTitle": "帮助与反馈",
+      "surface": "页内内容",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：页内模块；建议：页内内容。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[help-article]"
+    },
+    {
+      "id": "feedback",
+      "title": "提交反馈",
+      "requirementIds": [
+        "FR-049"
+      ],
+      "hostId": "feedback",
+      "hostTitle": "提交反馈",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[feedback]"
+    },
+    {
+      "id": "feedback-detail",
+      "title": "反馈进度",
+      "requirementIds": [
+        "FR-049"
+      ],
+      "hostId": "feedback-detail",
+      "hostTitle": "反馈进度",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "相关状态发生时呈现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[feedback-detail]"
+    },
+    {
+      "id": "notifications",
+      "title": "消息",
+      "requirementIds": [
+        "FR-043"
+      ],
+      "hostId": "notifications",
+      "hostTitle": "消息",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "相关状态发生时呈现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[notifications]"
+    },
+    {
+      "id": "notification-detail",
+      "title": "消息详情",
+      "requirementIds": [
+        "FR-043"
+      ],
+      "hostId": "notifications",
+      "hostTitle": "消息",
+      "surface": "同页模式",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "相关状态发生时呈现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：独立页面；建议：同页模式。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[notification-detail]"
+    },
+    {
+      "id": "about",
+      "title": "关于产品",
+      "requirementIds": [
+        "FR-049"
+      ],
+      "hostId": "help",
+      "hostTitle": "帮助与反馈",
+      "surface": "页内内容",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "保存/取消回实际调用方并保留其选中对象和位置；来源缺失、撤回、账号切换时明确显示，不用默认样例顶替。",
+      "currentStatus": "当前：页内模块；建议：页内内容。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[about]"
+    },
+    {
+      "id": "membership",
+      "title": "会员与权益",
+      "requirementIds": [
+        "FR-023",
+        "FR-050",
+        "FR-051",
+        "FR-054"
+      ],
+      "hostId": "membership",
+      "hostTitle": "会员方案与我的权益",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "关闭说明/恢复查询回购买前任务；只恢复旧权益，不重新付款，不自动发AI。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[membership]"
+    },
+    {
+      "id": "plan-detail",
+      "title": "会员方案详情",
+      "requirementIds": [
+        "FR-050"
+      ],
+      "hostId": "membership",
+      "hostTitle": "会员方案与我的权益",
+      "surface": "页内内容",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "关闭说明/恢复查询回购买前任务；只恢复旧权益，不重新付款，不自动发AI。",
+      "currentStatus": "当前：独立页面；建议：页内内容。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[plan-detail]"
+    },
+    {
+      "id": "checkout",
+      "title": "确认开通（演示）",
+      "requirementIds": [
+        "FR-051"
+      ],
+      "hostId": "checkout",
+      "hostTitle": "确认开通（演示）",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "结果统一回同一订单；购买前任务草稿保留，查询旧单不创建新单，回AI任务仍由本人发送。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[checkout]"
+    },
+    {
+      "id": "payment-result",
+      "title": "支付结果",
+      "requirementIds": [
+        "FR-051",
+        "FR-052"
+      ],
+      "hostId": "order-detail",
+      "hostTitle": "订单、付款与退款状态",
+      "surface": "任务状态",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "结果统一回同一订单；购买前任务草稿保留，查询旧单不创建新单，回AI任务仍由本人发送。",
+      "currentStatus": "当前：独立页面；建议：任务状态。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[payment-result]"
+    },
+    {
+      "id": "orders",
+      "title": "订单记录",
+      "requirementIds": [
+        "FR-052"
+      ],
+      "hostId": "orders",
+      "hostTitle": "订单记录",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "结果统一回同一订单；购买前任务草稿保留，查询旧单不创建新单，回AI任务仍由本人发送。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[orders]"
+    },
+    {
+      "id": "order-detail",
+      "title": "订单详情",
+      "requirementIds": [
+        "FR-051",
+        "FR-052",
+        "FR-053"
+      ],
+      "hostId": "order-detail",
+      "hostTitle": "订单、付款与退款状态",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "按任务需要可发现",
+      "returnRule": "结果统一回同一订单；购买前任务草稿保留，查询旧单不创建新单，回AI任务仍由本人发送。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[order-detail]"
+    },
+    {
+      "id": "refund-request",
+      "title": "申请退款",
+      "requirementIds": [
+        "FR-053"
+      ],
+      "hostId": "refund-request",
+      "hostTitle": "申请退款",
+      "surface": "独立任务页",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "相关状态发生时呈现",
+      "returnRule": "结果统一回同一订单；购买前任务草稿保留，查询旧单不创建新单，回AI任务仍由本人发送。",
+      "currentStatus": "当前：独立页面；建议：独立任务页。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[refund-request]"
+    },
+    {
+      "id": "refund-status",
+      "title": "退款进度",
+      "requirementIds": [
+        "FR-053"
+      ],
+      "hostId": "order-detail",
+      "hostTitle": "订单、付款与退款状态",
+      "surface": "任务状态",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "相关状态发生时呈现",
+      "returnRule": "结果统一回同一订单；购买前任务草稿保留，查询旧单不创建新单，回AI任务仍由本人发送。",
+      "currentStatus": "当前：独立页面；建议：任务状态。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[refund-status]"
+    },
+    {
+      "id": "purchase-restore",
+      "title": "恢复购买",
+      "requirementIds": [
+        "FR-054"
+      ],
+      "hostId": "membership",
+      "hostTitle": "会员方案与我的权益",
+      "surface": "页内内容",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "相关状态发生时呈现",
+      "returnRule": "关闭说明/恢复查询回购买前任务；只恢复旧权益，不重新付款，不自动发AI。",
+      "currentStatus": "当前：独立页面；建议：页内内容。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[purchase-restore]"
+    },
+    {
+      "id": "subscription-settings",
+      "title": "续费管理方案",
+      "requirementIds": [
+        "FR-054"
+      ],
+      "hostId": "membership",
+      "hostTitle": "会员方案与我的权益",
+      "surface": "页内内容",
+      "ownerTab": "我的",
+      "tabBar": "隐藏；返回随正文滚走",
+      "availability": "后续能力成立后呈现",
+      "returnRule": "关闭说明/恢复查询回购买前任务；只恢复旧权益，不重新付款，不自动发AI。",
+      "currentStatus": "当前：独立页面；建议：页内内容。映射不代表已改造。",
+      "sourceLabel": "路由收敛数据 / pages[subscription-settings]"
+    }
+  ],
+  "revision": "2026-10-01-r2",
+  "supplementSummary": {
+    "authorized": "2026-10-01 用户：你进行补充。",
+    "scope": "12类边界写回原条目；所有功能新增启用/依赖/异常/价值字段；2项仅纳入候选。",
+    "optionalIds": [
+      "FR-055",
+      "FR-056"
+    ],
+    "modifiedIds": [
+      "FR-005",
+      "FR-006",
+      "FR-008",
+      "FR-022",
+      "FR-025",
+      "FR-026",
+      "FR-027",
+      "FR-028",
+      "FR-029",
+      "FR-030",
+      "FR-007",
+      "FR-020",
+      "FR-023",
+      "FR-024",
+      "FR-037",
+      "FR-038",
+      "FR-045",
+      "FR-046",
+      "FR-047",
+      "FR-048",
+      "FR-050",
+      "FR-051",
+      "FR-052",
+      "FR-053",
+      "FR-054",
+      "FR-055",
+      "FR-056",
+      "FR-001",
+      "FR-002",
+      "FR-003",
+      "FR-004",
+      "FR-009",
+      "FR-010",
+      "FR-011",
+      "FR-012",
+      "FR-013",
+      "FR-014",
+      "FR-015",
+      "FR-016",
+      "FR-017",
+      "FR-018",
+      "FR-019",
+      "FR-021",
+      "FR-031",
+      "FR-032",
+      "FR-033",
+      "FR-034",
+      "FR-035",
+      "FR-036",
+      "FR-039",
+      "FR-040",
+      "FR-041",
+      "FR-042",
+      "FR-043",
+      "FR-044",
+      "FR-049",
+      "NFR-010",
+      "NFR-011",
+      "NFR-012",
+      "NFR-014",
+      "NFR-016",
+      "NFR-019",
+      "NFR-020",
+      "NFR-024",
+      "BR-001",
+      "BR-002",
+      "BR-003",
+      "BR-004",
+      "BR-006"
+    ],
+    "productImplementationChanged": false
+  }
+}

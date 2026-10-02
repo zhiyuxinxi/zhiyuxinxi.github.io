@@ -1,0 +1,67 @@
+[
+  {
+    "id": "experience.preferences",
+    "host": "appearance",
+    "label": "打开阅读偏好",
+    "precondition": "任一提供阅读设置的页面",
+    "objects": "density,reduced,lastFocusedElement",
+    "success": "打开模态面板，背景不可交互，焦点进入面板",
+    "cancel": "关闭回原控件；保留已明确选择的偏好",
+    "failure": "面板不更改内容和正文",
+    "level": "本地交互",
+    "sideEffect": "仅呈现设置面板",
+    "runtimeAction": "v3-preferences"
+  },
+  {
+    "id": "experience.density",
+    "host": "appearance",
+    "label": "舒展 / 紧凑",
+    "precondition": "值属于 balanced / compact",
+    "objects": "localSpaceId,density",
+    "success": "保存成功后立即应用；正文、题目和主要点击区尺寸不缩小",
+    "cancel": "即时设置，可选择另一选项恢复；关闭面板不回滚已成功保存项",
+    "failure": "保存失败保持原密度并显示失败状态",
+    "level": "本地交互",
+    "sideEffect": "仅当前场景本地外观偏好",
+    "runtimeAction": "v3-density"
+  },
+  {
+    "id": "experience.motion",
+    "host": "appearance",
+    "label": "减少动态",
+    "precondition": "应用开关可操作；系统减少动态拥有优先级",
+    "objects": "reduced,prefers-reduced-motion",
+    "success": "偏好保存；取消非必要动画，文字和状态仍可见",
+    "cancel": "再次关闭应用开关；系统 reduce 仍生效",
+    "failure": "保存失败不宣称设置成功",
+    "level": "本地交互",
+    "sideEffect": "仅界面表现，不修改问卷或数据",
+    "runtimeAction": "v3-motion"
+  },
+  {
+    "id": "workspace.presentation",
+    "host": "topic-workspace",
+    "label": "总览 / 专注",
+    "precondition": "有效 topicId 与 V2 字段定义",
+    "objects": "topicId,recordId,editorDraftKey,workspaceMode",
+    "success": "在同一工作区切换；原字段值和草稿原样保留",
+    "cancel": "随时切回总览",
+    "failure": "模式保存失败不切换；不覆盖草稿",
+    "level": "本地交互",
+    "sideEffect": "仅呈现偏好，不能自动创建记录",
+    "runtimeAction": "v3-workspace-mode"
+  },
+  {
+    "id": "workspace.step",
+    "host": "topic-workspace",
+    "label": "专注视图切换问题",
+    "precondition": "当前主题存在且目标问题索引有效",
+    "objects": "topicId,recordId,index,editorDraftKey",
+    "success": "仅当前问题可见，焦点移入对应字段；已填计数反映非空字段",
+    "cancel": "切回总览仍显示原字段；返回不等于保存成品",
+    "failure": "无效索引忽略；失败草稿由 V2 同一重试链处理",
+    "level": "本地交互",
+    "sideEffect": "只更新内存中的焦点索引，不产生分数或完成判定",
+    "runtimeAction": "v3-step"
+  }
+]

@@ -1,0 +1,149 @@
+{
+  "groups": [
+    {
+      "id": "core",
+      "title": "四个主入口",
+      "items": [
+        "home",
+        "explore",
+        "assistant",
+        "me"
+      ]
+    },
+    {
+      "id": "assessment",
+      "title": "性格探索与结果",
+      "items": [
+        "content",
+        "question",
+        "review",
+        "recovery",
+        "report",
+        "light-suite",
+        "article",
+        "compare"
+      ]
+    },
+    {
+      "id": "life",
+      "title": "生活问题与积累",
+      "items": [
+        "assessment-detail",
+        "topic-workspace",
+        "journal",
+        "records",
+        "actions",
+        "action-detail"
+      ]
+    },
+    {
+      "id": "assist",
+      "title": "助理、引用与记忆",
+      "items": [
+        "conversations",
+        "conversation",
+        "context",
+        "usage",
+        "analysis",
+        "portrait",
+        "memories",
+        "life-spaces",
+        "skills"
+      ]
+    },
+    {
+      "id": "personal",
+      "title": "外观、数据与服务",
+      "items": [
+        "appearance",
+        "settings",
+        "privacy",
+        "data",
+        "sync",
+        "share",
+        "reminders",
+        "notifications",
+        "support"
+      ]
+    },
+    {
+      "id": "commerce",
+      "title": "身份与会员服务",
+      "items": [
+        "auth",
+        "account",
+        "membership",
+        "checkout",
+        "orders",
+        "order"
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "id": "default",
+      "title": "首次打开",
+      "route": "home"
+    },
+    {
+      "id": "resume",
+      "title": "继续答题",
+      "route": "home"
+    },
+    {
+      "id": "combined",
+      "title": "答卷 + 小尝试并存",
+      "route": "home"
+    },
+    {
+      "id": "save-failure",
+      "title": "答案保存失败",
+      "route": "question?id=session-demo-seed"
+    },
+    {
+      "id": "complete",
+      "title": "已完成体验",
+      "route": "home"
+    },
+    {
+      "id": "mixed-records",
+      "title": "混合记录与分类",
+      "route": "me"
+    },
+    {
+      "id": "topic-record",
+      "title": "已保存专题",
+      "route": "topic-workspace?topic=work-choice&id=topic-note-demo-v2"
+    },
+    {
+      "id": "ongoing-action",
+      "title": "进行中的小尝试",
+      "route": "action-detail?id=action-demo-v2"
+    },
+    {
+      "id": "action-review",
+      "title": "已留过真实观察",
+      "route": "action-detail?id=action-demo-v2"
+    },
+    {
+      "id": "source-login",
+      "title": "引用后等待登录",
+      "route": "assistant"
+    },
+    {
+      "id": "quota",
+      "title": "共用次数已用尽",
+      "route": "assistant"
+    },
+    {
+      "id": "history",
+      "title": "原历史对话",
+      "route": "conversation?id=conversation-demo-history"
+    },
+    {
+      "id": "paid-annual",
+      "title": "原年方案订单",
+      "route": "order?id=DEMO-ANNUAL-001"
+    }
+  ]
+}

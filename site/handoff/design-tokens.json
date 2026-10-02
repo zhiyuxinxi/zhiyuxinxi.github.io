@@ -1,0 +1,149 @@
+{
+  "version": "3.0.0-design",
+  "brand": "见己（工作名）",
+  "direction": "轻杂志感的自我探索；明确、轻快、克制的个性表达",
+  "themes": [
+    {
+      "id": "violet",
+      "name": "灵感紫",
+      "primary": "#5846ca",
+      "paper": "#faf9f6",
+      "ink": "#242338",
+      "muted": "#615f70",
+      "hero": "#ece8ff",
+      "heroInk": "#392c7c",
+      "tint": "#eeebff",
+      "onPrimary": "#ffffff"
+    },
+    {
+      "id": "green",
+      "name": "青屿晨光",
+      "primary": "#286653",
+      "paper": "#f9faf5",
+      "ink": "#193b35",
+      "muted": "#516960",
+      "hero": "#e3efd1",
+      "heroInk": "#234d35",
+      "tint": "#e9f0df",
+      "onPrimary": "#ffffff"
+    },
+    {
+      "id": "peach",
+      "name": "杏桃晚风",
+      "primary": "#975042",
+      "paper": "#fff9f5",
+      "ink": "#4c2d29",
+      "muted": "#78605b",
+      "hero": "#f7d6c4",
+      "heroInk": "#663a2e",
+      "tint": "#fae6dc",
+      "onPrimary": "#ffffff"
+    },
+    {
+      "id": "blue",
+      "name": "海盐晴空",
+      "primary": "#3f609e",
+      "paper": "#f7faff",
+      "ink": "#243951",
+      "muted": "#54677d",
+      "hero": "#dfeafc",
+      "heroInk": "#304c7a",
+      "tint": "#e7eefb",
+      "onPrimary": "#ffffff"
+    }
+  ],
+  "topicRoles": {
+    "lime": [
+      "#e8efc9",
+      "#364522"
+    ],
+    "peach": [
+      "#f9e0d4",
+      "#624137"
+    ],
+    "blue": [
+      "#e0ebf9",
+      "#314e78"
+    ],
+    "lavender": [
+      "#ece8fa",
+      "#504279"
+    ],
+    "cream": [
+      "#f4efdb",
+      "#605430"
+    ]
+  },
+  "type": {
+    "family": "system UI + platform Chinese fallbacks; no bundled fonts",
+    "basePx": 15,
+    "titlePx": "28 default, page-specific 24–32",
+    "contentPx": "14–16, according to reading purpose",
+    "helperPx": "12–13; isolated compact labels 11",
+    "fontScaleLarge": 1.14,
+    "rule": "Density does not change text-size tokens. A few compact label variants respond to viewport width, not density."
+  },
+  "layout": {
+    "referenceViewport": [
+      390,
+      844
+    ],
+    "appMaxWidth": 480,
+    "gutter": 20,
+    "gutterBelow359": 16,
+    "navHeight": 74,
+    "safeArea": "env(safe-area-inset-*)",
+    "overviewColumns": "2, featured topic spans 2",
+    "reportChapterScrollMargin": 78
+  },
+  "radii": {
+    "mainCard": 24,
+    "lifeCard": 19,
+    "smallButton": 14,
+    "input": 15,
+    "dialog": 25
+  },
+  "density": {
+    "default": "balanced",
+    "options": [
+      "balanced",
+      "compact"
+    ],
+    "scope": [
+      "home",
+      "explore",
+      "me",
+      "records"
+    ],
+    "changes": "Selected component padding, title spacing, secondary nonessential intro; browsing card size",
+    "keeps": [
+      "reading font tokens",
+      "main button hit areas",
+      "question options",
+      "long-form reading",
+      "source identity",
+      "error and saving states"
+    ]
+  },
+  "motion": {
+    "pressMs": 140,
+    "selectionMs": 220,
+    "routeEntryMs": 200,
+    "routeEntryDistancePx": 7,
+    "sheetMs": 260,
+    "backdropMs": 140,
+    "ease": "cubic-bezier(.2,.8,.2,1)",
+    "reduce": "OS reduced motion OR app reduced flag; both CSS and Web Animations handled",
+    "noInfiniteMotionOnNewPages": true,
+    "meaning": "selection confirmation, navigation orientation, layer relationship; never delays commit",
+    "notVerified": "Actual device frame rate, GPU usage, vestibular tolerance"
+  },
+  "rules": [
+    "Topic color is category identity, never a personality rating",
+    "Button state includes text/icon/aria; never color alone",
+    "The main and new key touch controls use a 44 CSS px project target; selected controls tested, not whole-app certification",
+    "Maintain source identity and pending-save feedback in both density modes",
+    "No streak, growth score, pressure notification or default public sharing",
+    "CSS is the rendering source of truth; JSON is a handoff summary"
+  ]
+}

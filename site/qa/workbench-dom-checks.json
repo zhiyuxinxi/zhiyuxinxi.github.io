@@ -1,0 +1,15 @@
+{
+  "environment": "DOM mount and explicit frame/storage adapter; not native HTTP",
+  "passed": 2,
+  "failed": 0,
+  "results": [
+    {
+      "test": "shell_navigation_theme_keyboard_contract",
+      "status": "PASS"
+    },
+    {
+      "test": "shell_narrow",
+      "status": "PASS"
+    }
+  ]
+}

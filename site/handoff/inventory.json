@@ -1,0 +1,26 @@
+{
+  "legacyRequirements": {
+    "functional": 56,
+    "crosscutting": 24,
+    "backend": 8
+  },
+  "legacyResponsibilities": 119,
+  "legacyActionRows": 551,
+  "newTaskCarriers": 42,
+  "newEventContracts": 86,
+  "prototypeRoutes": 34,
+  "sourceArchive": "最新设计交接包-20261001.zip",
+  "notClaimed": "These counts describe design coverage, NOT production functionality or user validation.",
+  "version": "4.0.0-preservation",
+  "parentArchive": "JIANJI-V3-Youthful-Experience-20261002.zip",
+  "reviewDate": "2026-10-02",
+  "parentArchiveSHA256": "051c3a4abc279defb1d814b31b0d06b7d52568ec2b6d2e5a28b4d594b23d6045",
+  "presentationViewOverrides": 10,
+  "newPresentationEventContracts": 5,
+  "originalThemes": 8,
+  "historicalThemeCandidates": 4,
+  "reviewFindings": 24,
+  "routeCarrierMappings": 33,
+  "sourceAssets": "Three original illustrated portraits reused as cropped WebP; three historical scene presets retained separately.",
+  "uniqueRoutedViews": 33
+}
