@@ -77,6 +77,13 @@
         "current-user-decision",
         "current-content-page"
       ]
+    },
+    {
+      "statement": "无意义或过度渲染、过度延伸的历史项必须删除；确有用户价值的能力必须保留。逐项给出保留/合并/删除/待确认裁决、理由及动作与数据能力去向。历史对账不是119页恢复清单，历史ID本身不构成恢复依据。",
+      "decisionState": "confirmed-requirement",
+      "evidenceRefs": [
+        "current-user-decision"
+      ]
     }
   ],
   "unconfirmedArchitectureRequests": [

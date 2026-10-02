@@ -940,8 +940,10 @@
             "merged-preserved",
             "not-designed",
             "missing",
-            "needs-confirmation"
-          ]
+            "needs-confirmation",
+            "intentionally-removed"
+          ],
+          "description": "当前承载/缺口事实，与价值裁决分开。经明确裁决删除的项标intentionally-removed，不算待恢复遗漏。"
         },
         "targets": {
           "type": "array",
@@ -957,6 +959,9 @@
           "items": {
             "$ref": "#/$defs/fact"
           }
+        },
+        "valueDecision": {
+          "$ref": "#/$defs/valueDecision"
         }
       },
       "required": [
@@ -968,8 +973,102 @@
         "disposition",
         "targets",
         "assessment",
-        "openDecisions"
+        "openDecisions",
+        "valueDecision"
       ]
+    },
+    "capabilityDestination": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "capability",
+        "kind",
+        "outcome",
+        "targetRefs",
+        "reason",
+        "evidenceRefs"
+      ],
+      "properties": {
+        "capability": {
+          "type": "string",
+          "description": "原动作或数据能力，不能仅写页面名称。"
+        },
+        "kind": {
+          "enum": [
+            "action",
+            "data",
+            "user-entry",
+            "other"
+          ]
+        },
+        "outcome": {
+          "enum": [
+            "retained",
+            "merged",
+            "removed",
+            "needs-confirmation"
+          ]
+        },
+        "targetRefs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "保留/合并后的页面、步骤、弹层、事件或数据契约引用；删除时为空，不编造承接。"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "valueDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision",
+        "reason",
+        "userValue",
+        "capabilityDestinations",
+        "evidenceRefs"
+      ],
+      "properties": {
+        "decision": {
+          "enum": [
+            "retain",
+            "merge",
+            "delete",
+            "needs-confirmation"
+          ],
+          "description": "保留/合并/删除/待确认。存在历史ID不构成保留理由。"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "userValue": {
+          "type": "string",
+          "description": "实际用户任务价值；不能以历史数量、代码存在或视觉丰富程度代替。"
+        },
+        "capabilityDestinations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/capabilityDestination"
+          }
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
     }
   },
   "description": "仅定义承载结构。复用原workbench/routes/events/requirements稳定ID；未知值明确待确认，不制造接口URL、已实现云服务或动作保留结论。"
