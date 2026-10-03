@@ -40,7 +40,7 @@
   const frameBorder=px(border.borderTopWidth)+px(border.borderBottomWidth),sideBorder=px(border.borderLeftWidth)+px(border.borderRightWidth);
   const available=Math.max(1,stage.clientWidth-sideBorder);
   const height=content.clientHeight-px(style.paddingTop)-px(style.paddingBottom)-outerHeight(stage.querySelector('.stage-label'))-outerHeight(stage.querySelector('.stage-note'))-frameBorder;
-  const scale=Math.min(1,available/Number(width),$('preview-scale').value==='fit'&&innerWidth>740?Math.max(150,height)/844:1);
+  const scale=Math.min(1,available/Number(width),$('preview-scale').value==='fit'&&innerWidth>900?Math.max(150,height)/844:1);
   frame.style.width=width+'px';frame.style.height='844px';frame.style.transformOrigin='top left';frame.style.transform='scale('+scale+')';
   shell.style.width=(Number(width)*scale+sideBorder)+'px';shell.style.height=(844*scale+frameBorder)+'px';shell.style.maxWidth='100%';shell.style.minHeight='0';shell.style.maxHeight='none';
   frame.title='知遇测评实际页面 · '+width+'×844 · 显示比例'+Math.round(scale*100)+'%';
@@ -71,7 +71,7 @@
   const item=getItem(id);if(!item)return;
   if(item.route){const nextScene=item.scenario||'default';if(!await canReload())return;if(nextScene!==scene){selected=id;loadFrame(item.route,nextScene);}else{selected=id;currentRoute=item.route;navigationTarget={route:item.route,...previewExtras(item)};if(ready)send('navigate',{route:item.route,...previewExtras(item)});else loadFrame(item.route,scene);}setMode('preview');}
   else{selected=id;setMode('contract');}
-  reveal(id);if(children(id).length)expanded.add('page:'+id);lastTreeFocus=id;renderTree();renderHeading();renderInspector();if(mode==='contract')renderContract();updateCaption();updateURL();if(innerWidth<=740)closeMobile();
+  reveal(id);if(children(id).length)expanded.add('page:'+id);lastTreeFocus=id;renderTree();renderHeading();renderInspector();if(mode==='contract')renderContract();updateCaption();updateURL();if(innerWidth<=900)closeMobile();
  }
  function renderHeading(){const x=getItem(selected)||catalog.get('home'),g=groupList.find(g=>g.items.includes(selected));$('breadcrumb').textContent=(g?.title||'当前页面')+' / '+x.name;$('page-title').textContent=x.name;$('page-status').textContent=x.status;$('page-status').className='status-tag'+(!x.route?' spec':'');$('page-task').textContent=x.task||'查看任务边界与可交互样例';}
  function renderInspector(){const x=getItem(selected)||catalog.get('home');const related=D.requirements.filter(r=>r.newTaskCarriers?.includes(x.id)||r.targetCarriers?.includes(x.id)||r.carriers?.includes(x.id)||r.newPageIds?.includes(x.id));$('inspector').innerHTML=`<div class="inspector-top">当前页面 · 设计约束</div><section><h3>用户要完成什么</h3><p>${E(x.task)}</p></section><section><h3>关键对象</h3><p class="objects">${E(x.objects||'仅切换预置状态，不创建真实业务结果')}</p></section><section><h3>取消与返回</h3><p>${E(x.returnRule||'返回原入口；场景之间使用独立的本机空间。')}</p></section><section><h3>必须处理的失败</h3><p>${E(x.exceptions||'存储失败时保留输入；不把未保存内容标记为成功。')}</p></section><p class="boundary">${E(x.status)}。${x.previewKind==='planned'?'仅记录新需求，尚未设计或开发产品页面。':x.route?'实际页面可操作；示例交互不代表正式业务已实现。':'此节点展示流程规格，尚无独立交互页面。'}</p><button class="small-button" data-open-contract>展开完整流程与事件</button>`;$('inspector').querySelector('[data-open-contract]').onclick=()=>setMode('contract');}

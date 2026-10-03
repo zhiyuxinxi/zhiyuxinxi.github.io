@@ -30,6 +30,7 @@ def check(ok, message):
         raise AssertionError(message)
 
 def shot(page, name):
+    page.mouse.move(0, 0)
     page.screenshot(path=str(OUT / (name + '.png')))
 
 def visit(page, route, theme='sunrise', scenario='default'):
@@ -61,11 +62,13 @@ with sync_playwright() as w:
                 shot(p, name)
                 if route.startswith('report'):
                     p.locator('#report-personal').scroll_into_view_if_needed()
+                    p.wait_for_function('document.querySelector(".report-chapters [aria-current=location]").dataset.id==="report-personal"')
                     shot(p, name + '-observation')
                 if route == 'assistant':
                     p.locator('.composer textarea').fill('合成测试：' + '想把具体情况写下来，慢慢理清。' * 35)
                     p.locator('.source-btn').click()
                     p.wait_for_selector('[role=dialog]')
+                    p.evaluate('Promise.all(document.querySelector(".overlay").getAnimations({subtree:true}).map(a=>a.finished))')
                     shot(p, theme + '-modal')
                     p.keyboard.press('Escape')
                     check(p.locator('.source-btn').evaluate('e=>e===document.activeElement'), 'Modal focus not restored')
@@ -113,7 +116,7 @@ with sync_playwright() as w:
             p.get_by_role('tab', name='实际页面', exact=True).click()
             p.wait_for_timeout(250)
             check(p.evaluate('document.documentElement.scrollWidth<=innerWidth'), 'Workbench overflow')
-            if width > 740:
+            if width > 900:
                 check(p.locator('.stage-note').evaluate('e=>e.getBoundingClientRect().bottom<=document.querySelector(".main-foot").getBoundingClientRect().top'), 'Preview caption clipped')
             shot(p, name)
             frame = p.frames[1]

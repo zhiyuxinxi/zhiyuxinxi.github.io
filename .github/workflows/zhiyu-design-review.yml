@@ -56,6 +56,9 @@ jobs:
       - name: Capture final key states and keyboard behavior
         if: always()
         run: python site/tools/quality_review.py site review-evidence/after
+      - name: Verify independent-review fixes and theme journeys
+        if: always()
+        run: python site/tools/round2_review.py site review-evidence/round2
       - name: Capture accepted reference and adjudicate static findings
         if: always()
         run: python site/tools/candidate_review_bundle.py site "$RUNNER_TEMP/zhiyu-reference/site" review-evidence

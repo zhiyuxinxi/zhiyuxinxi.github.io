@@ -172,6 +172,9 @@ body[data-theme-mode] .nav button.active .navicon{background:var(--primary);colo
 .input::placeholder,.textarea::placeholder,input::placeholder,textarea::placeholder{opacity:1}
 .input[aria-invalid=true],.textarea[aria-invalid=true]{border:2px solid var(--danger)}
 .dialog,.sheet{background:var(--overlay-surface);color:var(--ink)}
+/* Privacy choices keep a solid theme surface throughout entry. */
+.dialog{animation-name:solid-sheet-in}
+@keyframes solid-sheet-in{from{transform:translateY(22px)}to{transform:translateY(0)}}
 .report-body,.report-block{background:var(--paper);border-radius:20px;padding:20px 16px}.report-block{margin-block:20px;border:1px solid var(--line)}
 .preview-status,.home-primary .preview-status,.home-primary small{opacity:1}
 .btn:disabled{opacity:1;background:var(--surface);color:var(--muted);border-color:var(--line);box-shadow:none}
@@ -198,3 +201,11 @@ button,a,input,textarea,select,summary{scroll-margin-block:24px 110px}
 .v3-title>div{min-width:0}.v3-title>.textbtn{flex-shrink:0;white-space:nowrap;align-self:flex-start}
 .v3-profile .grow{min-width:0}.v3-profile .iconbtn{flex-shrink:0}.v3-profile p{text-wrap:balance}
 @media(max-width:359px){.v3-categories{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}.v3-categories button{padding-inline:4px}}
+
+/* Reading is a material role, independent of the persistent scene palette. */
+body{--reading-surface:var(--paper)}
+body.theme-sunrise{--reading-surface:color-mix(in srgb,var(--paper) 30%,var(--on-primary))}
+.report-block,.report-body,.v3-composer,.message.assistant{background:var(--reading-surface)}
+.topic-start{background:var(--reading-surface);border:1px solid var(--line);border-radius:20px;padding:22px 18px;margin:20px 0}
+.report-block .quote{background:transparent;border-radius:0;padding:4px 0 4px 16px}
+.report-block .factor-detail{background:transparent;border-inline:0;border-bottom:0;border-radius:0;padding-inline:0}

@@ -182,15 +182,11 @@ window.V3 = (() => {
     if(document.querySelector('.report-chapters')){
       const syncChapter=()=>{
         const bar=document.querySelector('.report-chapters'),blocks=[...document.querySelectorAll('.report-block')];if(!bar||!blocks.length)return;
-        // scrollIntoView applies both document scroll-padding and target
-        // scroll-margin. Use those actual offsets so anchor clicks and manual
-        // scrolling agree, in both directions and at every text size.
-        const padding=parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop)||0;
-        const navEnd=bar.getBoundingClientRect().bottom;
-        const active=blocks.filter(el=>{
-          const margin=parseFloat(getComputedStyle(el).scrollMarginTop)||0;
-          return el.getBoundingClientRect().top<=Math.max(navEnd+8,padding+margin)+1;
-        }).at(-1)||blocks[0];
+        // The chapter occupying most of the unobscured reading viewport owns
+        // the indicator, including centered anchors and large text layouts.
+        const top=Math.max(0,bar.getBoundingClientRect().bottom),bottom=innerHeight;
+        const visible=el=>{const r=el.getBoundingClientRect();return Math.max(0,Math.min(r.bottom,bottom)-Math.max(r.top,top));};
+        const active=blocks.reduce((best,el)=>visible(el)>visible(best)?el:best,blocks[0]);
         bar.querySelectorAll('button').forEach(b=>b.setAttribute('aria-current',b.dataset.id===active.id?'location':'false'));
       };
       chapterScroll=()=>{if(!chapterFrame)chapterFrame=requestAnimationFrame(()=>{chapterFrame=0;syncChapter();});};
