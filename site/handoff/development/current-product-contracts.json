@@ -12,7 +12,7 @@
   },
   "pages": {
     "home": {
-      "currentHandling": "一个16PF容器：原版/AI重置版同级分段，一次只显示对应的一个主按钮；四个辅助入口保留。默认无可用题组，不创建正式答卷。",
+      "currentHandling": "一个16PF容器、原版/AI重置版分段和一个对应主按钮。默认无可用题组时，启动前显示暂不可开始，提供生活问题整理入口；工作台夹具可检验目标启动和续接，不创造正式题库。",
       "inputs": [],
       "events": [],
       "localData": [],
@@ -74,7 +74,7 @@
       "currentHandling": "仅本人记录与已确认记忆；样例仅工作台预置场景可选。",
       "inputs": [],
       "events": [],
-      "localData": "assistantDraft,assistantSources；发送不可用时不写入conversation或usage",
+      "localData": "assistantTopic保留factor:A或relationship:D7:boundary等讨论主题；assistantDraft与assistantSources保留。只有用户选择资料才引用，无自动发送，无AI响应或扣额。",
       "errors": "无效ID显示对象缺失和返回；保存失败在journal保留输入与重试，不显示成功。",
       "boundary": "本地原型实现；不改变待定业务规则，不代表已上线正式测评。",
       "entryExitReturn": {
@@ -120,7 +120,7 @@
       "boundary": "本地原型实现；不改变待定业务规则，不代表已上线正式测评。"
     },
     "factor-detail": {
-      "currentHandling": "16因子逐一查看；未知不画零值；本人补充以factorId显式关联，不生成分数。",
+      "currentHandling": "默认无有效读数为空；布局夹具只读取source元数据，明确布局示意、不含测评读数。不得硬写测量版本或日期。",
       "inputs": [],
       "events": [],
       "localData": "factorId；没有读数时不产生measurement字段",
@@ -154,7 +154,7 @@
         "entry": "我的画像→关系模式",
         "backRule": "返回我的画像，保留原记录与草稿。"
       },
-      "buttons": "返回、四个独立补充入口、AI次级入口",
+      "buttons": "返回、四个独立补充入口、四个对应角度的AI入口及全维度AI入口；均传中文主题对应ID，不自动引用本人记录。",
       "network": {
         "currentNetworkRequest": false,
         "currentOutboundData": "无",

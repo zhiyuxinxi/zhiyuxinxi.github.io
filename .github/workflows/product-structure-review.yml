@@ -13,8 +13,8 @@ jobs:
       - name: Install verification tools
         run: |
           python -m pip install --disable-pip-version-check playwright==1.57.0 Pillow==12.3.0
-          python -m playwright install --with-deps chromium
-          sudo apt-get install -y fonts-noto-cjk
+          python -m playwright install --with-deps chromium firefox
+          sudo apt-get install -y fonts-noto-cjk xvfb xdotool
       - name: Verify canonical catalogs and local record contracts
         run: |
           python site/tools/build_workbench.py
@@ -24,6 +24,21 @@ jobs:
         run: |
           python site/tools/product_structure_review.py site review-evidence/structure
           python site/tools/product_structure_safety.py site review-evidence/safety
+      - name: Verify migrated publication gates
+        if: always()
+        run: |
+          python site/tools/hosted_smoke.py site
+          python site/tools/copy_review.py site review-evidence/copy
+      - name: Verify preserved workbench and six-entry workflows
+        if: always()
+        run: |
+          WORKBENCH_SHELL_ONLY=1 python site/tools/workbench_coverage.py site
+          python site/tools/six_paths_ui.py site
+          python site/tools/quality_review.py site review-evidence/quality
+          python site/tools/round2_review.py site review-evidence/round2
+      - name: Verify Firefox and native 200 percent zoom
+        if: always()
+        run: xvfb-run -a python site/tools/browser_release_check.py site review-evidence/browser
       - name: Verify navigation contrast and preserved readers
         if: always()
         run: |
@@ -36,6 +51,11 @@ jobs:
           name: product-structure-review
           path: |
             review-evidence
+            site/qa/hosted-smoke.json
+            site/qa/hosted-theme-matrix.json
+            site/qa/hosted-failures
+            site/qa/complete-workbench/shell-report.json
+            site/qa/six-paths-ui/results.json
             site/qa/nav-contrast
             site/qa/development-review
             site/qa/backend-logic/report.json

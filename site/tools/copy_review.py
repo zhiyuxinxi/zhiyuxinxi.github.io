@@ -5,6 +5,7 @@ from functools import partial
 from threading import Thread
 import json,os,sys
 from playwright.sync_api import sync_playwright
+from product_browser import ProductBrowser
 root=Path(sys.argv[1]).resolve();out=Path(sys.argv[2]).resolve();out.mkdir(parents=True,exist_ok=True)
 class Quiet(SimpleHTTPRequestHandler):
  def log_message(self,*a):pass
@@ -19,9 +20,9 @@ def test(name,fn):
 with sync_playwright() as w:
  options={'headless':True,'args':['--no-sandbox']}
  if os.environ.get('CHROMIUM_PATH'):options['executable_path']=os.environ['CHROMIUM_PATH']
- b=w.chromium.launch(**options);p=b.new_page(viewport={'width':390,'height':844},reduced_motion='reduce',locale='zh-CN');p.on('pageerror',lambda e:errors.append(str(e)))
+ b=w.chromium.launch(**options);p=ProductBrowser(b.new_page(viewport={'width':390,'height':844},reduced_motion='reduce',locale='zh-CN'));p.host.set_default_timeout(8000);p.on('pageerror',lambda e:errors.append(str(e)))
  def visit(route,theme='sunrise',reset=True):
-  p.goto(f'{base}/prototype/index.html?scenario=copy-review&theme={theme}'+('&reset=1' if reset else '')+'#'+route,wait_until='networkidle');p.wait_for_function('window.App&&App.snapshot')
+  p.open_product(base,route,'sample-report' if route.split('?')[0] in ['report','share'] else 'default',theme,reset)
  def shot(name):p.screenshot(path=str(out/(name+'.png')),full_page=True)
  def records():
   visit('records');check('还没有留下记录' in p.locator('main').inner_text(),'all-empty copy');shot('records-empty')

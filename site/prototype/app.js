@@ -41,7 +41,7 @@ window.App=(()=>{
 
  function parse(){const [r,q]=(location.hash.slice(1)||'home').split('?');route=r||'home';params=Object.fromEntries(new URLSearchParams(q||''));if(route==='question'&&!params.id&&api.getSession())params.id=state.activeSession;}
  function current(){return route+(Object.keys(params).length?'?'+new URLSearchParams(params):'');}
- function nav(r,p={},replace=false){if(api.pendingAnswer){show('先留住这次选择','<p>这次选择仍未保存。请回到答题重试，或先导出临时答案。不会悄悄丢弃你的选择。</p>',B('回到答题','close-dialog',{cls:'btn full'})+B('导出临时答案','rescue',{cls:'btn secondary full space-12'}));return;}
+ function nav(r,p={},replace=false){if(r==='assistant-chat'&&p.kind&&/^(factor:[A-Z][0-9]?|relationship:D[0-9]+(?::(?:ability|willingness|need|boundary))?)$/.test(p.kind)){if(!commit(s=>s.assistantTopic=p.kind))return;}if(api.pendingAnswer){show('先留住这次选择','<p>这次选择仍未保存。请回到答题重试，或先导出临时答案。不会悄悄丢弃你的选择。</p>',B('回到答题','close-dialog',{cls:'btn full'})+B('导出临时答案','rescue',{cls:'btn secondary full space-12'}));return;}
   scrolls[current()]=window.scrollY;const target=r+(Object.keys(p).length?'?'+new URLSearchParams(p):'');if(!replace&&target!==current())stack.push(current());if(!replace)history.pushState({jj:true,index:(history.state?.index||0)+1},'','#'+target);else history.replaceState(history.state||{jj:true,index:0},'','#'+target);parse();close();render(true);}
  function back(){
   if(api.pendingAnswer){nav('home');return;}
