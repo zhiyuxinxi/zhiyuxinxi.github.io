@@ -15,7 +15,7 @@ window.AssessmentPreview=(()=>{
    ${B(`${tag('交互示例')}<strong>16PF 原版</strong><small>3题示例，不计分<br>正式题源待接入</small><span class="entry-action">${unfinished?'继续上次作答':done?'回看这次作答':'查看作答体验'} ${icon('arrow','sm')}</span>`,action,{cls:'home-primary',...params})}
    ${L(`${tag('待开放')}<strong>AI 重置版</strong><small>内容、计分<br>与效度待验证</small><span class="entry-action">查看设计预览 ${icon('arrow','sm')}</span>`,'ai-reset',{cls:'home-primary'})}
   </div></section><section class="home-paths" aria-label="四种轻探索"><p>选一种方式，慢慢认识</p><div class="home-secondary-grid">
-  ${[['single-factor','bottle','单因子测评','从16因子选一个'],['daily-checkin','sun','每日打卡','每天3–5题的设计'],['short-16pf','book','简化版16PF','少量情境题 · 非标准测试'],['personality-sandbox','explore','模拟性格','手动设置 · 假设探索']].map(([r,i,t,d])=>L(`${icon(i)}<strong>${t}</strong><small>${d}</small>`,r,{cls:'home-path'})).join('')}</div><p class="home-preview-note">以上为设计预览，不提供正式测评或AI分析。</p></section>
+  ${[['single-factor','bottle','单因子测评','从16因子选一个'],['daily-checkin','sun','每日打卡','每天3–5题的设计'],['short-16pf','book','简化版16PF','少量情境题<br>非标准测试'],['personality-sandbox','explore','模拟性格','手动设置<br>假设探索']].map(([r,i,t,d])=>L(`${icon(i)}<strong>${t}</strong><small>${d}</small>`,r,{cls:'home-path'})).join('')}</div><p class="home-preview-note">以上为设计预览，不提供正式测评或AI分析。</p></section>
   ${unfinished?`<p class="home-resume-note">原版示例已保存 ${Object.keys(sess.answers).length} / 3 题，继续同一份作答。</p>`:done?B('再体验一次原版示例','start-new',{cls:'textbtn full'}):''}
   ${a?L(`${icon('flag')}<span class="grow"><strong>回看自己的小尝试</strong><small>${esc(a.text)}</small></span>${icon('arrow','sm')}`,'action-detail',{cls:'v3-action-resume','data-id':a.id}):''}<p class="v3-endnote">知遇测评 · 从性格到生活里的自己</p>`;
  }
