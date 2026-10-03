@@ -1,0 +1,237 @@
+{
+  "name": "产品结构当前契约",
+  "implementationStatus": "当前用户授权的结构修订优先于下方历史审校。仅前端和本机记录；没有真实登录、AI、支付、题库、计分或云同步实现。关联验收仍须独立执行。",
+  "shared": {
+    "presentation": "APP内使用正常产品文案。实现状态和样例出处只在工作台说明；不能将样例误认为本人结果。",
+    "fixtures": "只有工作台iframe的preview=1及明确的非default白名单场景可载入预置样例；独立打开或默认场景不生成样例。各场景存储隔离。",
+    "measurement": "无正式结果适配器。画像空态不画雷达，未知不归零，完成度与人格值分离。profile-sample为既有D.factors的0–1图形位置夹具，不是常模、百分位或心理测量值；永不持久化为本人结果。",
+    "relationship": "8维D1/D2/D3/D4/D5/D7/D8/D9；每维能做到、愿意投入、自己需要、边界。只有本人手动补充，无移植题目、评分或配对模块。",
+    "observations": "8个非量表观察容器，以本人显式归属关联；不从一次事件推断特质。",
+    "future": "行动力、应对方式和近期状态仅保留为未来研究索引，不进入当前产品分组。",
+    "preservation": "8套独立完整主题与4套历史候选、原图logo与人物比例、持续canvas背景、全部39条历史路由、历史删并及底层只读阅读器保留。"
+  },
+  "pages": {
+    "home": {
+      "currentHandling": "一个16PF容器：原版/AI重置版同级分段，一次只显示对应的一个主按钮；四个辅助入口保留。默认无可用题组，不创建正式答卷。",
+      "inputs": [],
+      "events": [],
+      "localData": [],
+      "errors": "对象缺失不捏造内容；写入失败保留草稿；无网络能力时准确告知。",
+      "boundary": "本地原型实现；不改变待定业务规则，不代表已上线正式测评。"
+    },
+    "explore": {
+      "currentHandling": "8个同级独立生活问题卡片；四类筛选。每个场景有事实、优先项、顾虑、待查信息四个不同提示；仅本人整理，无计分或AI生成。",
+      "inputs": [],
+      "events": [],
+      "localData": [],
+      "errors": "对象缺失不捏造内容；写入失败保留草稿；无网络能力时准确告知。",
+      "boundary": "本地原型实现；不改变待定业务规则，不代表已上线正式测评。"
+    },
+    "topic": {
+      "currentHandling": "用途、输出、耗时依据、题源/许可、版本/适用范围；准备与版本选择同页，不多次确认。",
+      "inputs": [],
+      "events": [],
+      "localData": [],
+      "errors": "对象缺失不捏造内容；写入失败保留草稿；无网络能力时准确告知。",
+      "boundary": "本地原型实现；不改变待定业务规则，不代表已上线正式测评。"
+    },
+    "question": {
+      "currentHandling": "默认无题组给自然不可用状态；原本机历史练习仍按原ID回看或续接。工作台三题夹具隔离，不生成正式结果。",
+      "inputs": [],
+      "events": [],
+      "localData": [],
+      "errors": "对象缺失不捏造内容；写入失败保留草稿；无网络能力时准确告知。",
+      "boundary": "本地原型实现；不改变待定业务规则，不代表已上线正式测评。"
+    },
+    "report": {
+      "currentHandling": "默认仅个人结果空状态；当前无正式结果适配器。报告样例仅在工作台明确选择样例场景。",
+      "inputs": [],
+      "events": [],
+      "localData": [],
+      "errors": "对象缺失不捏造内容；写入失败保留草稿；无网络能力时准确告知。",
+      "boundary": "本地原型实现；不改变待定业务规则，不代表已上线正式测评。"
+    },
+    "share": {
+      "currentHandling": "默认无报告时为空；仅工作台样例场景可预览和导出预置分享片段，导出不包含本人记录。",
+      "inputs": [],
+      "events": [],
+      "localData": [],
+      "errors": "对象缺失不捏造内容；写入失败保留草稿；无网络能力时准确告知。",
+      "boundary": "本地原型实现；不改变待定业务规则，不代表已上线正式测评。"
+    },
+    "assistant": {
+      "currentHandling": "人格倾向、关系模式、我的观察三组；真实测评进度分开显示。无正式数据保留未知和自然空状态。AI对话为次级子页。",
+      "inputs": [],
+      "events": [
+        "profile-group：traits / relationships / observations，仅视图选择",
+        "nav：因子、关系维度、观察容器和对话详情"
+      ],
+      "localData": [],
+      "errors": "对象缺失不捏造内容；写入失败保留草稿；无网络能力时准确告知。",
+      "boundary": "本地原型实现；不改变待定业务规则，不代表已上线正式测评。"
+    },
+    "assistant-chat": {
+      "currentHandling": "仅本人记录与已确认记忆；样例仅工作台预置场景可选。",
+      "inputs": [],
+      "events": [],
+      "localData": "assistantDraft,assistantSources；发送不可用时不写入conversation或usage",
+      "errors": "无效ID显示对象缺失和返回；保存失败在journal保留输入与重试，不显示成功。",
+      "boundary": "本地原型实现；不改变待定业务规则，不代表已上线正式测评。",
+      "entryExitReturn": {
+        "preconditions": "无需真实登录；引用或编辑对象必须存在。",
+        "routeParams": "kind=factor:A or relationship:D1，可选上下文",
+        "entry": "我的画像",
+        "backRule": "返回我的画像，保留原记录与草稿。"
+      },
+      "buttons": "草稿、本人资料选择、发送、历史对话",
+      "network": {
+        "currentNetworkRequest": false,
+        "currentOutboundData": "无",
+        "endpoint": null
+      },
+      "privacyAuthorization": "本人补充由用户显式选择关联；不自动分析、确认记忆、发送或同步。",
+      "acceptanceStatus": "结构与本地交互已纳入product_structure_review.py；正式心理测量及真实服务未实现，不能由页面存在推断业务就绪。"
+    },
+    "portrait": {
+      "currentHandling": "复用我的画像入口，保留历史路由；不自动把记录数换算为人格值。",
+      "inputs": [],
+      "events": [],
+      "localData": [],
+      "errors": "对象缺失不捏造内容；写入失败保留草稿；无网络能力时准确告知。",
+      "boundary": "本地原型实现；不改变待定业务规则，不代表已上线正式测评。"
+    },
+    "topic-workspace": {
+      "currentHandling": "工作、相处、城市、学习、独处使用不同问题结构；保存后可引用原记录或留下行动。 V3：新增总览/专注视图，同一草稿、同一对象，可双向切换。",
+      "inputs": [
+        "facts",
+        "priorities",
+        "concerns",
+        "unknown"
+      ],
+      "events": [
+        "save-topic：新建或保持ID编辑，保留修订"
+      ],
+      "localData": [
+        "topicId",
+        "fields",
+        "revisions"
+      ],
+      "errors": "对象缺失不捏造内容；写入失败保留草稿；无网络能力时准确告知。",
+      "boundary": "本地原型实现；不改变待定业务规则，不代表已上线正式测评。"
+    },
+    "factor-detail": {
+      "currentHandling": "16因子逐一查看；未知不画零值；本人补充以factorId显式关联，不生成分数。",
+      "inputs": [],
+      "events": [],
+      "localData": "factorId；没有读数时不产生measurement字段",
+      "errors": "无效ID显示对象缺失和返回；保存失败在journal保留输入与重试，不显示成功。",
+      "boundary": "本地原型实现；不改变待定业务规则，不代表已上线正式测评。",
+      "entryExitReturn": {
+        "preconditions": "无需真实登录；引用或编辑对象必须存在。",
+        "routeParams": "id为既有16PF因子代码",
+        "entry": "我的画像→人格倾向",
+        "backRule": "返回我的画像，保留原记录与草稿。"
+      },
+      "buttons": "返回、补充我的情况、请AI帮我理解",
+      "network": {
+        "currentNetworkRequest": false,
+        "currentOutboundData": "无",
+        "endpoint": null
+      },
+      "privacyAuthorization": "本人补充由用户显式选择关联；不自动分析、确认记忆、发送或同步。",
+      "acceptanceStatus": "结构与本地交互已纳入product_structure_review.py；正式心理测量及真实服务未实现，不能由页面存在推断业务就绪。"
+    },
+    "relationship-detail": {
+      "currentHandling": "8个关系维度，每维能做到、愿意投入、自己需要、边界独立；仅本人补充，无分数。",
+      "inputs": [],
+      "events": [],
+      "localData": "relationshipDimension + relationshipFacet；仅本人记录关联",
+      "errors": "无效ID显示对象缺失和返回；保存失败在journal保留输入与重试，不显示成功。",
+      "boundary": "本地原型实现；不改变待定业务规则，不代表已上线正式测评。",
+      "entryExitReturn": {
+        "preconditions": "无需真实登录；引用或编辑对象必须存在。",
+        "routeParams": "id=D1/D2/D3/D4/D5/D7/D8/D9",
+        "entry": "我的画像→关系模式",
+        "backRule": "返回我的画像，保留原记录与草稿。"
+      },
+      "buttons": "返回、四个独立补充入口、AI次级入口",
+      "network": {
+        "currentNetworkRequest": false,
+        "currentOutboundData": "无",
+        "endpoint": null
+      },
+      "privacyAuthorization": "本人补充由用户显式选择关联；不自动分析、确认记忆、发送或同步。",
+      "acceptanceStatus": "结构与本地交互已纳入product_structure_review.py；正式心理测量及真实服务未实现，不能由页面存在推断业务就绪。"
+    },
+    "observation-area": {
+      "currentHandling": "8个观察容器，仅手动选择归属；记录数不是心理测量值。",
+      "inputs": [],
+      "events": [],
+      "localData": "observationArea；不得按记录数量生成心理分数",
+      "errors": "无效ID显示对象缺失和返回；保存失败在journal保留输入与重试，不显示成功。",
+      "boundary": "本地原型实现；不改变待定业务规则，不代表已上线正式测评。",
+      "entryExitReturn": {
+        "preconditions": "无需真实登录；引用或编辑对象必须存在。",
+        "routeParams": "id=behavior/decisions/values/assumptions/emotions/family/communication/strengths",
+        "entry": "我的画像→我的观察",
+        "backRule": "返回我的画像，保留原记录与草稿。"
+      },
+      "buttons": "返回、打开本人记录、补充我的情况",
+      "network": {
+        "currentNetworkRequest": false,
+        "currentOutboundData": "无",
+        "endpoint": null
+      },
+      "privacyAuthorization": "本人补充由用户显式选择关联；不自动分析、确认记忆、发送或同步。",
+      "acceptanceStatus": "结构与本地交互已纳入product_structure_review.py；正式心理测量及真实服务未实现，不能由页面存在推断业务就绪。"
+    },
+    "auth": {
+      "currentHandling": "账号服务不可用，默认无模拟登录按钮；工作台身份夹具仅测试本地旧流程。"
+    },
+    "account": {
+      "currentHandling": "账号服务不可用，可查看本机资料；不伪造登录状态。"
+    },
+    "membership": {
+      "currentHandling": "无可购买方案；订单入口保留；无支付调用。"
+    },
+    "checkout": {
+      "currentHandling": "无可购买方案；不给模拟付款按钮。"
+    },
+    "orders": {
+      "currentHandling": "默认无真实订单空态；仅工作台订单预置场景可看历史快照。"
+    },
+    "order": {
+      "currentHandling": "缺失订单给返回；工作台样例订单保留原快照。"
+    },
+    "complete": {
+      "currentHandling": "已保存作答后回看原答卷，不链接成正式测评结论。"
+    },
+    "content": {
+      "currentHandling": "当前无正式可用题组；保留查看记录的路径。"
+    },
+    "data": {
+      "currentHandling": "正常备份与恢复文案；沿用原导入校验、导出范围及清理语义。"
+    },
+    "support": {
+      "currentHandling": "保存问题、导出反馈、资料备份；不展示原型声明。"
+    },
+    "settings": {
+      "currentHandling": "仅此处进入主题设置；密度、大字和减弱动态保持。"
+    },
+    "memories": {
+      "currentHandling": "本人确认、修改、停用、删除；不自动产生记忆。"
+    },
+    "privacy": {
+      "currentHandling": "逐次引用、对话保留和记忆许可；不自动外发。"
+    },
+    "compare": {
+      "currentHandling": "无两份可比有效结果为空，不将练习与观察生成分数变化。"
+    },
+    "journal": {
+      "currentHandling": "可选factorId、relationshipDimension/relationshipFacet、observationArea仅由入口显式选择；其他字段和保存失败处理沿用原契约。"
+    },
+    "records": {
+      "currentHandling": "已有记录不删除或改写意义；原体验答卷仅重标历史练习，既有分类状态做等价迁移。"
+    }
+  }
+}
