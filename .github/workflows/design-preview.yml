@@ -14,6 +14,8 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
     timeout-minutes: 15
     environment:
       name: github-pages
@@ -57,7 +59,7 @@ jobs:
           for name in allowed:
               src=source/name;dst=Path(name)
               if not src.exists(): continue
-              if src.is_dir(): shutil.copytree(src,dst,dirs_exist_ok=True)
+              if src.is_dir(): shutil.copytree(src,dst,dirs_exist_ok=True,ignore=shutil.ignore_patterns('__pycache__','*.pyc'))
               else: shutil.copy2(src,dst)
               published.append(name)
           Path('release').mkdir(exist_ok=True)

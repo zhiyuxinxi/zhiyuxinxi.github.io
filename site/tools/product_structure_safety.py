@@ -18,7 +18,6 @@ def test(n,fn):
  try:result=fn();results.append(dict(test=n,status='PASS',details=result))
  except Exception as e:results.append(dict(test=n,status='FAIL',error=str(e)))
  print(n,results[-1]['status'],results[-1].get('error',''),flush=True)
-from PIL import Image
 import hashlib,os
 with sync_playwright() as w:
  b=w.chromium.launch(**({'executable_path':os.environ['CHROMIUM_PATH']} if os.environ.get('CHROMIUM_PATH') else {}),args=['--no-sandbox']);c=b.new_context(viewport={'width':390,'height':844});p=c.new_page();p.set_default_timeout(6000)
