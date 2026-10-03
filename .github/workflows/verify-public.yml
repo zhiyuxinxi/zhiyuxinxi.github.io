@@ -56,6 +56,7 @@ jobs:
                   p.wait_for_function("document.querySelector('#runtime-status').textContent.includes('原型已连接')",timeout=20000)
                   result['checks'].append('Public workbench and real iframe load successfully')
                   f=p.locator('#product-frame').element_handle().content_frame();assert f.locator('[data-action=start]').count()==1
+                  p.locator('.preview-tools > summary').click()
                   p.select_option('#theme-select','nebula');f.wait_for_function('App.snapshot.theme==="nebula"')
                   p.click('[data-page=explore]');f.wait_for_function('App.currentRoute==="explore"')
                   result['checks'].append('Public tree navigation and full-theme switching work')
