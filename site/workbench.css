@@ -29,3 +29,60 @@
 
 /* Read-only architecture reader, using existing document and control tokens. */
 .logic-docs{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}.logic-docs [aria-pressed=true]{border-color:var(--accent);background:var(--tint);font-weight:650}.logic-item-title{display:block}.logic-item-meta{display:block;color:var(--muted);font-size:12px;font-weight:400;margin-top:4px}.logic-item-meta b{font-weight:650}.logic-item summary:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}#logic-more{margin:20px 0}
+
+/* Review workbench: legible directory, quiet preview stage, sustained reading. */
+:root{--bg:#f1f3f6;--muted:#556273;--accent:#354c73;--tint:#e9eef6;--scroll-thumb:#a1adbd;--scroll-track:transparent}
+*{scrollbar-color:var(--scroll-thumb) var(--scroll-track)}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-thumb{background:var(--scroll-thumb);border-radius:8px}
+::-webkit-scrollbar-thumb:hover,::-webkit-scrollbar-thumb:active{background:var(--accent)}
+::-webkit-scrollbar-track{background:var(--scroll-track)}
+button:active:not(:disabled){background:var(--tint)}
+button,a,input,select,summary{scroll-margin-block:12px}
+.sidebar{background:var(--surface)}
+.sidebar-label{padding-top:18px;padding-bottom:12px}
+.sidebar-label h1{font-size:14px;letter-spacing:.02em}
+.tree-search{height:44px;background:var(--bg)}
+.tree-search input{font-size:13px;height:40px}
+.tree-legend{font-size:11px;line-height:1.7;padding-block:12px}
+.tree-folder{font-size:13px;min-height:44px;color:var(--muted)}
+.tree-leaf{min-height:44px;font-size:13px;line-height:1.65;padding:9px}
+.tree-leaf .mini-status{font-size:10px;opacity:1;color:var(--muted)}
+.tree-leaf[aria-selected=true]{background:var(--tint);color:var(--accent)}
+.tree-leaf[aria-selected=true]:before{height:24px;background:var(--accent);width:3px}
+.tree-children{margin-bottom:12px}
+.sidebar-foot{font-size:11px;padding:12px 18px}
+.page-heading #breadcrumb{font-size:12px}
+.title-row h2{font-size:24px}
+.status-tag{font-size:11px}
+.view-tabs{gap:24px;min-height:46px}
+.view-tabs button{font-size:13px;padding-block:12px}
+.view-tabs button[aria-selected=true]:after{height:3px;background:var(--accent);border-radius:2px 2px 0 0}
+.stage-label{max-width:560px;font-size:12px;margin-bottom:12px}
+.stage-label a{font-size:12px}
+.frame-shell{box-shadow:0 12px 32px #26355012,0 1px 3px #2635500d;border-color:#cdd5df}
+.stage-note{font-size:11px;color:var(--muted);margin-top:12px}
+.small-button{min-height:36px}
+.document-panel{width:100%;max-width:980px;padding:32px 40px 48px}
+.dev-heading{padding-bottom:22px;border-bottom:1px solid var(--line)}
+.dev-heading h3{font-size:25px;line-height:1.5;letter-spacing:-.02em}
+.dev-kicker{font-size:12px;line-height:1.8}
+.dev-fold{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin:12px 0;overflow:clip}
+.dev-fold>summary{padding:18px 20px;font-size:14px;min-height:56px}
+.dev-fold[open]>summary{border-bottom:1px solid var(--line);background:#f9fafc}
+.dev-fold-body{padding:10px 20px 22px;font-size:14px;line-height:1.9}
+.dev-fold-body .dev-fold{margin-left:0}
+.dev-fields>div{padding-block:14px;grid-template-columns:minmax(100px,140px) minmax(0,1fr);gap:24px}
+.dev-fields>div:last-child{border-bottom:0}
+.dev-fields dt{font-size:13px;line-height:1.9}
+.dev-history-item{padding:24px;background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-block:16px}
+.logic-docs{margin-block:22px;gap:10px}
+.logic-docs .small-button{min-height:44px;padding-inline:16px}
+.logic-item-meta{line-height:1.8;margin-top:6px}
+@media(min-width:741px){.page-heading{padding:12px 24px 10px}.preview-panel{padding-top:16px}}
+@media(max-width:740px){.view-tabs{gap:22px}.view-tabs button{font-size:12px}.document-panel{padding:24px 16px 36px}.dev-heading h3{font-size:22px}.dev-fold>summary{padding:16px 14px}.dev-fold-body{padding:8px 14px 18px}.dev-fields>div{display:block}.dev-history-item{padding:18px 14px}.stage-label{font-size:11px}.sidebar{width:min(310px,90vw)}}
+@media(forced-colors:active){*{scrollbar-color:auto}.tree-leaf[aria-selected=true]{border:1px solid Highlight}.view-tabs button[aria-selected=true]{border-bottom:3px solid Highlight}}
+
+.dev-fold>summary:focus-visible{outline-offset:-3px}
+
+@media(max-width:740px){.small-button{min-height:44px}.icon-button{width:44px;height:44px}}

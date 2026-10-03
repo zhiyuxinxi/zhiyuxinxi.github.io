@@ -14,7 +14,7 @@ window.V3 = (() => {
   const topicMeta={
     'work-choice':{name:'工作怎么选',title:'留下，还是换个方向？',desc:'把期待与现实放在一起。',output:'一份选择清单',color:'lime',ic:'explore'},
     relationships:{name:'需要怎么说',title:'把需要，说清楚',desc:'从一件具体的事开始。',output:'一句具体表达',color:'peach',ic:'chat'},
-    'city-choice':{name:'换个城市',title:'哪里更适合生活？',desc:'先看条件，再看向往。',output:'一份条件清单',color:'blue',ic:'home'},
+    'city-choice':{name:'换个城市',title:'<span class="title-phrase">哪里更适合</span><span class="title-phrase">生活？</span>',desc:'先看条件，再看向往。',output:'一份条件清单',color:'blue',ic:'home'},
     learning:{name:'为什么想学',title:'找回学习的理由',desc:'分清期待与外界的声音。',output:'一次学习实验',color:'lavender',ic:'book'},
     'self-space':{name:'留点独处',title:'一个人，刚刚好？',desc:'观察独处前后的变化。',output:'一条情境观察',color:'cream',ic:'sun'}
   };
