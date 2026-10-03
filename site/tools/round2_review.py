@@ -30,7 +30,7 @@ with sync_playwright() as w:
    p.locator('[data-action=topic-journal]').first.click();p.locator('#topic-issue').fill('合成评审：下一次讨论前如何整理问题');p.locator('#topic-understanding').fill('合成评审：先列出两个已知条件，并保留尚未确认的部分。');p.locator('[data-action=topic-save]').click();p.wait_for_selector('.record-summary');shot(p,t+'-saved')
    p.locator('[data-action=topic-to-assistant]').click();p.wait_for_selector('.source-btn');p.locator('.composer textarea').fill('合成评审：只用这份记录，帮我理清下一步。');shot(p,t+'-assistant')
    p.locator('.source-btn').click();p.evaluate('document.querySelector(".dialog").getAnimations().forEach(a=>{a.pause();a.currentTime=50})')
-   check(p.locator('.dialog').evaluate('e=>getComputedStyle(e).opacity')=='1','Panel fades during entry');shot(p,t+'-modal-entering')
+   check(p.locator('#notice').evaluate('e=>getComputedStyle(e).opacity')=='0','Stale success toast covers modal');check(p.locator('#notice').get_attribute('role')=='status' and p.locator('#notice').get_attribute('aria-live')=='polite','Success live region removed');check('整理卡已保存在本机' in p.locator('#notice').text_content(),'Success announcement erased');check(p.locator('.dialog').evaluate('e=>getComputedStyle(e).opacity')=='1','Panel fades during entry');shot(p,t+'-modal-entering')
    p.evaluate('document.querySelector(".dialog").getAnimations().forEach(a=>a.play())');settle(p);shot(p,t+'-modal')
    check(p.locator('.dialog').evaluate('e=>getComputedStyle(e).backgroundColor.startsWith("rgb(")'),'Panel is translucent')
    p.keyboard.press('Tab');check(p.locator('.dialog').evaluate('e=>e.contains(document.activeElement)'),'Focus escaped modal');p.keyboard.press('Escape');check(p.locator('.source-btn').evaluate('e=>e===document.activeElement'),'Focus not restored')

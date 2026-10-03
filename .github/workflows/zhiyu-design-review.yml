@@ -23,8 +23,8 @@ jobs:
       - name: Install browser and Chinese fonts
         run: |
           python -m pip install --disable-pip-version-check playwright==1.57.0 Pillow==12.3.0
-          python -m playwright install --with-deps chromium
-          sudo apt-get install -y fonts-noto-cjk
+          python -m playwright install --with-deps chromium firefox
+          sudo apt-get install -y fonts-noto-cjk xvfb xdotool
       - name: Verify theme generation and record contracts
         run: |
           python site/tools/build_themes.py
@@ -59,6 +59,9 @@ jobs:
       - name: Verify independent-review fixes and theme journeys
         if: always()
         run: python site/tools/round2_review.py site review-evidence/round2
+      - name: Check Firefox and Chromium native 200 percent zoom
+        if: always()
+        run: xvfb-run -a python site/tools/browser_release_check.py site review-evidence/browser-final
       - name: Capture accepted reference and adjudicate static findings
         if: always()
         run: python site/tools/candidate_review_bundle.py site "$RUNNER_TEMP/zhiyu-reference/site" review-evidence

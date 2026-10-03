@@ -1,14 +1,16 @@
 name: Verify public design URL
 on:
-  push:
+  workflow_run:
+    workflows: ['Publish design review']
     branches: [main]
-    paths: ['.github/workflows/verify-public.yml']
+    types: [completed]
   workflow_dispatch:
 permissions:
   contents: read
   pages: read
 jobs:
   public-check:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -24,7 +26,7 @@ jobs:
         run: |
           mkdir -p public-evidence
           python - <<'PY'
-          import json,time,os,urllib.request,traceback
+          import json,time,os,urllib.request,traceback,hashlib
           from pathlib import Path
           from playwright.sync_api import sync_playwright
           out=Path('public-evidence');result={'url':'https://zhiyuxinxi.github.io/','passed':False,'checks':[]}
@@ -34,6 +36,15 @@ jobs:
               result['pagesConfiguration']={k:info.get(k) for k in ['status','build_type','html_url','source','https_enforced']}
           except Exception as e: result['pagesMetadataError']=str(e)
           try:
+              result['resourceHashes']=[]
+              for name in ['index.html','prototype/app.js','prototype/product.css','prototype/experience-v3.js','workbench.js','workbench.css','development-review.js']:
+                  expected=hashlib.sha256((Path('site')/name).read_bytes()).hexdigest()
+                  for attempt in range(6):
+                      with urllib.request.urlopen(result['url']+name+'?resource_check='+str(time.time_ns()),timeout=20) as response: actual=hashlib.sha256(response.read()).hexdigest()
+                      if actual==expected: break
+                      time.sleep(5)
+                  assert actual==expected,'Published resource differs: '+name
+                  result['resourceHashes'].append({'path':name,'sha256':actual,'matched':True})
               with sync_playwright() as pw:
                   b=pw.chromium.launch(headless=True,args=['--no-sandbox']);p=b.new_page(viewport={'width':1500,'height':1280});errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
                   for attempt in range(6):
@@ -52,6 +63,14 @@ jobs:
                   result['checks'].append('Eight independent theme previews exist')
                   p.click('[data-mode=preview]');p.select_option('#theme-select','sunrise');p.click('[data-page=home]');f.wait_for_function('App.currentRoute==="home"');p.wait_for_timeout(350)
                   p.screenshot(path=str(out/'public-workbench.png'),full_page=True)
+                  p.set_viewport_size({'width':768,'height':1024});p.click('[data-mode=contract]');p.wait_for_selector('.dev-fields');p.screenshot(path=str(out/'public-contract-768.png'))
+                  assert p.locator('#mobile-nav').is_visible()
+                  p.set_viewport_size({'width':390,'height':844});p.click('[data-mode=logic]');p.wait_for_timeout(500);p.screenshot(path=str(out/'public-logic-390.png'))
+                  assert p.locator('.view-tabs').evaluate('e=>e.scrollWidth<=e.clientWidth')
+                  p.goto(result['url']+'prototype/index.html?reset=1&theme=amber#assistant');p.wait_for_function('window.App&&window.Ambient');p.locator('.source-btn').click();p.evaluate('Promise.all(document.querySelector(".overlay").getAnimations({subtree:true}).map(a=>a.finished))');p.mouse.move(0,0);p.screenshot(path=str(out/'public-modal-amber.png'))
+                  assert p.locator('.dialog').evaluate('e=>getComputedStyle(e).opacity')=='1'
+                  assert p.locator('#notice').evaluate('e=>getComputedStyle(e).opacity')=='0'
+                  result['checks'].append('Published tablet reader, phone destinations and solid modal verified')
                   result['browser']=b.version;result['consoleErrors']=errors;assert not errors,str(errors)
                   result['finalURL']=p.url;result['passed']=True;b.close()
           except Exception as e:result['error']=str(e);result['trace']=traceback.format_exc(limit=3)

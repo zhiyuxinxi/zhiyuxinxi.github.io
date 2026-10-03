@@ -209,3 +209,6 @@ body.theme-sunrise{--reading-surface:color-mix(in srgb,var(--paper) 30%,var(--on
 .topic-start{background:var(--reading-surface);border:1px solid var(--line);border-radius:20px;padding:22px 18px;margin:20px 0}
 .report-block .quote{background:transparent;border-radius:0;padding:4px 0 4px 16px}
 .report-block .factor-detail{background:transparent;border-inline:0;border-bottom:0;border-radius:0;padding-inline:0}
+
+/* Remove stale visual feedback when a modal takes focus; retain the live text. */
+#notice.dismissed{opacity:0;transition:none}
