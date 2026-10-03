@@ -80,14 +80,14 @@ window.V3 = (() => {
       ${focus?`<div class="v3-step-actions">${B('上一项','v3-step',{cls:'btn secondary','data-index':Math.max(0,step-1),disabled:step===0})}${step<fields.length-1?B('下一项','v3-step',{cls:'btn tonal','data-index':step+1,after:'arrow'}):B('回到总览','v3-workspace-mode',{cls:'btn tonal','data-id':'overview'})}</div>`:''}
       <p id="topic-error" class="record-field-error" role="alert" hidden></p><div class="v3-workspace-save">${saveState()}${B(found?'保存这次修改':'保存这份整理','topic-save',{cls:'btn full','data-topic':t.id,'data-id':found?.id||'',after:'check'})}</div></details>
       ${found?.revisions?.length?`<details class="record-history"><summary>以前的整理 · ${found.revisions.length} 个版本</summary>${found.revisions.slice().reverse().map(v=>`<details><summary>第 ${v.revision} 版 · 本人整理</summary><p>${esc(v.text)}</p></details>`).join('')}</details>`:''}
-      ${found?L('回到我的记录','records',{cls:'textbtn full space-12'})+B('删除这份整理','delete-journal',{cls:'textbtn full space-12','data-id':found.id}):''}<p class="quiet-boundary">本机草稿与正式记录分开；不会自动发送给助理。AI、正式题源与同步服务尚未接入。</p>`;
+      ${found?L('回到我的记录','records',{cls:'textbtn full space-12'})+B('删除这份整理','delete-journal',{cls:'textbtn full space-12','data-id':found.id}):''}<p class="quiet-boundary">输入时保留本机草稿，点击保存后才成为一条记录。不会自动发给助理；真实 AI 和云同步尚未接入。</p>`;
   }
   function report(s,p){
     if(p.id&&p.id!==D.report.id)return savedViews.report(s,p);
     const work=s.reportContext!=='relationship',src=D.reportSource(work?'work':'relationship');
-    const heads=work?['有准备，更好表达','准备太久，也有代价','换个情境，再观察']:['熟悉之后，更愿回应','一直等待，容易错过','换个情境，再观察'];
-    const bodies=work?['先理出几个要点，理由更容易讲清。','等到完全想好，可能错过参与机会。','准备时间、话题熟悉度，各有什么影响？']:['和熟悉的人一起，更愿意认真交流。','等得太久，对方可能不知道他想参与。','人员熟悉度、话题和状态，各有什么影响？'];
-    return `${top('返回',B('','nav',{cls:'iconbtn',icon:'share','data-route':'share','data-id':D.report.id,'aria-label':'选择分享范围'}))}
+    const heads=work?['有准备，更好表达','也看看等待带来的影响','换个情境，再观察']:['熟悉之后，更愿回应','想参与时，怎样让对方知道','换个情境，再观察'];
+    const bodies=work?['先理出几个要点，理由更容易讲清。','等到想好再说，对这次讨论有什么影响？','准备时间、话题熟悉度，各有什么影响？']:['和熟悉的人一起，更愿意认真交流。','如果想加入，可以观察怎样让对方知道。','人员熟悉度、话题和状态，各有什么影响？'];
+    return `${top('返回',B('','nav',{cls:'iconbtn',icon:'share','data-route':'share','data-id':D.report.id,'aria-label':'预览样例分享图'}))}
       <div class="report-identity">${icon('book','sm')}独立报告样例 · 虚构人物小林</div>
       <header class="v3-report-cover"><span class="eyebrow">情境解读 · ${work?'工作表达':'人际相处'}</span><h1>${work?'给表达，<br>一点准备时间。':'熟悉之后，<br>慢慢打开自己。'}</h1><p>读一段经历，理解一种可能。</p><span class="v3-report-seal" aria-hidden="true">${icon('quote')}</span></header>
       <p class="v3-report-caption">虚构情境与因子位置示意，均与三道示例题无关。</p>
@@ -99,7 +99,7 @@ window.V3 = (() => {
       <section id="report-evidence" class="report-block" tabindex="-1"><div class="row between"><h2>看见依据，再理解</h2>${badge('样例情境')}</div><blockquote class="quote"><span class="caption">小林 · 虚构生活片段</span>${src.excerpt}</blockquote><p class="body-copy">这段经历有多种可能解释。单次表现不能推导出人格分数。</p>${B('核对来源与版本','source-report',{cls:'source-row',icon:'link',after:'chevron'})}
         <details class="factor-detail"><summary><span>16 个因子角度</span><small>点开看说明</small></summary><p class="small muted">位置仅为示意；B、O 暂无依据。水位更满不代表更好。</p>${bottleGrid()}</details>
       </section>
-      <section id="report-personal" class="report-block" tabindex="-1">${badge('本人观察 · 独立保存','own')}<h2 class="space-12">你的经历，哪里不同？</h2><p class="body-copy">写下自己的情境，也可以直接质疑这段解释。</p><label class="field-label space-16" for="report-note">我自己的真实经历</label><textarea id="report-note" class="textarea" data-input="report-note" maxlength="1500" placeholder="例如：在熟悉的小组里，我不太需要准备就能说清楚。">${esc(V2.getDraft('report:'+s.reportContext,''))}</textarea>${saveState()}${B('保存本人观察','save-report-note',{cls:'btn secondary full space-12',icon:'edit'})}${s.reportNotes.length?L('查看已保存的观察','records',{cls:'textbtn full'}):''}</section>
+      <section id="report-personal" class="report-block" tabindex="-1">${badge('本人观察 · 独立保存','own')}<h2 class="space-12">你的经历，哪里不同？</h2><p class="body-copy">哪里像你，哪里不像？也可以写下“要看情况”，再补充当时发生了什么。</p><label class="field-label space-16" for="report-note">我自己的真实经历</label><textarea id="report-note" class="textarea" data-input="report-note" maxlength="1500" placeholder="例如：在熟悉的小组里，我不太需要准备就能说清楚。">${esc(V2.getDraft('report:'+s.reportContext,''))}</textarea>${saveState()}${B('保存本人观察','save-report-note',{cls:'btn secondary full space-12',icon:'edit'})}${s.reportNotes.length?L('查看已保存的观察','records',{cls:'textbtn full'}):''}</section>
       <section id="report-action" class="report-block" tabindex="-1"><div class="next-step-panel v3-next"><span class="eyebrow">下次，试个小变化</span><h2>${work?'从两个要点说起':'从一个细节加入'}</h2><p>${work?'临时被问到时，先给自己一点整理时间，再说最想表达的两点。':'想参与对话时，先回应对方刚说的一个具体细节。'}</p>${B('留下这个小尝试','add-action',{cls:'btn full',icon:'flag','data-context':work?'work':'relationship'})}<small>可修改。只保存你选择的尝试，不建立性格结论。</small></div>${B('带着样例情境问助理','quote-report',{cls:'btn secondary full space-16',icon:'chat'})}</section>
       <details class="report-boundary"><summary>样例范围与正式测量的区别</summary><p>情境与位置为虚构示意。正式题源、计分、常模未接入；因子名称是界面工作译名。本人观察独立保存，不改写正式分数。</p></details>`;
   }

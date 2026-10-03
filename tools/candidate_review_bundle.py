@@ -22,7 +22,7 @@ DECLARATIONS = [
  (1,'components.js',51,0,'tab',True),(2,'components.js',55,0,'factor',True),
  (3,'experience-v2.js',22,0,'nav',False),(4,'experience-v2.js',34,0,'nav',False),
  (5,'experience-v2.js',69,0,'nav',False),(6,'experience-v2.js',75,0,'nav',False),
- (7,'experience-v2.js',104,0,'nav',True),(8,'experience-v3.js',39,0,'nav',True),
+ (7,'experience-v2.js',105,0,'nav',True),(8,'experience-v3.js',39,0,'nav',True),
  (9,'experience-v3.js',117,0,'nav',True),(10,'experience-v3.js',124,0,'nav',True),
  (11,'experience-v3.js',124,1,'nav',True),(12,'experience-v3.js',124,2,'nav',True),
  (13,'experience-v3.js',126,0,'nav',True),(14,'experience-v3.js',149,0,'avatar',True),

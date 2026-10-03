@@ -1,0 +1,42 @@
+{
+  "results": [
+    {
+      "test": "all-empty-filtered-empty-keyboard-and-reload",
+      "status": "PASS"
+    },
+    {
+      "test": "both-share-contexts-preview-download-and-personal-isolation",
+      "status": "PASS"
+    },
+    {
+      "test": "fixed-article-quote-no-auto-send",
+      "status": "PASS"
+    },
+    {
+      "test": "import-scope-and-persistent-recoverable-json-error",
+      "status": "PASS"
+    },
+    {
+      "test": "readable-source-with-context-and-version",
+      "status": "PASS"
+    },
+    {
+      "test": "not-yet-reviewed-restart-and-put-down-preserve-history",
+      "status": "PASS"
+    },
+    {
+      "test": "disagreement-write-failure-retention-retry-and-isolation",
+      "status": "PASS"
+    },
+    {
+      "test": "12-themes-320px-long-observation-keyboard-persistence",
+      "status": "PASS"
+    },
+    {
+      "test": "current-contract-visible-and-searchable",
+      "status": "PASS"
+    }
+  ],
+  "pageErrors": [],
+  "scope": "Chromium local prototype only. No real login, payment, AI, measurement, cloud or publication."
+}
