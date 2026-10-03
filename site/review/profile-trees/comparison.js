@@ -14,7 +14,7 @@ const branches=[
 const facets=[{id:'ability',name:'能做到',question:'以现在的时间、精力和条件，我能提供什么？'},{id:'willingness',name:'愿意投入',question:'即使做得到，我愿意承担多少？'},{id:'need',name:'自己需要',question:'什么样的回应，会让我感到被支持？'},{id:'boundary',name:'边界',question:'哪些需要先商量，哪些代价不能承受？'}];
 const samples={'D1:ability':{status:'recorded',text:'我能安排好日常开支，大额支出会提前讨论。'},'D3:need':{status:'pending',text:'我希望一起商量计划，但还想区分工作日与周末。'},'D4:willingness':{status:'recorded',text:'我愿意留出时间，认真听对方谈正在学习的事情。'},'D7:boundary':{status:'pending',text:'紧急支出时，我仍需要保留自己的基本生活预算。'},'D8:need':{status:'recorded',text:'我希望重要的承诺有足够时间沟通。'}};
 const labels={unexplored:'未探索',recorded:'有记录',pending:'待确认'};
-const schemes=[{id:'a',name:'圆形放射',subtitle:'固定方位 · 清楚主枝',note:'八个方向各自生长，回到总览仍在原位。'},{id:'b',name:'有机星簇',subtitle:'稳定分区 · 柔曲连接',note:'主枝组成疏密有致的星簇，叶子在各自分区生长。'},{id:'c',name:'花瓣轨道',subtitle:'环绕层级 · 向外拓展',note:'主枝是固定花瓣，子叶在分支内展开，不按面积计量。'}];
+const schemes=[{id:'a',name:'圆形放射',subtitle:'固定方位 · 清楚主枝',note:'八个方向各自生长，回到总览仍在原位。'},{id:'b',name:'有机星簇',subtitle:'稳定分区 · 柔曲连接',note:'分区仅用于排布，不代表维度归类。'},{id:'c',name:'花瓣轨道',subtitle:'环绕层级 · 向外拓展',note:'主枝是固定花瓣，子叶在分支内展开，不按面积计量。'}];
 const state={scheme:'a',branch:null,facet:null,entry:null,draft:'',temporary:{}};
 const stage=document.querySelector('#comparisons'),inspector=document.querySelector('#inspector');
 const xy=(angle,r)=>[180+Math.cos(angle*Math.PI/180)*r,180+Math.sin(angle*Math.PI/180)*r];
