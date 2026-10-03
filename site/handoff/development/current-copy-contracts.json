@@ -1,0 +1,161 @@
+{
+  "name": "当前非题目文案与本地行为补充",
+  "sourceCommit": "685a8aff7094f5934d7f028a36cec9de583e7835",
+  "implementationStatus": "设计候选；未发布。原逐页审校数据保留其历史证据边界。",
+  "pages": {
+    "records": {
+      "requirementIds": [
+        "ZY-FR-011",
+        "ZY-UX-010"
+      ],
+      "id": [
+        "records::record-filter"
+      ],
+      "currentHandling": "没有任何记录时提供“写一个观察”；仅当前分类为空且其他记录存在时提供“查看全部记录”。不删除或重建已有记录。",
+      "boundary": "不更改测评题干、选项、因子、计分或待定业务规则。"
+    },
+    "share": {
+      "requirementIds": [
+        "ZY-FR-013",
+        "ZY-DATA-006",
+        "ZY-UX-012"
+      ],
+      "id": [
+        "share::export-share"
+      ],
+      "currentHandling": "预览与 SVG 导出共用 UI.sampleShare。根据报告当前工作或相处情境选择虚构样例，不包含姓名、本人观察、聊天或原始答案；不提供范围选择或远程撤回。",
+      "boundary": "不更改测评题干、选项、因子、计分或待定业务规则。"
+    },
+    "article": {
+      "requirementIds": [
+        "ZY-FR-019",
+        "ZY-FR-022"
+      ],
+      "id": [
+        "article::article-quote"
+      ],
+      "currentHandling": "“引用这段聚会情境”携带 #article-excerpt 的固定片段到助理，不是浏览器选区；不自动发送。来源保留 article-demo-v1、片段和对象标识。",
+      "boundary": "不更改测评题干、选项、因子、计分或待定业务规则。"
+    },
+    "data": {
+      "requirementIds": [
+        "ZY-FR-045",
+        "ZY-FR-046",
+        "ZY-FR-047",
+        "ZY-FR-048",
+        "ZY-DATA-006"
+      ],
+      "id": [
+        "data::import-spec",
+        "data::v4-import",
+        "data::v4-import-confirm"
+      ],
+      "currentHandling": "说明弹层与现有实现一致：本地读取不超过5 MB的JSON，预检后确认复制到空体验空间。不合并，不恢复登录或购买权益。解析失败在导入弹层保留可读错误及重选文件办法。保存失败不得显示成功。",
+      "boundary": "不更改测评题干、选项、因子、计分或待定业务规则。"
+    },
+    "report": {
+      "requirementIds": [
+        "ZY-FR-010",
+        "ZY-FR-027",
+        "ZY-FR-032"
+      ],
+      "id": [
+        "report::source-report",
+        "report::save-report-note",
+        "report::nav::share"
+      ],
+      "currentHandling": "本人观察允许不同意或补充条件，仍独立保存。来源弹层显示中文来源类型、情境和版本；内部objectId/sectionId继续保留在数据结构及导出，不直接充当用户说明。分享按钮准确标为预览样例分享图。",
+      "boundary": "不更改测评题干、选项、因子、计分或待定业务规则。"
+    },
+    "compare": {
+      "requirementIds": [
+        "ZY-UX-007"
+      ],
+      "id": [
+        "compare::nav::records"
+      ],
+      "currentHandling": "APP使用“每份结果的来源、内容版本与计分版本”。实现仍须保留resultId和既有可比性要求；当前没有正式结果，不生成分数变化。",
+      "boundary": "不更改测评题干、选项、因子、计分或待定业务规则。"
+    },
+    "simulation": {
+      "requirementIds": [
+        "ZY-UX-007"
+      ],
+      "id": [
+        "simulation::sim-factors"
+      ],
+      "currentHandling": "使用“查看另一个因子的假设位置”说明切换；实现继续保留当前因子，不默认替换为A。假设不写入个人测量。",
+      "boundary": "不更改测评题干、选项、因子、计分或待定业务规则。"
+    },
+    "complete": {
+      "requirementIds": [
+        "ZY-UX-007"
+      ],
+      "currentHandling": "非题目文案改为具体操作与当前能力说明；保留演示身份、无实际扣款、会员规则待定、本机草稿与保存记录分开等原有边界。状态模型、保存机制与业务规则未变。",
+      "boundary": "既有专题新建、编辑、版本历史和动作回看继续复用；文案不代表真实服务已上线。"
+    },
+    "portrait": {
+      "requirementIds": [
+        "ZY-UX-007"
+      ],
+      "currentHandling": "非题目文案改为具体操作与当前能力说明；保留演示身份、无实际扣款、会员规则待定、本机草稿与保存记录分开等原有边界。状态模型、保存机制与业务规则未变。",
+      "boundary": "既有专题新建、编辑、版本历史和动作回看继续复用；文案不代表真实服务已上线。"
+    },
+    "membership": {
+      "requirementIds": [
+        "ZY-UX-007"
+      ],
+      "currentHandling": "非题目文案改为具体操作与当前能力说明；保留演示身份、无实际扣款、会员规则待定、本机草稿与保存记录分开等原有边界。状态模型、保存机制与业务规则未变。",
+      "boundary": "既有专题新建、编辑、版本历史和动作回看继续复用；文案不代表真实服务已上线。"
+    },
+    "checkout": {
+      "requirementIds": [
+        "ZY-UX-007"
+      ],
+      "currentHandling": "非题目文案改为具体操作与当前能力说明；保留演示身份、无实际扣款、会员规则待定、本机草稿与保存记录分开等原有边界。状态模型、保存机制与业务规则未变。",
+      "boundary": "既有专题新建、编辑、版本历史和动作回看继续复用；文案不代表真实服务已上线。"
+    },
+    "orders": {
+      "requirementIds": [
+        "ZY-UX-007"
+      ],
+      "currentHandling": "非题目文案改为具体操作与当前能力说明；保留演示身份、无实际扣款、会员规则待定、本机草稿与保存记录分开等原有边界。状态模型、保存机制与业务规则未变。",
+      "boundary": "既有专题新建、编辑、版本历史和动作回看继续复用；文案不代表真实服务已上线。"
+    },
+    "order": {
+      "requirementIds": [
+        "ZY-UX-007"
+      ],
+      "currentHandling": "非题目文案改为具体操作与当前能力说明；保留演示身份、无实际扣款、会员规则待定、本机草稿与保存记录分开等原有边界。状态模型、保存机制与业务规则未变。",
+      "boundary": "既有专题新建、编辑、版本历史和动作回看继续复用；文案不代表真实服务已上线。"
+    },
+    "account": {
+      "requirementIds": [
+        "ZY-UX-007"
+      ],
+      "currentHandling": "非题目文案改为具体操作与当前能力说明；保留演示身份、无实际扣款、会员规则待定、本机草稿与保存记录分开等原有边界。状态模型、保存机制与业务规则未变。",
+      "boundary": "既有专题新建、编辑、版本历史和动作回看继续复用；文案不代表真实服务已上线。"
+    },
+    "support": {
+      "requirementIds": [
+        "ZY-UX-007"
+      ],
+      "currentHandling": "非题目文案改为具体操作与当前能力说明；保留演示身份、无实际扣款、会员规则待定、本机草稿与保存记录分开等原有边界。状态模型、保存机制与业务规则未变。",
+      "boundary": "既有专题新建、编辑、版本历史和动作回看继续复用；文案不代表真实服务已上线。"
+    },
+    "content": {
+      "requirementIds": [
+        "ZY-UX-007"
+      ],
+      "currentHandling": "非题目文案改为具体操作与当前能力说明；保留演示身份、无实际扣款、会员规则待定、本机草稿与保存记录分开等原有边界。状态模型、保存机制与业务规则未变。",
+      "boundary": "既有专题新建、编辑、版本历史和动作回看继续复用；文案不代表真实服务已上线。"
+    },
+    "topic-workspace": {
+      "requirementIds": [
+        "ZY-UX-007"
+      ],
+      "currentHandling": "非题目文案改为具体操作与当前能力说明；保留演示身份、无实际扣款、会员规则待定、本机草稿与保存记录分开等原有边界。状态模型、保存机制与业务规则未变。",
+      "boundary": "既有专题新建、编辑、版本历史和动作回看继续复用；文案不代表真实服务已上线。"
+    }
+  }
+}
