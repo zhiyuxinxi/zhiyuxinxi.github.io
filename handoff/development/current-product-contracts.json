@@ -68,7 +68,8 @@
       ],
       "localData": [],
       "errors": "对象缺失不捏造内容；写入失败保留草稿；无网络能力时准确告知。",
-      "boundary": "本地原型实现；不改变待定业务规则，不代表已上线正式测评。"
+      "boundary": "本地原型实现；不改变待定业务规则，不代表已上线正式测评。",
+      "presentation": "无本人记录的人格倾向空态只保留一个首次记录主动作；待确认记忆、已有记录和16因子详情入口保留。"
     },
     "assistant-chat": {
       "currentHandling": "仅本人记录与已确认记忆；样例仅工作台预置场景可选。",
@@ -144,7 +145,11 @@
     "relationship-detail": {
       "currentHandling": "8个关系维度，每维能做到、愿意投入、自己需要、边界独立；仅本人补充，无分数。",
       "inputs": [],
-      "events": [],
+      "events": [
+        "原生details展开/收起：仅切换讨论入口可见性，不写入本人数据、不发送请求；键盘Enter或Space可操作。",
+        "nav → journal：四个补充入口直接携带kind=relationship:<维度ID>:<角度ID>。",
+        "nav → assistant-chat：展开后选择四角度或整体维度；沿用kind和assistantTopic，保留草稿，资料由用户显式选择，不自动发送。"
+      ],
       "localData": "relationshipDimension + relationshipFacet；仅本人记录关联",
       "errors": "无效ID显示对象缺失和返回；保存失败在journal保留输入与重试，不显示成功。",
       "boundary": "本地原型实现；不改变待定业务规则，不代表已上线正式测评。",
@@ -154,14 +159,15 @@
         "entry": "我的画像→关系模式",
         "backRule": "返回我的画像，保留原记录与草稿。"
       },
-      "buttons": "返回、四个独立补充入口、四个对应角度的AI入口及全维度AI入口；均传中文主题对应ID，不自动引用本人记录。",
+      "buttons": "返回、四个直接补充入口、围绕这些角度聊聊（展开/收起）；展开后为四个角度讨论入口和整体看看。入口ID及参数不变。",
       "network": {
         "currentNetworkRequest": false,
         "currentOutboundData": "无",
         "endpoint": null
       },
       "privacyAuthorization": "本人补充由用户显式选择关联；不自动分析、确认记忆、发送或同步。",
-      "acceptanceStatus": "结构与本地交互已纳入product_structure_review.py；正式心理测量及真实服务未实现，不能由页面存在推断业务就绪。"
+      "acceptanceStatus": "结构与本地交互已纳入product_structure_review.py；正式心理测量及真实服务未实现，不能由页面存在推断业务就绪。",
+      "presentation": "四个角度分别以具体提示和补充入口呈现；暂无测评读数只说明一次。讨论入口集中在原生details中，展开后仍可选择每个角度或整体维度；原kind参数、草稿、资料选择和不自动发送规则不变。"
     },
     "observation-area": {
       "currentHandling": "8个观察容器，仅手动选择归属；记录数不是心理测量值。",

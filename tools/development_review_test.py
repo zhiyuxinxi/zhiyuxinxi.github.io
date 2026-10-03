@@ -56,7 +56,8 @@ with sync_playwright() as pw:
   assert frame.evaluate('!!window.Ambient')
   page.locator('#tab-preview').click()
   frame.wait_for_function('innerWidth>0 && innerHeight>0 && document.querySelector("#ambient-tide").height>=96')
-  assert frame.evaluate('document.querySelector("#ambient-tide").getContext("2d").getImageData(0,0,1,1).data[3]')==255
+  # Resizing allocates a clear buffer; the next animation frame paints it.
+  frame.wait_for_function('document.querySelector("#ambient-tide").getContext("2d").getImageData(0,0,1,1).data[3]===255')
   page.wait_for_function("document.querySelector('#product-frame').getBoundingClientRect().width>200")
   frame.locator('[data-action=tab][data-route=explore]').click()
   page.wait_for_function("document.querySelector('[data-page=explore]').getAttribute('aria-selected')==='true'")
