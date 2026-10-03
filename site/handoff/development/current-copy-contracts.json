@@ -1,7 +1,7 @@
 {
   "name": "当前非题目文案与本地行为补充",
   "sourceCommit": "685a8aff7094f5934d7f028a36cec9de583e7835",
-  "implementationStatus": "设计候选；未发布。原逐页审校数据保留其历史证据边界。",
+  "implementationStatus": "当前交互原型的文案与本地行为补充。关联需求及计划验收不代表真实业务已接入或全部测试通过；原逐页审校数据保留其历史证据边界。",
   "pages": {
     "records": {
       "requirementIds": [

@@ -34,6 +34,7 @@ jobs:
         id: verification
         run: |
           python site/tools/hosted_smoke.py site
+          python site/tools/copy_review.py site site/qa/copy-review
           python site/tools/development_review_test.py site
           python site/tools/backend_logic_test.py site
       - name: Preserve browser verification evidence

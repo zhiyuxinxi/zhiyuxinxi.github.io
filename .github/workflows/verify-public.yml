@@ -40,7 +40,7 @@ jobs:
           except Exception as e: result['pagesMetadataError']=str(e)
           try:
               result['resourceHashes']=[]
-              for name in ['index.html','prototype/app.js','prototype/product.css','prototype/experience-v3.js','workbench.js','workbench.css','development-review.js']:
+              for name in ['index.html','prototype/app.js','prototype/product.css','prototype/experience-v3.js','workbench.js','workbench.css','development-review.js','prototype/views.js','prototype/components.js','prototype/assessment-preview.js','prototype/experience-v2.js','prototype/experience-v4.js','handoff/development/current-copy-contracts.json']:
                   expected=hashlib.sha256((Path('site')/name).read_bytes()).hexdigest()
                   for attempt in range(6):
                       with urllib.request.urlopen(result['url']+name+'?resource_check='+str(time.time_ns()),timeout=20) as response: actual=hashlib.sha256(response.read()).hexdigest()
@@ -67,6 +67,7 @@ jobs:
                   result['checks'].append('Eight independent theme previews exist')
                   p.click('[data-mode=preview]');p.select_option('#theme-select','sunrise');p.click('[data-page=home]');f.wait_for_function('App.currentRoute==="home"');p.wait_for_timeout(350)
                   p.screenshot(path=str(out/'public-workbench.png'),full_page=True)
+                  p.click('#expand-tree');p.click('[data-page=records]');f.wait_for_function('App.currentRoute==="records"');p.click('[data-mode=contract]');p.wait_for_function("document.querySelector('#dev-sections')?.textContent.includes('当前文案与本地行为补充')");assert 'ZY-FR-011' in p.locator('#dev-sections').inner_text();result['checks'].append('Current local behavior contract and requirement IDs are publicly readable');p.screenshot(path=str(out/'public-current-contract.png'))
                   p.set_viewport_size({'width':768,'height':1024});p.click('[data-mode=contract]');p.wait_for_selector('.dev-fields');p.screenshot(path=str(out/'public-contract-768.png'))
                   assert p.locator('#mobile-nav').is_visible()
                   p.set_viewport_size({'width':390,'height':844});p.click('[data-mode=logic]');p.wait_for_selector('#logic-rows .logic-item');p.screenshot(path=str(out/'public-logic-390.png'))
@@ -75,6 +76,9 @@ jobs:
                   assert p.locator('.dialog').evaluate('e=>getComputedStyle(e).opacity')=='1'
                   assert p.locator('#notice').evaluate('e=>getComputedStyle(e).opacity')=='0'
                   result['checks'].append('Published tablet reader, phone destinations and solid modal verified')
+                  for route,expected in [('memories','还没有确认的记忆'),('simulation','设定一种假想性格'),('auth','用演示身份继续'),('support','可导出反馈文本'),('report','也看看等待带来的影响')]:
+                      p.goto(result['url']+'prototype/index.html?reset=1&scenario=public-copy&theme=sunrise#'+route,wait_until='networkidle');assert expected in p.locator('main').inner_text();assert p.evaluate('document.documentElement.scrollWidth<=innerWidth');p.screenshot(path=str(out/('public-copy-'+route+'.png')),full_page=True)
+                  result['checks'].append('Published copy corrections verified on five key prototype pages')
                   result['browser']=b.version;result['consoleErrors']=errors;assert not errors,str(errors)
                   result['finalURL']=p.url;result['passed']=True;b.close()
           except Exception as e:result['error']=str(e);result['trace']=traceback.format_exc(limit=3)
