@@ -10,6 +10,7 @@ from datetime import datetime,timezone
 from importlib.metadata import version
 import json,sys,os,traceback,hashlib
 from playwright.sync_api import sync_playwright
+from product_browser import ProductBrowser
 ROOT=Path(sys.argv[1] if len(sys.argv)>1 else '.').resolve();OUT=ROOT/'qa';OUT.mkdir(exist_ok=True)
 class Quiet(SimpleHTTPRequestHandler):
  def log_message(self,*args):pass
@@ -18,7 +19,7 @@ RESULTS=[]
 def check(x,msg='Assertion failed'):
  if not x:raise AssertionError(msg)
 def proto(p,route='home',scenario='default',theme='sunrise'):
- p.goto(f'{BASE}/prototype/index.html?reset=1&scenario={scenario}&theme={theme}#{route}',wait_until='networkidle');p.wait_for_function('window.App && App.snapshot');return p
+ return p.open_product(BASE,route,scenario,theme)
 
 def root_and_resources(p):
  responses=[];p.on('response',lambda r:responses.append((r.url,r.status)));p.goto(BASE+'/',wait_until='networkidle');p.wait_for_function("document.querySelector('#runtime-status').textContent.includes('原型已连接')")
@@ -40,16 +41,16 @@ def cross_window_conflict(p):
  proto(p,'journal');q=p.context.new_page();q.goto(BASE+'/prototype/index.html?scenario=default#journal',wait_until='networkidle');q.fill('#journal-text','来自第二个窗口的最新内容');q.click('[data-action=save-journal]');p.wait_for_function('App.externalChange===true');before=q.evaluate('localStorage.getItem(App.storageKey)');p.fill('#journal-text','第一个窗口的未提交内容');p.click('[data-action=save-journal]');check(q.evaluate('localStorage.getItem(App.storageKey)')==before,'Stale window overwrote newer data');check('另一个页面' in p.locator('#storage-status').inner_text());q.close()
 
 def sample_boundaries_and_answer(p):
- proto(p);p.click('[data-action=start]');
+ proto(p);check(p.locator('.home-assessment-start').is_disabled());check('当前没有可用题目' in p.locator('main').inner_text());check(p.evaluate('App.snapshot.sessions.length')==0);proto(p,'home','sample-report');p.click('[data-action=start]');
  for choice in ['a','b','c']:p.click('[data-action=answer][data-id='+choice+']');p.click('[data-action=question-next]')
- p.click('[data-action=finish]');s=p.evaluate('App.snapshot');check(s['sessions'][0]['status']=='completed');check('score'not in s['sessions'][0]);p.evaluate("location.hash='report?id=report-sample-01'");p.wait_for_selector('.report-identity');check('虚构' in p.locator('.report-identity').inner_text());check(p.locator('[data-action=factor]').count()==16);p.click('[data-action=quote-report]');check(not p.evaluate('App.snapshot.conversations.length'));check('虚构样例' in p.locator('body').inner_text())
+ p.click('[data-action=finish]');s=p.evaluate('App.snapshot');check(s['sessions'][0]['status']=='completed');check('score'not in s['sessions'][0]);p.evaluate("location.hash='report?id=report-sample-01'");p.wait_for_selector('.report-identity');check('非本人资料' in p.host.locator('#stage-caption').inner_text());check(p.locator('[data-action=factor]').count()==16);p.click('[data-action=quote-report]');check(not p.evaluate('App.snapshot.conversations.length'));check(p.evaluate('App.snapshot.assistantSources[0].kind')=='sample-report');check(p.evaluate('App.currentRoute')=='assistant-chat')
 
 def topic_roundtrip(p):
  proto(p,'topic-workspace?topic=work-choice');p.fill('#topic-options','选择A或B');p.fill('#topic-limits','发布门禁：保留原字段');p.click('[data-action=topic-save]');before=p.evaluate('App.snapshot.observations[0]');p.click('[data-action=topic-edit]');p.fill('#topic-options','重新比较A与B');p.click('[data-action=topic-save]');after=p.evaluate('App.snapshot.observations[0]');check(before['id']==after['id'] and after['revision']==2);check(after['fields']['limits']=='发布门禁：保留原字段');p.click('[data-action=topic-to-assistant]');check(p.evaluate('App.snapshot.assistantSources[0].objectId')==after['id'])
 
 def real_problem_loop(p):
  shots=OUT/'record-loop-screenshots';shots.mkdir(exist_ok=True)
- proto(p,'explore');p.click('.life-entry [data-route="topic-workspace"]');p.wait_for_selector('#topic-issue');check(not p.evaluate('App.snapshot.logged'));check(p.evaluate('App.snapshot.sessions.length')==0)
+ proto(p,'topic-workspace?topic=work-choice');p.wait_for_selector('#topic-issue');check(not p.evaluate('App.snapshot.logged'));check(p.evaluate('App.snapshot.sessions.length')==0)
  p.click('[data-action=topic-save]');check(p.locator('#topic-error').is_visible());check(p.evaluate('App.snapshot.observations.length')==0)
  p.fill('#topic-issue','下次讨论，先独立准备还是先交流？');p.fill('#topic-options','先写两点；先问一个问题');p.fill('#topic-evidence','上次写两点后容易开始，但还没排除话题熟悉度');p.fill('#topic-unknown','换个话题会怎样？');p.fill('#topic-understanding','先试一个低成本变化，不急着定论');p.reload(wait_until='networkidle');check(p.input_value('#topic-issue').startswith('下次讨论'))
  p.click('[data-action=topic-save]');n=p.evaluate('App.snapshot.observations[0]');check(p.locator('.record-summary').is_visible());p.wait_for_timeout(4500);p.screenshot(path=str(shots/'record-saved.png'),full_page=True);check(p.locator('.record-editor').get_attribute('open') is None);p.click('[data-action=add-action]');p.fill('#dialog-field','讨论前写两点，观察是否容易开始');p.click('[data-action=submit-dialog]');a=p.evaluate('App.snapshot.actions[0]');check(a['sourceId']==n['id'] and a['sourceVersion']=='1');check(a['sourceSnapshot']['version']=='1');p.wait_for_timeout(4500);p.screenshot(path=str(shots/'action-origin.png'),full_page=True)
@@ -88,9 +89,7 @@ def relocated_entries_and_settings(p):
  check(p.locator('button[data-route=appearance]').count()==0)
  p.click('[data-action=tab][data-route=explore]')
  p.locator('.explore-tools summary').click()
- p.click('[data-action=daily]');check('每日轻探索' in p.locator('.dialog').inner_text());p.keyboard.press('Escape')
- p.click('[data-action=all-factors]');check(p.locator('.dialog .bottle-tile').count()==16);p.keyboard.press('Escape')
- for route in ['simulation','report','article']:
+ for route in ['single-factor','personality-sandbox','report','article']:
   p.click('.explore-tools [data-route='+route+']');p.wait_for_function('r=>App.currentRoute.startsWith(r)',arg=route)
   check(p.locator('[data-action=back]').count()>=1,'Task return lost')
   p.click('[data-action=back]');p.wait_for_function('App.currentRoute==="explore"');p.locator('.explore-tools summary').click()
@@ -108,7 +107,7 @@ def home_state_priority(p):
  for scenario,action in [('ongoing-action','start'),('combined','resume'),('complete','nav')]:
   proto(p,'home',scenario)
   check(p.locator('.home-scene h2').inner_text()=='16PF 性格探索')
-  primary=p.locator('.home-primary').first;check(primary.get_attribute('data-action')==action)
+  check(p.locator('.home-assessment').count()==1);check(p.locator('.assessment-mode [data-action=mode]').count()==2);primary=p.locator('.home-assessment-start');check(primary.get_attribute('data-action')==action)
   check(p.locator('.v3-action-resume').count()==(0 if scenario=='complete' else 1))
   (OUT/'design-candidate').mkdir(exist_ok=True);p.screenshot(path=str(OUT/'design-candidate'/('home-'+scenario+'.png')))
   primary.click()
@@ -126,12 +125,12 @@ def route_matrix(p):
 def theme_six_page_matrix(p):
  rows=[]
  for theme in ['sunrise','candy','berry','lime','aurora','sea','nebula','amber']:
-  for r,sc in [('home','default'),('explore','default'),('question?id=session-demo-seed','question'),('report?id=report-sample-01','default'),('assistant','default'),('me','default')]:
+  for r,sc in [('home','default'),('explore','default'),('question?id=session-demo-seed','question'),('report?id=report-sample-01','sample-report'),('assistant','default'),('me','default')]:
    proto(p,r,sc,theme);check(p.evaluate('App.snapshot.theme')==theme);check(p.evaluate("getComputedStyle(document.getElementById('ambient-background')).backgroundImage.includes('gradient')"),'Missing global scene');check(p.evaluate('document.documentElement.scrollWidth<=innerWidth'),theme+' '+r);check(p.locator('#main-content').count()==1);imgs=p.locator('img').evaluate_all('(es)=>es.filter(e=>!e.complete||e.naturalWidth===0).map(e=>e.src)');check(not imgs,'Missing images '+str(imgs));rows.append({'theme':theme,'page':r,'pass':True})
  (OUT/'hosted-theme-matrix.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2));return {'combinations':len(rows)}
 
 def run(pw,browser,name,fn,size=(390,844)):
- context=browser.new_context(viewport={'width':size[0],'height':size[1]},locale='zh-CN');p=context.new_page();errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
+ context=browser.new_context(viewport={'width':size[0],'height':size[1]},locale='zh-CN');p=ProductBrowser(context.new_page());p.host.set_default_timeout(8000);errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
  try:detail=fn(p);check(not errors,str(errors));r={'test':name,'status':'PASS','details':detail or {}}
  except Exception as e:
   r={'test':name,'status':'FAIL','error':str(e),'trace':traceback.format_exc(limit=3)};(OUT/'hosted-failures').mkdir(exist_ok=True);p.screenshot(path=str(OUT/'hosted-failures'/f'{name}.png'),full_page=True)

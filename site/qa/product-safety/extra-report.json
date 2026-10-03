@@ -1,0 +1,106 @@
+[
+  {
+    "test": "canvas-identity-clock-question-and-reduced-motion",
+    "status": "PASS",
+    "details": [
+      {
+        "route": "explore",
+        "time": 8.449900000000007,
+        "motion": "running"
+      },
+      {
+        "route": "assistant",
+        "time": 8.64990000000001,
+        "motion": "running"
+      },
+      {
+        "route": "relationship-detail?id=D1",
+        "time": 8.849900000000012,
+        "motion": "running"
+      },
+      {
+        "route": "observation-area?id=values",
+        "time": 9.033100000000015,
+        "motion": "running"
+      },
+      {
+        "route": "assistant-chat",
+        "time": 9.216500000000018,
+        "motion": "running"
+      },
+      {
+        "route": "home",
+        "time": 9.39980000000002,
+        "motion": "running"
+      }
+    ]
+  },
+  {
+    "test": "retained-two-color-area-envelope",
+    "status": "PASS",
+    "details": [
+      {
+        "seconds": 0,
+        "colorA": 0.49924323361823364
+      },
+      {
+        "seconds": 4,
+        "colorA": 0.7404959045584045
+      },
+      {
+        "seconds": 8,
+        "colorA": 0.8400997150997151
+      },
+      {
+        "seconds": 12,
+        "colorA": 0.7398504273504274
+      },
+      {
+        "seconds": 16,
+        "colorA": 0.49993322649572647
+      },
+      {
+        "seconds": 20,
+        "colorA": 0.2595931267806268
+      },
+      {
+        "seconds": 24,
+        "colorA": 0.1607238247863248
+      },
+      {
+        "seconds": 28,
+        "colorA": 0.26072827635327633
+      },
+      {
+        "seconds": 32,
+        "colorA": 0.49975516381766383
+      }
+    ]
+  },
+  {
+    "test": "keyboard-focus-large-text-and-long-record",
+    "status": "PASS",
+    "details": {
+      "keyboardFocus": true,
+      "largeText": true,
+      "longText": true
+    }
+  },
+  {
+    "test": "write-failure-input-retention-and-retry",
+    "status": "PASS",
+    "details": {
+      "noFalseSuccess": true,
+      "retryPersisted": true
+    }
+  },
+  {
+    "test": "no-fake-ai-or-default-sample",
+    "status": "PASS",
+    "details": {
+      "noGeneratedAnswer": true,
+      "noQuotaCharge": true,
+      "noDefaultSampleReportOrSource": true
+    }
+  }
+]

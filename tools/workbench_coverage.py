@@ -9,6 +9,7 @@ from threading import Thread
 from datetime import datetime,timezone
 import json,os,sys
 from playwright.sync_api import sync_playwright
+from product_browser import ProductBrowser
 ROOT=Path(sys.argv[1] if len(sys.argv)>1 else '.').resolve();OUT=ROOT/'qa'/'complete-workbench';OUT.mkdir(parents=True,exist_ok=True)
 class Quiet(SimpleHTTPRequestHandler):
  def log_message(self,*args):pass
@@ -49,7 +50,7 @@ with sync_playwright() as w:
   return {'visited':visited}
  test('every-tree-node-real-navigation',visit_tree)
  def states():
-  p.locator('#expand-tree').click();p.locator('[data-page=single-factor]').click();f=p.frames[1];f.locator('[data-action=preview-factor]').first.click();f.locator('[data-action=preview-stage][data-stage=process]').click();p.wait_for_function("document.querySelector('[data-page=single-factor-process]').getAttribute('aria-selected')==='true'")
+  p.goto(BASE+'/?state-check=1#page=single-factor&scene=question');p.wait_for_function("document.querySelector('#runtime-status').textContent.includes('原型已连接')");f=p.frames[1];f.locator('[data-action=preview-factor]').first.click();f.locator('[data-action=preview-stage][data-stage=process]').click();p.wait_for_function("document.querySelector('[data-page=single-factor-process]').getAttribute('aria-selected')==='true'")
   f.locator('[data-action=preview-answer]').first.click();f.locator('[data-action=preview-stage][data-stage=result]').click();p.wait_for_function("document.querySelector('[data-page=single-factor-result]').getAttribute('aria-selected')==='true'")
   url=p.url;p.reload();p.wait_for_function("document.querySelector('#runtime-status').textContent.includes('原型已连接')");p.frames[1].wait_for_function("AssessmentPreview.getStage()==='result'");return {'deepLink':url.split('#')[-1],'stageReflectedInTree':True}
  test('substate-sync-and-deep-link',states)
@@ -62,7 +63,7 @@ with sync_playwright() as w:
  def newly_completed_session():
   ctx=b.new_context(viewport={'width':1480,'height':1100},locale='zh-CN');q=ctx.new_page()
   try:
-   q.goto(BASE+'/?workflow=new-session');q.wait_for_function("document.querySelector('#runtime-status').textContent.includes('原型已连接')");frame=q.frames[1]
+   q.goto(BASE+'/?workflow=new-session#scene=sample-report');q.wait_for_function("document.querySelector('#runtime-status').textContent.includes('原型已连接')");frame=q.frames[1]
    frame.locator('[data-action=start]').click();frame.wait_for_function("App.currentRoute.startsWith('question?')");sid=frame.evaluate('App.snapshot.activeSession');check(sid!='session-demo-seed','Must exercise a newly created session')
    for choice in ['a','b','c']:
     frame.locator('[data-action=answer][data-id='+choice+']').click();frame.locator('[data-action=question-next]').click()
@@ -76,17 +77,17 @@ with sync_playwright() as w:
   ctx=b.new_context(viewport={'width':1480,'height':1100},locale='zh-CN');q=ctx.new_page();visited=[]
   try:
    q.goto(BASE+'/?workflow=exploration');q.wait_for_function("document.querySelector('#runtime-status').textContent.includes('原型已连接')");frame=q.frames[1];frame.locator('[data-action=tab][data-route=explore]').click()
-   topics=frame.evaluate("D.topics.filter(x=>x.id!=='work-choice').map(x=>x.id)")
+   topics=frame.evaluate("DecisionScenes.items.map(x=>x.id)")
    for topic in topics:
     frame.locator('[data-action=nav][data-route=topic][data-id='+topic+']').click();frame.wait_for_function('r=>App.currentRoute===r',arg='topic?id='+topic)
-    node='topic-'+topic;q.wait_for_function('id=>document.querySelector("[data-page=\\\""+id+"\\\"]").getAttribute("aria-selected")==="true"',arg=node,timeout=5000)
+    node='scene-'+topic;q.wait_for_function('id=>document.querySelector("[data-page=\\\""+id+"\\\"]").getAttribute("aria-selected")==="true"',arg=node,timeout=5000)
     check(q.locator('#page-title').inner_text()==next(x['name'] for x in nodes if x['id']==node),'Wrong topic title');visited.append({'route':'topic?id='+topic,'selectedNode':node})
     check(q.locator('.frame-shell').evaluate('e=>e.scrollTop===0&&e.scrollLeft===0'),'Scaled viewport mask scrolled after topic navigation')
-    if topic=='relationships':frame.wait_for_function('scrollY===0');q.wait_for_timeout(200);q.screenshot(path=str(OUT/'real-explore-relationships.png'))
+    if topic=='relationship-break':frame.wait_for_function('scrollY===0');q.wait_for_timeout(200);q.screenshot(path=str(OUT/'real-explore-relationships.png'))
     frame.locator('[data-action=back]').first.click();frame.wait_for_function("App.currentRoute==='explore'")
-   check(len(visited)==4,'Must visit all four non-default topics');return visited
+   check(len(visited)==8,'Must visit all eight independent scenes');return visited
   finally:ctx.close()
- test('explore-to-four-nondefault-topics-reflects-in-tree',actual_exploration_topics)
+ test('explore-to-eight-scenes-reflects-in-tree',actual_exploration_topics)
 
  def captures():
   shots=[]
@@ -104,7 +105,7 @@ with sync_playwright() as w:
  test('desktop-fit-original-size-and-mobile',captures)
  c.close()
  # Every real route gets a real browser render in each available theme, with genuine prerequisite fixtures.
- c=b.new_context(viewport={'width':390,'height':844},locale='zh-CN');p=c.new_page();p.on('pageerror',lambda e:errors.append(str(e)))
+ c=b.new_context(viewport={'width':390,'height':844},locale='zh-CN');p=ProductBrowser(c.new_page());p.on('pageerror',lambda e:errors.append(str(e)))
  primary={}
  for x in nodes:
   if x.get('route') and x['route'].split('?')[0] not in primary:primary[x['route'].split('?')[0]]=x
@@ -112,7 +113,7 @@ with sync_playwright() as w:
   for base,x in primary.items():
    row={'theme':t['id'],'route':base}
    try:
-    p.goto(BASE+'/prototype/index.html?reset=1&scenario='+x.get('scenario','default')+'&theme='+t['id']+'#'+x['route'],wait_until='load');p.wait_for_function('window.App&&window.Ambient');p.wait_for_timeout(70)
+    p.open_product(BASE,x['route'],x.get('scenario','default'),t['id']);p.wait_for_function('window.App&&window.Ambient');p.wait_for_timeout(70)
     check(p.evaluate('App.currentRoute')==x['route'],'Wrong route');check(p.locator('main').inner_text().strip()!='','Blank content');check(p.locator('.brandline,.wordmark,.prototype-label').count()==0,'Removed toolbar returned');check(p.evaluate('document.documentElement.scrollWidth<=innerWidth'),'Horizontal overflow')
     shared=p.evaluate("({theme:App.snapshot.theme,mode:document.body.dataset.themeMode,canvas:!!document.querySelector('#ambient-tide'),field:getComputedStyle(document.body).getPropertyValue('--field-a'),surface:getComputedStyle(document.body).getPropertyValue('--surface'),quiet:Ambient.isPaused()})")
     check(shared['theme']==t['id'] and shared['canvas'] and shared['field'].strip() and shared['surface'].strip(),'Missing shared theme owner');check(shared['quiet']==(base=='question'),'Quiet route mismatch')
@@ -121,4 +122,4 @@ with sync_playwright() as w:
    except Exception as e:row.update(status='FAIL',error=str(e))
    matrix.append(row)
  c.close();b.close()
-server.shutdown();scope=('8 workbench shell regression checks: route/tree coverage, navigation, substate deep links, keyboard/search, stale messages, fit/original size and narrow drawer. Shell-only run: the 39 × 12 = 468 theme-route render matrix and all-route full-page screenshots were not rerun.' if os.environ.get('WORKBENCH_SHELL_ONLY') else 'All real route families × all 12 themes: real render, shared shell/token presence, no toolbar, no horizontal overflow. Full-page screenshots of all routes in sunrise. This is not a claim of all interaction states or pixel contrast in every theme.');report={'createdAt':datetime.now(timezone.utc).isoformat(),'scope':scope,'results':results,'themeRouteMatrix':matrix,'pageErrors':errors};(OUT/('shell-report.json' if os.environ.get('WORKBENCH_SHELL_ONLY') else 'report.json')).write_text(json.dumps(report,ensure_ascii=False,indent=2));print(json.dumps({'tests':results,'matrixPassed':sum(x['status']=='PASS' for x in matrix),'matrixTotal':len(matrix),'matrixFailures':[x for x in matrix if x['status']=='FAIL'],'pageErrors':errors},ensure_ascii=False,indent=2));sys.exit(0 if all(x['status']=='PASS' for x in results+matrix) and not errors else 1)
+server.shutdown();scope=('8 workbench shell regression checks: route/tree coverage, navigation, substate deep links, keyboard/search, stale messages, fit/original size and narrow drawer. Shell-only run: the 43 × 12 = 516 theme-route render matrix and all-route full-page screenshots were not rerun.' if os.environ.get('WORKBENCH_SHELL_ONLY') else 'All real route families × all 12 themes: real render, shared shell/token presence, no toolbar, no horizontal overflow. Full-page screenshots of all routes in sunrise. This is not a claim of all interaction states or pixel contrast in every theme.');report={'createdAt':datetime.now(timezone.utc).isoformat(),'scope':scope,'results':results,'themeRouteMatrix':matrix,'pageErrors':errors};(OUT/('shell-report.json' if os.environ.get('WORKBENCH_SHELL_ONLY') else 'report.json')).write_text(json.dumps(report,ensure_ascii=False,indent=2));print(json.dumps({'tests':results,'matrixPassed':sum(x['status']=='PASS' for x in matrix),'matrixTotal':len(matrix),'matrixFailures':[x for x in matrix if x['status']=='FAIL'],'pageErrors':errors},ensure_ascii=False,indent=2));sys.exit(0 if all(x['status']=='PASS' for x in results+matrix) and not errors else 1)

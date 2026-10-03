@@ -18,6 +18,7 @@ window.V3 = (() => {
     learning:{name:'为什么想学',title:'找回学习的理由',desc:'分清期待与外界的声音。',output:'一次学习实验',color:'lavender',ic:'book'},
     'self-space':{name:'留点独处',title:'一个人，刚刚好？',desc:'观察独处前后的变化。',output:'一条情境观察',color:'cream',ic:'sun'}
   };
+  for(const x of DecisionScenes.items)topicMeta[x.id]={...x,output:'自己的取舍清单'};
   const section=(title,extra='')=>`<div class="section-head"><h2>${title}</h2>${extra}</div>`;
   const badge=(text,kind='')=>`<span class="v3-badge ${kind}">${text}</span>`;
   const saveState=()=>`<p class="editor-save" id="editor-save-state" role="status">${V2.draftStatus}</p>`;
@@ -28,50 +29,38 @@ window.V3 = (() => {
   function home(s){return AssessmentPreview.home(s);}
 
   function explore(s){
-    const recent=s.observations.filter(x=>x.kind==='topic-record').sort((a,b)=>(b.updatedAt||b.createdAt||'').localeCompare(a.updatedAt||a.createdAt||''))[0],workDraft=V2.getDraft(V2.topicKey('work-choice'),{});
-
-    const text=s.exploreSearch.trim().toLowerCase();const filtered=D.topics.filter(t=>(s.exploreCategory==='全部'||t.category===s.exploreCategory)&&(!text||[t.title,t.desc,t.category,topicMeta[t.id].name].join(' ').toLowerCase().includes(text)));
-    return `
-      ${title('', '最近，你在想什么？','带走一份整理，给下一步多一点依据。',B('收藏','favorites',{cls:'textbtn',icon:'bookmark'}))}
-      <div class="search-box"><label class="sr-only" for="explore-search">搜索探索主题</label>${icon('search')}<input id="explore-search" data-input="explore-search" value="${esc(s.exploreSearch)}" placeholder="搜一件想理清的事" maxlength="100" autocomplete="off">${B('','clear-search',{cls:'search-clear',icon:s.exploreSearch?'close':'filter','aria-label':s.exploreSearch?'清空搜索':'筛选说明'})}</div>
-      <div class="chips v3-categories" aria-label="探索类别">${['全部','工作','相处','学习','生活'].map(c=>B(c,'category',{cls:s.exploreCategory===c?'active':'','data-id':c,'aria-pressed':s.exploreCategory===c})).join('')}</div>
-      <div class="browse-info"><span aria-live="polite">${filtered.length} 个整理方向</span><span>自己填写 · 不作匹配打分</span></div>
-      <div class="v3-topic-grid">${filtered.map((t,i)=>{const m=topicMeta[t.id];return `<button class="v3-topic ${m.color} ${t.id==='work-choice'?'wide':''}" data-action="nav" data-route="topic" data-id="${t.id}"><div class="v3-topic-top"><span>${t.category} · ${V2.schemas[t.id].length} 个问题</span>${icon(m.ic)}</div><h2>${m.title}</h2><p>${m.desc}</p><div class="v3-topic-bottom"><span>${m.output}</span>${icon('arrow','sm')}</div>${t.id==='work-choice'?'<span class="path-art" aria-hidden="true"><i></i><b>?</b></span>':''}</button>`;}).join('')}</div>
-      ${!filtered.length?empty('暂时没有这个方向','换个关键词，或清空筛选。',B('清空筛选','clear-filters',{cls:'btn secondary'})):''}
-      <section class="life-entry" aria-label="从生活问题开始"><div class="life-entry-heading">${icon('edit')}<div><h2>把一件纠结理清楚</h2><p>${recent?'接着自己的整理，看看下一步。':'先从工作议题开始，也可以换个方向。'}</p></div></div>
-        ${recent?`<p class="life-entry-context">${esc(recent.fields?.issue||recent.title)}</p>`:''}
-        <div class="life-entry-actions">${L(recent?'继续这份整理':Object.values(workDraft).some(Boolean)?'继续工作议题草稿':'整理工作议题','topic-workspace',{cls:'textbtn','data-topic':recent?.topicId||'work-choice',...(recent?{'data-id':recent.id}:{}),after:'arrow'})}</div><small>不用先做测评 · 本机整理无需登录</small></section>
-      <details class="explore-tools"><summary>认识工具与阅读</summary><div class="plain-list">
-        ${row('每日轻探索','从一个小问题开始','','sun','',{action:'daily'})}
-        ${row('单因子探索','一次了解一个角度','','bottle','',{action:'all-factors'})}
-        ${row('假设实验','理解概念，不生成个人结论','simulation','explore')}
-        ${row('报告样例','独立虚构样例，非本人结果','report','book','',{'data-id':D.report.id})}
-        ${row('如何理解因子','高一点、低一点，都不代表更好','article','book','',{'data-id':'read-traits'})}
-      </div></details>
-      <p class="v3-endnote">选题清单，不替你决定职业、关系或生活。</p>`;
+    const text=s.exploreSearch.trim().toLowerCase(),filtered=DecisionScenes.items.filter(t=>(s.exploreCategory==='全部'||t.category===s.exploreCategory)&&(!text||[t.title,t.desc,t.category].join(' ').toLowerCase().includes(text)));
+    const recent=s.observations.filter(x=>x.kind==='topic-record').sort((a,b)=>(b.updatedAt||b.createdAt||'').localeCompare(a.updatedAt||a.createdAt||''))[0];
+    return `${title('','最近，你在想什么？','',B('收藏','favorites',{cls:'textbtn',icon:'bookmark'}))}
+    <div class="search-box"><label class="sr-only" for="explore-search">搜索生活问题</label>${icon('search')}<input id="explore-search" data-input="explore-search" value="${esc(s.exploreSearch)}" placeholder="辞职、二战考研、搬出去住…" maxlength="100" autocomplete="off">${B('','clear-search',{cls:'search-clear',icon:s.exploreSearch?'close':'filter','aria-label':s.exploreSearch?'清空搜索':'筛选说明'})}</div>
+    <div class="chips v3-categories" aria-label="探索类别">${['全部','工作','学业','关系','生活'].map(c=>B(c,'category',{cls:s.exploreCategory===c?'active':'','data-id':c,'aria-pressed':s.exploreCategory===c})).join('')}</div>
+    <div class="v3-topic-grid decision-grid">${filtered.map(t=>`<button class="v3-topic decision-card ${t.color}" data-action="nav" data-route="topic" data-id="${t.id}"><span class="v3-topic-top">${t.category}${icon(t.ic)}</span><h2>${t.title}</h2><p>${t.desc}</p><span class="decision-arrow">${icon('arrow','sm')}</span></button>`).join('')}</div>
+    ${!filtered.length?empty('没有找到这个问题','换个关键词，或清空筛选。',B('清空筛选','clear-filters',{cls:'btn secondary'})):''}
+    ${recent?`<section class="life-entry"><h2>接着上次整理</h2><p>${esc(recent.fields?.issue||recent.title)}</p>${L('继续整理','topic-workspace',{cls:'textbtn','data-topic':recent.topicId,'data-id':recent.id,after:'arrow'})}</section>`:''}
+    <details class="explore-tools"><summary>认识工具与阅读</summary><div class="plain-list">${row('单因子探索','选一个想了解的角度','single-factor','bottle')}${row('模拟性格','调整一组假设位置','personality-sandbox','explore')}${row('我的报告','回看测评结果','report','book')}${row('如何理解因子','从具体情境理解不同倾向','article','book', '',{'data-id':'read-traits'})}${row('以前的整理','找回已保存的议题和记录','records','folder')}</div></details>`;
   }
   function topic(s,p){
     const t=D.topics.find(x=>x.id===p.id);if(!t)return savedViews.topic(s,p);const m=topicMeta[t.id],note=s.observations.filter(x=>x.topicId===t.id).sort((a,b)=>(b.updatedAt||b.createdAt||'').localeCompare(a.updatedAt||a.createdAt||''))[0];
     return `${top('探索',B('','favorite',{cls:'iconbtn',icon:'bookmark','data-id':t.id,'aria-label':s.favorites.includes(t.id)?'取消收藏':'收藏这个主题','aria-pressed':s.favorites.includes(t.id)}))}
-      <header class="v3-topic-intro ${m.color}">${badge(t.category+' · 自助整理')}<h1>${t.id==='work-choice'?'留下，<br>还是换个方向？':m.title}</h1><p>${t.desc}</p><span class="v3-intro-symbol" aria-hidden="true">${icon(m.ic)}</span></header>
+      <header class="v3-topic-intro ${m.color}">${badge(t.category+' · 自助整理')}<h1>${m.title}</h1><p>${t.desc}</p><span class="v3-intro-symbol" aria-hidden="true">${icon(m.ic)}</span></header>
       <div class="v3-facts"><span>${icon('edit','sm')}${V2.schemas[t.id].length} 个问题</span><span>${icon('pause','sm')}随时暂停</span><span>${icon('shield','sm')}不计分</span></div>
-      <section class="topic-start"><h2>带走${m.output}</h2><p>跟着问题，一步步把想法整理清楚。</p>${note?L('继续上次的整理','topic-workspace',{cls:'btn full',after:'arrow','data-topic':t.id,'data-id':note.id}):B('开始整理','topic-journal',{cls:'btn full','data-id':t.id,after:'arrow'})}${note?B('另建一份整理','topic-journal',{cls:'textbtn full','data-id':t.id}):''}</section><details class="topic-outline"><summary>这次会聊到什么<span>${V2.schemas[t.id].length} 个问题 ${icon('chevron','sm')}</span></summary>
+      <section class="topic-start"><h2>理清自己的取舍</h2><p>${esc(t.tip||'把具体经历、在意和待查信息分开整理。')}</p>${note?L('继续上次的整理','topic-workspace',{cls:'btn full',after:'arrow','data-topic':t.id,'data-id':note.id}):B('开始整理','topic-journal',{cls:'btn full','data-id':t.id,after:'arrow'})}${note?B('另建一份整理','topic-journal',{cls:'textbtn full','data-id':t.id}):''}</section><details class="topic-outline"><summary>这次会聊到什么<span>${V2.schemas[t.id].length} 个问题 ${icon('chevron','sm')}</span></summary>
       <ol class="v3-outline">${V2.schemas[t.id].map(([key,label,ph],i)=>`<li><span>${String(i+1).padStart(2,'0')}</span><div><strong>${label}</strong><p>${ph}</p></div></li>`).join('')}</ol></details>
-      <p class="quiet-boundary">原创自助框架；不预测结果。由你填写，也由你决定下一步。</p>`;
+      `;
   }
   function recordSummary(s,n){
     const d=n.fields||{},related=s.actions.filter(a=>a.sourceId===n.id),latest=related.slice().reverse()[0];
     const provenance=k=>k==='evidence'?'本人提供 · 未核验':k==='unknown'?'待查证':k==='understanding'?'当前认识 · 可以修正':'本人自述';
-    return `<section class="record-summary" aria-label="已保存的整理卡"><div class="record-card-top">${badge('本人整理 · 第 '+(n.revision||1)+' 版','own')}<span>已存本机</span></div><h2>${esc(d.issue||n.title)}</h2><p class="record-insight-label">我目前的认识</p><p class="record-insight">${esc(d.understanding||'还没有形成结论，也可以先保留这些条件。')}</p><details class="record-evidence"><summary>核对条件、依据与未知 ${icon('chevron','sm')}</summary><dl>${V2.topicFields(n.topicId).filter(([k])=>k!=='issue'&&k!=='understanding').map(([k,label])=>`<div><dt>${label}<span>${provenance(k)}</span></dt><dd class="${String(d[k]||'').trim()?'':'is-empty'}">${esc(d[k]||'暂未填写，不代表没有')}</dd></div>`).join('')}</dl></details><p class="record-boundary">这是你写下的整理，不是系统推荐或性格结论。未知和冲突可以保留。</p></section>
-      <section class="record-next" aria-label="整理之后的选择"><h2>现在，按自己的需要选</h2><p>只留下认识也是一次有效整理，不必安排任务。</p><div class="record-next-actions">${B('先补信息','topic-edit',{cls:'btn secondary',icon:'edit'})}${B('选个小尝试','add-action',{cls:'btn tonal',icon:'flag'})}</div>${L('仅保存，回到我的记录','records',{cls:'textbtn full'})}${latest?L('回看这份整理的小尝试（'+related.length+'）','action-detail',{cls:'record-linked-action','data-id':latest.id,icon:'flag',after:'arrow'}):'<p class="record-no-action">还没有关联的小尝试；这份整理已经保留。</p>'}${B('带着已保存的记录问助理','topic-to-assistant',{cls:'textbtn full','data-id':n.id,icon:'chat'})}<p class="small muted">只带这份记录的已保存版本，可移除；不会自动发送。助理仍为预写演示。</p></section>`;
+    return `<section class="record-summary" aria-label="已保存的整理卡"><div class="record-card-top">${badge('本人整理 · 第 '+(n.revision||1)+' 版','own')}<span>已存本机</span></div><h2>${esc(d.issue||n.title)}</h2><p class="record-insight-label">${d.priorities&&!d.understanding?'我在意的事':'我目前的认识'}</p><p class="record-insight">${esc(d.understanding||d.priorities||'还没有形成结论，也可以先保留这些条件。')}</p><details class="record-evidence"><summary>核对条件、依据与未知 ${icon('chevron','sm')}</summary><dl>${V2.topicFields(n.topicId).filter(([k])=>k!=='issue'&&k!=='understanding').map(([k,label])=>`<div><dt>${label}<span>${provenance(k)}</span></dt><dd class="${String(d[k]||'').trim()?'':'is-empty'}">${esc(d[k]||'暂未填写，不代表没有')}</dd></div>`).join('')}</dl></details><p class="record-boundary">这是你写下的整理，不是系统推荐或性格结论。未知和冲突可以保留。</p></section>
+      <section class="record-next" aria-label="整理之后的选择"><h2>现在，按自己的需要选</h2><p>只留下认识也是一次有效整理，不必安排任务。</p><div class="record-next-actions">${B('先补信息','topic-edit',{cls:'btn secondary',icon:'edit'})}${B('选个小尝试','add-action',{cls:'btn tonal',icon:'flag'})}</div>${L('仅保存，回到我的记录','records',{cls:'textbtn full'})}${latest?L('回看这份整理的小尝试（'+related.length+'）','action-detail',{cls:'record-linked-action','data-id':latest.id,icon:'flag',after:'arrow'}):'<p class="record-no-action">还没有关联的小尝试；这份整理已经保留。</p>'}${B('带着已保存的记录问助理','topic-to-assistant',{cls:'textbtn full','data-id':n.id,icon:'chat'})}<p class="small muted">只带这份记录的已保存版本，可移除；不会自动发送。</p></section>`;
   }
   function topicWorkspace(s,p){
     const t=D.topics.find(x=>x.id===p.topic);if(!t)return savedViews['topic-workspace'](s,p);
     const found=s.observations.find(x=>x.id===p.id&&x.topicId===t.id);if(p.id&&!found)return savedViews['topic-workspace'](s,p);
     const fields=V2.topicFields(t.id),d=V2.getDraft(V2.topicKey(t.id,p.id),found?.fields||{}),key=V2.topicKey(t.id,p.id),step=Math.min(workspaceSteps.get(key)||0,fields.length-1),focus=s.workspaceMode==='focus',dirty=found&&V2.topicChanged(found);
-    return `${top('返回',L('其他议题','explore',{cls:'textbtn'}))}${title(topicMeta[t.id].name+' · '+(found?'本人记录':'整理中'),found?'留住这一次的认识。':'把想法，摆清楚。',found?'条件变了，可以继续补充；旧版本仍保留。':'从一件具体的事开始。可以留空，不必先做测评。')}
+    return `${top('返回',L('其他议题','explore',{cls:'textbtn'}))}${title(topicMeta[t.id].name+' · '+(found?'本人记录':'整理中'),found?'留住这一次的认识。':topicMeta[t.id].title,found?'条件变了，可以继续补充；旧版本仍保留。':(t.tip||'从具体经历开始，暂时不确定的地方可以留空。'))}
       <div class="record-path" aria-label="本次整理路径"><span class="${found?'':'current'}">记录情况</span>${icon('chevron','sm')}<span class="${found?'current':''}">留下认识</span>${icon('chevron','sm')}<span>按需尝试与回看</span></div>
-      ${found?recordSummary(s,found):`<div class="workspace-start-note">${icon('shield','sm')}只保存在当前浏览器，无需登录；从小而可逆的选择开始。</div>`}
+      ${found?recordSummary(s,found):''}
       <details class="record-editor" ${!found||dirty?'open':''}><summary>${found?'继续编辑这份整理':'写下自己的情况'}<span>${found?'草稿与已存版本分开':'不必每项都填'}</span></summary>
       ${dirty?'<p class="record-draft-notice">有尚未正式保存的修改。上方整理卡与原小尝试仍保留原版本。</p>':''}
       <div class="v3-workspace-bar"><span id="v3-field-count">${fields.filter(([k])=>String(d[k]||'').trim()).length} / ${fields.length} 项已填写</span><div class="v3-segment" aria-label="整理方式">${[['overview','总览'],['focus','专注']].map(([id,l])=>B(l,'v3-workspace-mode',{cls:s.workspaceMode===id?'selected':'','data-id':id,'aria-pressed':s.workspaceMode===id})).join('')}</div></div>
@@ -80,28 +69,28 @@ window.V3 = (() => {
       ${focus?`<div class="v3-step-actions">${B('上一项','v3-step',{cls:'btn secondary','data-index':Math.max(0,step-1),disabled:step===0})}${step<fields.length-1?B('下一项','v3-step',{cls:'btn tonal','data-index':step+1,after:'arrow'}):B('回到总览','v3-workspace-mode',{cls:'btn tonal','data-id':'overview'})}</div>`:''}
       <p id="topic-error" class="record-field-error" role="alert" hidden></p><div class="v3-workspace-save">${saveState()}${B(found?'保存这次修改':'保存这份整理','topic-save',{cls:'btn full','data-topic':t.id,'data-id':found?.id||'',after:'check'})}</div></details>
       ${found?.revisions?.length?`<details class="record-history"><summary>以前的整理 · ${found.revisions.length} 个版本</summary>${found.revisions.slice().reverse().map(v=>`<details><summary>第 ${v.revision} 版 · 本人整理</summary><p>${esc(v.text)}</p></details>`).join('')}</details>`:''}
-      ${found?L('回到我的记录','records',{cls:'textbtn full space-12'})+B('删除这份整理','delete-journal',{cls:'textbtn full space-12','data-id':found.id}):''}<p class="quiet-boundary">输入时保留本机草稿，点击保存后才成为一条记录。不会自动发给助理；真实 AI 和云同步尚未接入。</p>`;
+      ${found?L('回到我的记录','records',{cls:'textbtn full space-12'})+B('删除这份整理','delete-journal',{cls:'textbtn full space-12','data-id':found.id}):''}<p class="quiet-boundary">输入时保留本机草稿，点击保存后才成为一条记录。不会自动发送。</p>`;
   }
   function report(s,p){
     if(p.id&&p.id!==D.report.id)return savedViews.report(s,p);
     const work=s.reportContext!=='relationship',src=D.reportSource(work?'work':'relationship');
     const heads=work?['有准备，更好表达','也看看等待带来的影响','换个情境，再观察']:['熟悉之后，更愿回应','想参与时，怎样让对方知道','换个情境，再观察'];
     const bodies=work?['先理出几个要点，理由更容易讲清。','等到想好再说，对这次讨论有什么影响？','准备时间、话题熟悉度，各有什么影响？']:['和熟悉的人一起，更愿意认真交流。','如果想加入，可以观察怎样让对方知道。','人员熟悉度、话题和状态，各有什么影响？'];
-    return `${top('返回',B('','nav',{cls:'iconbtn',icon:'share','data-route':'share','data-id':D.report.id,'aria-label':'预览样例分享图'}))}
-      <div class="report-identity">${icon('book','sm')}独立报告样例 · 虚构人物小林</div>
+    return `${top('返回',B('','nav',{cls:'iconbtn',icon:'share','data-route':'share','data-id':D.report.id,'aria-label':'预览分享图'}))}
+      <div class="report-identity">${icon('book','sm')}我的报告</div>
       <header class="v3-report-cover"><span class="eyebrow">情境解读 · ${work?'工作表达':'人际相处'}</span><h1>${work?'给表达，<br>一点准备时间。':'熟悉之后，<br>慢慢打开自己。'}</h1><p>读一段经历，理解一种可能。</p><span class="v3-report-seal" aria-hidden="true">${icon('quote')}</span></header>
-      <p class="v3-report-caption">虚构情境与因子位置示意，均与三道示例题无关。</p>
+      <p class="v3-report-caption"></p>
       <nav class="report-chapters" aria-label="报告目录">${[['report-overview','要点'],['report-evidence','依据'],['report-personal','我的观察'],['report-action','下一步']].map(([id,n])=>B(n,'report-jump',{cls:'','data-id':id})).join('')}</nav>
       <section id="report-overview" class="report-block" tabindex="-1"><div class="v3-context-heading"><h2>先看这三个点</h2><div class="context-switch" aria-label="阅读情境">${[['work','工作'],['relationship','相处']].map(([id,l])=>B(l,'report-context',{cls:s.reportContext===id?'active':'','data-id':id,'aria-pressed':s.reportContext===id})).join('')}</div></div>
         <div class="v3-insights">${heads.map((h,i)=>`<article><span class="v3-insight-number" aria-hidden="true">${icon(['sun','leaf','explore'][i])}</span><div><h3>${h}</h3><p>${bodies[i]}</p></div></article>`).join('')}</div>
         ${B('这些解读从哪里来','report-jump',{cls:'v3-evidence-link','data-id':'report-evidence',icon:'link',after:'arrow'})}
       </section>
-      <section id="report-evidence" class="report-block" tabindex="-1"><div class="row between"><h2>看见依据，再理解</h2>${badge('样例情境')}</div><blockquote class="quote"><span class="caption">小林 · 虚构生活片段</span>${src.excerpt}</blockquote><p class="body-copy">这段经历有多种可能解释。单次表现不能推导出人格分数。</p>${B('核对来源与版本','source-report',{cls:'source-row',icon:'link',after:'chevron'})}
-        <details class="factor-detail"><summary><span>16 个因子角度</span><small>点开看说明</small></summary><p class="small muted">位置仅为示意；B、O 暂无依据。水位更满不代表更好。</p>${bottleGrid()}</details>
+      <section id="report-evidence" class="report-block" tabindex="-1"><div class="row between"><h2>看见依据，再理解</h2>${badge('情境依据')}</div><blockquote class="quote"><span class="caption">生活片段</span>${src.excerpt}</blockquote><p class="body-copy">这段经历有多种可能解释。单次表现不能推导出人格分数。</p>${B('核对来源与版本','source-report',{cls:'source-row',icon:'link',after:'chevron'})}
+        <details class="factor-detail"><summary><span>16 个因子角度</span><small>点开看说明</small></summary><p class="small muted">没有读数的因子保持空白。</p>${bottleGrid()}</details>
       </section>
       <section id="report-personal" class="report-block" tabindex="-1">${badge('本人观察 · 独立保存','own')}<h2 class="space-12">你的经历，哪里不同？</h2><p class="body-copy">哪里像你，哪里不像？也可以写下“要看情况”，再补充当时发生了什么。</p><label class="field-label space-16" for="report-note">我自己的真实经历</label><textarea id="report-note" class="textarea" data-input="report-note" maxlength="1500" placeholder="例如：在熟悉的小组里，我不太需要准备就能说清楚。">${esc(V2.getDraft('report:'+s.reportContext,''))}</textarea>${saveState()}${B('保存本人观察','save-report-note',{cls:'btn secondary full space-12',icon:'edit'})}${s.reportNotes.length?L('查看已保存的观察','records',{cls:'textbtn full'}):''}</section>
-      <section id="report-action" class="report-block" tabindex="-1"><div class="next-step-panel v3-next"><span class="eyebrow">下次，试个小变化</span><h2>${work?'从两个要点说起':'从一个细节加入'}</h2><p>${work?'临时被问到时，先给自己一点整理时间，再说最想表达的两点。':'想参与对话时，先回应对方刚说的一个具体细节。'}</p>${B('留下这个小尝试','add-action',{cls:'btn full',icon:'flag','data-context':work?'work':'relationship'})}<small>可修改。只保存你选择的尝试，不建立性格结论。</small></div>${B('带着样例情境问助理','quote-report',{cls:'btn secondary full space-16',icon:'chat'})}</section>
-      <details class="report-boundary"><summary>样例范围与正式测量的区别</summary><p>情境与位置为虚构示意。正式题源、计分、常模未接入；因子名称是界面工作译名。本人观察独立保存，不改写正式分数。</p></details>`;
+      <section id="report-action" class="report-block" tabindex="-1"><div class="next-step-panel v3-next"><span class="eyebrow">下次，试个小变化</span><h2>${work?'从两个要点说起':'从一个细节加入'}</h2><p>${work?'临时被问到时，先给自己一点整理时间，再说最想表达的两点。':'想参与对话时，先回应对方刚说的一个具体细节。'}</p>${B('留下这个小尝试','add-action',{cls:'btn full',icon:'flag','data-context':work?'work':'relationship'})}<small>可修改。只保存你选择的尝试，不建立性格结论。</small></div>${B('请AI帮我理解','quote-report',{cls:'btn secondary full space-16',icon:'chat'})}</section>
+      `;
   }
   function assistant(s){
     const sample=s.assistantSources.some(x=>x.kind==='sample-report');
@@ -121,13 +110,13 @@ window.V3 = (() => {
     const notes=[...s.observations,...s.reportNotes].sort((a,b)=>(b.createdAt||'').localeCompare(a.createdAt||'')),a=activeAction(s);
     return `
       <header class="v3-profile"><div class="profile-avatar"><img src="assets/person-${s.avatar}.svg" alt="我的插画形象"></div><div class="grow"><h1>${esc(s.name)}</h1><p>慢慢收集，具体的自己。</p></div>${B('','edit-name',{cls:'iconbtn',icon:'edit','aria-label':'修改称呼'})}</header>
-      ${notes.length+s.actions.length+s.sessions.length?`<div class="v3-profile-stats"><button data-action="nav" data-route="records" data-filter="本人记录"><strong>${notes.length}</strong><span>本人记录 ${icon('chevron','sm')}</span></button><button data-action="nav" data-route="actions"><strong>${s.actions.length}</strong><span>小尝试 ${icon('chevron','sm')}</span></button><button data-action="nav" data-route="records" data-filter="全部答卷"><strong>${s.sessions.length}</strong><span>体验答卷 ${icon('chevron','sm')}</span></button></div>`:''}
+      ${notes.length+s.actions.length+s.sessions.length?`<div class="v3-profile-stats"><button data-action="nav" data-route="records" data-filter="本人记录"><strong>${notes.length}</strong><span>本人记录 ${icon('chevron','sm')}</span></button><button data-action="nav" data-route="actions"><strong>${s.actions.length}</strong><span>小尝试 ${icon('chevron','sm')}</span></button><button data-action="nav" data-route="records" data-filter="全部答卷"><strong>${s.sessions.length}</strong><span>历史练习 ${icon('chevron','sm')}</span></button></div>`:''}
       <section class="v3-notebook"><span class="eyebrow">${notes.length?'最近留下':'从一句话开始'}</span><h2>${notes.length?esc(notes[0].title):'把今天，留一页。'}</h2><p>${notes.length?esc(notes[0].text.slice(0,100)):'哪一刻，你对自己多了一点了解？'}</p>${L(notes.length?'打开记录':'记一个自己的时刻',notes[0]?.kind==='topic-record'?'topic-workspace':'journal',{cls:'btn full',icon:'edit',...(notes.length?{'data-id':notes[0].id,...(notes[0].topicId?{'data-topic':notes[0].topicId}:{})}:{})})}</section>
       ${a?`<button class="v3-action-resume" data-action="nav" data-route="action-detail" data-id="${a.id}">${icon('flag')}<span class="grow"><strong>这件小事，还可以回看</strong><small>${esc(a.text)}</small></span>${icon('arrow','sm')}</button>`:''}
       ${section('我的资料，我来掌握')}
       <div class="v3-control-grid">${[['portrait','explore','正在认识的自己','来源与留白'],['memories','memory','助理记忆','确认与纠正'],['data','folder','我的数据','查看与导出'],['privacy','shield','隐私与引用','分开控制']].map(([r,i,h,p])=>L(`<span>${icon(i)}</span><strong>${h}</strong><small>${p}</small>`,r,{cls:'v3-control'})).join('')}</div>
-      <div class="plain-list space-16">${row(s.logged?'演示账号':'登录与账号',s.logged?'尚未接入真实认证服务':'本机记录不要求登录',s.logged?'account':'auth','user')}${row('找回全部记录','本人观察、专题与体验答卷','records','clock')}${row('设置','主题、形象与阅读习惯','settings','settings')}${row('会员与使用次数','方案、规则与原订单','membership','crown')}</div>
-      <p class="v3-endnote">这里的数量只代表记录，不代表成长分。</p>`;
+      <div class="plain-list space-16">${row('账号与安全','管理账号和本机资料',s.logged?'account':'auth','user')}${row('找回全部记录','本人观察、专题与历史练习','records','clock')}${row('设置','主题、形象与阅读习惯','settings','settings')}${row('会员与使用次数','方案、规则与原订单','membership','crown')}</div>
+      `;
   }
   function question(s,p){
     let h=savedViews.question(s,p);
@@ -147,7 +136,7 @@ window.V3 = (() => {
       ${section('阅读密度')}<div class="v3-density-options">${densityChoices(s)}</div><p class="small muted">紧凑只调整浏览间距，正文与主要触区不缩小。</p>
       <div class="switch-row"><span class="grow">减少动态<small class="muted" style="display:block">系统设置优先；保存与选中反馈仍清楚。</small></span><button class="switch ${s.reduced?'on':''}" role="switch" aria-checked="${s.reduced}" aria-label="减少动态" data-action="toggle-motion"><span></span></button></div>
       ${section('原始人物 · 三个预设')}<div class="avatar-options v4-avatar-options">${[1,2,3].map(i=>`<button class="${s.avatarFamily==='original'&&s.avatar===i?'selected':''}" data-action="avatar" data-id="${i}" data-family="original" aria-pressed="${s.avatarFamily==='original'&&s.avatar===i}"><img src="assets/original-person-${i}.webp" alt="原始人物预设 ${i}"><span>人物 ${String(i).padStart(2,'0')}</span></button>`).join('')}</div>
-      ${section('历次场景人物 · 独立保留')}<div class="avatar-options v4-avatar-options">${[1,2,3].map(i=>`<button class="${s.avatarFamily!=='original'&&s.avatar===i?'selected':''}" data-action="avatar" data-id="${i}" data-family="scene" aria-pressed="${s.avatarFamily!=='original'&&s.avatar===i}"><img src="assets/legacy-person-${i}.svg" alt="场景人物预设 ${i}"><span>场景 ${String(i).padStart(2,'0')}</span></button>`).join('')}</div><p class="quiet-boundary">原始三个人物素材与历次场景人物各自保留。选择不随主题改变；完整捏脸尚未实现。</p>`;
+      ${section('更多人物')}<div class="avatar-options v4-avatar-options">${[1,2,3].map(i=>`<button class="${s.avatarFamily!=='original'&&s.avatar===i?'selected':''}" data-action="avatar" data-id="${i}" data-family="scene" aria-pressed="${s.avatarFamily!=='original'&&s.avatar===i}"><img src="assets/legacy-person-${i}.svg" alt="场景人物预设 ${i}"><span>场景 ${String(i).padStart(2,'0')}</span></button>`).join('')}</div><p class="quiet-boundary">人物与主题可以分别选择。</p>`;
   }
   function densityChoices(s){return [['balanced','舒展','留一点呼吸'],['compact','紧凑','一眼多看一点']].map(([id,l,d])=>B(`<strong>${l}</strong><small>${d}</small>`,'v3-density',{cls:'v3-density-option '+(s.density===id?'selected':''),'data-id':id,'aria-pressed':s.density===id})).join('');}
   function preferences(){const s=C.state;C.show('按你的阅读习惯',`<p class="small muted">浏览页可以紧凑一点。答题和长文仍保留阅读空间。</p><h3 class="space-16">阅读密度</h3><div class="v3-density-options">${densityChoices(s)}</div><div class="switch-row"><span class="grow">减少动态<small class="muted" style="display:block">系统减少动态优先。</small></span><button class="switch ${s.reduced?'on':''}" data-action="v3-motion" role="switch" aria-label="减少动态" aria-checked="${s.reduced}"><span></span></button></div><p class="small muted">不改文字大小，不改题目，不隐藏保存失败提示。</p>`,B('按这个方式阅读','close-dialog',{cls:'btn full'}));}

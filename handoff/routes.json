@@ -5,7 +5,7 @@
     "lane": "本地探索",
     "surface": "主入口",
     "task": "判断现在从哪里开始 / 从哪里继续",
-    "architecture": "ZY-FR-001/002：原版16PF与AI重置版同级主入口；下面单因子、每日打卡、简化版16PF、模拟性格四次入口。界面同级不代表同等效度；原版仅3题交互示例，AI待开放。续接保留原答卷ID。",
+    "architecture": "一个16PF容器：原版/AI重置版同级分段，一次只显示对应的一个主按钮；四个辅助入口保留。默认无可用题组，不创建正式答卷。",
     "objects": "sessionId,actionId,contentVersion,localSpaceId",
     "exceptions": "样例与正式内容身份明确；同一进行中答卷重复开始直接续答；未来版本不伪装可使用。",
     "returnRule": "四入口各自保留滚动位置与当前状态。",
@@ -15,7 +15,7 @@
       "welcome"
     ],
     "prototypeRoute": "home",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": true,
     "eventIds": [
       "nav.root",
@@ -33,7 +33,7 @@
     "lane": "本地探索",
     "surface": "主入口",
     "task": "把生活里的一个问题转成探索方向",
-    "architecture": "按工作、相处、学习、生活组织；搜索、筛选、收藏在同一浏览空间；不用量表目录轰炸。 V3：一个跨列主题 + 四个两列主题；保留搜索与筛选；清楚显示问题数和整理产物。",
+    "architecture": "8个同级独立生活问题卡片；四类筛选。每个场景有事实、优先项、顾虑、待查信息四个不同提示；仅本人整理，无计分或AI生成。",
     "objects": "topicId,filters,searchQuery",
     "exceptions": "无结果给清空条件；专题未上线给可做的观察而非假测评。",
     "returnRule": "从专题回来保留筛选、关键词及位置。",
@@ -45,7 +45,7 @@
       "assessment-favorites"
     ],
     "prototypeRoute": "explore",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": true,
     "eventIds": [
       "topics.filter",
@@ -74,7 +74,7 @@
       "session-prepare"
     ],
     "prototypeRoute": "topic",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [],
     "route": "topic?id=work-choice",
@@ -99,7 +99,7 @@
       "content-updates"
     ],
     "prototypeRoute": "content",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [],
     "route": "content",
@@ -122,7 +122,7 @@
       "question"
     ],
     "prototypeRoute": "question",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "session.begin",
@@ -151,7 +151,7 @@
       "assessment-submit"
     ],
     "prototypeRoute": "review",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "session.complete-demo",
@@ -178,7 +178,7 @@
       "unfinished"
     ],
     "prototypeRoute": null,
-    "runtimeLevel": "无独立交互页面；展示任务、对象、失败与返回规则",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "session.pause",
@@ -191,11 +191,11 @@
   },
   {
     "id": "report",
-    "name": "读懂一份结果",
+    "name": "我的报告",
     "lane": "本地探索",
     "surface": "阅读页 + 因子详情层",
     "task": "先理解与自己有关的情境，再读依据与限制",
-    "architecture": "虚构身份常驻首段；要点、依据、我的观察、下一步四段导航；本人观察与样例来源分别保留。 V3：短封面、三条可扫读要点、跟随章节的粘性目录；样例身份与本人观察仍分开。",
+    "architecture": "默认仅个人结果空状态；当前无正式结果适配器。报告样例仅在工作台明确选择样例场景。",
     "objects": "reportId,reportVersion,sectionId,sourceKind,observationId,editorDraftKey",
     "exceptions": "缺失因子保持未知；草稿保存失败可重试或导出；引用样例的回复不可直接变成个人记忆。",
     "returnRule": "回到同一段位置；本人补充独立存储，不改原始分数。",
@@ -208,7 +208,7 @@
       "report-explanation"
     ],
     "prototypeRoute": "report",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "report.open",
@@ -219,7 +219,7 @@
       "report.jump",
       "draft.autosave"
     ],
-    "route": "report?id=report-sample-01",
+    "route": "report",
     "scenario": "default",
     "status": "交互示例",
     "previewKind": "interaction"
@@ -241,7 +241,7 @@
       "observation-history"
     ],
     "prototypeRoute": "records",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [],
     "route": "records",
@@ -265,7 +265,7 @@
       "compare-report"
     ],
     "prototypeRoute": "compare",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [],
     "route": "compare",
@@ -289,7 +289,7 @@
       "share-records"
     ],
     "prototypeRoute": "share",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "share.export"
@@ -321,7 +321,7 @@
       "simulation-result"
     ],
     "prototypeRoute": "simulation",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "factor.open",
@@ -350,7 +350,7 @@
       "knowledge-detail"
     ],
     "prototypeRoute": "article",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "article.quote"
@@ -362,11 +362,11 @@
   },
   {
     "id": "assistant",
-    "name": "助理",
+    "name": "我的画像",
     "lane": "理解与行动",
     "surface": "主入口",
     "task": "把一个具体问题准备清楚",
-    "architecture": "静态欢迎/最近对话；具体草稿与可移除引用；登录与额度在动作前解释，而不覆盖正文。 V3：减少铺垫，输入前置；入口文案从具体事情出发；明确预写演示与本次引用。",
+    "architecture": "人格倾向、关系模式、我的观察三组；真实测评进度分开显示。无正式数据保留未知和自然空状态。AI对话为次级子页。",
     "objects": "spaceId,accountId?,draftId,sourceRefs",
     "exceptions": "未登录0次；登录免费分析+聊天合计10/日；不足保留草稿。",
     "returnRule": "进入认证/会员后回同一草稿，不自动发AI。",
@@ -375,7 +375,7 @@
       "assistant"
     ],
     "prototypeRoute": "assistant",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": true,
     "eventIds": [
       "ai.send"
@@ -400,7 +400,7 @@
       "conversation-list"
     ],
     "prototypeRoute": "conversations",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [],
     "route": "conversations",
@@ -424,7 +424,7 @@
       "conversation-settings"
     ],
     "prototypeRoute": "conversation",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "ai.stop",
@@ -440,11 +440,11 @@
   },
   {
     "id": "context",
-    "name": "本次引用",
+    "name": "这次用到的资料",
     "lane": "资料掌控",
     "surface": "选择层 + 预览层",
     "task": "明确这一条请求会用到什么",
-    "architecture": "本人记录与已确认记忆默认可见；虚构演示来源置于独立折叠区；替换同源新修订时保持唯一来源。",
+    "architecture": "仅本人记录与已确认记忆；样例仅工作台预置场景可选。",
     "objects": "draftId,sourceRef(kind,id,version,sectionId,status),grantId",
     "exceptions": "来源删除/修改/停用时发送前重检；在途返回前再核验。",
     "returnRule": "取消不更改原选择；确认只写草稿引用，不发送。",
@@ -454,13 +454,13 @@
       "context-preview"
     ],
     "prototypeRoute": "assistant",
-    "runtimeLevel": "已有本次引用选择弹层；不代表真实AI或服务端资料检索已接入。",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "source.select",
       "source.remove"
     ],
-    "route": "assistant",
+    "route": "assistant-chat",
     "scenario": "default",
     "status": "交互示例 · 服务待实现",
     "previewKind": "interaction",
@@ -468,11 +468,11 @@
   },
   {
     "id": "usage",
-    "name": "AI用量",
+    "name": "对话服务",
     "lane": "服务保障",
     "surface": "就地额度层 + 明细",
     "task": "知道能否请求、为什么扣、怎样追原单",
-    "architecture": "免费共享池与付费依据；每次请求唯一requestId；分析与聊天同一明细。",
+    "architecture": "AI服务未接入，不扣额度、不生成答复。",
     "objects": "accountId,requestId,quotaPolicyVersion,ledgerEntryId",
     "exceptions": "失败/取消/重试如何结算待定；没有服务端账本不宣称防绕过。",
     "returnRule": "不足返回原草稿；买后查询原请求，不强制重新发送。",
@@ -482,12 +482,12 @@
       "ai-usage-history"
     ],
     "prototypeRoute": "assistant",
-    "runtimeLevel": "已有本机额度说明弹层；真实配额账本与防刷服务尚未接入。",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "quota.inspect"
     ],
-    "route": "assistant",
+    "route": "assistant-chat",
     "scenario": "default",
     "status": "交互示例 · 服务待实现",
     "previewKind": "interaction",
@@ -509,7 +509,7 @@
       "ai-analysis-result"
     ],
     "prototypeRoute": null,
-    "runtimeLevel": "无独立交互页面；展示任务、对象、失败与返回规则",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "analysis.request"
@@ -521,11 +521,11 @@
   },
   {
     "id": "portrait",
-    "name": "正在认识的自己",
+    "name": "我的画像",
     "lane": "理解与行动",
     "surface": "关系图阅读页",
     "task": "看清不同认识来自哪里、哪些还不知道",
-    "architecture": "本人观察、测量、情境、纠正分层；关系图不是人格雷达或一个总分。",
+    "architecture": "复用我的画像入口，保留历史路由；不自动把记录数换算为人格值。",
     "objects": "portraitRevision,evidenceRefs,reflectionId",
     "exceptions": "没有证据留白；矛盾并列，不强行综合为更准确。",
     "returnRule": "点节点去对应来源，回来保留视角；修正不改测量记录。",
@@ -538,7 +538,7 @@
       "insight-reconcile"
     ],
     "prototypeRoute": "portrait",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [],
     "route": "portrait",
@@ -566,7 +566,7 @@
       "memory-changes"
     ],
     "prototypeRoute": "memories",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "memory.propose",
@@ -599,7 +599,7 @@
       "strength-experiment"
     ],
     "prototypeRoute": "actions",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "action.create",
@@ -629,7 +629,7 @@
       "situational-self"
     ],
     "prototypeRoute": "journal",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "note.save",
@@ -659,7 +659,7 @@
       "life-space-detail"
     ],
     "prototypeRoute": null,
-    "runtimeLevel": "无独立交互页面；展示任务、对象、失败与返回规则",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "space.organize"
@@ -685,7 +685,7 @@
       "skill-detail"
     ],
     "prototypeRoute": null,
-    "runtimeLevel": "无独立交互页面；展示任务、对象、失败与返回规则",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "skill.run"
@@ -711,7 +711,7 @@
       "notification-settings"
     ],
     "prototypeRoute": null,
-    "runtimeLevel": "无独立交互页面；展示任务、对象、失败与返回规则",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "reminder.enable"
@@ -737,7 +737,7 @@
       "profile-edit"
     ],
     "prototypeRoute": "me",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": true,
     "eventIds": [],
     "route": "me",
@@ -762,7 +762,7 @@
       "verify-code"
     ],
     "prototypeRoute": "auth",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "auth.return"
@@ -789,7 +789,7 @@
       "account-delete"
     ],
     "prototypeRoute": "account",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "account.logout",
@@ -817,7 +817,7 @@
       "ai-settings"
     ],
     "prototypeRoute": "settings",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "font.scale"
@@ -844,7 +844,7 @@
       "avatar-editor"
     ],
     "prototypeRoute": "appearance",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "theme.apply",
@@ -878,7 +878,7 @@
       "memory-controls"
     ],
     "prototypeRoute": "privacy",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "retention.toggle",
@@ -907,7 +907,7 @@
       "clear-data"
     ],
     "prototypeRoute": "data",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "export.preview",
@@ -937,7 +937,7 @@
       "sync-conflicts"
     ],
     "prototypeRoute": null,
-    "runtimeLevel": "无独立交互页面；展示任务、对象、失败与返回规则",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "sync.resolve"
@@ -966,7 +966,7 @@
       "about"
     ],
     "prototypeRoute": "support",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "feedback.export"
@@ -992,7 +992,7 @@
       "notification-detail"
     ],
     "prototypeRoute": null,
-    "runtimeLevel": "无独立交互页面；展示任务、对象、失败与返回规则",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "notification.open"
@@ -1020,7 +1020,7 @@
       "subscription-settings"
     ],
     "prototypeRoute": "membership",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "plan.select",
@@ -1046,7 +1046,7 @@
       "checkout"
     ],
     "prototypeRoute": "checkout",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "order.create-demo"
@@ -1071,7 +1071,7 @@
       "orders"
     ],
     "prototypeRoute": "orders",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "order.open"
@@ -1099,7 +1099,7 @@
       "refund-status"
     ],
     "prototypeRoute": "order",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "payment.query",
@@ -1126,7 +1126,7 @@
     "slice": "S1",
     "legacyIds": [],
     "prototypeRoute": "topic-workspace",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "topic.record.save",
@@ -1154,7 +1154,7 @@
     "slice": "S1",
     "legacyIds": [],
     "prototypeRoute": "action-detail",
-    "runtimeLevel": "代表性本机交互；真实模型、身份、支付和服务端未接入",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [
       "action.review",
@@ -1180,7 +1180,7 @@
     "slice": "UI-only",
     "legacyIds": [],
     "prototypeRoute": "single-factor",
-    "runtimeLevel": "仅UI预览；真实业务待实现",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [],
     "route": "single-factor",
@@ -1202,7 +1202,7 @@
     "slice": "UI-only",
     "legacyIds": [],
     "prototypeRoute": "daily-checkin",
-    "runtimeLevel": "仅UI预览；真实业务待实现",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [],
     "route": "daily-checkin",
@@ -1224,7 +1224,7 @@
     "slice": "UI-only",
     "legacyIds": [],
     "prototypeRoute": "short-16pf",
-    "runtimeLevel": "仅UI预览；真实业务待实现",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [],
     "route": "short-16pf",
@@ -1246,7 +1246,7 @@
     "slice": "UI-only",
     "legacyIds": [],
     "prototypeRoute": "personality-sandbox",
-    "runtimeLevel": "仅UI预览；真实业务待实现",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [],
     "route": "personality-sandbox",
@@ -1268,7 +1268,7 @@
     "slice": "UI-only",
     "legacyIds": [],
     "prototypeRoute": "ai-reset",
-    "runtimeLevel": "仅UI预览；真实业务待实现",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "tabBar": false,
     "eventIds": [],
     "route": "ai-reset",
@@ -1292,7 +1292,7 @@
     "returnRule": "回到原页面；不更改其他场景资料。",
     "eventIds": [],
     "legacyIds": [],
-    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景"
   },
   {
     "id": "single-factor-process",
@@ -1300,7 +1300,7 @@
     "route": "single-factor",
     "prototypeRoute": "single-factor",
     "parentId": "single-factor",
-    "scenario": "default",
+    "scenario": "question",
     "status": "设计预览 · 业务待实现",
     "previewKind": "design",
     "task": "作答过程布局",
@@ -1310,7 +1310,7 @@
     "returnRule": "回到原页面；不更改其他场景资料。",
     "eventIds": [],
     "legacyIds": [],
-    "runtimeLevel": "本机交互示例，不代表业务服务已实现。",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "previewStage": "process"
   },
   {
@@ -1319,7 +1319,7 @@
     "route": "single-factor",
     "prototypeRoute": "single-factor",
     "parentId": "single-factor",
-    "scenario": "default",
+    "scenario": "question",
     "status": "设计预览 · 业务待实现",
     "previewKind": "design",
     "task": "结果空状态",
@@ -1329,7 +1329,7 @@
     "returnRule": "回到原页面；不更改其他场景资料。",
     "eventIds": [],
     "legacyIds": [],
-    "runtimeLevel": "本机交互示例，不代表业务服务已实现。",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "previewStage": "result"
   },
   {
@@ -1338,7 +1338,7 @@
     "route": "daily-checkin",
     "prototypeRoute": "daily-checkin",
     "parentId": "daily-checkin",
-    "scenario": "default",
+    "scenario": "question",
     "status": "设计预览 · 业务待实现",
     "previewKind": "design",
     "task": "作答过程布局",
@@ -1348,7 +1348,7 @@
     "returnRule": "回到原页面；不更改其他场景资料。",
     "eventIds": [],
     "legacyIds": [],
-    "runtimeLevel": "本机交互示例，不代表业务服务已实现。",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "previewStage": "process"
   },
   {
@@ -1357,7 +1357,7 @@
     "route": "daily-checkin",
     "prototypeRoute": "daily-checkin",
     "parentId": "daily-checkin",
-    "scenario": "default",
+    "scenario": "question",
     "status": "设计预览 · 业务待实现",
     "previewKind": "design",
     "task": "结果空状态",
@@ -1367,7 +1367,7 @@
     "returnRule": "回到原页面；不更改其他场景资料。",
     "eventIds": [],
     "legacyIds": [],
-    "runtimeLevel": "本机交互示例，不代表业务服务已实现。",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "previewStage": "result"
   },
   {
@@ -1376,7 +1376,7 @@
     "route": "short-16pf",
     "prototypeRoute": "short-16pf",
     "parentId": "short-16pf",
-    "scenario": "default",
+    "scenario": "question",
     "status": "设计预览 · 业务待实现",
     "previewKind": "design",
     "task": "作答过程布局",
@@ -1386,7 +1386,7 @@
     "returnRule": "回到原页面；不更改其他场景资料。",
     "eventIds": [],
     "legacyIds": [],
-    "runtimeLevel": "本机交互示例，不代表业务服务已实现。",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "previewStage": "process"
   },
   {
@@ -1395,7 +1395,7 @@
     "route": "short-16pf",
     "prototypeRoute": "short-16pf",
     "parentId": "short-16pf",
-    "scenario": "default",
+    "scenario": "question",
     "status": "设计预览 · 业务待实现",
     "previewKind": "design",
     "task": "结果空状态",
@@ -1405,7 +1405,7 @@
     "returnRule": "回到原页面；不更改其他场景资料。",
     "eventIds": [],
     "legacyIds": [],
-    "runtimeLevel": "本机交互示例，不代表业务服务已实现。",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "previewStage": "result"
   },
   {
@@ -1424,7 +1424,7 @@
     "returnRule": "回到原页面；不更改其他场景资料。",
     "eventIds": [],
     "legacyIds": [],
-    "runtimeLevel": "本机交互示例，不代表业务服务已实现。",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "previewStage": "result"
   },
   {
@@ -1443,7 +1443,7 @@
     "returnRule": "回到原页面；不更改其他场景资料。",
     "eventIds": [],
     "legacyIds": [],
-    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景"
   },
   {
     "id": "workspace-relationships",
@@ -1461,7 +1461,7 @@
     "returnRule": "回到原页面；不更改其他场景资料。",
     "eventIds": [],
     "legacyIds": [],
-    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景"
   },
   {
     "id": "topic-city-choice",
@@ -1479,7 +1479,7 @@
     "returnRule": "回到原页面；不更改其他场景资料。",
     "eventIds": [],
     "legacyIds": [],
-    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景"
   },
   {
     "id": "workspace-city-choice",
@@ -1497,7 +1497,7 @@
     "returnRule": "回到原页面；不更改其他场景资料。",
     "eventIds": [],
     "legacyIds": [],
-    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景"
   },
   {
     "id": "topic-learning",
@@ -1515,7 +1515,7 @@
     "returnRule": "回到原页面；不更改其他场景资料。",
     "eventIds": [],
     "legacyIds": [],
-    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景"
   },
   {
     "id": "workspace-learning",
@@ -1533,7 +1533,7 @@
     "returnRule": "回到原页面；不更改其他场景资料。",
     "eventIds": [],
     "legacyIds": [],
-    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景"
   },
   {
     "id": "topic-self-space",
@@ -1551,7 +1551,7 @@
     "returnRule": "回到原页面；不更改其他场景资料。",
     "eventIds": [],
     "legacyIds": [],
-    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景"
   },
   {
     "id": "workspace-self-space",
@@ -1569,7 +1569,7 @@
     "returnRule": "回到原页面；不更改其他场景资料。",
     "eventIds": [],
     "legacyIds": [],
-    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景"
   },
   {
     "id": "workspace-saved",
@@ -1587,7 +1587,7 @@
     "returnRule": "回到原页面；不更改其他场景资料。",
     "eventIds": [],
     "legacyIds": [],
-    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景"
   },
   {
     "id": "action-observed",
@@ -1605,7 +1605,7 @@
     "returnRule": "回到原页面；不更改其他场景资料。",
     "eventIds": [],
     "legacyIds": [],
-    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景"
   },
   {
     "id": "report-source",
@@ -1613,7 +1613,7 @@
     "route": "report?id=report-sample-01",
     "prototypeRoute": "report",
     "parentId": "report",
-    "scenario": "default",
+    "scenario": "sample-report",
     "status": "交互示例",
     "previewKind": "interaction",
     "task": "报告来源与版本说明",
@@ -1623,7 +1623,7 @@
     "returnRule": "回到原页面；不更改其他场景资料。",
     "eventIds": [],
     "legacyIds": [],
-    "runtimeLevel": "本机交互示例，不代表业务服务已实现。",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "previewAction": "source-report"
   },
   {
@@ -1642,27 +1642,26 @@
     "returnRule": "回到原页面；不更改其他场景资料。",
     "eventIds": [],
     "legacyIds": [],
-    "runtimeLevel": "本机交互示例，不代表业务服务已实现。",
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景",
     "previewAction": "v3-preferences"
   },
   {
     "id": "factor-library",
     "name": "16个因子说明",
-    "route": "explore",
-    "prototypeRoute": "explore",
+    "route": "single-factor",
+    "prototypeRoute": "single-factor",
     "parentId": "article",
     "scenario": "default",
     "status": "交互示例",
     "previewKind": "interaction",
     "task": "16个因子说明",
-    "architecture": "复用现有真实页面；示例数据仅用于设计评审。",
+    "architecture": "完整16因子选择与含义库，复用单因子页面；无有效读数保持未知。",
     "objects": "隔离评审空间中的合成对象",
     "exceptions": "正式量表、计分、AI、身份、支付与服务端能力尚未接入。",
     "returnRule": "回到原页面；不更改其他场景资料。",
     "eventIds": [],
     "legacyIds": [],
-    "runtimeLevel": "本机交互示例，不代表业务服务已实现。",
-    "previewAction": "all-factors"
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景"
   },
   {
     "id": "login-requirement",
@@ -1680,7 +1679,7 @@
     "returnRule": "回到原页面；不更改其他场景资料。",
     "eventIds": [],
     "legacyIds": [],
-    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景"
   },
   {
     "id": "phone-requirement",
@@ -1698,7 +1697,7 @@
     "returnRule": "回到原页面；不更改其他场景资料。",
     "eventIds": [],
     "legacyIds": [],
-    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景"
   },
   {
     "id": "payments-requirement",
@@ -1716,7 +1715,7 @@
     "returnRule": "回到原页面；不更改其他场景资料。",
     "eventIds": [],
     "legacyIds": [],
-    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景"
   },
   {
     "id": "moments-requirement",
@@ -1734,7 +1733,7 @@
     "returnRule": "回到原页面；不更改其他场景资料。",
     "eventIds": [],
     "legacyIds": [],
-    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景"
   },
   {
     "id": "abuse-requirement",
@@ -1752,7 +1751,7 @@
     "returnRule": "回到原页面；不更改其他场景资料。",
     "eventIds": [],
     "legacyIds": [],
-    "runtimeLevel": "本机交互示例，不代表业务服务已实现。"
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景"
   },
   {
     "id": "memory-flow",
@@ -1769,7 +1768,8 @@
     "exceptions": "示例交互，不代表真实业务服务已接入。",
     "returnRule": "按产品内返回或取消，不自动执行资料变更。",
     "eventIds": [],
-    "legacyIds": []
+    "legacyIds": [],
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景"
   },
   {
     "id": "data-transfer-flow",
@@ -1786,7 +1786,8 @@
     "exceptions": "示例交互，不代表真实业务服务已接入。",
     "returnRule": "按产品内返回或取消，不自动执行资料变更。",
     "eventIds": [],
-    "legacyIds": []
+    "legacyIds": [],
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景"
   },
   {
     "id": "data-delete-flow",
@@ -1803,7 +1804,8 @@
     "exceptions": "示例交互，不代表真实业务服务已接入。",
     "returnRule": "按产品内返回或取消，不自动执行资料变更。",
     "eventIds": [],
-    "legacyIds": []
+    "legacyIds": [],
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景"
   },
   {
     "id": "save-failure-flow",
@@ -1820,6 +1822,408 @@
     "exceptions": "示例交互，不代表真实业务服务已接入。",
     "returnRule": "按产品内返回或取消，不自动执行资料变更。",
     "eventIds": [],
-    "legacyIds": []
+    "legacyIds": [],
+    "runtimeLevel": "产品界面候选；真实题组、计分、模型、身份、支付和云同步未接入；样例仅工作台明确选择的预置场景"
+  },
+  {
+    "id": "assistant-chat",
+    "name": "与AI一起理解",
+    "route": "assistant-chat",
+    "prototypeRoute": "assistant-chat",
+    "lane": "本人画像",
+    "surface": "任务页",
+    "task": "保留草稿、选取本人资料和历史对话；真实AI不可用时不伪造答复。",
+    "architecture": "保留草稿、选取本人资料和历史对话；真实AI不可用时不伪造答复。",
+    "objects": "observationId, factorId?, relationshipDimension?, relationshipFacet?, observationArea?",
+    "exceptions": "对象不存在给明确返回；保存失败保留输入；不创建心理分数。",
+    "returnRule": "返回我的画像；原有记录标识与版本不变。",
+    "scenario": "default",
+    "status": "本地交互候选",
+    "previewKind": "interaction",
+    "eventIds": [
+      "nav",
+      "send",
+      "context"
+    ]
+  },
+  {
+    "id": "factor-detail",
+    "name": "人格因子详情",
+    "route": "factor-detail?id=A",
+    "prototypeRoute": "factor-detail",
+    "lane": "本人画像",
+    "surface": "任务页",
+    "task": "16因子逐一查看；未知不画零值；本人补充以factorId显式关联，不生成分数。",
+    "architecture": "16因子逐一查看；未知不画零值；本人补充以factorId显式关联，不生成分数。",
+    "objects": "observationId, factorId?, relationshipDimension?, relationshipFacet?, observationArea?",
+    "exceptions": "对象不存在给明确返回；保存失败保留输入；不创建心理分数。",
+    "returnRule": "返回我的画像；原有记录标识与版本不变。",
+    "scenario": "default",
+    "status": "本地交互候选",
+    "previewKind": "interaction",
+    "eventIds": [
+      "nav",
+      "save-journal"
+    ]
+  },
+  {
+    "id": "relationship-detail",
+    "name": "关系角度详情",
+    "route": "relationship-detail?id=D1",
+    "prototypeRoute": "relationship-detail",
+    "lane": "本人画像",
+    "surface": "任务页",
+    "task": "8个关系维度，每维能做到、愿意投入、自己需要、边界独立；仅本人补充，无分数。",
+    "architecture": "8个关系维度，每维能做到、愿意投入、自己需要、边界独立；仅本人补充，无分数。",
+    "objects": "observationId, factorId?, relationshipDimension?, relationshipFacet?, observationArea?",
+    "exceptions": "对象不存在给明确返回；保存失败保留输入；不创建心理分数。",
+    "returnRule": "返回我的画像；原有记录标识与版本不变。",
+    "scenario": "default",
+    "status": "本地交互候选",
+    "previewKind": "interaction",
+    "eventIds": [
+      "nav",
+      "save-journal"
+    ]
+  },
+  {
+    "id": "observation-area",
+    "name": "观察角度详情",
+    "route": "observation-area?id=values",
+    "prototypeRoute": "observation-area",
+    "lane": "本人画像",
+    "surface": "任务页",
+    "task": "8个观察容器，仅手动选择归属；记录数不是心理测量值。",
+    "architecture": "8个观察容器，仅手动选择归属；记录数不是心理测量值。",
+    "objects": "observationId, factorId?, relationshipDimension?, relationshipFacet?, observationArea?",
+    "exceptions": "对象不存在给明确返回；保存失败保留输入；不创建心理分数。",
+    "returnRule": "返回我的画像；原有记录标识与版本不变。",
+    "scenario": "default",
+    "status": "本地交互候选",
+    "previewKind": "interaction",
+    "eventIds": [
+      "nav",
+      "save-journal"
+    ]
+  },
+  {
+    "id": "scene-work-move",
+    "name": "要不要辞职换工作？",
+    "route": "topic?id=work-move",
+    "prototypeRoute": "topic",
+    "lane": "生活问题",
+    "surface": "本地整理",
+    "task": "整理本人事实、优先项、顾虑与待查信息",
+    "architecture": "独立四字段提示；没有题库、算法计分或自动建议。旧五专题ID与记录保持可达。",
+    "objects": "topicId,observationId,fields,revisions",
+    "exceptions": "空输入不生成记录；写入失败保留草稿；已有记录编辑保持ID。",
+    "returnRule": "返回专题或探索；筛选与草稿保持。",
+    "scenario": "default",
+    "status": "本地交互候选",
+    "previewKind": "interaction",
+    "eventIds": [
+      "nav",
+      "save-topic"
+    ]
+  },
+  {
+    "id": "organize-work-move",
+    "name": "要不要辞职换工作？ · 整理",
+    "route": "topic-workspace?topic=work-move",
+    "prototypeRoute": "topic-workspace",
+    "lane": "生活问题",
+    "surface": "本地整理",
+    "task": "整理本人事实、优先项、顾虑与待查信息",
+    "architecture": "独立四字段提示；没有题库、算法计分或自动建议。旧五专题ID与记录保持可达。",
+    "objects": "topicId,observationId,fields,revisions",
+    "exceptions": "空输入不生成记录；写入失败保留草稿；已有记录编辑保持ID。",
+    "returnRule": "返回专题或探索；筛选与草稿保持。",
+    "scenario": "default",
+    "status": "本地交互候选",
+    "previewKind": "interaction",
+    "eventIds": [
+      "nav",
+      "save-topic"
+    ]
+  },
+  {
+    "id": "scene-exam-retake",
+    "name": "要不要二战考研？",
+    "route": "topic?id=exam-retake",
+    "prototypeRoute": "topic",
+    "lane": "生活问题",
+    "surface": "本地整理",
+    "task": "整理本人事实、优先项、顾虑与待查信息",
+    "architecture": "独立四字段提示；没有题库、算法计分或自动建议。旧五专题ID与记录保持可达。",
+    "objects": "topicId,observationId,fields,revisions",
+    "exceptions": "空输入不生成记录；写入失败保留草稿；已有记录编辑保持ID。",
+    "returnRule": "返回专题或探索；筛选与草稿保持。",
+    "scenario": "default",
+    "status": "本地交互候选",
+    "previewKind": "interaction",
+    "eventIds": [
+      "nav",
+      "save-topic"
+    ]
+  },
+  {
+    "id": "organize-exam-retake",
+    "name": "要不要二战考研？ · 整理",
+    "route": "topic-workspace?topic=exam-retake",
+    "prototypeRoute": "topic-workspace",
+    "lane": "生活问题",
+    "surface": "本地整理",
+    "task": "整理本人事实、优先项、顾虑与待查信息",
+    "architecture": "独立四字段提示；没有题库、算法计分或自动建议。旧五专题ID与记录保持可达。",
+    "objects": "topicId,observationId,fields,revisions",
+    "exceptions": "空输入不生成记录；写入失败保留草稿；已有记录编辑保持ID。",
+    "returnRule": "返回专题或探索；筛选与草稿保持。",
+    "scenario": "default",
+    "status": "本地交互候选",
+    "previewKind": "interaction",
+    "eventIds": [
+      "nav",
+      "save-topic"
+    ]
+  },
+  {
+    "id": "scene-relationship-break",
+    "name": "要不要分手？",
+    "route": "topic?id=relationship-break",
+    "prototypeRoute": "topic",
+    "lane": "生活问题",
+    "surface": "本地整理",
+    "task": "整理本人事实、优先项、顾虑与待查信息",
+    "architecture": "独立四字段提示；没有题库、算法计分或自动建议。旧五专题ID与记录保持可达。",
+    "objects": "topicId,observationId,fields,revisions",
+    "exceptions": "空输入不生成记录；写入失败保留草稿；已有记录编辑保持ID。",
+    "returnRule": "返回专题或探索；筛选与草稿保持。",
+    "scenario": "default",
+    "status": "本地交互候选",
+    "previewKind": "interaction",
+    "eventIds": [
+      "nav",
+      "save-topic"
+    ]
+  },
+  {
+    "id": "organize-relationship-break",
+    "name": "要不要分手？ · 整理",
+    "route": "topic-workspace?topic=relationship-break",
+    "prototypeRoute": "topic-workspace",
+    "lane": "生活问题",
+    "surface": "本地整理",
+    "task": "整理本人事实、优先项、顾虑与待查信息",
+    "architecture": "独立四字段提示；没有题库、算法计分或自动建议。旧五专题ID与记录保持可达。",
+    "objects": "topicId,observationId,fields,revisions",
+    "exceptions": "空输入不生成记录；写入失败保留草稿；已有记录编辑保持ID。",
+    "returnRule": "返回专题或探索；筛选与草稿保持。",
+    "scenario": "default",
+    "status": "本地交互候选",
+    "previewKind": "interaction",
+    "eventIds": [
+      "nav",
+      "save-topic"
+    ]
+  },
+  {
+    "id": "scene-unpaid-break",
+    "name": "要不要裸辞休息？",
+    "route": "topic?id=unpaid-break",
+    "prototypeRoute": "topic",
+    "lane": "生活问题",
+    "surface": "本地整理",
+    "task": "整理本人事实、优先项、顾虑与待查信息",
+    "architecture": "独立四字段提示；没有题库、算法计分或自动建议。旧五专题ID与记录保持可达。",
+    "objects": "topicId,observationId,fields,revisions",
+    "exceptions": "空输入不生成记录；写入失败保留草稿；已有记录编辑保持ID。",
+    "returnRule": "返回专题或探索；筛选与草稿保持。",
+    "scenario": "default",
+    "status": "本地交互候选",
+    "previewKind": "interaction",
+    "eventIds": [
+      "nav",
+      "save-topic"
+    ]
+  },
+  {
+    "id": "organize-unpaid-break",
+    "name": "要不要裸辞休息？ · 整理",
+    "route": "topic-workspace?topic=unpaid-break",
+    "prototypeRoute": "topic-workspace",
+    "lane": "生活问题",
+    "surface": "本地整理",
+    "task": "整理本人事实、优先项、顾虑与待查信息",
+    "architecture": "独立四字段提示；没有题库、算法计分或自动建议。旧五专题ID与记录保持可达。",
+    "objects": "topicId,observationId,fields,revisions",
+    "exceptions": "空输入不生成记录；写入失败保留草稿；已有记录编辑保持ID。",
+    "returnRule": "返回专题或探索；筛选与草稿保持。",
+    "scenario": "default",
+    "status": "本地交互候选",
+    "previewKind": "interaction",
+    "eventIds": [
+      "nav",
+      "save-topic"
+    ]
+  },
+  {
+    "id": "scene-city-return",
+    "name": "留在大城市，还是回老家？",
+    "route": "topic?id=city-return",
+    "prototypeRoute": "topic",
+    "lane": "生活问题",
+    "surface": "本地整理",
+    "task": "整理本人事实、优先项、顾虑与待查信息",
+    "architecture": "独立四字段提示；没有题库、算法计分或自动建议。旧五专题ID与记录保持可达。",
+    "objects": "topicId,observationId,fields,revisions",
+    "exceptions": "空输入不生成记录；写入失败保留草稿；已有记录编辑保持ID。",
+    "returnRule": "返回专题或探索；筛选与草稿保持。",
+    "scenario": "default",
+    "status": "本地交互候选",
+    "previewKind": "interaction",
+    "eventIds": [
+      "nav",
+      "save-topic"
+    ]
+  },
+  {
+    "id": "organize-city-return",
+    "name": "留在大城市，还是回老家？ · 整理",
+    "route": "topic-workspace?topic=city-return",
+    "prototypeRoute": "topic-workspace",
+    "lane": "生活问题",
+    "surface": "本地整理",
+    "task": "整理本人事实、优先项、顾虑与待查信息",
+    "architecture": "独立四字段提示；没有题库、算法计分或自动建议。旧五专题ID与记录保持可达。",
+    "objects": "topicId,observationId,fields,revisions",
+    "exceptions": "空输入不生成记录；写入失败保留草稿；已有记录编辑保持ID。",
+    "returnRule": "返回专题或探索；筛选与草稿保持。",
+    "scenario": "default",
+    "status": "本地交互候选",
+    "previewKind": "interaction",
+    "eventIds": [
+      "nav",
+      "save-topic"
+    ]
+  },
+  {
+    "id": "scene-career-change",
+    "name": "要不要转行？",
+    "route": "topic?id=career-change",
+    "prototypeRoute": "topic",
+    "lane": "生活问题",
+    "surface": "本地整理",
+    "task": "整理本人事实、优先项、顾虑与待查信息",
+    "architecture": "独立四字段提示；没有题库、算法计分或自动建议。旧五专题ID与记录保持可达。",
+    "objects": "topicId,observationId,fields,revisions",
+    "exceptions": "空输入不生成记录；写入失败保留草稿；已有记录编辑保持ID。",
+    "returnRule": "返回专题或探索；筛选与草稿保持。",
+    "scenario": "default",
+    "status": "本地交互候选",
+    "previewKind": "interaction",
+    "eventIds": [
+      "nav",
+      "save-topic"
+    ]
+  },
+  {
+    "id": "organize-career-change",
+    "name": "要不要转行？ · 整理",
+    "route": "topic-workspace?topic=career-change",
+    "prototypeRoute": "topic-workspace",
+    "lane": "生活问题",
+    "surface": "本地整理",
+    "task": "整理本人事实、优先项、顾虑与待查信息",
+    "architecture": "独立四字段提示；没有题库、算法计分或自动建议。旧五专题ID与记录保持可达。",
+    "objects": "topicId,observationId,fields,revisions",
+    "exceptions": "空输入不生成记录；写入失败保留草稿；已有记录编辑保持ID。",
+    "returnRule": "返回专题或探索；筛选与草稿保持。",
+    "scenario": "default",
+    "status": "本地交互候选",
+    "previewKind": "interaction",
+    "eventIds": [
+      "nav",
+      "save-topic"
+    ]
+  },
+  {
+    "id": "scene-independent-home",
+    "name": "要不要搬出去住？",
+    "route": "topic?id=independent-home",
+    "prototypeRoute": "topic",
+    "lane": "生活问题",
+    "surface": "本地整理",
+    "task": "整理本人事实、优先项、顾虑与待查信息",
+    "architecture": "独立四字段提示；没有题库、算法计分或自动建议。旧五专题ID与记录保持可达。",
+    "objects": "topicId,observationId,fields,revisions",
+    "exceptions": "空输入不生成记录；写入失败保留草稿；已有记录编辑保持ID。",
+    "returnRule": "返回专题或探索；筛选与草稿保持。",
+    "scenario": "default",
+    "status": "本地交互候选",
+    "previewKind": "interaction",
+    "eventIds": [
+      "nav",
+      "save-topic"
+    ]
+  },
+  {
+    "id": "organize-independent-home",
+    "name": "要不要搬出去住？ · 整理",
+    "route": "topic-workspace?topic=independent-home",
+    "prototypeRoute": "topic-workspace",
+    "lane": "生活问题",
+    "surface": "本地整理",
+    "task": "整理本人事实、优先项、顾虑与待查信息",
+    "architecture": "独立四字段提示；没有题库、算法计分或自动建议。旧五专题ID与记录保持可达。",
+    "objects": "topicId,observationId,fields,revisions",
+    "exceptions": "空输入不生成记录；写入失败保留草稿；已有记录编辑保持ID。",
+    "returnRule": "返回专题或探索；筛选与草稿保持。",
+    "scenario": "default",
+    "status": "本地交互候选",
+    "previewKind": "interaction",
+    "eventIds": [
+      "nav",
+      "save-topic"
+    ]
+  },
+  {
+    "id": "scene-first-job",
+    "name": "第一份工作，稳定还是成长？",
+    "route": "topic?id=first-job",
+    "prototypeRoute": "topic",
+    "lane": "生活问题",
+    "surface": "本地整理",
+    "task": "整理本人事实、优先项、顾虑与待查信息",
+    "architecture": "独立四字段提示；没有题库、算法计分或自动建议。旧五专题ID与记录保持可达。",
+    "objects": "topicId,observationId,fields,revisions",
+    "exceptions": "空输入不生成记录；写入失败保留草稿；已有记录编辑保持ID。",
+    "returnRule": "返回专题或探索；筛选与草稿保持。",
+    "scenario": "default",
+    "status": "本地交互候选",
+    "previewKind": "interaction",
+    "eventIds": [
+      "nav",
+      "save-topic"
+    ]
+  },
+  {
+    "id": "organize-first-job",
+    "name": "第一份工作，稳定还是成长？ · 整理",
+    "route": "topic-workspace?topic=first-job",
+    "prototypeRoute": "topic-workspace",
+    "lane": "生活问题",
+    "surface": "本地整理",
+    "task": "整理本人事实、优先项、顾虑与待查信息",
+    "architecture": "独立四字段提示；没有题库、算法计分或自动建议。旧五专题ID与记录保持可达。",
+    "objects": "topicId,observationId,fields,revisions",
+    "exceptions": "空输入不生成记录；写入失败保留草稿；已有记录编辑保持ID。",
+    "returnRule": "返回专题或探索；筛选与草稿保持。",
+    "scenario": "default",
+    "status": "本地交互候选",
+    "previewKind": "interaction",
+    "eventIds": [
+      "nav",
+      "save-topic"
+    ]
   }
 ]

@@ -10,6 +10,7 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from threading import Thread
 import json, os, sys
 from playwright.sync_api import sync_playwright
+from product_browser import ProductBrowser
 
 ROOT = Path(sys.argv[1]).resolve()
 OUT = Path(sys.argv[2]).resolve()
@@ -34,7 +35,7 @@ def shot(page, name):
     page.screenshot(path=str(OUT / (name + '.png')))
 
 def visit(page, route, theme='sunrise', scenario='default'):
-    page.goto(f'{BASE}/prototype/index.html?reset=1&theme={theme}&scenario={scenario}#{route}')
+    page.open_product(BASE,route,'sample-report' if route.startswith('report') else scenario,theme)
     page.wait_for_function('window.App && window.Ambient')
     page.wait_for_timeout(220)
     page.evaluate('Ambient.sample(8)')
@@ -48,12 +49,12 @@ with sync_playwright() as w:
     original = [] if NARROW_ONLY else [t['id'] for t in themes if t['group'] == '原始主题']
     for theme in original:
         ctx = browser.new_context(viewport={'width': 390, 'height': 844}, locale='zh-CN')
-        p = ctx.new_page()
+        p = ProductBrowser(ctx.new_page())
         p.on('pageerror', lambda e: errors.append(str(e)))
         for route, scenario in [('home', 'default'), ('topic?id=work-choice', 'default'),
                                 ('question?id=session-demo-seed', 'question'),
                                 ('report?id=report-sample-01', 'default'),
-                                ('assistant', 'default'), ('me', 'default')]:
+                                ('assistant', 'default'), ('assistant-chat', 'default'), ('me', 'default')]:
             name = theme + '-' + route.split('?')[0]
             try:
                 visit(p, route, theme, scenario)
@@ -64,7 +65,7 @@ with sync_playwright() as w:
                     p.locator('#report-personal').scroll_into_view_if_needed()
                     p.wait_for_function('document.querySelector(".report-chapters [aria-current=location]").dataset.id==="report-personal"')
                     shot(p, name + '-observation')
-                if route == 'assistant':
+                if route == 'assistant-chat':
                     p.locator('.composer textarea').fill('合成测试：' + '想把具体情况写下来，慢慢理清。' * 35)
                     p.locator('.source-btn').click()
                     p.wait_for_selector('[role=dialog]')
@@ -85,7 +86,7 @@ with sync_playwright() as w:
 
     for theme in ['sunrise', 'nebula', 'amber']:
         ctx = browser.new_context(viewport={'width': 320, 'height': 844}, locale='zh-CN', reduced_motion='reduce')
-        p = ctx.new_page()
+        p = ProductBrowser(ctx.new_page())
         p.on('pageerror', lambda e: errors.append(str(e)))
         for route in ['home', 'explore', 'assistant', 'me', 'appearance']:
             name = 'narrow-reduced-' + theme + '-' + route
@@ -104,7 +105,7 @@ with sync_playwright() as w:
 
     # Document tabs must restore the same iframe, and fit both the page and caption.
     ctx = browser.new_context(viewport={'width': 1440, 'height': 1000}, locale='zh-CN')
-    p = ctx.new_page()
+    p = ProductBrowser(ctx.new_page())
     p.on('pageerror', lambda e: errors.append(str(e)))
     p.goto(BASE)
     p.wait_for_function("document.querySelector('#runtime-status').textContent.includes('原型已连接')")

@@ -1,7 +1,7 @@
 {
   "version": "4.0.0-preservation",
   "environment": "GitHub Actions / real HTTP resource loading / native Chromium localStorage and iframe messaging",
-  "timestampUTC": "2026-10-03T11:13:23.731163+00:00",
+  "timestampUTC": "2026-10-03T13:59:56.642888+00:00",
   "browser": "143.0.7499.4",
   "playwright": "1.57.0",
   "passed": 18,
@@ -113,7 +113,7 @@
       "test": "route_mappings",
       "status": "PASS",
       "details": {
-        "route_mappings": 65,
+        "route_mappings": 85,
         "scope": "Valid named fixture IDs. Native page rendering, console and overflow checks; not full backend actions."
       }
     },

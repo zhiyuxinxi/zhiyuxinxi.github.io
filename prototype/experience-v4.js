@@ -18,7 +18,7 @@ window.V4=(()=>{
   }else if([1,2].includes(raw.schema)){x=raw;}else throw Error('暂不支持这个文件格式。请使用旧版“我的数据”的导出文件。');
   if([1,2].includes(raw.schema)&&!raw.avatarFamily)x.avatarFamily='scene';
   x=V2.normalize(JSON.parse(JSON.stringify(x)));
-  const walk=(v,key='',depth=0)=>{if(depth>20)throw Error('嵌套层级超出支持范围。');if(['text','title','createdAt','updatedAt'].includes(key)&&typeof v!=='string')throw Error('记录文字或日期字段格式无效。');if(typeof v==='string'){if(v.length>200000)throw Error('单个字段过长。');if((key==='id'||key.endsWith('Id'))&&v&&!/^[\w.:-]{1,180}$/.test(v))throw Error('记录标识格式无效。');return;}if(Array.isArray(v)){if(v.length>10000)throw Error('记录数量超出本原型的支持范围。');v.forEach(z=>walk(z,'',depth+1));}else if(v&&typeof v==='object'){for(const [k,z] of Object.entries(v)){if(['__proto__','constructor','prototype'].includes(k))throw Error('包含不支持的字段。');walk(z,k,depth+1);}}};walk(x);
+  const walk=(v,key='',depth=0)=>{if(depth>20)throw Error('嵌套层级超出支持范围。');if(['text','title','createdAt','updatedAt'].includes(key)&&typeof v!=='string')throw Error('记录文字或日期字段格式无效。');if(typeof v==='string'){if(v.length>200000)throw Error('单个字段过长。');if((key==='id'||key.endsWith('Id'))&&v&&!/^[\w.:-]{1,180}$/.test(v))throw Error('记录标识格式无效。');return;}if(Array.isArray(v)){if(v.length>10000)throw Error('记录数量超出支持范围。');v.forEach(z=>walk(z,'',depth+1));}else if(v&&typeof v==='object'){for(const [k,z] of Object.entries(v)){if(['__proto__','constructor','prototype'].includes(k))throw Error('包含不支持的字段。');walk(z,k,depth+1);}}};walk(x);
   x.logged=false;x.used=0;x.usage=[];x.orders=[];x.assistantSources=[];x.assistantDraft='';x.plan='monthly';
   for(const c of x.conversations){c.generating=false;c.pendingRequest=null;c.interrupted=true;}
   return x;
@@ -26,14 +26,14 @@ window.V4=(()=>{
  function counts(s){return `${s.sessions.length} 份体验答卷 · ${s.observations.length+s.reportNotes.length} 条本人记录 · ${s.actions.length} 个小尝试 · ${s.conversations.length} 个历史对话`;}
  function hasRecords(s){return ['sessions','observations','reportNotes','actions','memories','conversations','orders'].some(k=>s[k]?.length)||Object.values(s.editorDrafts||{}).some(x=>JSON.stringify(x)!=='""'&&JSON.stringify(x)!=='{}');}
  function preflight(raw,label){
-  try{const next=safeState(raw);importCandidate=next;C.show('确认复制有效记录',`<p>${esc(label)}</p><p class="v4-import-count">${counts(next)}</p><p class="small muted">旧空间与原文件保持不变。只复制到当前空的体验空间；不恢复登录、购买权益或自动发送请求。将保留记录标识、来源和可识别的主题偏好。</p>`,B('取消','close-dialog',{cls:'btn secondary'})+B('复制到当前空间','v4-import-confirm',{cls:'btn'}));}
+  try{const next=safeState(raw);importCandidate=next;C.show('确认复制有效记录',`<p>${esc(label)}</p><p class="v4-import-count">${counts(next)}</p><p class="small muted">旧空间与原文件保持不变。只复制到当前空的空间；不恢复登录、购买权益或自动发送请求。将保留记录标识、来源和可识别的主题偏好。</p>`,B('取消','close-dialog',{cls:'btn secondary'})+B('复制到当前空间','v4-import-confirm',{cls:'btn'}));}
   catch(e){importCandidate=null;C.toast('未导入：'+e.message);const n=document.getElementById('v4-import-status');if(n)n.textContent='未导入：'+e.message;}
  }
  function openImport(){
-  if(hasRecords(C.state)){C.show('当前空间已有内容','<p>为避免覆盖，当前原型只支持导入到空空间。请先导出当前资料，再按明确范围清理。目前不支持合并两份资料，请勿为导入而直接删除尚未备份的记录。</p>');return;}
+  if(hasRecords(C.state)){C.show('当前空间已有内容','<p>为避免覆盖，当前只支持导入到空空间。请先导出当前资料，再按明确范围清理。目前不支持合并两份资料，请勿为导入而直接删除尚未备份的记录。</p>');return;}
   const legacy=[];for(const v of [3,2]){const key='jianji-design-v'+v+':'+(new URLSearchParams(location.search).get('scenario')||'default');try{if(localStorage.getItem(key))legacy.push([key,'同来源 V'+v+' 空间']);}catch{}}
   C.show('检查可延续的数据',`<p>先检查格式和数量，再由你确认复制。</p>${legacy.map(([k,l])=>B(l,'v4-legacy',{cls:'btn secondary full space-12','data-id':k})).join('')}<label class="field-label space-16" for="v4-import-file">选择旧版导出的 JSON 文件</label><input id="v4-import-file" type="file" accept="application/json,.json"><p id="v4-import-status" role="status" class="small muted space-12">不上传文件；只在当前浏览器读取。上限 5 MB。</p>`,B('返回','close-dialog',{cls:'btn secondary full'}));
-  document.getElementById('v4-import-file').addEventListener('change',async e=>{const f=e.target.files?.[0];if(!f)return;if(f.size>5*1024*1024){document.getElementById('v4-import-status').textContent='文件超过 5 MB，本轮未读取。';return;}try{preflight(JSON.parse(await f.text()),f.name);}catch{const message='无法读取这个 JSON 文件。请重新选择从“我的数据”导出的备份；原文件与当前资料没有改动。';C.toast(message);document.getElementById('v4-import-status').textContent=message;}});
+  document.getElementById('v4-import-file').addEventListener('change',async e=>{const f=e.target.files?.[0];if(!f)return;if(f.size>5*1024*1024){document.getElementById('v4-import-status').textContent='文件超过 5 MB，未读取。';return;}try{preflight(JSON.parse(await f.text()),f.name);}catch{const message='无法读取这个 JSON 文件。请重新选择从“我的数据”导出的备份；原文件与当前资料没有改动。';C.toast(message);document.getElementById('v4-import-status').textContent=message;}});
  }
  function dispatch(action,el){
   if(action==='v4-reload-latest'){C.show('重新载入最新资料','<p>当前窗口尚未保存的更改不会自动合并。请先导出当前窗口内容。确认后将载入另一个页面已保存的最新资料。</p>',B('先返回导出','close-dialog',{cls:'btn secondary full'})+B('确认重新载入','v4-confirm-reload',{cls:'btn full space-12'}));return true;}

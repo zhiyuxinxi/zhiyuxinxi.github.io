@@ -40,6 +40,22 @@
       "id": "life",
       "title": "探索 · 生活问题与记录",
       "items": [
+        "scene-work-move",
+        "organize-work-move",
+        "scene-exam-retake",
+        "organize-exam-retake",
+        "scene-relationship-break",
+        "organize-relationship-break",
+        "scene-unpaid-break",
+        "organize-unpaid-break",
+        "scene-city-return",
+        "organize-city-return",
+        "scene-career-change",
+        "organize-career-change",
+        "scene-independent-home",
+        "organize-independent-home",
+        "scene-first-job",
+        "organize-first-job",
         "assessment-detail",
         "topic-workspace",
         "journal",
@@ -50,8 +66,12 @@
     },
     {
       "id": "assist",
-      "title": "助理 · 对话与长期理解",
+      "title": "我的画像 · 依据与对话",
       "items": [
+        "factor-detail",
+        "relationship-detail",
+        "observation-area",
+        "assistant-chat",
         "conversations",
         "conversation",
         "context",
@@ -149,18 +169,18 @@
     },
     {
       "id": "action-review",
-      "title": "已留过真实观察",
+      "title": "小尝试观察 · 预置样例",
       "route": "action-detail?id=action-demo-v2"
     },
     {
       "id": "source-login",
       "title": "引用后等待登录",
-      "route": "assistant"
+      "route": "assistant-chat"
     },
     {
       "id": "quota",
       "title": "共用次数已用尽",
-      "route": "assistant"
+      "route": "assistant-chat"
     },
     {
       "id": "history",
@@ -171,6 +191,16 @@
       "id": "paid-annual",
       "title": "原年方案订单",
       "route": "order?id=DEMO-ANNUAL-001"
+    },
+    {
+      "id": "sample-report",
+      "title": "虚构报告样例 · 非本人结果",
+      "route": "report?id=report-sample-01"
+    },
+    {
+      "id": "profile-sample",
+      "title": "画像图形位置样例 · 非测评读数",
+      "route": "assistant"
     }
   ]
 }

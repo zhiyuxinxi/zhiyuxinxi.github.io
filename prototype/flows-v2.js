@@ -40,7 +40,7 @@ window.V2 = (() => {
     ['evidence','有哪些亲历的事实或依据','写发生了什么、何时发生；转述或猜测请注明。这里仍是本人提供，未经外部核验。'],
     ['understanding','我目前的认识或倾向','可以写还不能决定、条件有冲突，或先补哪条信息。不必选出一个答案。']
   ];
-  const topicFields = id => schemas[id] ? [[...reflectionFields[0].slice(0,2),id==='work-choice'?reflectionFields[0][2]:'从一件亲历的事开始，写下这次希望理解什么。不必把它变成选择题。'], ...schemas[id], ...reflectionFields.slice(1)] : [];
+  const topicFields = id => D.topics.find(t=>t.id===id)?.decisionScene ? schemas[id] : schemas[id] ? [[...reflectionFields[0].slice(0,2),id==='work-choice'?reflectionFields[0][2]:'从一件亲历的事开始，写下这次希望理解什么。不必把它变成选择题。'], ...schemas[id], ...reflectionFields.slice(1)] : [];
   const fieldsText = (id,fields) => topicFields(id).map(([key,label])=>`${label}\n${String(fields[key]||'').trim()||'暂未填写'}`).join('\n\n');
   const topicChanged = note => {const draft=getDraft(topicKey(note.topicId,note.id),note.fields||{});return JSON.stringify(draft)!==JSON.stringify(note.fields||{});};
   function savedVersionGuard(note,next) {
@@ -58,6 +58,7 @@ window.V2 = (() => {
     const base = D.defaultState();
     if (!raw || typeof raw!=='object' || Array.isArray(raw) || ![1,2].includes(raw.schema)) throw Error('unsupported-storage-schema');
     const s={...base,...raw,schema:2};
+    if(s.recordFilter==='体验答卷')s.recordFilter='历史练习';
     for (const key of ['sessions','reportNotes','observations','actions','memories','conversations','usage','favorites','orders']) {
       if (!Array.isArray(s[key])) throw Error(`invalid-storage-${key}`);
     }
@@ -120,15 +121,15 @@ window.V2 = (() => {
   function actionKey(id){return `action-review:${id}`;}
   function ownSource(note){return {id:'observation-'+note.id,kind:'self-note',objectId:note.id,version:String(note.revision||1),title:'本人记录 · '+(note.fields?.issue||note.title),excerpt:note.text,status:'valid',scope:'仅本次引用'};}
   function attachSource(src,prompt) {
-    if(C.commit(s=>{const i=s.assistantSources.findIndex(x=>x.id===src.id);if(i<0)s.assistantSources.push(src);else s.assistantSources[i]=src;if(!s.assistantDraft)s.assistantDraft=prompt;})) C.nav('assistant');
+    if(C.commit(s=>{const i=s.assistantSources.findIndex(x=>x.id===src.id);if(i<0)s.assistantSources.push(src);else s.assistantSources[i]=src;if(!s.assistantDraft)s.assistantDraft=prompt;})) C.nav('assistant-chat');
   }
   function context() {
     const s=C.state, rows=[];
     [...s.observations,...s.reportNotes].slice().reverse().slice(0,8).forEach(o=>rows.push(ownSource(o)));
     s.memories.filter(m=>m.status==='active').forEach(m=>rows.push({id:'memory-'+m.id,kind:'memory',objectId:m.id,version:String(m.revision||1),title:'已确认记忆',excerpt:m.text,status:'valid',scope:'本次显式选择'}));
     const item=x=>`<button class="context-item" data-action="v2-pick-context" data-id="${esc(x.id)}"><span class="grow"><strong>${esc(x.title)}</strong><small>${esc(x.excerpt.slice(0,80))}</small></span>${icon('plus')}</button>`;
-    V2.contextChoices=[...rows,D.reportSource('work'),D.reportSource('relationship')];
-    C.show('选择本次资料',`<p class="small muted">只采用你这次选中的内容。不会读取全部历史。</p><h3 class="space-24">我的记录与已确认记忆</h3>${rows.length?rows.map(item).join(''):'<p class="empty-inline">还没有个人资料。可以先写下一件具体的事。</p>'}<details class="sample-context"><summary>查看演示资料 · 与本人资料分开</summary><p class="small muted space-12">下面是虚构人物小林的样例，不作为你的个人特征。</p>${[D.reportSource('work'),D.reportSource('relationship')].map(item).join('')}</details>`,B('取消选择','close-dialog',{cls:'btn secondary full'}));
+    const samples=ProductContext.fixture?[D.reportSource('work'),D.reportSource('relationship')]:[];V2.contextChoices=[...rows,...samples];
+    C.show('选择本次资料',`<p class="small muted">只采用你这次选中的内容。不会读取全部历史。</p><h3 class="space-24">我的记录与已确认记忆</h3>${rows.length?rows.map(item).join(''):'<p class="empty-inline">还没有个人资料。可以先写下一件具体的事。</p>'}${samples.length?'<details class="sample-context"><summary>其他资料</summary>'+samples.map(item).join('')+'</details>':''}`,B('取消选择','close-dialog',{cls:'btn secondary full'}));
   }
   function createAction(ds,isNew=false) {
     const r=route(),p=params();
@@ -181,7 +182,7 @@ window.V2 = (() => {
       case 'save-journal':{
         const key=journalKey(p),old=s.observations.find(x=>x.id===id)||s.reportNotes.find(x=>x.id===id);
         const text=String(getDraft(key,old?.text||'')).trim();if(!text){C.toast('先留下一句话。');return true;}
-        if(C.commit(n=>{const item=n.observations.find(x=>x.id===id)||n.reportNotes.find(x=>x.id===id);if(item){item.text=text;item.revision=(item.revision||1)+1;}else n.observations.push({id:uid('observation'),kind:'personal-note',title:ds.title||'一个自己的时刻',text,revision:1,createdAt:new Date().toISOString()});deleteDraft(n,key);},'已保存记录；未发送给助理。')){savedDraft(key);C.nav('records');}return true;
+        if(C.commit(n=>{const item=n.observations.find(x=>x.id===id)||n.reportNotes.find(x=>x.id===id);if(item){item.text=text;item.revision=(item.revision||1)+1;}else n.observations.push({id:uid('observation'),kind:'personal-note',...(p.kind?.startsWith('relationship:')&&ProductSurface.relationshipDimensions.some(d=>d[0]===p.kind.split(':')[1])&&ProductSurface.facets.some(f=>f[0]===p.kind.split(':')[2])?{relationshipDimension:p.kind.split(':')[1],relationshipFacet:p.kind.split(':')[2]}:{}),...(p.kind?.startsWith('observation:')&&ProductSurface.areas.some(a=>a[0]===p.kind.slice(12))?{observationArea:p.kind.slice(12)}:{}),...(p.kind?.startsWith('factor:')&&D.factors.some(f=>f[0]===p.kind.slice(7))?{factorId:p.kind.slice(7)}:{}),title:ds.title||'一个自己的时刻',text,revision:1,createdAt:new Date().toISOString()});deleteDraft(n,key);},'已保存记录；未发送给助理。')){savedDraft(key);C.nav('records');}return true;
       }
       case 'save-report-note':{
         const key='report:'+s.reportContext,text=String(getDraft(key,'')).trim();if(!text){C.toast('先写下自己的真实经历。');return true;}
@@ -192,7 +193,7 @@ window.V2 = (() => {
         if(msg?.sources?.some(x=>x.kind==='sample-report')){C.show('演示资料不能成为个人记忆','<p>这条回复引用了虚构人物的报告。请先写下自己的真实经历，再由你确认是否记住。</p>',L('写一条本人观察','journal',{cls:'btn full'})+B('保留对话，不建立记忆','close-dialog',{cls:'btn secondary full space-12'}));return true;}
         return false;
       }
-      case 'mode': if(id==='ai'){C.show('AI 重置版 · 尚未开放','<p>这个方向保留在产品规划中。题目、使用依据与解释范围就绪后再开放。当前可以体验原创示例题。</p>',B('知道了','close-dialog',{cls:'btn full'}));return true;}return false;
+      case 'mode': return false;
       case 'retry-drafts':retryDrafts();return true;
       case 'export-recovery':{
         C.download('jianji-recovery.json',JSON.stringify({scope:'local-recovery',warning:'明文文件，请妥善保管',corruptRaw:App.corruptRaw||null,drafts:Object.fromEntries(cachedDrafts),snapshot:App.snapshot},null,2));return true;
