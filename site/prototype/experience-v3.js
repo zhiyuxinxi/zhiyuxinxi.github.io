@@ -85,8 +85,8 @@ window.V3 = (() => {
   function report(s,p){
     if(p.id&&p.id!==D.report.id)return savedViews.report(s,p);
     const work=s.reportContext!=='relationship',src=D.reportSource(work?'work':'relationship');
-    const heads=work?['有准备，更好表达','准备太久，也有代价','换个情境，再观察']:['熟悉之后，更愿回应','一直等待，容易错过','换个情境，再观察'];
-    const bodies=work?['先理出几个要点，理由更容易讲清。','等到完全想好，可能错过参与机会。','准备时间、话题熟悉度，各有什么影响？']:['和熟悉的人一起，更愿意认真交流。','等得太久，对方可能不知道他想参与。','人员熟悉度、话题和状态，各有什么影响？'];
+    const heads=work?['有准备，更好表达','也看看等待带来的影响','换个情境，再观察']:['熟悉之后，更愿回应','想参与时，怎样让对方知道','换个情境，再观察'];
+    const bodies=work?['先理出几个要点，理由更容易讲清。','等到想好再说，对这次讨论有什么影响？','准备时间、话题熟悉度，各有什么影响？']:['和熟悉的人一起，更愿意认真交流。','如果想加入，可以观察怎样让对方知道。','人员熟悉度、话题和状态，各有什么影响？'];
     return `${top('返回',B('','nav',{cls:'iconbtn',icon:'share','data-route':'share','data-id':D.report.id,'aria-label':'预览样例分享图'}))}
       <div class="report-identity">${icon('book','sm')}独立报告样例 · 虚构人物小林</div>
       <header class="v3-report-cover"><span class="eyebrow">情境解读 · ${work?'工作表达':'人际相处'}</span><h1>${work?'给表达，<br>一点准备时间。':'熟悉之后，<br>慢慢打开自己。'}</h1><p>读一段经历，理解一种可能。</p><span class="v3-report-seal" aria-hidden="true">${icon('quote')}</span></header>
