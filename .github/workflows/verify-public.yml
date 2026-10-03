@@ -1,5 +1,8 @@
 name: Verify public design URL
 on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/verify-public.yml']
   workflow_run:
     workflows: ['Publish design review']
     branches: [main]
@@ -10,7 +13,7 @@ permissions:
   pages: read
 jobs:
   public-check:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -66,9 +69,9 @@ jobs:
                   p.screenshot(path=str(out/'public-workbench.png'),full_page=True)
                   p.set_viewport_size({'width':768,'height':1024});p.click('[data-mode=contract]');p.wait_for_selector('.dev-fields');p.screenshot(path=str(out/'public-contract-768.png'))
                   assert p.locator('#mobile-nav').is_visible()
-                  p.set_viewport_size({'width':390,'height':844});p.click('[data-mode=logic]');p.wait_for_timeout(500);p.screenshot(path=str(out/'public-logic-390.png'))
+                  p.set_viewport_size({'width':390,'height':844});p.click('[data-mode=logic]');p.wait_for_selector('#logic-rows .logic-item');p.screenshot(path=str(out/'public-logic-390.png'))
                   assert p.locator('.view-tabs').evaluate('e=>e.scrollWidth<=e.clientWidth')
-                  p.goto(result['url']+'prototype/index.html?reset=1&theme=amber#assistant');p.wait_for_function('window.App&&window.Ambient');p.locator('.source-btn').click();p.evaluate('Promise.all(document.querySelector(".overlay").getAnimations({subtree:true}).map(a=>a.finished))');p.mouse.move(0,0);p.screenshot(path=str(out/'public-modal-amber.png'))
+                  p.goto(result['url']+'prototype/index.html?reset=1&theme=amber#assistant');p.wait_for_function('window.App&&window.Ambient');p.locator('.source-btn').click();p.evaluate('Promise.all(document.querySelector(".overlay").getAnimations({subtree:true}).map(a=>a.finished))');p.evaluate('document.fonts.ready');p.wait_for_timeout(250);p.mouse.move(0,0);p.screenshot(path=str(out/'public-modal-amber.png'))
                   assert p.locator('.dialog').evaluate('e=>getComputedStyle(e).opacity')=='1'
                   assert p.locator('#notice').evaluate('e=>getComputedStyle(e).opacity')=='0'
                   result['checks'].append('Published tablet reader, phone destinations and solid modal verified')
