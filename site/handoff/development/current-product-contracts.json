@@ -68,7 +68,8 @@
       ],
       "localData": [],
       "errors": "对象缺失不捏造内容；写入失败保留草稿；无网络能力时准确告知。",
-      "boundary": "本地原型实现；不改变待定业务规则，不代表已上线正式测评。"
+      "boundary": "本地原型实现；不改变待定业务规则，不代表已上线正式测评。",
+      "presentation": "无本人记录的人格倾向空态只保留一个首次记录主动作；待确认记忆、已有记录和16因子详情入口保留。"
     },
     "assistant-chat": {
       "currentHandling": "仅本人记录与已确认记忆；样例仅工作台预置场景可选。",
@@ -161,7 +162,8 @@
         "endpoint": null
       },
       "privacyAuthorization": "本人补充由用户显式选择关联；不自动分析、确认记忆、发送或同步。",
-      "acceptanceStatus": "结构与本地交互已纳入product_structure_review.py；正式心理测量及真实服务未实现，不能由页面存在推断业务就绪。"
+      "acceptanceStatus": "结构与本地交互已纳入product_structure_review.py；正式心理测量及真实服务未实现，不能由页面存在推断业务就绪。",
+      "presentation": "四个角度分别以具体提示和补充入口呈现；暂无测评读数只说明一次。讨论入口集中在原生details中，展开后仍可选择每个角度或整体维度；原kind参数、草稿、资料选择和不自动发送规则不变。"
     },
     "observation-area": {
       "currentHandling": "8个观察容器，仅手动选择归属；记录数不是心理测量值。",

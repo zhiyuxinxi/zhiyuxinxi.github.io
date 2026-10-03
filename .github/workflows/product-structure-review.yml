@@ -1,7 +1,7 @@
 name: Review product structure candidate
 on:
   push:
-    branches: ['design/product-structure-*']
+    branches: ['design/product-structure-*', 'design/visual-polish-*']
 permissions:
   contents: read
 jobs:
