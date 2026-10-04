@@ -90,6 +90,8 @@ jobs:
         run: python site/tools/public_home_explore_review.py --url https://zhiyuxinxi.github.io/ --output public-evidence/home-explore
       - name: Verify published profile graphs
         run: python site/tools/public_profile_graph_review.py --url https://zhiyuxinxi.github.io/ --output public-evidence/profile-graphs
+      - name: Verify public semantic graph depth and paired states
+        run: python site/tools/relationship_semantics_review.py --url https://zhiyuxinxi.github.io/ --output public-evidence/semantic-graph
       - name: Keep public URL evidence
         if: always()
         uses: actions/upload-artifact@v4
