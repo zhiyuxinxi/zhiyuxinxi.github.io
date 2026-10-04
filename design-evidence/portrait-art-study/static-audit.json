@@ -1,0 +1,95 @@
+{
+  "findings": [
+    {
+      "category": "violation",
+      "file": "index.html",
+      "line": 3,
+      "message": "Enabled literal button has no detectable action or submit behavior.",
+      "remediation": "Connect the button to a real action, make it a submit button, or disable/remove it.",
+      "ruleId": "affordance.actionless-button",
+      "severity": "error"
+    },
+    {
+      "category": "violation",
+      "file": "index.html",
+      "line": 4,
+      "message": "Enabled literal button has no detectable action or submit behavior.",
+      "remediation": "Connect the button to a real action, make it a submit button, or disable/remove it.",
+      "ruleId": "affordance.actionless-button",
+      "severity": "error"
+    },
+    {
+      "category": "violation",
+      "file": "index.html",
+      "line": 4,
+      "message": "Enabled literal button has no detectable action or submit behavior.",
+      "remediation": "Connect the button to a real action, make it a submit button, or disable/remove it.",
+      "ruleId": "affordance.actionless-button",
+      "severity": "error"
+    },
+    {
+      "category": "violation",
+      "file": "index.html",
+      "line": 4,
+      "message": "Enabled literal button has no detectable action or submit behavior.",
+      "remediation": "Connect the button to a real action, make it a submit button, or disable/remove it.",
+      "ruleId": "affordance.actionless-button",
+      "severity": "error"
+    },
+    {
+      "category": "violation",
+      "file": "index.html",
+      "line": 5,
+      "message": "Enabled literal button has no detectable action or submit behavior.",
+      "remediation": "Connect the button to a real action, make it a submit button, or disable/remove it.",
+      "ruleId": "affordance.actionless-button",
+      "severity": "error"
+    },
+    {
+      "category": "violation",
+      "file": "index.html",
+      "line": 5,
+      "message": "Enabled literal button has no detectable action or submit behavior.",
+      "remediation": "Connect the button to a real action, make it a submit button, or disable/remove it.",
+      "ruleId": "affordance.actionless-button",
+      "severity": "error"
+    },
+    {
+      "category": "violation",
+      "file": "index.html",
+      "line": 5,
+      "message": "Enabled literal button has no detectable action or submit behavior.",
+      "remediation": "Connect the button to a real action, make it a submit button, or disable/remove it.",
+      "ruleId": "affordance.actionless-button",
+      "severity": "error"
+    },
+    {
+      "category": "violation",
+      "file": "index.html",
+      "line": 5,
+      "message": "Enabled literal button has no detectable action or submit behavior.",
+      "remediation": "Connect the button to a real action, make it a submit button, or disable/remove it.",
+      "ruleId": "affordance.actionless-button",
+      "severity": "error"
+    },
+    {
+      "category": "violation",
+      "file": "index.html",
+      "line": 6,
+      "message": "Enabled literal button has no detectable action or submit behavior.",
+      "remediation": "Connect the button to a real action, make it a submit button, or disable/remove it.",
+      "ruleId": "affordance.actionless-button",
+      "severity": "error"
+    }
+  ],
+  "mode": "strict",
+  "projectRoot": "/workspace/zhiyuxinxi.github.io/site/review/portrait-art-study",
+  "schemaVersion": 1,
+  "summary": {
+    "errors": 9,
+    "total": 9,
+    "unresolved": 0,
+    "violations": 9,
+    "warnings": 0
+  }
+}
