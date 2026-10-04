@@ -1,0 +1,237 @@
+{
+  "trace": [
+    {
+      "type": "scroll",
+      "t": 439,
+      "target": null,
+      "x": null,
+      "y": null,
+      "scroll": 4,
+      "box": {
+        "x": 43,
+        "y": 503,
+        "width": 294,
+        "height": 52,
+        "top": 503,
+        "right": 337,
+        "bottom": 555,
+        "left": 43
+      },
+      "hit": null
+    },
+    {
+      "type": "scroll",
+      "t": 455.40000000037253,
+      "target": null,
+      "x": null,
+      "y": null,
+      "scroll": 26,
+      "box": {
+        "x": 43,
+        "y": 481,
+        "width": 294,
+        "height": 52,
+        "top": 481,
+        "right": 337,
+        "bottom": 533,
+        "left": 43
+      },
+      "hit": null
+    },
+    {
+      "type": "pointerdown",
+      "t": 468.2000000011176,
+      "target": "<div class=\"home-assessment\"><h2>16PF 性格探索</h2><p class=\"assessment-purpose\">从16个角度，了解自己思考、感受和与人相处的倾向。结合日常经历，看看自己习惯怎样回应不同情境。</p><div class=\"segmented assessment",
+      "x": 189.99758911132812,
+      "y": 532.9939575195312,
+      "scroll": 26,
+      "box": {
+        "x": 43,
+        "y": 481,
+        "width": 294,
+        "height": 52,
+        "top": 481,
+        "right": 337,
+        "bottom": 533,
+        "left": 43
+      },
+      "hit": "<button class=\"btn full home-assessment-start\" data-action=\"start\">开始原版测评<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-widt"
+    },
+    {
+      "type": "mousedown",
+      "t": 468.40000000037253,
+      "target": "<div class=\"home-assessment\"><h2>16PF 性格探索</h2><p class=\"assessment-purpose\">从16个角度，了解自己思考、感受和与人相处的倾向。结合日常经历，看看自己习惯怎样回应不同情境。</p><div class=\"segmented assessment",
+      "x": 189,
+      "y": 532,
+      "scroll": 26,
+      "box": {
+        "x": 43,
+        "y": 481,
+        "width": 294,
+        "height": 52,
+        "top": 481,
+        "right": 337,
+        "bottom": 533,
+        "left": 43
+      },
+      "hit": "<button class=\"btn full home-assessment-start\" data-action=\"start\">开始原版测评<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-widt"
+    },
+    {
+      "type": "focusin",
+      "t": 468.80000000074506,
+      "target": "<main class=\"page\" id=\"main-content\" tabindex=\"-1\"><div id=\"storage-status\"></div><header class=\"v3-home-heading\"><h1>你好，今天的你</h1><p>留一点时间，认识自己</p></header><sec",
+      "x": null,
+      "y": null,
+      "scroll": 26,
+      "box": {
+        "x": 43,
+        "y": 481,
+        "width": 294,
+        "height": 52,
+        "top": 481,
+        "right": 337,
+        "bottom": 533,
+        "left": 43
+      },
+      "hit": null
+    },
+    {
+      "type": "pointerup",
+      "t": 469.7000000011176,
+      "target": "<div class=\"home-assessment\"><h2>16PF 性格探索</h2><p class=\"assessment-purpose\">从16个角度，了解自己思考、感受和与人相处的倾向。结合日常经历，看看自己习惯怎样回应不同情境。</p><div class=\"segmented assessment",
+      "x": 189.99758911132812,
+      "y": 532.9939575195312,
+      "scroll": 26,
+      "box": {
+        "x": 43,
+        "y": 481,
+        "width": 294,
+        "height": 52,
+        "top": 481,
+        "right": 337,
+        "bottom": 533,
+        "left": 43
+      },
+      "hit": "<button class=\"btn full home-assessment-start\" data-action=\"start\">开始原版测评<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-widt"
+    },
+    {
+      "type": "mouseup",
+      "t": 469.7000000011176,
+      "target": "<div class=\"home-assessment\"><h2>16PF 性格探索</h2><p class=\"assessment-purpose\">从16个角度，了解自己思考、感受和与人相处的倾向。结合日常经历，看看自己习惯怎样回应不同情境。</p><div class=\"segmented assessment",
+      "x": 189,
+      "y": 532,
+      "scroll": 26,
+      "box": {
+        "x": 43,
+        "y": 481,
+        "width": 294,
+        "height": 52,
+        "top": 481,
+        "right": 337,
+        "bottom": 533,
+        "left": 43
+      },
+      "hit": "<button class=\"btn full home-assessment-start\" data-action=\"start\">开始原版测评<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-widt"
+    },
+    {
+      "type": "click",
+      "t": 469.80000000074506,
+      "target": "<div class=\"home-assessment\"><h2>16PF 性格探索</h2><p class=\"assessment-purpose\">从16个角度，了解自己思考、感受和与人相处的倾向。结合日常经历，看看自己习惯怎样回应不同情境。</p><div class=\"segmented assessment",
+      "x": 189,
+      "y": 532,
+      "scroll": 26,
+      "box": {
+        "x": 43,
+        "y": 481,
+        "width": 294,
+        "height": 52,
+        "top": 481,
+        "right": 337,
+        "bottom": 533,
+        "left": 43
+      },
+      "hit": "<button class=\"btn full home-assessment-start\" data-action=\"start\">开始原版测评<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-widt"
+    },
+    {
+      "type": "scroll",
+      "t": 472.40000000037253,
+      "target": null,
+      "x": null,
+      "y": null,
+      "scroll": 40,
+      "box": {
+        "x": 43,
+        "y": 467,
+        "width": 294,
+        "height": 52,
+        "top": 467,
+        "right": 337,
+        "bottom": 519,
+        "left": 43
+      },
+      "hit": null
+    },
+    {
+      "type": "scroll",
+      "t": 495.80000000074506,
+      "target": null,
+      "x": null,
+      "y": null,
+      "scroll": 45,
+      "box": {
+        "x": 43,
+        "y": 462,
+        "width": 294,
+        "height": 52,
+        "top": 462,
+        "right": 337,
+        "bottom": 514,
+        "left": 43
+      },
+      "hit": null
+    },
+    {
+      "type": "scroll",
+      "t": 505.1000000014901,
+      "target": null,
+      "x": null,
+      "y": null,
+      "scroll": 48,
+      "box": {
+        "x": 43,
+        "y": 459,
+        "width": 294,
+        "height": 52,
+        "top": 459,
+        "right": 337,
+        "bottom": 511,
+        "left": 43
+      },
+      "hit": null
+    },
+    {
+      "type": "scroll",
+      "t": 521.1000000014901,
+      "target": null,
+      "x": null,
+      "y": null,
+      "scroll": 50,
+      "box": {
+        "x": 43,
+        "y": 457,
+        "width": 294,
+        "height": 52,
+        "top": 457,
+        "right": 337,
+        "bottom": 509,
+        "left": 43
+      },
+      "hit": null
+    }
+  ],
+  "route": "home",
+  "active": null,
+  "fixture": true,
+  "scrollY": 50,
+  "body": "你好，今天的你\n\n留一点时间，认识自己\n\n16PF 性格探索\n\n从16个角度，了解自己思考、感受和与人相处的倾向。结合日常经历，看看自己习惯怎样回应不同情境。\n\n原版\nAI 重置版\n开始原版测评\n单因子测评\n选一个想了解的角度\n每日打卡\n留意今天的自己\n简化16PF\n从情境问题出发\n模拟性格\n设定一组假想倾向\n认识\n探索\n我的画像\n我的"
+}

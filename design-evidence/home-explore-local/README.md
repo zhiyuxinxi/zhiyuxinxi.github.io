@@ -1,5 +1,7 @@
 # 认识首页与探索目录候选
 
+最新状态：缩放预览开始点击回归已修复。workbench-scroll-fixed.json：8/8 流程及516/516路由主题组合通过，无页面异常。下方未关闭描述是修复前历史；以本段及末尾根因记录为准。静态29项基线、未执行的实体手机/Safari/视频及独立视觉复核边界仍保留。未部署。
+
 从当前main cf3737ce01c19df9832dde8d20609105deedcea7建立独立分支。只修改site/源，不镜像根目录、不部署；画像图和研究分支未合入。
 
 ## 实际修改
@@ -41,8 +43,18 @@
 - 工作台扫描以 load 加应用/桥接显式等待替代每次固定 networkidle 等待，未减少任何路由或主题。workbench-first-run.json 的 516 个组合全部通过，但测评流程在点击开始后等待 question 路由超时（并非完成页滚动复位），单独重跑通过、连续全套复跑再次超时；保留失败，后续复测单独记录。
 - 录像未补装 ffmpeg；动效证据使用浏览器时序观测、连续性/减弱动态断言与静态截图，不宣称视频录制通过。
 
-### 尚未关闭的工作台交互问题
+### 工作台交互问题：失败历史（下方记录修复）
 
 候选全量复跑仍为 7/8 外框流程通过、516/516 路由主题渲染通过；失败位于点击开始后等待第一题。main 同脚本 8/8 通过；候选独立五次复测四次通过、一次失败，因此暂列候选间歇问题，不能归入基线。未放宽等待或删除断言。完整复测、基线与堆栈分别见 workbench-retest.json、workbench-baseline.json、workbench-shell-diagnostic.json。设计候选可以独立审阅，但这不是发布验收通过。
 
 失败现场 start-click-failure.png / start-click-failure-state.json：route=home、active=null、fixture=true、scrollY=50；点击后没有创建 session。尚未证实是缩放预览定位/滚动时序还是实际指针交互缺陷，因此不声称已修复。
+
+### 指针点击修复与证据
+
+真实原因是 ui.css 全局 html scroll-behavior:smooth：开始按钮自动滚动定位仍在动画中，缩放 iframe 内的指针坐标与移动后的按钮错开。事件记录显示滚动从 4→26→40→50px 持续变化，pointerdown/click 实际 target 为 home-assessment 容器，未进入 start 动作。不是 session 保存、题库或完成页滚动故障。
+
+将全局滚动定位改为 auto，路由/焦点恢复即时完成；没有加点击重试、延迟等待、直接调用 App 或宽松断言。保留首页文案、介绍容器及背景装饰动效。pointer-before.json 为原版同一诊断 7/10，修复后为 pointer-after.json 的 10/10（10 个独立场景，不是失败后重试）；before/after-events 保存事件、命中与按钮坐标。首页探索 36 组合与 7 组检索再次通过。长期复现工具为 site/tools/workbench_pointer_review.py，失败返回非零退出码。
+
+仓库内正式复现工具也已运行，pointer-canonical.json 的 10 个独立场景全部通过；保留真实 pointer 点击及完整三题完成流程，没有用 DOM click 或 dispatchEvent 绕过命中测试。
+
+最后全工作台复测 workbench-scroll-fixed.json：8 项真实流程、516 路由主题组合全部通过，无 JS 异常。开始点击阻塞关闭；测试通过不替代独立视觉评审。

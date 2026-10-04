@@ -1,0 +1,39 @@
+{
+  "cause": "Global smooth document scrolling continues during implicit button positioning in scaled iframe; pointer lands on moving assessment container instead of start button.",
+  "fix": "ui.css html scroll-behavior: smooth -> auto",
+  "before": {
+    "scenarios": 10,
+    "passed": 7,
+    "failed": 3,
+    "pointerTarget": "home-assessment",
+    "scrollAtPointerDown": 26,
+    "finalScroll": 50
+  },
+  "after": {
+    "scenarios": 10,
+    "passed": 10,
+    "failed": 0,
+    "pointerTarget": "button[data-action=start]",
+    "scrollAtPointerDown": 50
+  },
+  "canonicalTool": {
+    "scenarios": 10,
+    "passed": 10,
+    "failed": 0
+  },
+  "preserved": [
+    "home copy",
+    "explore intro",
+    "all theme palettes",
+    "ambient canvas motion",
+    "original portrait",
+    "default unavailable state"
+  ],
+  "notUsed": [
+    "click retries",
+    "longer timeout",
+    "forced click",
+    "DOM click",
+    "direct App dispatch"
+  ]
+}

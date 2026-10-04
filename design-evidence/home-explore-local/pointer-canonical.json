@@ -1,0 +1,105 @@
+{
+  "results": [
+    {
+      "test": "new-session-0",
+      "status": "PASS",
+      "details": {
+        "sessionId": "session-mutpeetc-34y3",
+        "seedFixture": false,
+        "actualRoute": "complete?id=session-mutpeetc-34y3",
+        "selectedNode": "complete"
+      }
+    },
+    {
+      "test": "new-session-1",
+      "status": "PASS",
+      "details": {
+        "sessionId": "session-mutpegri-vwax",
+        "seedFixture": false,
+        "actualRoute": "complete?id=session-mutpegri-vwax",
+        "selectedNode": "complete"
+      }
+    },
+    {
+      "test": "new-session-2",
+      "status": "PASS",
+      "details": {
+        "sessionId": "session-mutpeinn-q7rn",
+        "seedFixture": false,
+        "actualRoute": "complete?id=session-mutpeinn-q7rn",
+        "selectedNode": "complete"
+      }
+    },
+    {
+      "test": "new-session-3",
+      "status": "PASS",
+      "details": {
+        "sessionId": "session-mutpekl9-qi9u",
+        "seedFixture": false,
+        "actualRoute": "complete?id=session-mutpekl9-qi9u",
+        "selectedNode": "complete"
+      }
+    },
+    {
+      "test": "new-session-4",
+      "status": "PASS",
+      "details": {
+        "sessionId": "session-mutpemjn-3gxe",
+        "seedFixture": false,
+        "actualRoute": "complete?id=session-mutpemjn-3gxe",
+        "selectedNode": "complete"
+      }
+    },
+    {
+      "test": "new-session-5",
+      "status": "PASS",
+      "details": {
+        "sessionId": "session-mutpeoht-a7x4",
+        "seedFixture": false,
+        "actualRoute": "complete?id=session-mutpeoht-a7x4",
+        "selectedNode": "complete"
+      }
+    },
+    {
+      "test": "new-session-6",
+      "status": "PASS",
+      "details": {
+        "sessionId": "session-mutpeqgj-kg3k",
+        "seedFixture": false,
+        "actualRoute": "complete?id=session-mutpeqgj-kg3k",
+        "selectedNode": "complete"
+      }
+    },
+    {
+      "test": "new-session-7",
+      "status": "PASS",
+      "details": {
+        "sessionId": "session-mutpesdp-c83h",
+        "seedFixture": false,
+        "actualRoute": "complete?id=session-mutpesdp-c83h",
+        "selectedNode": "complete"
+      }
+    },
+    {
+      "test": "new-session-8",
+      "status": "PASS",
+      "details": {
+        "sessionId": "session-mutpeud4-ys2y",
+        "seedFixture": false,
+        "actualRoute": "complete?id=session-mutpeud4-ys2y",
+        "selectedNode": "complete"
+      }
+    },
+    {
+      "test": "new-session-9",
+      "status": "PASS",
+      "details": {
+        "sessionId": "session-mutpewbo-t2yp",
+        "seedFixture": false,
+        "actualRoute": "complete?id=session-mutpewbo-t2yp",
+        "selectedNode": "complete"
+      }
+    }
+  ],
+  "pageErrors": []
+}

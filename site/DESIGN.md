@@ -195,3 +195,5 @@ DecisionScenes.search拥有目录匹配：NFKC、trim、统一连续空白和小
 相关逐页按钮/数据说明在handoff/development/current-product-contracts.json；FR-002/003补充在现行需求矩阵。tools/home_explore_review.py提供本轮实测，既有结果不冒充新验收。
 
 AI版本说明已依据现有候选题库核对：保留16因子，AI辅助改写题目及选项，采用更具体的生活情境和本人行为描述。原有默认不可开始状态不由本轮新增；候选题库仍未启用生产，不表示更高效度或实时AI。具体来源坐标仅记录于当前开发契约，不复制源题目。
+
+页面滚动定位使用 auto：路由恢复、焦点和嵌入缩放预览的控件定位必须即时完成，避免全局 smooth 滚动在指针按下前移动命中目标。背景及装饰动效不受此规则影响。回归见 tools/workbench_pointer_review.py。

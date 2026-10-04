@@ -1,0 +1,684 @@
+{
+  "trace": [
+    {
+      "type": "scroll",
+      "t": 483,
+      "target": null,
+      "x": null,
+      "y": null,
+      "scroll": 50,
+      "box": {
+        "x": 43,
+        "y": 457,
+        "width": 294,
+        "height": 52,
+        "top": 457,
+        "right": 337,
+        "bottom": 509,
+        "left": 43
+      },
+      "hit": null
+    },
+    {
+      "type": "pointerdown",
+      "t": 569.5999999996275,
+      "target": "<button class=\"btn full home-assessment-start\" data-action=\"start\">开始原版测评<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-widt",
+      "x": 189.99758911132812,
+      "y": 482.99884033203125,
+      "scroll": 50,
+      "box": {
+        "x": 43,
+        "y": 458,
+        "width": 294,
+        "height": 52,
+        "top": 458,
+        "right": 337,
+        "bottom": 510,
+        "left": 43
+      },
+      "hit": "<button class=\"btn full home-assessment-start\" data-action=\"start\">开始原版测评<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-widt"
+    },
+    {
+      "type": "mousedown",
+      "t": 569.6999999992549,
+      "target": "<button class=\"btn full home-assessment-start\" data-action=\"start\">开始原版测评<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-widt",
+      "x": 189,
+      "y": 482,
+      "scroll": 50,
+      "box": {
+        "x": 43,
+        "y": 458,
+        "width": 294,
+        "height": 52,
+        "top": 458,
+        "right": 337,
+        "bottom": 510,
+        "left": 43
+      },
+      "hit": "<button class=\"btn full home-assessment-start\" data-action=\"start\">开始原版测评<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-widt"
+    },
+    {
+      "type": "focusin",
+      "t": 570.5999999996275,
+      "target": "<button class=\"btn full home-assessment-start\" data-action=\"start\">开始原版测评<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-widt",
+      "x": null,
+      "y": null,
+      "scroll": 50,
+      "box": {
+        "x": 43,
+        "y": 458,
+        "width": 294,
+        "height": 52,
+        "top": 458,
+        "right": 337,
+        "bottom": 510,
+        "left": 43
+      },
+      "hit": null
+    },
+    {
+      "type": "pointerup",
+      "t": 571.2999999988824,
+      "target": "<button class=\"btn full home-assessment-start\" data-action=\"start\">开始原版测评<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-widt",
+      "x": 189.99758911132812,
+      "y": 482.99884033203125,
+      "scroll": 50,
+      "box": {
+        "x": 43,
+        "y": 457,
+        "width": 294,
+        "height": 52,
+        "top": 457,
+        "right": 337,
+        "bottom": 509,
+        "left": 43
+      },
+      "hit": "<button class=\"btn full home-assessment-start\" data-action=\"start\">开始原版测评<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-widt"
+    },
+    {
+      "type": "mouseup",
+      "t": 571.7999999988824,
+      "target": "<button class=\"btn full home-assessment-start\" data-action=\"start\">开始原版测评<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-widt",
+      "x": 189,
+      "y": 482,
+      "scroll": 50,
+      "box": {
+        "x": 43,
+        "y": 457,
+        "width": 294,
+        "height": 52,
+        "top": 457,
+        "right": 337,
+        "bottom": 509,
+        "left": 43
+      },
+      "hit": "<button class=\"btn full home-assessment-start\" data-action=\"start\">开始原版测评<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-widt"
+    },
+    {
+      "type": "click",
+      "t": 571.7999999988824,
+      "target": "<button class=\"btn full home-assessment-start\" data-action=\"start\">开始原版测评<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-widt",
+      "x": 189,
+      "y": 482,
+      "scroll": 50,
+      "box": {
+        "x": 43,
+        "y": 457,
+        "width": 294,
+        "height": 52,
+        "top": 457,
+        "right": 337,
+        "bottom": 509,
+        "left": 43
+      },
+      "hit": "<button class=\"btn full home-assessment-start\" data-action=\"start\">开始原版测评<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-widt"
+    },
+    {
+      "type": "focusin",
+      "t": 604.5999999996275,
+      "target": "<h1 tabindex=\"-1\">准备向几位同事分享一个想法，你通常会怎么开始？</h1>",
+      "x": null,
+      "y": null,
+      "scroll": 0,
+      "box": null,
+      "hit": null
+    },
+    {
+      "type": "mutation",
+      "t": 605.4000000003725
+    },
+    {
+      "type": "scroll",
+      "t": 606.7999999988824,
+      "target": null,
+      "x": null,
+      "y": null,
+      "scroll": 0,
+      "box": null,
+      "hit": null
+    },
+    {
+      "type": "pointerdown",
+      "t": 920.5999999996275,
+      "target": "<span>先写下几个要点，想清楚再表达</span>",
+      "x": 190.0051727294922,
+      "y": 342.5654296875,
+      "scroll": 0,
+      "box": null,
+      "hit": "<span>先写下几个要点，想清楚再表达</span>"
+    },
+    {
+      "type": "mousedown",
+      "t": 920.7999999988824,
+      "target": "<span>先写下几个要点，想清楚再表达</span>",
+      "x": 190,
+      "y": 342,
+      "scroll": 0,
+      "box": null,
+      "hit": "<span>先写下几个要点，想清楚再表达</span>"
+    },
+    {
+      "type": "focusin",
+      "t": 921.2999999988824,
+      "target": "<button class=\"option \" role=\"radio\" aria-checked=\"false\" data-action=\"answer\" data-id=\"a\" tabindex=\"0\"><span class=\"letter\">A</span><span>先写下几个要点，想清楚再表达</span>",
+      "x": null,
+      "y": null,
+      "scroll": 0,
+      "box": null,
+      "hit": null
+    },
+    {
+      "type": "pointerup",
+      "t": 921.5999999996275,
+      "target": "<span>先写下几个要点，想清楚再表达</span>",
+      "x": 190.0051727294922,
+      "y": 342.5654296875,
+      "scroll": 0,
+      "box": null,
+      "hit": "<span>先写下几个要点，想清楚再表达</span>"
+    },
+    {
+      "type": "mouseup",
+      "t": 923.2999999988824,
+      "target": "<span>先写下几个要点，想清楚再表达</span>",
+      "x": 190,
+      "y": 342,
+      "scroll": 0,
+      "box": null,
+      "hit": "<span>先写下几个要点，想清楚再表达</span>"
+    },
+    {
+      "type": "click",
+      "t": 923.4000000003725,
+      "target": "<span>先写下几个要点，想清楚再表达</span>",
+      "x": 190,
+      "y": 342,
+      "scroll": 0,
+      "box": null,
+      "hit": "<span>先写下几个要点，想清楚再表达</span>"
+    },
+    {
+      "type": "focusin",
+      "t": 937.0999999996275,
+      "target": "<button class=\"option selected\" role=\"radio\" aria-checked=\"true\" data-action=\"answer\" data-id=\"a\" tabindex=\"0\"><span class=\"letter\"><svg class=\"icon sm\" viewBox",
+      "x": null,
+      "y": null,
+      "scroll": 0,
+      "box": null,
+      "hit": null
+    },
+    {
+      "type": "mutation",
+      "t": 937.2999999988824
+    },
+    {
+      "type": "pointerdown",
+      "t": 1022.5999999996275,
+      "target": "<button class=\"btn\" data-action=\"question-next\">下一题<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lineca",
+      "x": 247.99473571777344,
+      "y": 801.9871215820312,
+      "scroll": 0,
+      "box": null,
+      "hit": "<button class=\"btn\" data-action=\"question-next\">下一题<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lineca"
+    },
+    {
+      "type": "mousedown",
+      "t": 1022.6999999992549,
+      "target": "<button class=\"btn\" data-action=\"question-next\">下一题<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lineca",
+      "x": 247,
+      "y": 801,
+      "scroll": 0,
+      "box": null,
+      "hit": "<button class=\"btn\" data-action=\"question-next\">下一题<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lineca"
+    },
+    {
+      "type": "focusin",
+      "t": 1023.0999999996275,
+      "target": "<button class=\"btn\" data-action=\"question-next\">下一题<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lineca",
+      "x": null,
+      "y": null,
+      "scroll": 0,
+      "box": null,
+      "hit": null
+    },
+    {
+      "type": "pointerup",
+      "t": 1023.4000000003725,
+      "target": "<button class=\"btn\" data-action=\"question-next\">下一题<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lineca",
+      "x": 247.99473571777344,
+      "y": 801.9871215820312,
+      "scroll": 0,
+      "box": null,
+      "hit": "<button class=\"btn\" data-action=\"question-next\">下一题<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lineca"
+    },
+    {
+      "type": "mouseup",
+      "t": 1023.7999999988824,
+      "target": "<button class=\"btn\" data-action=\"question-next\">下一题<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lineca",
+      "x": 247,
+      "y": 801,
+      "scroll": 0,
+      "box": null,
+      "hit": "<button class=\"btn\" data-action=\"question-next\">下一题<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lineca"
+    },
+    {
+      "type": "click",
+      "t": 1023.7999999988824,
+      "target": "<button class=\"btn\" data-action=\"question-next\">下一题<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lineca",
+      "x": 247,
+      "y": 801,
+      "scroll": 0,
+      "box": null,
+      "hit": "<button class=\"btn\" data-action=\"question-next\">下一题<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lineca"
+    },
+    {
+      "type": "focusin",
+      "t": 1054.5,
+      "target": "<h1 tabindex=\"-1\">周末突然空出半天，你更想怎样度过？</h1>",
+      "x": null,
+      "y": null,
+      "scroll": 0,
+      "box": null,
+      "hit": null
+    },
+    {
+      "type": "mutation",
+      "t": 1054.699999999255
+    },
+    {
+      "type": "pointerdown",
+      "t": 1115.2999999988824,
+      "target": "<span>约熟悉的人见面，随意走一走</span>",
+      "x": 190.0051727294922,
+      "y": 431.5520935058594,
+      "scroll": 0,
+      "box": null,
+      "hit": "<span>约熟悉的人见面，随意走一走</span>"
+    },
+    {
+      "type": "mousedown",
+      "t": 1115.2999999988824,
+      "target": "<span>约熟悉的人见面，随意走一走</span>",
+      "x": 190,
+      "y": 431,
+      "scroll": 0,
+      "box": null,
+      "hit": "<span>约熟悉的人见面，随意走一走</span>"
+    },
+    {
+      "type": "focusin",
+      "t": 1115.4000000003725,
+      "target": "<button class=\"option \" role=\"radio\" aria-checked=\"false\" data-action=\"answer\" data-id=\"b\" tabindex=\"-1\"><span class=\"letter\">B</span><span>约熟悉的人见面，随意走一走</span>",
+      "x": null,
+      "y": null,
+      "scroll": 0,
+      "box": null,
+      "hit": null
+    },
+    {
+      "type": "pointerup",
+      "t": 1115.699999999255,
+      "target": "<span>约熟悉的人见面，随意走一走</span>",
+      "x": 190.0051727294922,
+      "y": 431.5520935058594,
+      "scroll": 0,
+      "box": null,
+      "hit": "<span>约熟悉的人见面，随意走一走</span>"
+    },
+    {
+      "type": "mouseup",
+      "t": 1115.7999999988824,
+      "target": "<span>约熟悉的人见面，随意走一走</span>",
+      "x": 190,
+      "y": 431,
+      "scroll": 0,
+      "box": null,
+      "hit": "<span>约熟悉的人见面，随意走一走</span>"
+    },
+    {
+      "type": "click",
+      "t": 1115.7999999988824,
+      "target": "<span>约熟悉的人见面，随意走一走</span>",
+      "x": 190,
+      "y": 431,
+      "scroll": 0,
+      "box": null,
+      "hit": "<span>约熟悉的人见面，随意走一走</span>"
+    },
+    {
+      "type": "focusin",
+      "t": 1134.5999999996275,
+      "target": "<button class=\"option selected\" role=\"radio\" aria-checked=\"true\" data-action=\"answer\" data-id=\"b\" tabindex=\"0\"><span class=\"letter\"><svg class=\"icon sm\" viewBox",
+      "x": null,
+      "y": null,
+      "scroll": 0,
+      "box": null,
+      "hit": null
+    },
+    {
+      "type": "mutation",
+      "t": 1134.7999999988824
+    },
+    {
+      "type": "pointerdown",
+      "t": 1233.0999999996275,
+      "target": "<button class=\"btn\" data-action=\"question-next\">下一题<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lineca",
+      "x": 247.99473571777344,
+      "y": 801.9871215820312,
+      "scroll": 0,
+      "box": null,
+      "hit": "<button class=\"btn\" data-action=\"question-next\">下一题<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lineca"
+    },
+    {
+      "type": "mousedown",
+      "t": 1233.199999999255,
+      "target": "<button class=\"btn\" data-action=\"question-next\">下一题<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lineca",
+      "x": 247,
+      "y": 801,
+      "scroll": 0,
+      "box": null,
+      "hit": "<button class=\"btn\" data-action=\"question-next\">下一题<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lineca"
+    },
+    {
+      "type": "focusin",
+      "t": 1233.5,
+      "target": "<button class=\"btn\" data-action=\"question-next\">下一题<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lineca",
+      "x": null,
+      "y": null,
+      "scroll": 0,
+      "box": null,
+      "hit": null
+    },
+    {
+      "type": "pointerup",
+      "t": 1233.5999999996275,
+      "target": "<button class=\"btn\" data-action=\"question-next\">下一题<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lineca",
+      "x": 247.99473571777344,
+      "y": 801.9871215820312,
+      "scroll": 0,
+      "box": null,
+      "hit": "<button class=\"btn\" data-action=\"question-next\">下一题<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lineca"
+    },
+    {
+      "type": "mouseup",
+      "t": 1233.7999999988824,
+      "target": "<button class=\"btn\" data-action=\"question-next\">下一题<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lineca",
+      "x": 247,
+      "y": 801,
+      "scroll": 0,
+      "box": null,
+      "hit": "<button class=\"btn\" data-action=\"question-next\">下一题<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lineca"
+    },
+    {
+      "type": "click",
+      "t": 1233.7999999988824,
+      "target": "<button class=\"btn\" data-action=\"question-next\">下一题<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lineca",
+      "x": 247,
+      "y": 801,
+      "scroll": 0,
+      "box": null,
+      "hit": "<button class=\"btn\" data-action=\"question-next\">下一题<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lineca"
+    },
+    {
+      "type": "focusin",
+      "t": 1249.4000000003725,
+      "target": "<h1 tabindex=\"-1\">一个原本安排好的计划临时改变，你通常会先做什么？</h1>",
+      "x": null,
+      "y": null,
+      "scroll": 0,
+      "box": null,
+      "hit": null
+    },
+    {
+      "type": "mutation",
+      "t": 1249.5
+    },
+    {
+      "type": "pointerdown",
+      "t": 1325.699999999255,
+      "target": "<span>先听听相关的人有什么想法</span>",
+      "x": 190.0051727294922,
+      "y": 520.5507202148438,
+      "scroll": 0,
+      "box": null,
+      "hit": "<span>先听听相关的人有什么想法</span>"
+    },
+    {
+      "type": "mousedown",
+      "t": 1325.699999999255,
+      "target": "<span>先听听相关的人有什么想法</span>",
+      "x": 190,
+      "y": 520,
+      "scroll": 0,
+      "box": null,
+      "hit": "<span>先听听相关的人有什么想法</span>"
+    },
+    {
+      "type": "focusin",
+      "t": 1326,
+      "target": "<button class=\"option \" role=\"radio\" aria-checked=\"false\" data-action=\"answer\" data-id=\"c\" tabindex=\"-1\"><span class=\"letter\">C</span><span>先听听相关的人有什么想法</span><",
+      "x": null,
+      "y": null,
+      "scroll": 0,
+      "box": null,
+      "hit": null
+    },
+    {
+      "type": "pointerup",
+      "t": 1326.4000000003725,
+      "target": "<span>先听听相关的人有什么想法</span>",
+      "x": 190.0051727294922,
+      "y": 520.5507202148438,
+      "scroll": 0,
+      "box": null,
+      "hit": "<span>先听听相关的人有什么想法</span>"
+    },
+    {
+      "type": "mouseup",
+      "t": 1326.699999999255,
+      "target": "<span>先听听相关的人有什么想法</span>",
+      "x": 190,
+      "y": 520,
+      "scroll": 0,
+      "box": null,
+      "hit": "<span>先听听相关的人有什么想法</span>"
+    },
+    {
+      "type": "click",
+      "t": 1326.699999999255,
+      "target": "<span>先听听相关的人有什么想法</span>",
+      "x": 190,
+      "y": 520,
+      "scroll": 0,
+      "box": null,
+      "hit": "<span>先听听相关的人有什么想法</span>"
+    },
+    {
+      "type": "focusin",
+      "t": 1338.9000000003725,
+      "target": "<button class=\"option selected\" role=\"radio\" aria-checked=\"true\" data-action=\"answer\" data-id=\"c\" tabindex=\"0\"><span class=\"letter\"><svg class=\"icon sm\" viewBox",
+      "x": null,
+      "y": null,
+      "scroll": 0,
+      "box": null,
+      "hit": null
+    },
+    {
+      "type": "mutation",
+      "t": 1339.0999999996275
+    },
+    {
+      "type": "pointerdown",
+      "t": 1407.5999999996275,
+      "target": "<button class=\"btn\" data-action=\"question-next\">检查这次作答<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lin",
+      "x": 247.99473571777344,
+      "y": 801.9871215820312,
+      "scroll": 0,
+      "box": null,
+      "hit": "<button class=\"btn\" data-action=\"question-next\">检查这次作答<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lin"
+    },
+    {
+      "type": "mousedown",
+      "t": 1407.699999999255,
+      "target": "<button class=\"btn\" data-action=\"question-next\">检查这次作答<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lin",
+      "x": 247,
+      "y": 801,
+      "scroll": 0,
+      "box": null,
+      "hit": "<button class=\"btn\" data-action=\"question-next\">检查这次作答<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lin"
+    },
+    {
+      "type": "focusin",
+      "t": 1408.0999999996275,
+      "target": "<button class=\"btn\" data-action=\"question-next\">检查这次作答<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lin",
+      "x": null,
+      "y": null,
+      "scroll": 0,
+      "box": null,
+      "hit": null
+    },
+    {
+      "type": "pointerup",
+      "t": 1408.2999999988824,
+      "target": "<button class=\"btn\" data-action=\"question-next\">检查这次作答<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lin",
+      "x": 247.99473571777344,
+      "y": 801.9871215820312,
+      "scroll": 0,
+      "box": null,
+      "hit": "<button class=\"btn\" data-action=\"question-next\">检查这次作答<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lin"
+    },
+    {
+      "type": "mouseup",
+      "t": 1408.4000000003725,
+      "target": "<button class=\"btn\" data-action=\"question-next\">检查这次作答<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lin",
+      "x": 247,
+      "y": 801,
+      "scroll": 0,
+      "box": null,
+      "hit": "<button class=\"btn\" data-action=\"question-next\">检查这次作答<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lin"
+    },
+    {
+      "type": "click",
+      "t": 1408.4000000003725,
+      "target": "<button class=\"btn\" data-action=\"question-next\">检查这次作答<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lin",
+      "x": 247,
+      "y": 801,
+      "scroll": 0,
+      "box": null,
+      "hit": "<button class=\"btn\" data-action=\"question-next\">检查这次作答<svg class=\"icon end\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-lin"
+    },
+    {
+      "type": "focusin",
+      "t": 1465.5999999996275,
+      "target": "<h1 class=\"info-title\" tabindex=\"-1\">看看这次的选择</h1>",
+      "x": null,
+      "y": null,
+      "scroll": 0,
+      "box": null,
+      "hit": null
+    },
+    {
+      "type": "mutation",
+      "t": 1465.699999999255
+    },
+    {
+      "type": "pointerdown",
+      "t": 1809.5,
+      "target": "<button class=\"btn full space-24\" data-action=\"finish\" data-id=\"session-mutpbp1t-j67q\">保存这次作答</button>",
+      "x": 190.0051727294922,
+      "y": 632.7404174804688,
+      "scroll": 0,
+      "box": null,
+      "hit": "<button class=\"btn full space-24\" data-action=\"finish\" data-id=\"session-mutpbp1t-j67q\">保存这次作答</button>"
+    },
+    {
+      "type": "mousedown",
+      "t": 1809.699999999255,
+      "target": "<button class=\"btn full space-24\" data-action=\"finish\" data-id=\"session-mutpbp1t-j67q\">保存这次作答</button>",
+      "x": 190,
+      "y": 632,
+      "scroll": 0,
+      "box": null,
+      "hit": "<button class=\"btn full space-24\" data-action=\"finish\" data-id=\"session-mutpbp1t-j67q\">保存这次作答</button>"
+    },
+    {
+      "type": "focusin",
+      "t": 1810,
+      "target": "<button class=\"btn full space-24\" data-action=\"finish\" data-id=\"session-mutpbp1t-j67q\">保存这次作答</button>",
+      "x": null,
+      "y": null,
+      "scroll": 0,
+      "box": null,
+      "hit": null
+    },
+    {
+      "type": "pointerup",
+      "t": 1810.699999999255,
+      "target": "<button class=\"btn full space-24\" data-action=\"finish\" data-id=\"session-mutpbp1t-j67q\">保存这次作答</button>",
+      "x": 190.0051727294922,
+      "y": 632.7404174804688,
+      "scroll": 0,
+      "box": null,
+      "hit": "<button class=\"btn full space-24\" data-action=\"finish\" data-id=\"session-mutpbp1t-j67q\">保存这次作答</button>"
+    },
+    {
+      "type": "mouseup",
+      "t": 1811.0999999996275,
+      "target": "<button class=\"btn full space-24\" data-action=\"finish\" data-id=\"session-mutpbp1t-j67q\">保存这次作答</button>",
+      "x": 190,
+      "y": 632,
+      "scroll": 0,
+      "box": null,
+      "hit": "<button class=\"btn full space-24\" data-action=\"finish\" data-id=\"session-mutpbp1t-j67q\">保存这次作答</button>"
+    },
+    {
+      "type": "click",
+      "t": 1811.0999999996275,
+      "target": "<button class=\"btn full space-24\" data-action=\"finish\" data-id=\"session-mutpbp1t-j67q\">保存这次作答</button>",
+      "x": 190,
+      "y": 632,
+      "scroll": 0,
+      "box": null,
+      "hit": "<button class=\"btn full space-24\" data-action=\"finish\" data-id=\"session-mutpbp1t-j67q\">保存这次作答</button>"
+    },
+    {
+      "type": "focusin",
+      "t": 1825.7999999988824,
+      "target": "<h1 class=\"info-title\" tabindex=\"-1\">已保存这次作答</h1>",
+      "x": null,
+      "y": null,
+      "scroll": 0,
+      "box": null,
+      "hit": null
+    },
+    {
+      "type": "mutation",
+      "t": 1826
+    }
+  ],
+  "route": "complete?id=session-mutpbp1t-j67q",
+  "active": "session-mutpbp1t-j67q",
+  "fixture": true,
+  "scrollY": 0,
+  "body": "认识\n已保存这次作答\n\n可以回看当时的选择。\n\n回看作答回到认识"
+}

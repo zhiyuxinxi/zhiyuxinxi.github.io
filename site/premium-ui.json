@@ -32,7 +32,8 @@
     "development",
     "backendLogic",
     "homeExplore",
-    "productStructure"
+    "productStructure",
+    "workbenchPointer"
   ],
   "commands": {
     "themes": "python tools/build_themes.py",
@@ -46,11 +47,13 @@
     "development": "python tools/development_review_test.py .",
     "backendLogic": "python tools/backend_logic_test.py .",
     "homeExplore": "python tools/home_explore_review.py .",
-    "productStructure": "python tools/product_structure_review.py ."
+    "productStructure": "python tools/product_structure_review.py .",
+    "workbenchPointer": "python tools/workbench_pointer_review.py ."
   },
   "evidence": {
     "crudFullFlow": "tools/hosted_smoke.py",
     "failurePaths": "tools/hosted_smoke.py",
-    "localCatalogSearch": "tools/home_explore_review.py"
+    "localCatalogSearch": "tools/home_explore_review.py",
+    "scaledPreviewPointer": "tools/workbench_pointer_review.py"
   }
 }
