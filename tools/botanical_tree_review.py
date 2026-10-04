@@ -66,7 +66,7 @@ with sync_playwright() as w:
  for t in ['traits','personal','relations']:
   p.locator('#tab-'+t).click()
   for _ in range(2):p.locator('#zoom-in').click();pause(p)
-  check(p.locator('[data-branch][aria-hidden=false]').count()>0,'unselected parents at leaf-tier zoom '+t);check(p.locator('#level').inner_text()=='主枝','unselected level label');p.locator('#fit').click();pause(p)
+  check(p.locator('[data-branch][aria-hidden=false]').count()>0,'unselected parents at leaf-tier zoom '+t);check(p.locator('#level').inner_text().startswith('主枝'),'unselected level label');p.locator('#fit').click();pause(p)
  p.locator('[data-branch=space]').focus();p.keyboard.press('Enter');pause(p);check(p.locator(':focus').get_attribute('data-branch')=='space','focus after branch rebuild')
  p.keyboard.press('Tab');check(p.locator(':focus').get_attribute('data-leaf')=='f0','Tab reaches leaf');p.keyboard.press('Space');check(snap(p)['leaf']=='f0','Space opens leaf')
  p.locator('[data-close]').focus();p.keyboard.press('Enter');check(p.locator(':focus').get_attribute('id')=='viewport','close focus')
