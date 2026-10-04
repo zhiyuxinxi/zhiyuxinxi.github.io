@@ -1,9 +1,7 @@
 (() => {
-  'use strict';
-  const material = new URLSearchParams(location.search).get('material') || 'hybrid';
-  document.documentElement.dataset.material=material;
-  const $ = s => document.querySelector(s), NS = 'http://www.w3.org/2000/svg';
-  const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+'use strict';
+const $=s=>document.querySelector(s),NS='http://www.w3.org/2000/svg',G=TreeGeometry;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const positions = [[83,58],[204,34],[310,95],[327,218],[292,353],[181,409],[70,368],[52,226]];
   const names = ['风险兜底','时间陪伴','情绪支持','自由空间','亲密承诺','规划协商','成长认可','金钱资源'];
   const relationIds = ['risk','time','emotion','space','commitment','planning','growth','money'];
@@ -19,91 +17,108 @@
     {id:'values',name:'在意的事',p:[288,347],kind:'fixed',leaves:[{id:'respect',name:'相互尊重',kind:'fixed'},{id:'rest',name:'休息空间',kind:'fixed'}]},
     {id:'evidence',name:'认识的进度',p:[98,347],kind:'completion',leaves:[{id:'record',name:'已有记录',kind:'completion',recorded:true},{id:'unknown',name:'信息不足',kind:'completion'}]}
   ];
-  const stressRelations=Array.from({length:12},(_,i)=>{const a=(-90+i*30)*Math.PI/180;return {id:'layout'+i,name:'布局样本'+String(i+1).padStart(2,'0'),p:[195+(154+i%3*5)*Math.cos(a),230+(154+i%3*5)*Math.sin(a)],kind:'fixed',leaves:facetNames.map((name,j)=>({id:'f'+j,name,kind:'fixed',recorded:false}))}});
-  const data = {relations,traits,personal};
-  let stress=false,longLabels=false,layoutState=[];
-  const displayName=b=>longLabels?b.name+' · 长内容排版示例':b.name;
-  const fresh = () => ({k:1,x:0,y:0,branch:null,leaf:null,open:false,tier:1});
-  const views = {relations:{...fresh(),branch:'space'},traits:fresh(),personal:fresh()};
-  let tab='relations', frame=0, anim=0, seq=0, moved=false, suppress=false, gesture=null, zoomGoal=null;
-  const viewport=$('#viewport'), svg=$('#branches'), layer=$('#nodes'), detail=$('#detail'), pointers=new Map();
-  const view=()=>views[tab], branch=()=>data[tab].find(b=>b.id===view().branch), reduced=()=>$('#still').checked||matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function shape(tag,attrs){const e=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));return e;}
-  function icon(i,main=false){if(material==='hybrid'&&main&&tab==='relations'&&!stress)return `<img class="node-icon painted-icon" src="assets/${relationIds[i]}.webp" alt="" width="44" height="34">`;const paths=['M7 5L15 2L23 5V13Q22 22 15 26Q8 22 7 13Z','M15 25V12Q4 12 6 3Q17 4 15 15Q16 4 25 3Q25 13 15 16','M4 10Q4 0 15 8Q26 0 26 10Q26 16 15 25Q4 16 4 10','M3 21H27M7 19Q7 4 15 4Q24 4 23 19Z','M15 25Q0 15 5 7Q10 1 15 9Q20 1 25 7Q30 15 15 25','M3 24L12 7L17 15L21 9L28 24Z','M15 26V14Q3 15 4 4Q15 4 15 16Q16 6 27 3Q28 15 15 19','M5 6Q15 0 25 6Q15 12 5 6V21Q15 28 25 21V6M5 14Q15 21 25 14'];return `<svg class="node-icon" viewBox="0 0 30 30" aria-hidden="true"><path d="${paths[i%8]}" stroke-linejoin="round"/></svg>`;}
-  const hasRecord=b=>b.leaves.some(l=>l.recorded);
-  const recordLabel=b=>{const n=b.leaves.filter(l=>l.recorded).length;return !n?'未探索':n<b.leaves.length?'部分线索有记录':'有记录'};
-  function dims(){return {w:viewport.clientWidth,h:viewport.clientHeight,s:Math.min(viewport.clientWidth/390,viewport.clientHeight/460)}}
-  function point(p){const d=dims(),v=view();return [d.w/2+(p[0]-195)*d.s*v.k+v.x,d.h/2+(p[1]-230)*d.s*v.k+v.y]}
-  function leafPositions(b){const [x,y]=b.p,vertical=Math.abs(y-230)>Math.abs(x-195);return b.leaves.map((_,i)=>{const n=i-(b.leaves.length-1)/2;return vertical?[x+n*60,y+Math.sign(y-230)*80]:[x+Math.sign(x-195)*80,y+n*48]})}
-  function curve(a,b,bend=0){if(a[0]===195&&a[1]===230&&b[0]===327&&b[1]===218)return [point(a),point([230,302]),point([291,294]),point(b)];const A=point(a),B=point(b),dx=B[0]-A[0],dy=B[1]-A[1],len=Math.hypot(dx,dy)||1,px=-dy/len,py=dx/len;return [A,[A[0]+dx*.28+px*bend,A[1]+dy*.28+py*bend],[B[0]-dx*.35-px*bend*.75,B[1]-dy*.35-py*bend*.75],B]}
-  function pathBetween(a,b,bend=0){const q=curve(a,b,bend);return `M${q[0]} C${q[1]} ${q[2]} ${q[3]}`}
-  function at(q,t){const u=1-t;return [0,1].map(i=>u*u*u*q[0][i]+3*u*u*t*q[1][i]+3*u*t*t*q[2][i]+t*t*t*q[3][i])}
-  function taper(q,width){const sides=[[],[]];for(let n=0;n<=24;n++){const t=n/24,p=at(q,t),a=at(q,Math.max(0,t-.005)),b=at(q,Math.min(1,t+.005)),dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy)||1,r=(width*(1-t)**1.6+.35)/2;sides[0].push([p[0]-dy/len*r,p[1]+dx/len*r]);sides[1].push([p[0]+dy/len*r,p[1]-dx/len*r]);}return 'M'+sides[0].map(p=>p.join(',')).join(' L')+' L'+sides[1].reverse().map(p=>p.join(',')).join(' L')+' Z';}
-  function limits(){const d=dims(),v=view(),m=d.s*v.k;v.x=Math.max(-330*m,Math.min(330*m,v.x));v.y=Math.max(-390*m,Math.min(390*m,v.y));}
-  function tier(){const v=view();if(v.k>1.24)v.namesVisible=true;if(v.k<1.12)v.namesVisible=false;if(v.tier===0&&v.k>1.02)v.tier=1;if(v.tier===1&&v.k<.86)v.tier=0;if(v.tier<2&&v.k>1.52)v.tier=2;if(v.tier>=2&&v.k<1.36)v.tier=1;if(v.tier===2&&v.k>2.4)v.tier=3;if(v.tier===3&&v.k<2.2)v.tier=2;}
-  function placeNodes(v,d,selected){
-    const compact=stress&&tab==='relations'&&!v.namesVisible;layer.classList.toggle('compact-ring',compact);const boxes=[],entries=[];const gap=7;const stamp=d.w+'x'+d.h+':'+v.tier+':'+compact;if(v.layoutStamp!==stamp){v.labelOffsets={};v.layoutStamp=stamp}v.labelOffsets||={};
-    const intersects=(r,b)=>r.x<b.x+b.w+gap&&r.x+r.w+gap>b.x&&r.y<b.y+b.h+gap&&r.y+r.h+gap>b.y;
-    const laneMap={};const useLanes=longLabels&&!stress;
-    if(useLanes){const parents=[...layer.querySelectorAll('[data-branch]')];parents.forEach(el=>{const ico=el.querySelector('.node-icon');if(ico){ico.style.height=v.tier>0?'34px':'0';ico.style.marginBottom=v.tier>0?'2px':'0'}});const maxH=Math.max(...parents.map(e=>e.offsetHeight)),sides=[[],[]];data[tab].forEach((b,i)=>sides[b.p[0]<195||b.p[0]===195&&i===0?0:1].push(b));sides.forEach((items,side)=>{items.sort((a,b)=>a.p[1]-b.p[1]);const topN=Math.ceil(items.length/2),bottomN=items.length-topN;items.forEach((b,i)=>{const upper=i<topN,n=upper?topN:bottomN,index=upper?i:i-topN,start=upper?7:d.h/2+40,end=upper?d.h/2-40:d.h-7;const cy=n===1?(start+end)/2:start+maxH/2+index*(end-start-maxH)/(n-1);const el=parents.find(e=>e.dataset.branch===b.id),width=el.offsetWidth,base=d.w/2+(b.p[0]-195)*d.s;const cx=side===0?Math.max(width/2+7,Math.min(d.w/2-4-width/2,base)):Math.max(d.w/2+4+width/2,Math.min(d.w-width/2-7,base));laneMap[b.id]=[cx,cy]})})}
-    const offsets=[[0,0]];for(let r=8;r<=240;r+=8)for(let a=0;a<16;a++)offsets.push([Math.cos(a*Math.PI/8)*r,Math.sin(a*Math.PI/8)*r]);
-    [...layer.querySelectorAll('.node')].sort((a,b)=>Number(!!a.dataset.leaf)-Number(!!b.dataset.leaf)).forEach(el=>{
-      let world=[195,230],eligible=true;const root=el.classList.contains('root');
-      if(el.dataset.branch){const b=data[tab].find(x=>x.id===el.dataset.branch);world=b.p;el.querySelector('.node-label').textContent=compact?String(data[tab].indexOf(b)+1).padStart(2,'0'):displayName(b);el.classList.toggle('selected',b===selected);const ico=el.querySelector('.node-icon');if(ico){ico.style.opacity=v.tier>0&&!compact&&(!stress||v.tier>=2)?'1':'0';ico.style.height=v.tier>0&&!compact&&(!stress||v.tier>=2)?'34px':'0';ico.style.marginBottom=v.tier>0&&!compact&&(!stress||v.tier>=2)?'2px':'0';}}
-      if(el.dataset.leaf){world=selected?leafPositions(selected)[Number(el.dataset.index)]:world;eligible=!!selected&&v.tier>=2;el.classList.toggle('selected',v.leaf===el.dataset.leaf);const ico=el.querySelector('.node-icon');if(ico)ico.style.display=v.tier===3?'block':'none';}
-      const anchor=point(world),lane=laneMap[el.dataset.branch],preferred=lane?[d.w/2+v.x+(lane[0]-d.w/2)*Math.max(1,v.k),d.h/2+v.y+(lane[1]-d.h/2)*Math.max(1,v.k)]:anchor,w=el.offsetWidth,h=el.offsetHeight+(el.dataset.leaf&&v.tier===3?17:0),top=el.dataset.leaf&&v.tier===3?17:0;
-      eligible=eligible&&((anchor[0]>=8&&anchor[0]<=d.w-8&&anchor[1]>=8&&anchor[1]<=d.h-8)||(preferred[0]>=8&&preferred[0]<=d.w-8&&preferred[1]>=8&&preferred[1]<=d.h-8));
-      let rect=null;
-      const key=el.dataset.branch||el.dataset.leaf||'root',previous=v.labelOffsets[key];if(eligible){for(const [ox,oy] of (previous?[previous,...offsets]:offsets)){if(root&&(ox||oy))break;const x=Math.max(7,Math.min(d.w-w-7,preferred[0]-w/2+ox)),y=Math.max(7,Math.min(d.h-h-7,preferred[1]-h/2+oy));const r={x,y,w,h};if(el.dataset.branch&&!useLanes&&v.k<=1.36&&Math.abs(v.x)<5&&Math.abs(v.y)<5){const root=point([195,230]),ax=anchor[0]-root[0],ay=anchor[1]-root[1],bx=x+w/2-root[0],by=y+h/2-root[1];if((ax*bx+ay*by)<(stress?.62:.78)*Math.hypot(ax,ay)*Math.hypot(bx,by))continue}if(!boxes.some(b=>intersects(r,b))){rect=r;break}}}
-      const visible=!!rect;
-      if(visible){v.labelOffsets[key]=[rect.x+w/2-preferred[0],rect.y+h/2-preferred[1]];boxes.push(rect);el.style.left=(rect.x+w/2)+'px';el.style.top=(rect.y+h/2+top/2)+'px';entries.push({el,anchor,rect,world});}
-      el.style.opacity=visible?'1':'0';el.style.pointerEvents=visible?'auto':'none';el.tabIndex=visible?0:-1;el.setAttribute('aria-hidden',String(!visible));
-    });
-    layoutState=entries.map(e=>({key:e.el.dataset.branch||e.el.dataset.leaf||'root',anchor:e.anchor.slice(),rect:{...e.rect}}));return entries;
-  }
-  function draw(){frame=0;limits();tier();const v=view(),d=dims(),selected=branch();svg.setAttribute('viewBox',`0 0 ${d.w} ${d.h}`);svg.replaceChildren();const defs=shape('defs',{});for(const [id,color] of [['leaf-green','var(--leaf-ink,var(--primary))'],['leaf-warm','var(--leaf-gold,var(--warm))']]){const g=shape('linearGradient',{id,x1:'0%',y1:'100%',x2:'100%',y2:'0%'});g.append(shape('stop',{offset:0,'stop-color':color,'stop-opacity':.43}),shape('stop',{offset:.55,'stop-color':color,'stop-opacity':.24}),shape('stop',{offset:1,'stop-color':'var(--paper)','stop-opacity':.13}));defs.append(g)}svg.append(defs);const entries=placeNodes(v,d,selected),mask=shape('mask',{id:'reading-space',maskUnits:'userSpaceOnUse',x:0,y:0,width:d.w,height:d.h});mask.append(shape('rect',{width:d.w,height:d.h,fill:'white'}));const vr=viewport.getBoundingClientRect();entries.forEach(e=>{if(e.el.classList.contains('root')){mask.append(shape('circle',{cx:e.rect.x+e.rect.w/2,cy:e.rect.y+e.rect.h/2,r:e.rect.w/2+4,fill:'black'}));return}e.el.querySelectorAll('.node-label,.node-icon').forEach(n=>{if(getComputedStyle(n).display==='none'||getComputedStyle(n).opacity==='0')return;const r=n.getBoundingClientRect();mask.append(shape('rect',{x:r.x-vr.x-3,y:r.y-vr.y-3,width:r.width+6,height:r.height+6,rx:4,fill:'black'}))})});defs.append(mask);const art=shape('g',{mask:'url(#reading-space)'});svg.append(art);
-    data[tab].forEach((b,i)=>{const hot=hasRecord(b),q=curve([195,230],b.p,(i%2?1:-1)*65*d.s*v.k),color=hot?'var(--stem-warm,var(--warm))':'var(--primary)';
-      const stem=shape('linearGradient',{id:'stem-'+i,gradientUnits:'userSpaceOnUse',x1:q[0][0],y1:q[0][1],x2:q[3][0],y2:q[3][1]});stem.append(shape('stop',{offset:0,'stop-color':color,'stop-opacity':.32}),shape('stop',{offset:.45,'stop-color':color,'stop-opacity':.72}),shape('stop',{offset:1,'stop-color':color,'stop-opacity':.45}));defs.append(stem);
-      art.append(shape('path',{d:pathBetween([195,230],b.p,(i%2?1:-1)*65*d.s*v.k),fill:'none',stroke:color,'stroke-width':8*d.s,opacity:.045}));
-      art.append(shape('path',{d:taper(q,(hot?5.4:4.2)*d.s*Math.min(v.k,1.6)),fill:'url(#stem-'+i+')'}));
-      art.append(shape('path',{d:pathBetween([195,230],b.p,(i%2?1:-1)*65*d.s*v.k),fill:'none',stroke:'var(--paper)','stroke-width':.7,opacity:.7}));
-      [.26,.46,.64,.8].forEach((t,j)=>{const p=at(q,t),sgn=(i+j)%2?1:-1,scale=(j===1?1.05:.75)*d.s*Math.min(v.k,1.8),turn=(i%3-1)*16;const leaf=shape('g',{transform:`translate(${p}) rotate(${turn}) scale(${sgn*scale},${scale})`});
-        leaf.append(shape('path',{d:'M0 0 C10 -30 31 -22 44 -43 C48 -12 18 5 0 0Z',fill:hot?'url(#leaf-warm)':'url(#leaf-green)'}));
-        leaf.append(shape('path',{d:'M0 0 Q28 -13 44 -43',fill:'none',stroke:color,'stroke-width':.55,opacity:.09}));
-        ['M10 -7 Q11 -16 13 -18','M17 -13 Q19 -23 20 -25','M24 -22 Q31 -22 35 -28','M17 -13 Q24 -13 29 -18'].forEach(d=>leaf.append(shape('path',{d,fill:'none',stroke:'var(--paper)','stroke-width':.6,opacity:.55})));
-        art.append(leaf);
-      });
-      if(b===selected&&v.tier>=2)leafPositions(b).forEach((p,j)=>{const e=entries.find(e=>e.el.dataset.leaf===b.leaves[j].id);const a=point(b.p),z=e?[e.rect.x+e.rect.w/2,e.rect.y+e.rect.h/2]:point(p),dx=z[0]-a[0],dy=z[1]-a[1];art.append(shape('path',{d:`M${a} C${a[0]+dx*.22},${a[1]+dy*.38} ${z[0]-dx*.28},${z[1]-dy*.2} ${z}`,fill:'none',stroke:b.leaves[j].recorded?'var(--warm)':'var(--primary)','stroke-width':1.25,opacity:.58}))});
-    });
-    entries.forEach(e=>{const cx=e.rect.x+e.rect.w/2,cy=e.rect.y+e.rect.h/2;if(!e.el.dataset.leaf&&Math.hypot(cx-e.anchor[0],cy-e.anchor[1])>12){art.append(shape('path',{d:`M${e.anchor} Q${e.anchor[0]},${cy} ${cx},${cy}`,stroke:'var(--primary)','stroke-width':.7,opacity:.3,fill:'none'}));art.append(shape('circle',{cx:e.anchor[0],cy:e.anchor[1],r:2,fill:'var(--primary)',opacity:.35}))}});
-    $('#fit-branch').disabled=!selected;$('#zoom-label').textContent=Math.round(v.k*100)+'%';$('#zoom-in').disabled=v.k>=3;$('#zoom-out').disabled=v.k<=.7;$('#level').textContent=['总览','主枝','枝叶','细节'][selected?v.tier:Math.min(v.tier,1)]+' · '+(selected&&v.tier>=2?entries.filter(e=>e.el.dataset.leaf).length+'/'+selected.leaves.length+'叶':entries.filter(e=>e.el.dataset.branch).length+'/'+data[tab].length);
-  }
-  function schedule(){if(!frame)frame=requestAnimationFrame(draw)}
-  function build(){layer.innerHTML=`<button class="node root" data-root aria-label="我，回到全图">我</button>`+data[tab].map((b,i)=>`<button class="node ${hasRecord(b)?'recorded':''}" data-branch="${b.id}" aria-label="${esc(b.name)}，${recordLabel(b)}">${icon(i,true)}<span class="node-label">${esc(displayName(b))}</span></button>`).join('');const b=branch();if(b)layer.querySelector('[data-branch="'+b.id+'"]').insertAdjacentHTML('afterend',b.leaves.map((l,j)=>`<button class="node leaf ${l.recorded?'recorded':''}" data-leaf="${l.id}" data-index="${j}" aria-label="${esc(b.name+'，'+l.name)}">${icon(j)}<span class="node-label">${esc(l.name)}</span></button>`).join(''));$('#index').innerHTML=data[tab].map(b=>`<button data-select="${b.id}">${esc(b.name)}</button>`).join('');draw();}
-  function details(){const v=view(),b=branch(),l=b?.leaves.find(x=>x.id===v.leaf);let content='';if(!b){content=`<h2>${tab==='traits'?'十六种倾向，各有来处':'慢慢认识自己的样子'}</h2><p>${tab==='traits'?'按字母索引展开因子；没有有效结果的地方，先留白。':'选择一条主枝，看看它承载的线索。'}</p>`;}else{content=`<div class="kicker"><span>${esc(b.name)}${l?' / '+esc(l.name):''}</span>${v.open?'<button data-close>收起详情</button>':'<button data-expand>展开枝叶 ↗</button>'}</div><h2>${esc(l?l.name:longLabels?displayName(b):b.id==='space'?'我需要怎样的独处时间':b.name)}</h2>`;if(v.open){if(l?.kind==='bipolar'){content+='<p>同一倾向的两端同时保留。</p><div class="choices"><span>较低乐群倾向</span><span>较高乐群倾向</span></div><div class="scale" aria-hidden="true"></div><p>仅以乐群因子说明双极结构。无有效量表结果，暂不落点；其他因子不套用这组两端。</p>';if(l.id!=='A')content='<div class="kicker">人格倾向 / '+esc(l.name)+'<button data-close>收起详情</button></div><h2>'+esc(l.name)+'</h2><p>尚无有效结果。两端名称及共同刻度须由对应量表支持，不从其他因子借用。</p>';}else if(b.kind==='independent'){content+='<p>两种需要可以同时存在，不是同一刻度的相反两端。</p><div class="choices"><span class="current">✓ 需要陪伴</span><span class="current">✓ 需要独处</span></div>';}else if(b.kind==='exclusive'){content+='<p>同一条记录只能有一个可见性状态。</p><div class="choices"><span class="current">● 仅自己 · 当前</span><span>○ 允许分享</span></div><p>这里仅展示状态，没有执行分享。</p>';}else if(b.kind==='completion'){content+='<p>已有记录与信息不足可以并存。进度只说明资料是否充分，不代表人格高低。</p>';}else if(l){content+=`<p>${l.recorded?'已有一条线索':'这一角度还未探索'}</p><p>${b.id==='space'&&l.id==='f2'?'忙碌的一天之后，我希望留一段不被打扰的时间，也愿意约好再相处。':'这个角度独立保留，不与其他侧面相减，也不合成总分。'}</p>`;}else{content+=`<p>${b.kind==='index'?'四个因子各自独立，点选继续查看。':'能做到、愿投入、自己需要与边界，可以同时存在。'}</p>`;}content+='<button data-overview>返回全图</button>';}else{content+=`<p>${v.leaf?'已保留所选线索；放大可继续查看。':'点开主枝，再选择一片叶子。'}</p>`;}}detail.classList.toggle('compact',!!b&&!v.open);detail.classList.toggle('has-context',!!v.leaf);detail.innerHTML=content;if(b&&!v.open&&tab==='relations')detail.insertAdjacentHTML('afterbegin',`<div class="detail-art" aria-hidden="true">${icon(data[tab].indexOf(b),true)}</div>`);}
-  function stop(){seq++;cancelAnimationFrame(anim);anim=0;zoomGoal=null}
-  function moveTo(target,animate=true,canonical=false){stop();const v=view(),from={k:v.k,x:v.x,y:v.y},token=seq,t0=performance.now();target.k=Math.max(.7,Math.min(3,target.k));zoomGoal=target.k;if(reduced()||!animate){Object.assign(v,target);zoomGoal=null;draw();return}function tick(now){if(token!==seq)return;const f=Math.min(1,(now-t0)/220),e=1-(1-f)**3;for(const k of ['k','x','y'])v[k]=from[k]+(target[k]-from[k])*e;if(canonical)v.labelOffsets={};draw();if(f<1)anim=requestAnimationFrame(tick);else{anim=0;zoomGoal=null}}anim=requestAnimationFrame(tick)}
-  function zoom(k,anchor){const v=view(),d=dims(),nk=Math.max(.7,Math.min(3,k)),a=anchor||[d.w/2,d.h/2],r=nk/v.k;let x=a[0]-d.w/2-(a[0]-d.w/2-v.x)*r,y=a[1]-d.h/2-(a[1]-d.h/2-v.y)*r;if(v.focusCamera&&nk<1.62){const f=Math.max(0,(nk-1.36)/.26);x=v.focusCamera.x*f;y=v.focusCamera.y*f;if(!f)v.focusCamera=null}moveTo({k:nk,x,y},!anchor)}
-  function fit(){view().labelOffsets={};view().focusCamera=null;moveTo({k:1,x:0,y:0},true,true);details()}
-  function select(id){const v=view();v.labelOffsets={};v.branch=id;v.leaf=null;v.open=true;build();details();layer.querySelector(`[data-branch="${id}"]`).focus({preventScroll:true});const b=branch(),d=dims();const ps=leafPositions(b),mx=ps.reduce((n,p)=>n+p[0],0)/ps.length,my=ps.reduce((n,p)=>n+p[1],0)/ps.length;const target={k:1.62,x:-((b.p[0]+mx)/2-195)*d.s*1.62,y:-((b.p[1]+my)/2-230)*d.s*1.62};v.focusCamera={x:target.x,y:target.y};moveTo(target);$('#announce').textContent=b.name+'，已展开'+b.leaves.length+'条线索';}
-  function switchTab(id){stop();pointers.clear();gesture=null;tab=id;$('#fixture-banner').hidden=!(stress&&tab==='relations');document.body.classList.toggle('stress-layout',stress&&tab==='relations');document.querySelectorAll('[data-tab]').forEach(b=>{const active=b.dataset.tab===tab;b.setAttribute('aria-selected',String(active));b.tabIndex=active?0:-1});$('#panel').setAttribute('aria-labelledby','tab-'+id);$('#intro').textContent={relations:'了解自己，也理解相处。',traits:'不同倾向，不同的理解入口。',personal:'从经历里，慢慢看见自己。'}[id];if(stress&&tab==='relations')$('#intro').textContent='12条主枝 · 点选编号查看名称与枝叶';$('.text-index summary').textContent='按名称查看线索 · '+data[tab].length+'条';build();details();}
-  document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.tab){switchTab(b.dataset.tab);return}if(b.dataset.branch){select(b.dataset.branch);return}if(b.dataset.select){select(b.dataset.select);viewport.focus({preventScroll:true});return}if(b.dataset.leaf){view().leaf=b.dataset.leaf;view().open=true;draw();details();return}if(b.hasAttribute('data-expand')){select(view().branch);return}if(b.hasAttribute('data-close')){view().open=false;details();viewport.focus({preventScroll:true});return}if(b.hasAttribute('data-overview')||b.hasAttribute('data-root')){view().open=false;fit();viewport.focus({preventScroll:true});return}});
-  viewport.addEventListener('click',e=>{if(suppress){e.preventDefault();e.stopPropagation();suppress=false}},true);
-  $('#zoom-in').onclick=()=>zoom((zoomGoal??view().k)*1.28);$('#zoom-out').onclick=()=>zoom((zoomGoal??view().k)/1.28);$('#fit').onclick=fit;$('#fit-branch').onclick=()=>{const v=view();if(!v.branch)return;const leaf=v.leaf,open=v.open;select(v.branch);v.leaf=leaf;v.open=open;details();draw()};$('#profile-nav').onclick=()=>{fit();viewport.focus({preventScroll:true})};$('#reset').onclick=()=>{stop();Object.keys(views).forEach(k=>views[k]=fresh());switchTab('relations')};
-  function local(e){const r=viewport.getBoundingClientRect();return [e.clientX-r.left,e.clientY-r.top]}
-  function snapshotGesture(){const a=[...pointers.values()],v=view();gesture={points:a.map(x=>x.slice()),k:v.k,x:v.x,y:v.y,dist:a.length>1?Math.hypot(a[0][0]-a[1][0],a[0][1]-a[1][1]):0};}
-  viewport.addEventListener('pointerdown',e=>{if(e.button!==0)return;stop();if(!pointers.size){moved=false;suppress=false}pointers.set(e.pointerId,local(e));e.target.setPointerCapture(e.pointerId);snapshotGesture();});
-  viewport.addEventListener('pointermove',e=>{if(!pointers.has(e.pointerId)||!gesture)return;const a=local(e);pointers.set(e.pointerId,a);const ps=[...pointers.values()],v=view();if(ps.length===1){const dx=a[0]-gesture.points[0][0],dy=a[1]-gesture.points[0][1];if(Math.hypot(dx,dy)>7)moved=true;if(moved){v.focusCamera=null;v.x=gesture.x+dx;v.y=gesture.y+dy}}else{moved=true;v.focusCamera=null;const dist=Math.hypot(ps[0][0]-ps[1][0],ps[0][1]-ps[1][1]),k=Math.max(.7,Math.min(3,gesture.k*dist/Math.max(1,gesture.dist))),d=dims(),mid=ps[0].map((x,i)=>(x+ps[1][i])/2),old=gesture.points[0].map((x,i)=>(x+gesture.points[1][i])/2),ratio=k/gesture.k;v.k=k;v.x=mid[0]-d.w/2-(old[0]-d.w/2-gesture.x)*ratio;v.y=mid[1]-d.h/2-(old[1]-d.h/2-gesture.y)*ratio}viewport.classList.toggle('dragging',moved);schedule()});
-  function release(e){pointers.delete(e.pointerId);if(moved)suppress=true;if(pointers.size)snapshotGesture();else{gesture=null;viewport.classList.remove('dragging')}if(viewport.hasPointerCapture(e.pointerId))viewport.releasePointerCapture(e.pointerId)}viewport.addEventListener('pointerup',release);viewport.addEventListener('pointercancel',release);
-  viewport.addEventListener('wheel',e=>{e.preventDefault();zoom(view().k*Math.exp(-e.deltaY*.002),local(e))},{passive:false});
-  viewport.addEventListener('keydown',e=>{const v=view();if(['+','=','-','Home','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Escape'].includes(e.key)){e.preventDefault();stop();if(e.key==='+'||e.key==='=')zoom(v.k*1.28);else if(e.key==='-')zoom(v.k/1.28);else if(e.key==='Home')fit();else if(e.key==='Escape'){v.open=false;details()}else{v.focusCamera=null;v.x+=e.key==='ArrowRight'?-32:e.key==='ArrowLeft'?32:0;v.y+=e.key==='ArrowDown'?-32:e.key==='ArrowUp'?32:0;draw()}}});
-  $('.tabs').addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const keys=['traits','relations','personal'],i=keys.indexOf(tab),n=e.key==='Home'?0:e.key==='End'?2:(i+(e.key==='ArrowRight'?1:2))%3;switchTab(keys[n]);$('#tab-'+keys[n]).focus()}});
-  new ResizeObserver(()=>{stop();schedule()}).observe(viewport);
-  $('#structure').onchange=()=>{stop();stress=$('#structure').value==='12';data.relations=stress?stressRelations:relations;views.relations=fresh();$('#stress-note').hidden=!stress;switchTab('relations')};
-  $('#long-labels').onchange=()=>{longLabels=$('#long-labels').checked;document.body.classList.toggle('long-labels',longLabels);build();details()};
-  const syncMotion=()=>{document.body.classList.toggle('static',$('#still').checked);if(reduced())stop();Ambient.setContext({quiet:false,reduced:$('#still').checked})};$('#still').onchange=syncMotion;matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',syncMotion);
-  document.body.className='theme-mint study';Ambient.setContext({quiet:false});
-  fetch('../../handoff/themes-v4.json').then(r=>{if(!r.ok)throw Error();return r.json()}).then(themes=>{$('#theme').insertAdjacentHTML('beforeend',themes.map(t=>`<option value="${t.id}">${esc(t.name)}</option>`).join(''));$('#theme').onchange=()=>{const id=$('#theme').value;document.body.className=(id==='study'?'theme-mint study':'theme-'+id)+($('#still').checked?' static':'')+(stress&&tab==='relations'?' stress-layout':'')+(longLabels?' long-labels':'');Ambient.setContext({quiet:false,reduced:$('#still').checked})}}).catch(()=>{$('#announce').textContent='主题目录暂不可用，当前配色仍可浏览。'});
-  if(new URLSearchParams(location.search).get('structure')==='12'){$('#structure').value='12';$('#structure').onchange()}
-  build();details();window.BotanicalTree={snapshot:()=>({tab,...view()}),counts:()=>({relations:relations.length,factors:traits.reduce((n,b)=>n+b.leaves.length,0)}),positions:relations.map(b=>b.p.slice()),layout:()=>layoutState,structure:()=>data.relations.length};
+const normalize=rows=>rows.map(b=>({...b,anchor:b.p,children:b.leaves.map(l=>({...l,id:b.id+'/'+l.id,shortId:l.id,children:[]}))}));
+const actual={relations:normalize(relations),traits:normalize(traits),personal:normalize(personal)};
+function fixture(count){
+  const node=(id,name,kind='explanation',children=[])=>({id,name,kind,children,recorded:kind==='completion',description:'匿名结构样本，仅验证节点说明与层级导航，不是心理维度或真实结果。'});
+  return Array.from({length:count},(_,i)=>{const id='layout'+i;let children=[];
+    if(i%6===1)children=[node(id+'/note','解释节点')];
+    if(i%6===2)children=[node(id+'/a','A端说明','bipolar'),node(id+'/b','B端说明','bipolar')];
+    if(i%6===3)children=['一','二','三'].map((n,j)=>node(id+'/n'+j,'侧面'+n,'fixed'));
+    if(i%6===4){let deep=node(id+'/d6','第六层说明');for(let d=5;d>=2;d--)deep=node(id+'/d'+d,'第'+d+'层线索','explanation',d===3?[node(id+'/aside','旁侧说明'),deep]:[deep]);children=[deep];}
+    if(i%6===5)children=[node(id+'/known','已有记录','completion'),node(id+'/unknown','信息不足','unknown')];
+    return node(id,'样本'+String(i+1).padStart(2,'0'),i%6===2?'bipolar':'fixed',children);
+  });
+}
+let count=8,tab='relations',longLabels=false,model,renderedEdges=[],visibleLayout=[],seq=0,anim=0,frame=0,returnFocus=null;
+const fresh=()=>({k:1,x:0,y:0,selected:null,branch:null,leaf:null,focusDepth:0,names:false,level:1,focusCamera:null});
+const views={relations:fresh(),traits:fresh(),personal:fresh()},view=()=>views[tab];
+const viewport=$('#viewport'),svg=$('#branches'),layer=$('#nodes'),popover=$('#node-popover');
+const reduced=()=>$('#still').checked||matchMedia('(prefers-reduced-motion: reduce)').matches;
+const dims=()=>({w:viewport.clientWidth,h:viewport.clientHeight,s:Math.min(viewport.clientWidth/390,viewport.clientHeight/460)});
+const project=p=>{const d=dims(),v=view();return [d.w/2+v.x+p[0]*d.s*v.k,d.h/2+v.y+p[1]*d.s*v.k]};
+const nodeBy=id=>model.nodes.find(n=>n.id===id);
+function state(n){const children=model.nodes.filter(c=>c.parent===n.id);if(children.length){const recorded=children.filter(c=>c.recorded).length;return recorded?recorded===children.length?'有记录':'部分线索有记录':'未探索'}return n.recorded?'有记录':'未探索'}
+function make(tag,attrs){const e=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));return e}
+function rebuild(){
+ const roots=tab==='relations'&&count!==8?fixture(count):actual[tab];model=G.build(roots);
+ layer.innerHTML=model.nodes.map(n=>`<button class="tree-node ${n.depth===0?'root-node':''} ${n.recorded?'recorded':''}" data-node="${n.id}" aria-label="${esc(n.name+'，'+state(n))}"><span class="node-medallion" aria-hidden="true">${n.depth===0?'我':n.depth===1&&count!==8&&tab==='relations'?String(roots.findIndex(r=>r.id===n.id)+1).padStart(2,'0'):'<i></i>'}</span></button><span class="tree-label" data-label="${n.id}" aria-hidden="true">${esc(n.name)}</span>`).join('');
+ $('#index').innerHTML=model.nodes.filter(n=>n.depth).map(n=>`<button data-select="${n.id}" style="--depth:${n.depth}">${esc(n.name)}<small>${n.children.length?' · '+n.children.length+'个下级':' · 说明'}</small></button>`).join('');
+ $('.text-index summary').textContent=`按名称查看线索 · ${roots.length}条主枝`;
+ $('#fixture-banner').hidden=!(count!==8&&tab==='relations');$('#fixture-banner').textContent=`匿名拓扑样本：${count}条主枝，子树数量与深度不等，最深6层。不是新增心理维度。`;
+ $('#intro').textContent=count!==8&&tab==='relations'?'点选圆点了解含义，放大逐层查看。':{relations:'了解自己，也理解相处。',traits:'不同倾向，不同的理解入口。',personal:'从经历里，慢慢看见自己。'}[tab];
+ draw();
+}
+function levels(){const v=view();if(v.k>1.24)v.names=true;if(v.k<1.12)v.names=false;const thresholds=[0,0,1.52,1.9,2.2,2.55,2.8];let level=v.level;while(level<6&&v.k>thresholds[level+1])level++;while(level>1&&v.k<thresholds[level]-.12)level--;v.level=level;return Math.min(6,Math.max(level,v.focusDepth));}
+function draw(){
+ frame=0;const d=dims(),v=view(),depth=levels(),scale=d.s*v.k;const bound=(Math.max(...model.nodes.map(n=>n.radius))+250)*scale;v.x=Math.max(-bound,Math.min(bound,v.x));v.y=Math.max(-bound,Math.min(bound,v.y));svg.setAttribute('viewBox',`0 0 ${d.w} ${d.h}`);svg.replaceChildren();
+ const allowed=model.nodes.filter(n=>n.depth<=1||n.depth<=depth&&(!v.branch||n.rootId===v.branch));
+ const active=[];const hitboxes=[];
+ for(const n of allowed){const [x,y]=project(n.p),size=n.depth?44:66;if(x-size/2<4||x+size/2>d.w-4||y-size/2<4||y+size/2>d.h-4)continue;
+  if(hitboxes.some(b=>Math.hypot(x-b.x,y-b.y)<(size+b.size)/2+3))continue;active.push(n);hitboxes.push({x,y,size,id:n.id});}
+ const activeIds=new Set(active.map(n=>n.id));renderedEdges=[];
+ for(const edge of model.edges){if(!allowed.some(n=>n.id===edge.child))continue;const q=edge.q.map(project),trimmed=G.trim(q,edge.parent==='root'?36:16,16);if(!trimmed)continue;
+  const child=nodeBy(edge.child),warm=child.recorded||state(child).startsWith('部分');const path=make('path',{d:G.path(trimmed),fill:'none',stroke:warm?'var(--warm)':'var(--primary)','stroke-width':edge.depth===1?2.3:1.25,'stroke-linecap':'round',opacity:edge.depth===1?.66:.5,'data-edge':edge.id,'data-parent':edge.parent,'data-child':edge.child});svg.append(path);
+  const samples=Array.from({length:65},(_,i)=>G.point(trimmed,i/64));renderedEdges.push({...edge,q:trimmed,samples});
+ }
+ const occupied=hitboxes.map(b=>({x:b.x-b.size/2-4,y:b.y-b.size/2-4,w:b.size+8,h:b.size+8}));visibleLayout=[];
+ const overlap=(a,b)=>a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y;
+ const blocksLine=r=>renderedEdges.some(e=>e.samples.some(p=>p[0]>r.x-4&&p[0]<r.x+r.w+4&&p[1]>r.y-4&&p[1]<r.y+r.h+4));
+ for(const n of model.nodes){const button=layer.querySelector(`[data-node="${n.id}"]`),label=layer.querySelector(`[data-label="${n.id}"]`),[x,y]=project(n.p),visible=activeIds.has(n.id);
+  button.hidden=!visible;button.tabIndex=visible?0:-1;button.setAttribute('aria-hidden',String(!visible));button.style.left=x+'px';button.style.top=y+'px';button.classList.toggle('selected',v.selected===n.id);label.hidden=true;
+  if(!visible)continue;visibleLayout.push({id:n.id,depth:n.depth,x,y,size:n.depth?44:66});
+  if(!n.depth||count!==8&&tab==='relations'&&!v.names&&n.depth===1||v.k<.86&&n.depth>1)continue;
+  label.textContent=n.name+(longLabels?' · 长内容排版示例':'');label.hidden=false;label.style.maxWidth=longLabels?'116px':'100px';const w=label.offsetWidth,h=label.offsetHeight;
+  const a=n.angle,ux=Math.cos(a),uy=Math.sin(a),candidates=[];
+  for(const dist of [32,44,58,76,96])for(const turn of [Math.PI/2,-Math.PI/2,0,Math.PI,.7,-.7]){const tx=x+Math.cos(a+turn)*dist,ty=y+Math.sin(a+turn)*dist; candidates.push({x:tx-w/2,y:ty-h/2,w,h})}
+  const rect=candidates.find(r=>r.x>=5&&r.y>=5&&r.x+w<=d.w-5&&r.y+h<=d.h-5&&!occupied.some(b=>overlap(r,b))&&!blocksLine(r));
+  if(rect){label.style.left=rect.x+'px';label.style.top=rect.y+'px';occupied.push({x:rect.x-3,y:rect.y-3,w:w+6,h:h+6});}else label.hidden=true;
+ }
+ $('#zoom-label').textContent=Math.round(v.k*100)+'%';$('#zoom-in').disabled=v.k>=3;$('#zoom-out').disabled=v.k<=.7;$('#fit-branch').disabled=!v.branch;$('#level').textContent=`第${depth}层 · ${active.filter(n=>n.depth).length}节点`;
+ $('#detail').textContent=v.selected?`已保留「${nodeBy(v.selected)?.name||'我'}」 · 点圆点查看说明`:'从一条线索开始，慢慢看见自己。';
+}
+function schedule(){if(!frame)frame=requestAnimationFrame(draw)}
+function stop(){seq++;cancelAnimationFrame(anim);anim=0}
+function moveTo(target){stop();const v=view(),from={k:v.k,x:v.x,y:v.y},token=seq,start=performance.now();target.k=Math.max(.7,Math.min(3,target.k));if(reduced()){Object.assign(v,target);draw();return}function tick(t){if(token!==seq)return;const f=Math.min(1,(t-start)/220),e=1-(1-f)**3;for(const k of ['k','x','y'])v[k]=from[k]+(target[k]-from[k])*e;draw();if(f<1)anim=requestAnimationFrame(tick)}anim=requestAnimationFrame(tick)}
+function fit(){view().focusDepth=0;view().focusCamera=null;moveTo({k:1,x:0,y:0})}
+function zoom(k,anchor){const v=view(),d=dims(),nk=Math.max(.7,Math.min(3,k)),a=anchor||[d.w/2,d.h/2],r=nk/v.k;let x=a[0]-d.w/2-(a[0]-d.w/2-v.x)*r,y=a[1]-d.h/2-(a[1]-d.h/2-v.y)*r;if(nk<1.36){v.focusDepth=0;if(v.focusCamera){x=0;y=0;v.focusCamera=null}}moveTo({k:nk,x,y})}
+function focusNode(n,children=false){const d=dims(),v=view(),targets=children?n.children.map(nodeBy):[];v.branch=n.rootId||n.id;v.focusDepth=Math.min(6,n.depth+(children?1:0));const ps=[n,...targets],center=ps.reduce((p,n)=>[p[0]+n.p[0]/ps.length,p[1]+n.p[1]/ps.length],[0,0]);const k=children?1.4:1.6;v.focusCamera=true;moveTo({k,x:-center[0]*d.s*k,y:-center[1]*d.s*k})}
+function description(n){
+ if(n.description)return `<p>${esc(n.description)}</p><p>${n.kind==='bipolar'?'A与B仅展示两端含义，不要求二选一。':n.kind==='unknown'?'信息不足，不推断结果或完成状态。':n.children.length?'下级线索各自保留，不合成为总分。':'这是说明节点，没有待选择或待完成的任务。'}</p>`;
+ if(n.kind==='root')return '<p>不同线索共同组成画像；它们不是一个总分。</p>';
+ if(n.kind==='bipolar')return n.shortId==='A'?'<p>乐群：较低与较高倾向是同一因子的两端。没有有效量表结果，暂不落点。</p>':'<p>尚无有效结果。两端名称和刻度须由对应量表支持，不借用其他因子的定义。</p>';
+ const owner=nodeBy(n.rootId);
+ if(owner.kind==='independent')return '<p>需要陪伴与需要独处可以同时存在，不是相反选项。</p>';
+ if(owner.kind==='exclusive')return '<p>同一条记录只能有一个可见性状态。示例为“仅自己”；这里没有执行分享。</p>';
+ if(owner.kind==='completion')return '<p>已有记录与信息不足可以并存。进度不代表人格高低。</p>';
+ if(tab==='relations')return `<p>${n.depth===1?'能做到、愿投入、自己需要与边界四个侧面独立保留，不互斥，不相减，不合成总分。':n.id==='space/f2'?'忙碌之后，我希望留一段不被打扰的时间，也愿意约好再相处。':'这是关系中的一个独立观察角度，不代表对错或高低。'}</p>`;
+ return '<p>每个因子独立保留；没有有效测量结果的地方先留白。</p>';
+}
+function inspect(n,source,navigate=false){const v=view();v.selected=n.id;v.branch=n.rootId||null;v.leaf=n.depth>1?n.id:null;returnFocus=source;if(navigate)focusNode(n);draw();
+ const ancestors=[];let parent=nodeBy(n.parent);while(parent&&parent.depth){ancestors.unshift(parent.name);parent=nodeBy(parent.parent)}
+ popover.innerHTML=`<div class="popover-head"><span>${n.depth?'第'+n.depth+'层 · '+esc(state(n)):'我的画像'}</span><button data-dismiss aria-label="关闭节点说明">×</button></div>${ancestors.length?`<p class="node-breadcrumb">${ancestors.map(esc).join(' / ')}</p>`:''}<h2>${esc(n.name)}</h2>${description(n)}${n.children.length?`<button class="open-children" data-expand-node="${n.id}">查看${n.children.length}条下级线索 ↗</button>`:''}${n.depth>1?`<button data-parent-node="${n.parent}">← 返回上级线索</button>`:''}`;
+ popover.removeAttribute('style');if(innerWidth>600){const r=(source||viewport).getBoundingClientRect();popover.style.left=Math.max(12,Math.min(innerWidth-374,r.right+12))+'px';popover.style.top=Math.max(12,Math.min(innerHeight-350,r.top))+'px';popover.style.right='auto';popover.style.bottom='auto'}
+ if(!popover.matches(':popover-open'))popover.showPopover();popover.querySelector('[data-dismiss]').focus({preventScroll:true});$('#announce').textContent=n.name+'，说明已打开';
+}
+popover.addEventListener('toggle',e=>{if(e.newState==='closed'){const target=returnFocus?.isConnected&&!returnFocus.hidden?returnFocus:viewport;target.focus({preventScroll:true})}});
+function switchTab(id){stop();pointers.clear();gesture=null;if(popover.matches(':popover-open'))popover.hidePopover();tab=id;document.querySelectorAll('[data-tab]').forEach(b=>{const on=b.dataset.tab===id;b.setAttribute('aria-selected',String(on));b.tabIndex=on?0:-1});$('#panel').setAttribute('aria-labelledby','tab-'+id);rebuild()}
+document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.tab)return switchTab(b.dataset.tab);if(b.dataset.node)return inspect(nodeBy(b.dataset.node),b);if(b.dataset.select)return inspect(nodeBy(b.dataset.select),viewport,true);if(b.hasAttribute('data-dismiss'))return popover.hidePopover();if(b.dataset.parentNode)return inspect(nodeBy(b.dataset.parentNode),viewport,true);if(b.dataset.expandNode){const n=nodeBy(b.dataset.expandNode);popover.hidePopover();focusNode(n,true);return}});
+$('#zoom-in').onclick=()=>zoom(view().k*1.28);$('#zoom-out').onclick=()=>zoom(view().k/1.28);$('#fit').onclick=fit;$('#fit-branch').onclick=()=>{if(view().branch)focusNode(nodeBy(view().branch),true)};$('#profile-nav').onclick=fit;
+$('#reset').onclick=()=>{Object.keys(views).forEach(k=>views[k]=fresh());switchTab('relations')};
+$('#structure').onchange=()=>{count=+$('#structure').value;views.relations=fresh();switchTab('relations')};$('#long-labels').onchange=()=>{longLabels=$('#long-labels').checked;draw()};
+const pointers=new Map();let gesture=null,moved=false,suppress=false;
+const local=e=>{const r=viewport.getBoundingClientRect();return [e.clientX-r.left,e.clientY-r.top]};
+function snapshotGesture(){const ps=[...pointers.values()],v=view();gesture={ps,k:v.k,x:v.x,y:v.y,dist:ps.length>1?Math.hypot(ps[0][0]-ps[1][0],ps[0][1]-ps[1][1]):0}}
+viewport.addEventListener('pointerdown',e=>{if(e.button!==0)return;stop();if(!pointers.size){moved=false;suppress=false}pointers.set(e.pointerId,local(e));e.target.setPointerCapture(e.pointerId);snapshotGesture()});
+viewport.addEventListener('pointermove',e=>{if(!pointers.has(e.pointerId)||!gesture)return;pointers.set(e.pointerId,local(e));const ps=[...pointers.values()],v=view();if(ps.length===1){const dx=ps[0][0]-gesture.ps[0][0],dy=ps[0][1]-gesture.ps[0][1];if(Math.hypot(dx,dy)>7)moved=true;if(moved){v.x=gesture.x+dx;v.y=gesture.y+dy;v.focusCamera=null}}else{moved=true;v.focusCamera=null;const dist=Math.hypot(ps[0][0]-ps[1][0],ps[0][1]-ps[1][1]),k=Math.max(.7,Math.min(3,gesture.k*dist/gesture.dist)),d=dims(),mid=ps[0].map((x,i)=>(x+ps[1][i])/2),old=gesture.ps[0].map((x,i)=>(x+gesture.ps[1][i])/2);v.k=k;v.x=mid[0]-d.w/2-(old[0]-d.w/2-gesture.x)*k/gesture.k;v.y=mid[1]-d.h/2-(old[1]-d.h/2-gesture.y)*k/gesture.k}schedule()});
+function release(e){pointers.delete(e.pointerId);if(moved)suppress=true;if(pointers.size)snapshotGesture();else gesture=null}
+viewport.addEventListener('pointerup',release);viewport.addEventListener('pointercancel',release);viewport.addEventListener('click',e=>{if(suppress){e.preventDefault();e.stopPropagation();suppress=false}},true);
+viewport.addEventListener('wheel',e=>{e.preventDefault();zoom(view().k*Math.exp(-e.deltaY*.002),local(e))},{passive:false});
+viewport.addEventListener('keydown',e=>{if(['+','=','-','Home','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)){e.preventDefault();stop();if(e.key==='+'||e.key==='=')zoom(view().k*1.28);else if(e.key==='-')zoom(view().k/1.28);else if(e.key==='Home')fit();else{const v=view();v.focusCamera=null;v.x+=e.key==='ArrowRight'?-32:e.key==='ArrowLeft'?32:0;v.y+=e.key==='ArrowDown'?-32:e.key==='ArrowUp'?32:0;draw()}}});
+$('.tabs').addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const keys=['traits','relations','personal'],i=keys.indexOf(tab),n=e.key==='Home'?0:e.key==='End'?2:(i+(e.key==='ArrowRight'?1:2))%3;switchTab(keys[n]);$('#tab-'+keys[n]).focus()}});
+new ResizeObserver(schedule).observe(viewport);const syncMotion=()=>{if(reduced())stop();Ambient.setContext({quiet:false,reduced:$('#still').checked})};$('#still').onchange=syncMotion;matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',syncMotion);
+document.body.className='theme-mint study';Ambient.setContext({quiet:false});
+fetch('../../handoff/themes-v4.json').then(r=>{if(!r.ok)throw Error();return r.json()}).then(themes=>{$('#theme').insertAdjacentHTML('beforeend',themes.map(t=>`<option value="${t.id}">${esc(t.name)}</option>`).join(''));$('#theme').onchange=()=>{document.body.className=$('#theme').value==='study'?'theme-mint study':'theme-'+$('#theme').value;Ambient.setContext({quiet:false,reduced:$('#still').checked})}}).catch(()=>{$('#announce').textContent='主题目录暂不可用，当前配色仍可浏览。'});
+const queryCount=+new URLSearchParams(location.search).get('structure');if([6,7,12].includes(queryCount)){count=queryCount;$('#structure').value=String(count)}rebuild();
+window.BotanicalTree={snapshot:()=>({tab,...view()}),counts:()=>({relations:8,factors:16}),structure:()=>count,layout:()=>visibleLayout,topology:()=>model,rendered:()=>renderedEdges,inspect:id=>inspect(nodeBy(id),viewport,true)};
 })();
