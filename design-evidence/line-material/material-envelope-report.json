@@ -1,0 +1,50 @@
+[
+  {
+    "count": 8,
+    "state": "overview",
+    "hits": [],
+    "zoom": 1,
+    "oldPaths": 0,
+    "ready": true
+  },
+  {
+    "count": 8,
+    "state": "zoom",
+    "hits": [],
+    "zoom": 1.28,
+    "oldPaths": 0,
+    "ready": true
+  },
+  {
+    "count": 8,
+    "state": "expanded",
+    "hits": [],
+    "zoom": 1.4,
+    "oldPaths": 0,
+    "ready": true
+  },
+  {
+    "count": 12,
+    "state": "overview",
+    "hits": [],
+    "zoom": 1,
+    "oldPaths": 0,
+    "ready": true
+  },
+  {
+    "count": 12,
+    "state": "zoom",
+    "hits": [],
+    "zoom": 1.28,
+    "oldPaths": 0,
+    "ready": true
+  },
+  {
+    "count": 12,
+    "state": "expanded",
+    "hits": [],
+    "zoom": 1.4,
+    "oldPaths": 0,
+    "ready": true
+  }
+]

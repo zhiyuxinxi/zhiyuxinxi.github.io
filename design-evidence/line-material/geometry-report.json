@@ -1,0 +1,83 @@
+{
+  "geometry": [
+    {
+      "name": "full-8",
+      "nodes": 41,
+      "edges": 40,
+      "maxDepth": 2,
+      "crossings": [],
+      "sectorEscapes": [],
+      "inwardEdges": [],
+      "commonNodeExclusionWorldRadius": 0
+    },
+    {
+      "name": "rendered-overview-8",
+      "nodes": 41,
+      "edges": 40,
+      "maxDepth": 2,
+      "crossings": [],
+      "sectorEscapes": [],
+      "inwardEdges": [],
+      "commonNodeExclusionWorldRadius": 0
+    },
+    {
+      "name": "full-7",
+      "nodes": 22,
+      "edges": 21,
+      "maxDepth": 6,
+      "crossings": [],
+      "sectorEscapes": [],
+      "inwardEdges": [],
+      "commonNodeExclusionWorldRadius": 0
+    },
+    {
+      "name": "rendered-overview-7",
+      "nodes": 22,
+      "edges": 16,
+      "maxDepth": 6,
+      "crossings": [],
+      "sectorEscapes": [],
+      "inwardEdges": [],
+      "commonNodeExclusionWorldRadius": 0
+    }
+  ],
+  "overview": [
+    {
+      "count": 8,
+      "labels": [
+        "风险兜底",
+        "时间陪伴",
+        "情绪支持",
+        "自由空间",
+        "亲密承诺",
+        "规划协商",
+        "成长认可",
+        "金钱资源"
+      ],
+      "accents": 3,
+      "decorationCollisions": [],
+      "overflow": false
+    },
+    {
+      "count": 7,
+      "labels": [
+        "固定说明",
+        "单条解释",
+        "A / B 两端",
+        "多条线索",
+        "深层线索",
+        "记录状态",
+        "补充说明"
+      ],
+      "accents": 2,
+      "decorationCollisions": [],
+      "overflow": false
+    }
+  ],
+  "ABExplanation": true,
+  "depth6PopoverCloseRestoresCamera": true,
+  "limits": [
+    "Chromium emulation, not physical device",
+    "Sampled centerlines; no aesthetic certification"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "width": 364,
+  "height": 460,
+  "clearFraction": 0.9581402293358815,
+  "dynamicSamplesChanged": 12,
+  "sampleCount": 16,
+  "sameAmbientCanvas": true,
+  "transparentPixelsChangedByLineLayer": 897,
+  "maxDifferenceInTransparentPixels": 17,
+  "clearBackgroundPixelsChecked": 156432,
+  "clearBackgroundPixelsChanged": 0,
+  "compositorBoundaryExcludedPixels": 1,
+  "limitations": [
+    "Chromium software WebGL; not a physical-device alpha certification",
+    "One-pixel compositor antialias fringe excluded from clear-background comparison; raw alpha-zero differences retained. Background paused only for exact on/off pixel comparison; preceding GIF frames use live Ambient; GIF is not a timing benchmark"
+  ],
+  "passed": true
+}

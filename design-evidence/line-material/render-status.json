@@ -1,0 +1,14 @@
+{
+  "errors": [],
+  "material": {
+    "ready": true,
+    "error": null,
+    "assets": [
+      "sageThick",
+      "sageFine",
+      "amberThick",
+      "amberFine"
+    ]
+  },
+  "oldConnectionPaths": 0
+}

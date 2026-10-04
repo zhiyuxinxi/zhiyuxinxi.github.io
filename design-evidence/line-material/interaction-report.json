@@ -1,0 +1,1039 @@
+{
+  "geometry": [
+    {
+      "name": "8",
+      "nodes": 41,
+      "edges": 40,
+      "maxDepth": 2,
+      "crossings": [],
+      "sectorEscapes": [],
+      "inwardEdges": [],
+      "commonNodeExclusionWorldRadius": 0
+    },
+    {
+      "name": "12",
+      "nodes": 41,
+      "edges": 40,
+      "maxDepth": 6,
+      "crossings": [],
+      "sectorEscapes": [],
+      "inwardEdges": [],
+      "commonNodeExclusionWorldRadius": 0
+    },
+    {
+      "name": "traits",
+      "nodes": 21,
+      "edges": 20,
+      "maxDepth": 2,
+      "crossings": [],
+      "sectorEscapes": [],
+      "inwardEdges": [],
+      "commonNodeExclusionWorldRadius": 0
+    },
+    {
+      "name": "personal",
+      "nodes": 13,
+      "edges": 12,
+      "maxDepth": 2,
+      "crossings": [],
+      "sectorEscapes": [],
+      "inwardEdges": [],
+      "commonNodeExclusionWorldRadius": 0
+    }
+  ],
+  "states": [
+    {
+      "visible": [
+        {
+          "id": "root",
+          "depth": 0,
+          "x": 182,
+          "y": 230,
+          "size": 66
+        },
+        {
+          "id": "money",
+          "depth": 1,
+          "x": 74.2,
+          "y": 222.16000000000003,
+          "size": 44
+        },
+        {
+          "id": "risk",
+          "depth": 1,
+          "x": 108.82666666666665,
+          "y": 124.16000000000003,
+          "size": 44
+        },
+        {
+          "id": "time",
+          "depth": 1,
+          "x": 175.46666666666667,
+          "y": 96.72000000000003,
+          "size": 44
+        },
+        {
+          "id": "emotion",
+          "depth": 1,
+          "x": 262.36,
+          "y": 137.2266666666667,
+          "size": 44
+        },
+        {
+          "id": "space",
+          "depth": 1,
+          "x": 284.5733333333333,
+          "y": 224.77333333333334,
+          "size": 44
+        },
+        {
+          "id": "commitment",
+          "depth": 1,
+          "x": 253.86666666666667,
+          "y": 315.58666666666664,
+          "size": 44
+        },
+        {
+          "id": "planning",
+          "depth": 1,
+          "x": 172.85333333333335,
+          "y": 354.1333333333333,
+          "size": 44
+        },
+        {
+          "id": "growth",
+          "depth": 1,
+          "x": 90.53333333333332,
+          "y": 323.4266666666666,
+          "size": 44
+        }
+      ],
+      "lineTextHits": [],
+      "targetHits": [],
+      "ghosts": 0,
+      "nontransparent": 0,
+      "masks": 0,
+      "decorations": 0,
+      "overflow": false,
+      "name": "390-8-overview"
+    },
+    {
+      "visible": [
+        {
+          "id": "root",
+          "depth": 0,
+          "x": 182,
+          "y": 230,
+          "size": 66
+        },
+        {
+          "id": "money",
+          "depth": 1,
+          "x": 97.78125,
+          "y": 223.875,
+          "size": 44
+        },
+        {
+          "id": "risk",
+          "depth": 1,
+          "x": 124.83333333333331,
+          "y": 147.3125,
+          "size": 44
+        },
+        {
+          "id": "time",
+          "depth": 1,
+          "x": 176.89583333333331,
+          "y": 125.87500000000003,
+          "size": 44
+        },
+        {
+          "id": "emotion",
+          "depth": 1,
+          "x": 244.78125,
+          "y": 157.52083333333334,
+          "size": 44
+        },
+        {
+          "id": "space",
+          "depth": 1,
+          "x": 262.1354166666667,
+          "y": 225.91666666666666,
+          "size": 44
+        },
+        {
+          "id": "commitment",
+          "depth": 1,
+          "x": 238.14583333333331,
+          "y": 296.8645833333333,
+          "size": 44
+        },
+        {
+          "id": "planning",
+          "depth": 1,
+          "x": 174.85416666666669,
+          "y": 326.97916666666663,
+          "size": 44
+        },
+        {
+          "id": "growth",
+          "depth": 1,
+          "x": 110.54166666666666,
+          "y": 302.9895833333333,
+          "size": 44
+        }
+      ],
+      "lineTextHits": [],
+      "targetHits": [],
+      "ghosts": 0,
+      "nontransparent": 0,
+      "masks": 0,
+      "decorations": 0,
+      "overflow": false,
+      "name": "390-8-minimum"
+    },
+    {
+      "visible": [
+        {
+          "id": "root",
+          "depth": 0,
+          "x": 182,
+          "y": 230,
+          "size": 66
+        },
+        {
+          "id": "money",
+          "depth": 1,
+          "x": 44.01599999999999,
+          "y": 219.96480000000003,
+          "size": 44
+        },
+        {
+          "id": "risk",
+          "depth": 1,
+          "x": 88.33813333333332,
+          "y": 94.52480000000003,
+          "size": 44
+        },
+        {
+          "id": "time",
+          "depth": 1,
+          "x": 173.63733333333332,
+          "y": 59.40160000000003,
+          "size": 44
+        },
+        {
+          "id": "emotion",
+          "depth": 1,
+          "x": 284.8608,
+          "y": 111.25013333333335,
+          "size": 44
+        },
+        {
+          "id": "space",
+          "depth": 1,
+          "x": 313.29386666666664,
+          "y": 223.30986666666666,
+          "size": 44
+        },
+        {
+          "id": "commitment",
+          "depth": 1,
+          "x": 273.9893333333333,
+          "y": 339.5509333333333,
+          "size": 44
+        },
+        {
+          "id": "planning",
+          "depth": 1,
+          "x": 170.29226666666668,
+          "y": 388.8906666666667,
+          "size": 44
+        },
+        {
+          "id": "growth",
+          "depth": 1,
+          "x": 64.92266666666664,
+          "y": 349.5861333333333,
+          "size": 44
+        }
+      ],
+      "lineTextHits": [],
+      "targetHits": [],
+      "ghosts": 0,
+      "nontransparent": 0,
+      "masks": 0,
+      "decorations": 0,
+      "overflow": false,
+      "name": "390-8-names"
+    },
+    {
+      "visible": [
+        {
+          "id": "commitment",
+          "depth": 1,
+          "x": 299.68383825890305,
+          "y": 66.60901363018439,
+          "size": 44
+        },
+        {
+          "id": "planning",
+          "depth": 1,
+          "x": 186.26517159223638,
+          "y": 120.57434696351771,
+          "size": 44
+        },
+        {
+          "id": "growth",
+          "depth": 1,
+          "x": 71.01717159223637,
+          "y": 77.58501363018439,
+          "size": 44
+        },
+        {
+          "id": "planning/f0",
+          "depth": 2,
+          "x": 255.4111679805821,
+          "y": 257.7561821111425,
+          "size": 44
+        },
+        {
+          "id": "planning/f1",
+          "depth": 2,
+          "x": 205.66127311097935,
+          "y": 262.75008503644915,
+          "size": 44
+        },
+        {
+          "id": "planning/f2",
+          "depth": 2,
+          "x": 155.74640452667097,
+          "y": 259.83512360014583,
+          "size": 44
+        },
+        {
+          "id": "planning/f3",
+          "depth": 2,
+          "x": 106.91598278953116,
+          "y": 249.08426228874487,
+          "size": 44
+        }
+      ],
+      "lineTextHits": [],
+      "targetHits": [],
+      "ghosts": 0,
+      "nontransparent": 0,
+      "masks": 0,
+      "decorations": 0,
+      "overflow": false,
+      "name": "390-8-expanded"
+    },
+    {
+      "visible": [
+        {
+          "id": "root",
+          "depth": 0,
+          "x": 182,
+          "y": 230,
+          "size": 66
+        },
+        {
+          "id": "money",
+          "depth": 1,
+          "x": 74.2,
+          "y": 222.16000000000003,
+          "size": 44
+        },
+        {
+          "id": "risk",
+          "depth": 1,
+          "x": 108.82666666666665,
+          "y": 124.16000000000003,
+          "size": 44
+        },
+        {
+          "id": "time",
+          "depth": 1,
+          "x": 175.46666666666667,
+          "y": 96.72000000000003,
+          "size": 44
+        },
+        {
+          "id": "emotion",
+          "depth": 1,
+          "x": 262.36,
+          "y": 137.2266666666667,
+          "size": 44
+        },
+        {
+          "id": "space",
+          "depth": 1,
+          "x": 284.5733333333333,
+          "y": 224.77333333333334,
+          "size": 44
+        },
+        {
+          "id": "commitment",
+          "depth": 1,
+          "x": 253.86666666666667,
+          "y": 315.58666666666664,
+          "size": 44
+        },
+        {
+          "id": "planning",
+          "depth": 1,
+          "x": 172.85333333333335,
+          "y": 354.1333333333333,
+          "size": 44
+        },
+        {
+          "id": "growth",
+          "depth": 1,
+          "x": 90.53333333333332,
+          "y": 323.4266666666666,
+          "size": 44
+        }
+      ],
+      "lineTextHits": [],
+      "targetHits": [],
+      "ghosts": 0,
+      "nontransparent": 0,
+      "masks": 0,
+      "decorations": 0,
+      "overflow": false,
+      "name": "390-8-long"
+    },
+    {
+      "visible": [
+        {
+          "id": "root",
+          "depth": 0,
+          "x": 182,
+          "y": 230,
+          "size": 66
+        },
+        {
+          "id": "layout0",
+          "depth": 1,
+          "x": 182,
+          "y": 122.85333333333334,
+          "size": 44
+        },
+        {
+          "id": "layout1",
+          "depth": 1,
+          "x": 245.90294642742035,
+          "y": 123.57867750145796,
+          "size": 44
+        },
+        {
+          "id": "layout2",
+          "depth": 1,
+          "x": 260.30799018799667,
+          "y": 175.53464541110196,
+          "size": 44
+        },
+        {
+          "id": "layout3",
+          "depth": 1,
+          "x": 298.21776950700195,
+          "y": 234.19159022271313,
+          "size": 44
+        },
+        {
+          "id": "layout4",
+          "depth": 1,
+          "x": 270.3865983670228,
+          "y": 279.42415408364997,
+          "size": 44
+        },
+        {
+          "id": "layout5",
+          "depth": 1,
+          "x": 241.31576892632387,
+          "y": 344.22366480341714,
+          "size": 44
+        },
+        {
+          "id": "layout6",
+          "depth": 1,
+          "x": 189.51799696456362,
+          "y": 342.1215669088033,
+          "size": 44
+        },
+        {
+          "id": "layout7",
+          "depth": 1,
+          "x": 131.5937528486595,
+          "y": 337.69403709535527,
+          "size": 44
+        },
+        {
+          "id": "layout8",
+          "depth": 1,
+          "x": 97.16262129374991,
+          "y": 280.3497701288703,
+          "size": 44
+        },
+        {
+          "id": "layout9",
+          "depth": 1,
+          "x": 59.59010381597733,
+          "y": 240.10976560861994,
+          "size": 44
+        },
+        {
+          "id": "layout10",
+          "depth": 1,
+          "x": 84.65801838322372,
+          "y": 180.71710919568233,
+          "size": 44
+        },
+        {
+          "id": "layout11",
+          "depth": 1,
+          "x": 114.99574420362424,
+          "y": 135.75012304955595,
+          "size": 44
+        }
+      ],
+      "lineTextHits": [],
+      "targetHits": [],
+      "ghosts": 0,
+      "nontransparent": 0,
+      "masks": 0,
+      "decorations": 0,
+      "overflow": false,
+      "name": "390-12-overview"
+    },
+    {
+      "visible": [
+        {
+          "id": "root",
+          "depth": 0,
+          "x": 182,
+          "y": 230,
+          "size": 66
+        },
+        {
+          "id": "layout0",
+          "depth": 1,
+          "x": 182,
+          "y": 146.29166666666669,
+          "size": 44
+        },
+        {
+          "id": "layout1",
+          "depth": 1,
+          "x": 231.92417689642213,
+          "y": 146.85834179801404,
+          "size": 44
+        },
+        {
+          "id": "layout3",
+          "depth": 1,
+          "x": 272.79513242734527,
+          "y": 233.27467986149463,
+          "size": 44
+        },
+        {
+          "id": "layout5",
+          "depth": 1,
+          "x": 228.34044447369052,
+          "y": 319.2372381276697,
+          "size": 44
+        },
+        {
+          "id": "layout7",
+          "depth": 1,
+          "x": 142.62011941301523,
+          "y": 314.13596648074633,
+          "size": 44
+        },
+        {
+          "id": "layout8",
+          "depth": 1,
+          "x": 115.72079788574212,
+          "y": 269.3357579131799,
+          "size": 44
+        },
+        {
+          "id": "layout10",
+          "depth": 1,
+          "x": 105.95157686189353,
+          "y": 191.49774155912684,
+          "size": 44
+        }
+      ],
+      "lineTextHits": [],
+      "targetHits": [],
+      "ghosts": 0,
+      "nontransparent": 0,
+      "masks": 0,
+      "decorations": 0,
+      "overflow": false,
+      "name": "390-12-minimum"
+    },
+    {
+      "visible": [
+        {
+          "id": "root",
+          "depth": 0,
+          "x": 182,
+          "y": 230,
+          "size": 66
+        },
+        {
+          "id": "layout0",
+          "depth": 1,
+          "x": 182,
+          "y": 92.85226666666668,
+          "size": 44
+        },
+        {
+          "id": "layout1",
+          "depth": 1,
+          "x": 263.79577142709803,
+          "y": 93.78070720186619,
+          "size": 44
+        },
+        {
+          "id": "layout2",
+          "depth": 1,
+          "x": 282.2342274406357,
+          "y": 160.28434612621052,
+          "size": 44
+        },
+        {
+          "id": "layout3",
+          "depth": 1,
+          "x": 330.7587449689625,
+          "y": 235.36523548507282,
+          "size": 44
+        },
+        {
+          "id": "layout4",
+          "depth": 1,
+          "x": 295.1348459097892,
+          "y": 293.26291722707197,
+          "size": 44
+        },
+        {
+          "id": "layout5",
+          "depth": 1,
+          "x": 257.92418422569455,
+          "y": 376.206290948374,
+          "size": 44
+        },
+        {
+          "id": "layout6",
+          "depth": 1,
+          "x": 191.62303611464145,
+          "y": 373.51560564326826,
+          "size": 44
+        },
+        {
+          "id": "layout7",
+          "depth": 1,
+          "x": 117.48000364628416,
+          "y": 367.84836748205475,
+          "size": 44
+        },
+        {
+          "id": "layout8",
+          "depth": 1,
+          "x": 73.40815525599987,
+          "y": 294.447705764954,
+          "size": 44
+        },
+        {
+          "id": "layout10",
+          "depth": 1,
+          "x": 57.402263530526355,
+          "y": 166.91789977047338,
+          "size": 44
+        },
+        {
+          "id": "layout11",
+          "depth": 1,
+          "x": 96.23455258063903,
+          "y": 109.36015750343162,
+          "size": 44
+        }
+      ],
+      "lineTextHits": [],
+      "targetHits": [],
+      "ghosts": 0,
+      "nontransparent": 0,
+      "masks": 0,
+      "decorations": 0,
+      "overflow": false,
+      "name": "390-12-names"
+    },
+    {
+      "visible": [
+        {
+          "id": "layout2",
+          "depth": 1,
+          "x": 106.0193296924474,
+          "y": 49.95777999987787,
+          "size": 44
+        },
+        {
+          "id": "layout3",
+          "depth": 1,
+          "x": 159.0930207390548,
+          "y": 132.07750273613348,
+          "size": 44
+        },
+        {
+          "id": "layout4",
+          "depth": 1,
+          "x": 120.12938114308402,
+          "y": 195.40309214144503,
+          "size": 44
+        },
+        {
+          "id": "layout5",
+          "depth": 1,
+          "x": 79.43021992610547,
+          "y": 286.1224071491191,
+          "size": 44
+        },
+        {
+          "id": "layout4/d2",
+          "depth": 2,
+          "x": 243.87061885691597,
+          "y": 264.59690785855497,
+          "size": 44
+        }
+      ],
+      "lineTextHits": [],
+      "targetHits": [],
+      "ghosts": 0,
+      "nontransparent": 0,
+      "masks": 0,
+      "decorations": 0,
+      "overflow": false,
+      "name": "390-12-expanded"
+    },
+    {
+      "visible": [
+        {
+          "id": "layout4/d5",
+          "depth": 5,
+          "x": 52.68196050113056,
+          "y": 132.38091697173172,
+          "size": 44
+        },
+        {
+          "id": "layout4/d6",
+          "depth": 6,
+          "x": 182,
+          "y": 230,
+          "size": 44
+        }
+      ],
+      "lineTextHits": [],
+      "targetHits": [],
+      "ghosts": 0,
+      "nontransparent": 0,
+      "masks": 0,
+      "decorations": 0,
+      "overflow": false,
+      "name": "390-12-deep6"
+    },
+    {
+      "visible": [
+        {
+          "id": "root",
+          "depth": 0,
+          "x": 182,
+          "y": 230,
+          "size": 66
+        },
+        {
+          "id": "layout0",
+          "depth": 1,
+          "x": 182,
+          "y": 122.85333333333334,
+          "size": 44
+        },
+        {
+          "id": "layout1",
+          "depth": 1,
+          "x": 245.90294642742035,
+          "y": 123.57867750145796,
+          "size": 44
+        },
+        {
+          "id": "layout2",
+          "depth": 1,
+          "x": 260.30799018799667,
+          "y": 175.53464541110196,
+          "size": 44
+        },
+        {
+          "id": "layout3",
+          "depth": 1,
+          "x": 298.21776950700195,
+          "y": 234.19159022271313,
+          "size": 44
+        },
+        {
+          "id": "layout4",
+          "depth": 1,
+          "x": 270.3865983670228,
+          "y": 279.42415408364997,
+          "size": 44
+        },
+        {
+          "id": "layout5",
+          "depth": 1,
+          "x": 241.31576892632387,
+          "y": 344.22366480341714,
+          "size": 44
+        },
+        {
+          "id": "layout6",
+          "depth": 1,
+          "x": 189.51799696456362,
+          "y": 342.1215669088033,
+          "size": 44
+        },
+        {
+          "id": "layout7",
+          "depth": 1,
+          "x": 131.5937528486595,
+          "y": 337.69403709535527,
+          "size": 44
+        },
+        {
+          "id": "layout8",
+          "depth": 1,
+          "x": 97.16262129374991,
+          "y": 280.3497701288703,
+          "size": 44
+        },
+        {
+          "id": "layout9",
+          "depth": 1,
+          "x": 59.59010381597733,
+          "y": 240.10976560861994,
+          "size": 44
+        },
+        {
+          "id": "layout10",
+          "depth": 1,
+          "x": 84.65801838322372,
+          "y": 180.71710919568233,
+          "size": 44
+        },
+        {
+          "id": "layout11",
+          "depth": 1,
+          "x": 114.99574420362424,
+          "y": 135.75012304955595,
+          "size": 44
+        }
+      ],
+      "lineTextHits": [],
+      "targetHits": [],
+      "ghosts": 0,
+      "nontransparent": 0,
+      "masks": 0,
+      "decorations": 0,
+      "overflow": false,
+      "name": "390-12-long"
+    },
+    {
+      "visible": [
+        {
+          "id": "root",
+          "depth": 0,
+          "x": 182,
+          "y": 230,
+          "size": 66
+        },
+        {
+          "id": "group0",
+          "depth": 1,
+          "x": 112.74666666666666,
+          "y": 151.60000000000002,
+          "size": 44
+        },
+        {
+          "id": "group1",
+          "depth": 1,
+          "x": 245.37333333333333,
+          "y": 151.6,
+          "size": 44
+        },
+        {
+          "id": "group2",
+          "depth": 1,
+          "x": 245.37333333333333,
+          "y": 307.09333333333336,
+          "size": 44
+        },
+        {
+          "id": "group3",
+          "depth": 1,
+          "x": 112.74666666666667,
+          "y": 307.09333333333336,
+          "size": 44
+        }
+      ],
+      "lineTextHits": [],
+      "targetHits": [],
+      "ghosts": 0,
+      "nontransparent": 0,
+      "masks": 0,
+      "decorations": 0,
+      "overflow": false,
+      "name": "390-traits-overview"
+    },
+    {
+      "visible": [
+        {
+          "id": "group0",
+          "depth": 1,
+          "x": 256.2890457414729,
+          "y": 294.36539280945175,
+          "size": 44
+        },
+        {
+          "id": "group0/A",
+          "depth": 2,
+          "x": 76.91360157376448,
+          "y": 322.1858474607876,
+          "size": 44
+        },
+        {
+          "id": "group0/B",
+          "depth": 2,
+          "x": 118.73086691364549,
+          "y": 236.56601663563296,
+          "size": 44
+        },
+        {
+          "id": "group0/C",
+          "depth": 2,
+          "x": 186.179323938524,
+          "y": 169.2596665934771,
+          "size": 44
+        },
+        {
+          "id": "group0/E",
+          "depth": 2,
+          "x": 271.88716183259305,
+          "y": 127.62307650065054,
+          "size": 44
+        }
+      ],
+      "lineTextHits": [],
+      "targetHits": [],
+      "ghosts": 0,
+      "nontransparent": 0,
+      "masks": 0,
+      "decorations": 0,
+      "overflow": false,
+      "name": "390-traits-expanded"
+    },
+    {
+      "visible": [
+        {
+          "id": "root",
+          "depth": 0,
+          "x": 182,
+          "y": 230,
+          "size": 66
+        },
+        {
+          "id": "rhythm",
+          "depth": 1,
+          "x": 118.62666666666667,
+          "y": 145.06666666666666,
+          "size": 44
+        },
+        {
+          "id": "visibility",
+          "depth": 1,
+          "x": 246.02666666666667,
+          "y": 156.82666666666665,
+          "size": 44
+        },
+        {
+          "id": "values",
+          "depth": 1,
+          "x": 242.76,
+          "y": 306.44,
+          "size": 44
+        },
+        {
+          "id": "evidence",
+          "depth": 1,
+          "x": 118.62666666666667,
+          "y": 306.44,
+          "size": 44
+        }
+      ],
+      "lineTextHits": [],
+      "targetHits": [],
+      "ghosts": 0,
+      "nontransparent": 0,
+      "masks": 0,
+      "decorations": 0,
+      "overflow": false,
+      "name": "390-personal-overview"
+    },
+    {
+      "visible": [
+        {
+          "id": "rhythm",
+          "depth": 1,
+          "x": 245.43957671301808,
+          "y": 285.6723248731132,
+          "size": 44
+        },
+        {
+          "id": "rhythm/company",
+          "depth": 2,
+          "x": 78.5457591816635,
+          "y": 267.3302868388089,
+          "size": 44
+        },
+        {
+          "id": "rhythm/alone",
+          "depth": 2,
+          "x": 222.01466410531836,
+          "y": 136.9973882880778,
+          "size": 44
+        }
+      ],
+      "lineTextHits": [],
+      "targetHits": [],
+      "ghosts": 0,
+      "nontransparent": 0,
+      "masks": 0,
+      "decorations": 0,
+      "overflow": false,
+      "name": "390-personal-expanded"
+    }
+  ],
+  "errors": [],
+  "allAnonymousNodesReachable": 40,
+  "finalChecks": {
+    "iconHysteresis": true,
+    "distinctRelationshipIcons": 8,
+    "stepwiseDepth6": true,
+    "popoverParentAndCloseContext": true,
+    "ABNotForcedChoice": true
+  },
+  "limits": [
+    "Chromium only",
+    "No radial exclusion; shared endpoint contact only is excluded by strict segment-interior intersection",
+    "Geometry sampled at 120 segments per unmasked cubic; analytical sector construction also constrains the full Bezier hull",
+    "No physical-device or screen-reader certification"
+  ]
+}

@@ -1,0 +1,5 @@
+Generated illustration sources supplied for this task:
+Git branch design/branch-art-assets-20261004, commit 25f1765ff661b005b0dae0fd11c1d4893339d69d.
+design-inputs/sage-wide-line-0818.png.base64
+design-inputs/apricot-fine-line-0818.png.base64
+Derived PNGs: centered/straightened alpha-bearing strips, resized to 1024x128; alternate color variants preserve alpha and luminance structure. Raw sources are not included in the runtime directory.

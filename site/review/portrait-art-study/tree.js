@@ -2,7 +2,7 @@
 'use strict';
 const $=s=>document.querySelector(s),NS='http://www.w3.org/2000/svg',G=TreeGeometry;
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const positions = [[83,58],[204,34],[310,95],[327,218],[292,353],[181,409],[70,368],[52,226]];
+  const positions = [[83,68],[185,26],[318,88],[352,222],[305,361],[181,420],[55,373],[30,218]];
   const names = ['风险兜底','时间陪伴','情绪支持','自由空间','亲密承诺','规划协商','成长认可','金钱资源'];
   const relationIds = ['risk','time','emotion','space','commitment','planning','growth','money'];
   const facetNames = ['能做到','愿投入','自己需要','边界'];
@@ -80,7 +80,6 @@ function rebuild(){
 }
 function levels(){const v=view();if(v.k>1.36)v.icons=true;if(v.k<1.24)v.icons=false;if(v.k>1.24)v.names=true;if(v.k<1.12)v.names=false;const thresholds=[0,0,1.52,1.9,2.2,2.55,2.8];let level=v.level;while(level<6&&v.k>thresholds[level+1])level++;while(level>1&&v.k<thresholds[level]-.12)level--;v.level=level;return Math.min(6,Math.max(level,v.focusDepth));}
 
-function artRibbon(q,start,end){const sides=[[],[]];for(let j=0;j<=80;j++){const t=j/80,[x,y]=G.point(q,t),a=G.point(q,Math.max(0,t-.0001)),b=G.point(q,Math.min(1,t+.0001)),dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy)||1,w=(start*(1-t)+end*t)*(.86+.32*Math.sin(t*Math.PI)**1.4);[-1,1].forEach((sign,k)=>sides[k].push([x-sign*dy/len*w/2,y+sign*dx/len*w/2]))}return 'M'+sides[0].concat(sides[1].reverse()).map(p=>p.map(v=>v.toFixed(2)).join(',')).join(' L')+'Z'}
 function ornaments(occupied,d){
  const chosen=renderedEdges.filter(e=>e.depth===1);let added=0;
  for(let i=0;i<chosen.length&&added<4;i++){if(![0,2,5,7].includes(i))continue;const edge=chosen[i];
@@ -102,15 +101,14 @@ function draw(){
   if(hitboxes.some(b=>Math.hypot(x-b.x,y-b.y)<(size+b.size)/2+3))continue;active.push(n);hitboxes.push({x,y,size,id:n.id});}
  const activeIds=new Set(active.map(n=>n.id));renderedEdges=[];
  for(const edge of model.edges){const preview=depth===1&&edge.depth===2;if(!preview&&!allowed.some(n=>n.id===edge.child))continue;const q=edge.q.map(project);if(preview){const base=q[0];for(let j=1;j<4;j++)q[j]=q[j].map((v,i)=>base[i]+(v-base[i])*([.40,.64,.52,.34][nodeBy(edge.parent).children.indexOf(edge.child)%4]))}const trimmed=G.trim(q,edge.parent==='root'?32:preview?18:16,preview?4:16);if(!trimmed)continue;
-  const child=nodeBy(edge.child),warm=child.recorded||state(child).startsWith('部分');const path=make('path',{d:G.path(trimmed),fill:'none',stroke:warm?'var(--warm)':'var(--primary)','stroke-width':edge.depth===1?2.3:1.25,'stroke-linecap':'round',opacity:edge.depth===1?.66:.5,'data-edge':edge.id,'data-parent':edge.parent,'data-child':edge.child});path.setAttribute('opacity',edge.depth===1?'.82':'.67');path.setAttribute('stroke-width',edge.depth===1?'1.2':'.75');
-  const width=edge.depth===1?4.4:preview?1.4:2.1,body=make('path',{d:artRibbon(trimmed,width,edge.depth===1?1.3:.65),fill:warm?'var(--warm)':'var(--primary)',opacity:'.48','class':'branch-body'});
-  if(preview){path.setAttribute('opacity','.4');body.setAttribute('opacity','.23');const end=q[3];svg.append(make('circle',{cx:end[0],cy:end[1],r:2.7,fill:warm?'var(--warm)':'var(--primary)',opacity:'.48','class':'preview-tip'}));}svg.append(body,path);if(edge.depth===1){svg.append(make('path',{d:G.path(trimmed),fill:'none',stroke:'var(--paper)','stroke-width':'.48',opacity:'.7','class':'branch-light'}));}
-  const samples=Array.from({length:65},(_,i)=>G.point(trimmed,i/64));renderedEdges.push({...edge,q:trimmed,samples});
+  const child=nodeBy(edge.child),warm=child.recorded||state(child).startsWith('部分');
+  if(preview){const end=q[3];svg.append(make('circle',{cx:end[0],cy:end[1],r:2.7,fill:warm?'var(--warm)':'var(--primary)',opacity:'.48','class':'preview-tip'}));}
+  const samples=Array.from({length:65},(_,i)=>G.point(trimmed,i/64));renderedEdges.push({...edge,q:trimmed,samples,warm,preview});
  }
  const occupied=hitboxes.map(b=>({x:b.x-b.size/2-4,y:b.y-b.size/2-4,w:b.size+8,h:b.size+8}));visibleLayout=[];
  const overlap=(a,b)=>a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y;
- const blocksLine=r=>renderedEdges.some(e=>e.samples.some(p=>p[0]>r.x-4&&p[0]<r.x+r.w+4&&p[1]>r.y-4&&p[1]<r.y+r.h+4));
- for(const n of model.nodes){const button=layer.querySelector(`[data-node="${n.id}"]`),label=layer.querySelector(`[data-label="${n.id}"]`),[x,y]=project(n.p),visible=activeIds.has(n.id);
+ const blocksLine=r=>renderedEdges.some(e=>e.samples.some(p=>p[0]>r.x-8&&p[0]<r.x+r.w+8&&p[1]>r.y-8&&p[1]<r.y+r.h+8));
+ for(const n of [...model.nodes].sort((a,b)=>a.depth-b.depth||(a.id==='money'?-1:b.id==='money'?1:0))){const button=layer.querySelector(`[data-node="${n.id}"]`),label=layer.querySelector(`[data-label="${n.id}"]`),[x,y]=project(n.p),visible=activeIds.has(n.id);
   button.hidden=!visible;button.tabIndex=visible?0:-1;button.setAttribute('aria-hidden',String(!visible));button.style.left=x+'px';button.style.top=y+'px';button.classList.toggle('selected',v.selected===n.id);label.hidden=true;
   if(!visible)continue;visibleLayout.push({id:n.id,depth:n.depth,x,y,size:n.depth?44:66});
   if(!n.depth||v.k<.86&&n.depth>1)continue;
@@ -120,6 +118,7 @@ function draw(){
   const rect=candidates.find(r=>r.x>=5&&r.y>=5&&r.x+w<=d.w-5&&r.y+h<=d.h-5&&!occupied.some(b=>overlap(r,b))&&!blocksLine(r));
   if(rect){label.style.left=rect.x+'px';label.style.top=rect.y+'px';occupied.push({x:rect.x-3,y:rect.y-3,w:w+6,h:h+6});}else label.hidden=true;
  }
+ LineMaterial.draw(renderedEdges,d.w,d.h,v.k);
  ornaments(occupied,d);
  $('#zoom-label').textContent=Math.round(v.k*100)+'%';$('#zoom-in').disabled=v.k>=3;$('#zoom-out').disabled=v.k<=.7;$('#fit-branch').disabled=!v.branch;$('#level').textContent=`第${depth}层 · ${active.filter(n=>n.depth).length}节点`;
  $('#detail').textContent=v.selected?`已保留「${nodeBy(v.selected)?.name||'我'}」 · 点圆点查看说明`:'从一条线索开始，慢慢看见自己。';
@@ -167,5 +166,6 @@ new ResizeObserver(schedule).observe(viewport);const syncMotion=()=>{if(reduced(
 document.body.className='theme-mint study';Ambient.setContext({quiet:false});
 fetch('../../handoff/themes-v4.json').then(r=>{if(!r.ok)throw Error();return r.json()}).then(themes=>{$('#theme').insertAdjacentHTML('beforeend',themes.map(t=>`<option value="${t.id}">${esc(t.name)}</option>`).join(''));$('#theme').onchange=()=>{document.body.className=$('#theme').value==='study'?'theme-mint study':'theme-'+$('#theme').value;Ambient.setContext({quiet:false,reduced:$('#still').checked})}}).catch(()=>{$('#announce').textContent='主题目录暂不可用，当前配色仍可浏览。'});
 const queryCount=+new URLSearchParams(location.search).get('structure');if([6,7,12].includes(queryCount)){count=queryCount;$('#structure').value=String(count)}rebuild();
+LineMaterial.canvas.addEventListener('materials-ready',schedule);LineMaterial.load();
 window.BotanicalTree={snapshot:()=>({tab,...view()}),counts:()=>({relations:8,factors:16}),structure:()=>count,layout:()=>visibleLayout,topology:()=>model,rendered:()=>renderedEdges,inspect:id=>inspect(nodeBy(id),viewport,true)};
 })();
