@@ -61,5 +61,19 @@ with sync_playwright() as w:
  p.locator('#tab-personal').click();p.locator('#fit').click();pause(p);p.locator('[data-branch=evidence]').click();pause(p);check('不代表人格高低' in p.locator('#detail').inner_text(),'completion not score')
  q.locator('#fit').click();pause(q);r=q.locator('#viewport').bounding_box();x=r['x']+150;y=r['y']+180
  cdp.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':x,'y':y,'id':1}]});cdp.send('Input.dispatchTouchEvent',{'type':'touchMove','touchPoints':[{'x':x+75,'y':y+50,'id':1}]});cdp.send('Input.dispatchTouchEvent',{'type':'touchEnd','touchPoints':[]});pause(q);check(abs(snap(q)['x'])>40,'single touch pan');q.locator('#fit').click();pause(q);check(snap(q)['x']==0,'touch recovery');checks.append('semantic hysteresis, selected resize, completion semantics, CDP one-finger pan/recovery')
+ # Independent-review regressions: unselected semantic zoom, keyboard rebuild focus, derived records.
+ p.locator('.demo-frame summary').click();p.locator('#reset').click();p.locator('.demo-frame summary').click()
+ for t in ['traits','personal','relations']:
+  p.locator('#tab-'+t).click()
+  for _ in range(2):p.locator('#zoom-in').click();pause(p)
+  check(p.locator('[data-branch][aria-hidden=false]').count()>0,'unselected parents at leaf-tier zoom '+t);check(p.locator('#level').inner_text()=='主枝','unselected level label');p.locator('#fit').click();pause(p)
+ p.locator('[data-branch=space]').focus();p.keyboard.press('Enter');pause(p);check(p.locator(':focus').get_attribute('data-branch')=='space','focus after branch rebuild')
+ p.keyboard.press('Tab');check(p.locator(':focus').get_attribute('data-leaf')=='f0','Tab reaches leaf');p.keyboard.press('Space');check(snap(p)['leaf']=='f0','Space opens leaf')
+ p.locator('[data-close]').focus();p.keyboard.press('Enter');check(p.locator(':focus').get_attribute('id')=='viewport','close focus')
+ p.locator('[data-expand]').focus();p.keyboard.press('Enter');pause(p);check(p.locator(':focus').get_attribute('data-branch')=='space','expand focus');p.locator('[data-overview]').focus();p.keyboard.press('Enter');pause(p);check(p.locator(':focus').get_attribute('id')=='viewport','overview focus')
+ p.locator('#tab-personal').click()
+ for bid in ['visibility','evidence']:
+  n=p.locator('[data-branch='+bid+']');check('recorded' in n.get_attribute('class'),'derived parent record '+bid);check('部分线索有记录' in n.get_attribute('aria-label'),'partial record meaning '+bid)
+ checks.append('review fixes: unselected zoom/reset/tab parents, keyboard Enter/Space/Tab focus restoration, parent partial records derived from leaves')
  check(not errors,str(errors));check(all(u.startswith(f'http://127.0.0.1:{srv.server_port}/') for u in req),'external network');browser.close()
 (out/'report.json').write_text(json.dumps({'checks':checks,'errors':errors,'limits':['Chromium only','CDP synthesized touch; no physical phone','No screen-reader certification','No real measurement/backend']},ensure_ascii=False,indent=2));print(json.dumps(checks,ensure_ascii=False))
