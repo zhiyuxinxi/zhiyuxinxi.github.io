@@ -24,42 +24,42 @@
       "details": [
         {
           "scene": "work-move",
-          "recordId": "observation-mutud9k6-sc048",
+          "recordId": "observation-mutuvk3v-k12ou",
           "revision": 2
         },
         {
           "scene": "exam-retake",
-          "recordId": "observation-mutud9ot-oldk0",
+          "recordId": "observation-mutuvk80-wpocp",
           "revision": 2
         },
         {
           "scene": "relationship-break",
-          "recordId": "observation-mutud9tg-evhnr",
+          "recordId": "observation-mutuvkc6-wn5w2",
           "revision": 2
         },
         {
           "scene": "unpaid-break",
-          "recordId": "observation-mutud9y1-6m0xb",
+          "recordId": "observation-mutuvkgc-iouj8",
           "revision": 2
         },
         {
           "scene": "city-return",
-          "recordId": "observation-mutuda2p-187qh",
+          "recordId": "observation-mutuvkk2-6uqox",
           "revision": 2
         },
         {
           "scene": "career-change",
-          "recordId": "observation-mutuda7b-xeyir",
+          "recordId": "observation-mutuvko7-nmqqz",
           "revision": 2
         },
         {
           "scene": "independent-home",
-          "recordId": "observation-mutudabx-4wibr",
+          "recordId": "observation-mutuvkrw-q0zhn",
           "revision": 2
         },
         {
           "scene": "first-job",
-          "recordId": "observation-mutudagl-uakry",
+          "recordId": "observation-mutuvkw2-bp3ck",
           "revision": 2
         }
       ]
@@ -74,10 +74,10 @@
       }
     },
     {
-      "test": "profile-unknown-and-three-groups",
+      "test": "profile-unknown-and-four-groups",
       "status": "PASS",
       "details": {
-        "groups": 3,
+        "groups": 4,
         "relationshipDimensions": 8,
         "observationContainers": 8,
         "unknownNotZero": true

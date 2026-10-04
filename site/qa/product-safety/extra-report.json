@@ -5,32 +5,32 @@
     "details": [
       {
         "route": "explore",
-        "time": 8.450000000000006,
+        "time": 8.433400000000006,
         "motion": "running"
       },
       {
         "route": "assistant",
-        "time": 8.66660000000001,
+        "time": 8.650100000000009,
         "motion": "running"
       },
       {
         "route": "relationship-detail?id=D1",
-        "time": 8.966600000000014,
+        "time": 8.900200000000012,
         "motion": "running"
       },
       {
         "route": "observation-area?id=values",
-        "time": 9.149800000000017,
+        "time": 9.100200000000015,
         "motion": "running"
       },
       {
         "route": "assistant-chat",
-        "time": 9.33310000000002,
+        "time": 9.266800000000018,
         "motion": "running"
       },
       {
         "route": "home",
-        "time": 9.516500000000022,
+        "time": 9.45020000000002,
         "motion": "running"
       }
     ]
