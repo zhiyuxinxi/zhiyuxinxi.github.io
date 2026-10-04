@@ -12,7 +12,11 @@ window.TreeGeometry = (() => {
       const n={...source,parent:parent.id,rootId,depth,angle,lo,hi,radius,p:polar(radius,angle),children:(source.children||[]).map(c=>c.id)};nodes.push(n);
       let q;
       if(depth===1){const bend=Math.min(angle-lo,hi-angle)*.76*(roots.findIndex(r=>r.id===source.id)%2?1:-1);q=[[0,0],polar(radius*.31,angle+bend),polar(radius*.73,angle+bend*.48),n.p];}
-      else{const dr=radius-parent.radius,da=delta(angle-parent.angle);q=[parent.p,polar(parent.radius+dr*.30,parent.angle+da*.18),polar(parent.radius+dr*.73,parent.angle+da*.80),n.p];}
+      else{const dr=radius-parent.radius,da=delta(angle-parent.angle),r1=parent.radius+dr*.30,r2=parent.radius+dr*.73;
+        // A single-child chain gets a stable, bounded S; sibling fans retain their ordered controls.
+        const single=parent.children.length===1,margin=Math.max(0,Math.min(angle-lo,hi-angle)),sign=[...source.id].reduce((h,c)=>h+c.charCodeAt(0),0)%2?1:-1;
+        const bend=single?sign*Math.min(margin*.28,Math.atan2(28,r2)):0;
+        q=[parent.p,polar(r1,parent.angle+da*.18+bend),polar(r2,parent.angle+da*.80-bend*.8),n.p];}
       edges.push({id:parent.id+'>'+n.id,parent:parent.id,child:n.id,rootId,depth,q});
       const children=source.children||[],span=hi-lo;
       children.forEach((child,i)=>{const a=children.length===1?angle:lo+span*(i+.5)/children.length;visit(child,n,a,lo+span*i/children.length,lo+span*(i+1)/children.length,rootId,depth+1,radius+155);});

@@ -40,18 +40,46 @@ const project=p=>{const d=dims(),v=view();return [d.w/2+v.x+p[0]*d.s*v.k,d.h/2+v
 const nodeBy=id=>model.nodes.find(n=>n.id===id);
 function state(n){const children=model.nodes.filter(c=>c.parent===n.id);if(children.length){const recorded=children.filter(c=>c.recorded).length;return recorded?recorded===children.length?'有记录':'部分线索有记录':'未探索'}return n.recorded?'有记录':'未探索'}
 function make(tag,attrs){const e=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));return e}
+const iconPaths={
+ shield:'M12 3 20 6v6c0 5-8 9-8 9S4 17 4 12V6Z',
+ clock:'M12 7v5l4 2 M21 12a9 9 0 1 0-18 0 9 9 0 0 0 18 0',
+ heart:'M12 20 4 12C-1 5 7 1 12 7c5-6 13-2 8 5Z',
+ space:'M4 19v-6a8 8 0 0 1 16 0v6 M2 20h20 M12 10v5',
+ link:'M9 8 7 6a4 4 0 0 0-6 6l5 5a4 4 0 0 0 6-1 M15 16l2 2a4 4 0 0 0 6-6l-5-5a4 4 0 0 0-6 1 M8 12l8 0',
+ compass:'M12 3 20 20l-8-4-8 4Z M12 7v9',
+ growth:'M3 20h6v-6h6V8h6 M4 5l5 5 10-8',
+ coins:'M4 6c0-4 16-4 16 0s-16 4-16 0v11c0 4 16 4 16 0V6 M4 12c0 4 16 4 16 0',
+ check:'M5 12l5 5L20 6',
+ plus:'M12 5v14 M5 12h14',
+ person:'M16 7a4 4 0 1 0-8 0 4 4 0 0 0 8 0 M4 21v-3a8 8 0 0 1 16 0v3',
+ boundary:'M8 3H3v18h5 M16 3h5v18h-5 M8 12h8',
+ rhythm:'M2 13h4l3-8 5 15 3-7h5',
+ eye:'M2 12Q12-2 22 12Q12 26 2 12Z M15 12a3 3 0 1 0-6 0 3 3 0 0 0 6 0',
+ star:'M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3Z',
+ progress:'M4 20V12 M12 20V4 M20 20V8',
+ info:'M12 10v8 M12 5v1',
+ unknown:'M7 7c0-6 12-6 10 1-1 3-5 3-5 7 M12 19v1'};
+function nodeIcon(n){
+ if(n.id.startsWith('layout'))return {name:n.kind==='unknown'?'unknown':n.kind==='completion'?'check':'info'};
+ const roots={risk:'shield',time:'clock',emotion:'heart',space:'space',commitment:'link',planning:'compass',growth:'growth',money:'coins',rhythm:'rhythm',visibility:'eye',values:'star',evidence:'progress'};
+ if(n.depth===1&&roots[n.id])return {name:roots[n.id]};
+ if(tab==='traits')return {name:'factor-code',text:n.shortId||['A','F','L','Q'][Number(n.id.slice(-1))]};
+ const facets={f0:'check',f1:'heart',f2:'person',f3:'boundary',company:'link',alone:'person',private:'boundary',shared:'eye',respect:'heart',rest:'space',record:'check',unknown:'unknown'};
+ return {name:facets[n.shortId]||'info'};
+}
+function iconMarkup(n){const icon=nodeIcon(n);return `<svg class="semantic-icon" data-icon="${icon.name}" viewBox="0 0 24 24" aria-hidden="true">${icon.text?`<text x="12" y="16" text-anchor="middle">${esc(icon.text)}</text>`:`<path d="${iconPaths[icon.name]}"/>`}</svg>`;}
 function rebuild(){
  const roots=tab==='relations'&&count!==8?fixture(count):actual[tab];model=G.build(roots);
- layer.innerHTML=model.nodes.map(n=>`<button class="tree-node ${n.depth===0?'root-node':''} ${n.recorded?'recorded':''}" data-node="${n.id}" aria-label="${esc(n.name+'，'+state(n))}"><span class="node-medallion" aria-hidden="true">${n.depth===0?'我':n.depth===1&&count!==8&&tab==='relations'?String(roots.findIndex(r=>r.id===n.id)+1).padStart(2,'0'):'<i></i>'}</span></button><span class="tree-label" data-label="${n.id}" aria-hidden="true">${esc(n.name)}</span>`).join('');
+ layer.innerHTML=model.nodes.map(n=>`<button class="tree-node ${n.depth===0?'root-node':''} ${n.recorded?'recorded':''}" data-node="${n.id}" aria-label="${esc(n.name+'，'+state(n))}"><span class="node-medallion" aria-hidden="true">${n.depth===0?'我':`<span class="overview-mark">${n.depth===1&&count!==8&&tab==='relations'?String(roots.findIndex(r=>r.id===n.id)+1).padStart(2,'0'):'<i></i>'}</span>${iconMarkup(n)}`}</span></button><span class="tree-label" data-label="${n.id}" aria-hidden="true">${esc(n.name)}</span>`).join('');
  $('#index').innerHTML=model.nodes.filter(n=>n.depth).map(n=>`<button data-select="${n.id}" style="--depth:${n.depth}">${esc(n.name)}<small>${n.children.length?' · '+n.children.length+'个下级':' · 说明'}</small></button>`).join('');
  $('.text-index summary').textContent=`按名称查看线索 · ${roots.length}条主枝`;
  $('#fixture-banner').hidden=!(count!==8&&tab==='relations');$('#fixture-banner').textContent=`匿名拓扑样本：${count}条主枝，子树数量与深度不等，最深6层。不是新增心理维度。`;
  $('#intro').textContent=count!==8&&tab==='relations'?'点选圆点了解含义，放大逐层查看。':{relations:'了解自己，也理解相处。',traits:'不同倾向，不同的理解入口。',personal:'从经历里，慢慢看见自己。'}[tab];
  draw();
 }
-function levels(){const v=view();if(v.k>1.24)v.names=true;if(v.k<1.12)v.names=false;const thresholds=[0,0,1.52,1.9,2.2,2.55,2.8];let level=v.level;while(level<6&&v.k>thresholds[level+1])level++;while(level>1&&v.k<thresholds[level]-.12)level--;v.level=level;return Math.min(6,Math.max(level,v.focusDepth));}
+function levels(){const v=view();if(v.k>1.36)v.icons=true;if(v.k<1.24)v.icons=false;if(v.k>1.24)v.names=true;if(v.k<1.12)v.names=false;const thresholds=[0,0,1.52,1.9,2.2,2.55,2.8];let level=v.level;while(level<6&&v.k>thresholds[level+1])level++;while(level>1&&v.k<thresholds[level]-.12)level--;v.level=level;return Math.min(6,Math.max(level,v.focusDepth));}
 function draw(){
- frame=0;const d=dims(),v=view(),depth=levels(),scale=d.s*v.k;const bound=(Math.max(...model.nodes.map(n=>n.radius))+250)*scale;v.x=Math.max(-bound,Math.min(bound,v.x));v.y=Math.max(-bound,Math.min(bound,v.y));svg.setAttribute('viewBox',`0 0 ${d.w} ${d.h}`);svg.replaceChildren();
+ frame=0;const d=dims(),v=view(),depth=levels(),scale=d.s*v.k;const bound=(Math.max(...model.nodes.map(n=>n.radius))+250)*scale;v.x=Math.max(-bound,Math.min(bound,v.x));v.y=Math.max(-bound,Math.min(bound,v.y));layer.classList.toggle('show-icons',!!v.icons);svg.setAttribute('viewBox',`0 0 ${d.w} ${d.h}`);svg.replaceChildren();
  const allowed=model.nodes.filter(n=>n.depth<=1||n.depth<=depth&&(!v.branch||n.rootId===v.branch));
  const active=[];const hitboxes=[];
  for(const n of allowed){const [x,y]=project(n.p),size=n.depth?44:66;if(x-size/2<4||x+size/2>d.w-4||y-size/2<4||y+size/2>d.h-4)continue;
