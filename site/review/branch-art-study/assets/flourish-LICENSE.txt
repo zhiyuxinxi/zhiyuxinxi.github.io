@@ -1,0 +1,9 @@
+Source: https://freesvg.org/clip-art-of-thin-flourish-branch
+Title: Clip art of thin flourish branch / Simple Flourish
+Published by: OpenClipart (as identified by source page)
+License: CC0 1.0 / Public Domain, as stated on the source page
+License URL: https://creativecommons.org/publicdomain/zero/1.0/
+Retrieved: 2026-10-04
+Use: selected curve/ornament source for branch-art-study. Keep original source separate from derived application asset.
+
+Derived assets: flourish-tip.svg and flourish-tip-amber.svg extract the second original path (zero-based index 1); recolored and separately scaled/rotated as two decorative accents. No semantic or interactive role.
