@@ -13,3 +13,10 @@ html[data-material=vector] .node.root:before{display:none}
 html[data-material=vector] .corner-art{display:none}
 .page-head{padding:16px 28px 4px}h1{font-size:29px;line-height:1.35}.intro{padding:8px 0 0;line-height:1.5}.tabs button{line-height:1.4}
 body.study{--leaf-ink:#949b62;--leaf-gold:#c9ab65;--stem-warm:#d99143}
+/* Fixed world anchors, separate readable label envelopes. All artwork honors their SVG exclusion mask. */
+.phone{overflow-anchor:none}.node-label{background:color-mix(in srgb,var(--paper) 80%,transparent)}.node{max-width:122px;white-space:normal}.node:not(.leaf):not(.root){width:80px}.node-label{line-height:1.35}.node.leaf{width:max-content;max-width:114px}.node.leaf .node-label{max-width:92px}.stress-layout #viewport{height:620px}.stress-layout.long-labels #viewport{height:760px}.long-labels .node:not(.leaf):not(.root){width:112px}.long-labels .node-label{overflow-wrap:anywhere}.node:not(.leaf):not(.root):before{display:none}.detail{overflow-anchor:none}#level{white-space:nowrap}
+.zoom-controls #fit-branch{font-size:12px;border-radius:22px;width:64px}
+.node:not(.leaf):not(.root){width:96px}.node:not(.leaf) .node-label{white-space:nowrap}.stress-layout .node:not(.leaf):not(.root){width:110px}.long-labels .node:not(.leaf):not(.root){width:112px}.long-labels .node:not(.leaf) .node-label{white-space:normal}
+.node[aria-hidden=true]{visibility:hidden}.node[aria-hidden=false]{visibility:visible}
+.stress-layout:not(.long-labels) .node:not(.leaf):not(.root){width:104px}
+.long-labels:not(.stress-layout) #viewport{height:540px}.long-labels .node:not(.leaf) .node-label{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
