@@ -25,3 +25,4 @@ body[data-theme-mode=dark] #gHeads .ic-g{filter:brightness(1.8)}
 body[data-theme-mode=dark] #gGreen path{stroke:color-mix(in srgb,var(--ink) 65%,var(--surface))}
 body[data-theme-mode=dark] #gPetals{opacity:.12!important}
 .stage[data-mode=overview] .t-title{font-size:20px}
+#gPetals{display:none!important}.orb-body{box-shadow:inset 0 0 0 1.1em #fff9,0 2em 5em #503d2314}.orb-shine{display:none}
