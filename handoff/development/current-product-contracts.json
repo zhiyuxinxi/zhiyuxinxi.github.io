@@ -271,5 +271,24 @@
     "records": {
       "currentHandling": "已有记录不删除或改写意义；原体验答卷仅重标历史练习，既有分类状态做等价迁移。"
     }
+  },
+  "handDrawnGraphStructure": {
+    "source": "review/relationship-map/semantics.js",
+    "study": "review/relationship-map/structure.html",
+    "businessDepth": 2,
+    "studyTerminalDepths": [
+      2,
+      3,
+      5,
+      6
+    ],
+    "intermediateNodesInteractive": false,
+    "pairStates": [
+      "present",
+      "unknown"
+    ],
+    "pairExclusive": false,
+    "pairNormalized": false,
+    "note": "中性研究模型验证通用结构能力；正式画像不加入示例状态或人为加深的心理维度。"
   }
 }

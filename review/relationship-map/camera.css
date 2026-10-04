@@ -29,3 +29,7 @@ body[data-theme-mode=dark] #gPetals{opacity:.12!important}
 
 body.embedded{background:transparent!important}.embedded #ambient-background,.embedded .map-header{display:none}.embedded .viewport{top:0;bottom:120px}.embedded .camera-tools{bottom:27px}.embedded .map-help{bottom:2px;font-size:10px}.embedded .camera-tools{background:color-mix(in srgb,var(--paper) 88%,transparent)}
 #hits .hit:active{fill:color-mix(in srgb,var(--primary) 10%,transparent)}
+
+.semantic-joint{pointer-events:none}.semantic-joint circle{fill:var(--paper);stroke:var(--primary);stroke-width:1}.semantic-joint text{font:11px var(--sans);fill:var(--muted)}.item[data-evidence=unknown] image{opacity:.4}.item[data-evidence=present] image{opacity:1}
+
+.camera-tools button{white-space:nowrap}@media(min-width:441px){.camera-tools{width:max-content}}
