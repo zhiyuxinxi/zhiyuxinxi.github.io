@@ -37,7 +37,7 @@ jobs:
           except Exception as e: result['pagesMetadataError']=str(e)
           try:
               result['resourceHashes']=[]
-              for name in ['index.html','prototype/app.js','prototype/product.css','prototype/experience-v3.js','workbench.js','workbench.css','development-review.js','prototype/views.js','prototype/components.js','prototype/assessment-preview.js','prototype/experience-v2.js','prototype/experience-v4.js','handoff/development/current-copy-contracts.json','prototype/index.html','prototype/product-context.js','prototype/decision-scenes.js','prototype/product-surface.js','prototype/flows-v2.js','workbench-data.js','handoff/routes.json','handoff/development/current-product-contracts.json']:
+              for name in ['index.html','prototype/app.js','prototype/product.css','prototype/experience-v3.js','workbench.js','workbench.css','development-review.js','prototype/views.js','prototype/components.js','prototype/assessment-preview.js','prototype/experience-v2.js','prototype/experience-v4.js','handoff/development/current-copy-contracts.json','prototype/index.html','prototype/product-context.js','prototype/decision-scenes.js','prototype/product-surface.js','prototype/flows-v2.js','workbench-data.js','handoff/routes.json','handoff/development/current-product-contracts.json','review/botanical-tree/index.html','review/botanical-tree/tree.css','review/botanical-tree/tree.js'] + [str(p.relative_to(Path('site'))) for p in Path('site/review/botanical-tree/assets').glob('*.webp')]:
                   expected=hashlib.sha256((Path('site')/name).read_bytes()).hexdigest()
                   for attempt in range(6):
                       with urllib.request.urlopen(result['url']+name+'?resource_check='+str(time.time_ns()),timeout=20) as response: actual=hashlib.sha256(response.read()).hexdigest()
@@ -76,6 +76,19 @@ jobs:
                   for route,expected in [('memories','还没有确认的内容'),('simulation','设定一种假想性格'),('auth','账号服务暂不可用'),('support','反馈可下载为文本'),('report','还没有可查看的报告'),('assistant','我的画像'),('relationship-detail?id=D7','风险兜底'),('factor-detail?id=A','还没有这个角度的读数'),('observation-area?id=values','在意的事'),('assistant-chat?kind=relationship:D7:boundary','风险兜底 · 边界')]:
                       p.goto(result['url']+'prototype/index.html?reset=1&scenario=public-copy&theme=sunrise#'+route,wait_until='networkidle');assert expected in p.locator('main').inner_text();assert p.evaluate('document.documentElement.scrollWidth<=innerWidth');p.screenshot(path=str(out/('public-copy-'+route.split('?')[0]+'.png')),full_page=True)
                   result['checks'].append('Published copy corrections verified on ten key product pages')
+                  p.goto(result['url']+'review/botanical-tree/',wait_until='networkidle');p.wait_for_function('window.BotanicalTree');assert p.evaluate('BotanicalTree.counts()')=={'relations':8,'factors':16}
+                  p.locator('[data-branch=space]').focus();p.keyboard.press('Enter');p.wait_for_timeout(300);assert p.locator(':focus').get_attribute('data-branch')=='space'
+                  p.locator('[data-leaf=f2]').click();assert '自己需要' in p.locator('#detail').inner_text();p.locator('[data-close]').click();assert p.locator(':focus').get_attribute('id')=='viewport'
+                  p.locator('#fit').click();p.wait_for_timeout(300);assert p.evaluate('BotanicalTree.snapshot().leaf')=='f2'
+                  for tree_tab in ['traits','personal']:
+                      p.locator('#tab-'+tree_tab).click()
+                      for _ in range(2):p.locator('#zoom-in').click();p.wait_for_timeout(250)
+                      assert p.locator('[data-branch][aria-hidden=false]').count()>0
+                      p.locator('#fit').click();p.wait_for_timeout(250)
+                  for branch_id in ['visibility','evidence']:assert '部分线索有记录' in p.locator('[data-branch='+branch_id+']').get_attribute('aria-label')
+                  p.locator('#tab-relations').click();p.screenshot(path=str(out/'public-botanical-tree-390.png'),full_page=True)
+                  assert not Path('site/design-inputs').exists() and not Path('site/design-evidence').exists()
+                  result['checks'].append('Standalone botanical tree: 8 branches, 16 factors, node details, restored focus, unselected zoom, derived partial records and isolated deployment verified')
                   result['browser']=b.version;result['consoleErrors']=errors;assert not errors,str(errors)
                   result['finalURL']=p.url;result['passed']=True;b.close()
           except Exception as e:result['error']=str(e);result['trace']=traceback.format_exc(limit=3)
