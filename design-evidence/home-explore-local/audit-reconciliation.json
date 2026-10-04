@@ -1,0 +1,171 @@
+{
+  "baseline": {
+    "errors": 29,
+    "total": 29,
+    "unresolved": 0,
+    "violations": 29,
+    "warnings": 0
+  },
+  "candidate": {
+    "errors": 29,
+    "total": 29,
+    "unresolved": 0,
+    "violations": 29,
+    "warnings": 0
+  },
+  "introducedRuleFileCounts": [],
+  "classification": {
+    "delegatedButtons": 27,
+    "sharedTextareaCSS": 2
+  },
+  "auditUnmodified": true,
+  "strictAuditPass": false,
+  "findings": [
+    {
+      "file": "prototype/components.js",
+      "rule": "affordance.actionless-button",
+      "reason": "Scanner accepts only inline onclick / Vue @click; this app delegates data-action to app.js."
+    },
+    {
+      "file": "prototype/components.js",
+      "rule": "affordance.actionless-button",
+      "reason": "Scanner accepts only inline onclick / Vue @click; this app delegates data-action to app.js."
+    },
+    {
+      "file": "prototype/experience-v2.js",
+      "rule": "affordance.actionless-button",
+      "reason": "Scanner accepts only inline onclick / Vue @click; this app delegates data-action to app.js."
+    },
+    {
+      "file": "prototype/experience-v2.js",
+      "rule": "affordance.actionless-button",
+      "reason": "Scanner accepts only inline onclick / Vue @click; this app delegates data-action to app.js."
+    },
+    {
+      "file": "prototype/experience-v2.js",
+      "rule": "affordance.actionless-button",
+      "reason": "Scanner accepts only inline onclick / Vue @click; this app delegates data-action to app.js."
+    },
+    {
+      "file": "prototype/experience-v2.js",
+      "rule": "affordance.actionless-button",
+      "reason": "Scanner accepts only inline onclick / Vue @click; this app delegates data-action to app.js."
+    },
+    {
+      "file": "prototype/experience-v2.js",
+      "rule": "affordance.actionless-button",
+      "reason": "Scanner accepts only inline onclick / Vue @click; this app delegates data-action to app.js."
+    },
+    {
+      "file": "prototype/experience-v3.js",
+      "rule": "affordance.actionless-button",
+      "reason": "Scanner accepts only inline onclick / Vue @click; this app delegates data-action to app.js."
+    },
+    {
+      "file": "prototype/experience-v3.js",
+      "rule": "affordance.actionless-button",
+      "reason": "Scanner accepts only inline onclick / Vue @click; this app delegates data-action to app.js."
+    },
+    {
+      "file": "prototype/experience-v3.js",
+      "rule": "affordance.actionless-button",
+      "reason": "Scanner accepts only inline onclick / Vue @click; this app delegates data-action to app.js."
+    },
+    {
+      "file": "prototype/experience-v3.js",
+      "rule": "affordance.actionless-button",
+      "reason": "Scanner accepts only inline onclick / Vue @click; this app delegates data-action to app.js."
+    },
+    {
+      "file": "prototype/experience-v3.js",
+      "rule": "affordance.actionless-button",
+      "reason": "Scanner accepts only inline onclick / Vue @click; this app delegates data-action to app.js."
+    },
+    {
+      "file": "prototype/experience-v3.js",
+      "rule": "affordance.actionless-button",
+      "reason": "Scanner accepts only inline onclick / Vue @click; this app delegates data-action to app.js."
+    },
+    {
+      "file": "prototype/experience-v3.js",
+      "rule": "affordance.actionless-button",
+      "reason": "Scanner accepts only inline onclick / Vue @click; this app delegates data-action to app.js."
+    },
+    {
+      "file": "prototype/experience-v3.js",
+      "rule": "affordance.actionless-button",
+      "reason": "Scanner accepts only inline onclick / Vue @click; this app delegates data-action to app.js."
+    },
+    {
+      "file": "prototype/views.js",
+      "rule": "affordance.actionless-button",
+      "reason": "Scanner accepts only inline onclick / Vue @click; this app delegates data-action to app.js."
+    },
+    {
+      "file": "prototype/views.js",
+      "rule": "affordance.actionless-button",
+      "reason": "Scanner accepts only inline onclick / Vue @click; this app delegates data-action to app.js."
+    },
+    {
+      "file": "prototype/views.js",
+      "rule": "affordance.actionless-button",
+      "reason": "Scanner accepts only inline onclick / Vue @click; this app delegates data-action to app.js."
+    },
+    {
+      "file": "prototype/views.js",
+      "rule": "affordance.actionless-button",
+      "reason": "Scanner accepts only inline onclick / Vue @click; this app delegates data-action to app.js."
+    },
+    {
+      "file": "prototype/views.js",
+      "rule": "affordance.actionless-button",
+      "reason": "Scanner accepts only inline onclick / Vue @click; this app delegates data-action to app.js."
+    },
+    {
+      "file": "prototype/views.js",
+      "rule": "affordance.actionless-button",
+      "reason": "Scanner accepts only inline onclick / Vue @click; this app delegates data-action to app.js."
+    },
+    {
+      "file": "prototype/views.js",
+      "rule": "affordance.actionless-button",
+      "reason": "Scanner accepts only inline onclick / Vue @click; this app delegates data-action to app.js."
+    },
+    {
+      "file": "prototype/views.js",
+      "rule": "affordance.actionless-button",
+      "reason": "Scanner accepts only inline onclick / Vue @click; this app delegates data-action to app.js."
+    },
+    {
+      "file": "prototype/views.js",
+      "rule": "affordance.actionless-button",
+      "reason": "Scanner accepts only inline onclick / Vue @click; this app delegates data-action to app.js."
+    },
+    {
+      "file": "prototype/views.js",
+      "rule": "affordance.actionless-button",
+      "reason": "Scanner accepts only inline onclick / Vue @click; this app delegates data-action to app.js."
+    },
+    {
+      "file": "prototype/views.js",
+      "rule": "affordance.actionless-button",
+      "reason": "Scanner accepts only inline onclick / Vue @click; this app delegates data-action to app.js."
+    },
+    {
+      "file": "prototype/views.js",
+      "rule": "affordance.actionless-button",
+      "reason": "Scanner accepts only inline onclick / Vue @click; this app delegates data-action to app.js."
+    },
+    {
+      "file": "prototype/experience-v2.js",
+      "rule": "form.textarea-resize-missing",
+      "reason": "Scanner inspects inline attributes only; product.css owns textarea resize:none."
+    },
+    {
+      "file": "prototype/experience-v3.js",
+      "rule": "form.textarea-resize-missing",
+      "reason": "Scanner inspects inline attributes only; product.css owns textarea resize:none."
+    }
+  ],
+  "runtimeEvidence": "product_structure_review.py checks live enabled controls and computed resize across all 43 routes / 12 themes; actual core workflows separately exercised."
+}

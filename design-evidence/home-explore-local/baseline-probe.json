@@ -1,0 +1,88 @@
+[
+  {
+    "version": "main",
+    "home": {
+      "legacyPrimary": 0,
+      "currentPrimary": 1,
+      "primaryDisabled": true,
+      "assistantLogo": 0,
+      "heading": "你好，今天的你",
+      "fixture": false,
+      "reportDetails": 0,
+      "topicResumeId": null
+    },
+    "assistant": {
+      "legacyPrimary": 0,
+      "currentPrimary": 0,
+      "primaryDisabled": null,
+      "assistantLogo": 0,
+      "heading": "我的画像",
+      "fixture": false,
+      "reportDetails": 0,
+      "topicResumeId": null
+    },
+    "topic?id=work-choice": {
+      "legacyPrimary": 0,
+      "currentPrimary": 0,
+      "primaryDisabled": null,
+      "assistantLogo": 0,
+      "heading": "留下，还是换个方向？",
+      "fixture": false,
+      "reportDetails": 0,
+      "topicResumeId": "work-choice"
+    },
+    "report?id=report-sample-01": {
+      "legacyPrimary": 0,
+      "currentPrimary": 0,
+      "primaryDisabled": null,
+      "assistantLogo": 0,
+      "heading": "还没有可查看的报告",
+      "fixture": false,
+      "reportDetails": 0,
+      "topicResumeId": null
+    }
+  },
+  {
+    "version": "candidate",
+    "home": {
+      "legacyPrimary": 0,
+      "currentPrimary": 1,
+      "primaryDisabled": true,
+      "assistantLogo": 0,
+      "heading": "你好，今天的你",
+      "fixture": false,
+      "reportDetails": 0,
+      "topicResumeId": null
+    },
+    "assistant": {
+      "legacyPrimary": 0,
+      "currentPrimary": 0,
+      "primaryDisabled": null,
+      "assistantLogo": 0,
+      "heading": "我的画像",
+      "fixture": false,
+      "reportDetails": 0,
+      "topicResumeId": null
+    },
+    "topic?id=work-choice": {
+      "legacyPrimary": 0,
+      "currentPrimary": 0,
+      "primaryDisabled": null,
+      "assistantLogo": 0,
+      "heading": "留下，还是换个方向？",
+      "fixture": false,
+      "reportDetails": 0,
+      "topicResumeId": "work-choice"
+    },
+    "report?id=report-sample-01": {
+      "legacyPrimary": 0,
+      "currentPrimary": 0,
+      "primaryDisabled": null,
+      "assistantLogo": 0,
+      "heading": "还没有可查看的报告",
+      "fixture": false,
+      "reportDetails": 0,
+      "topicResumeId": null
+    }
+  }
+]

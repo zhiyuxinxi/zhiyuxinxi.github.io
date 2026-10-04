@@ -1,0 +1,6932 @@
+{
+  "createdAt": "2026-10-04T10:39:45.494245+00:00",
+  "scope": "All real route families × all 12 themes: real render, shared shell/token presence, no toolbar, no horizontal overflow. Full-page screenshots of all routes in sunrise. This is not a claim of all interaction states or pixel contrast in every theme.",
+  "results": [
+    {
+      "test": "exhaustive-route-and-tree-map",
+      "status": "PASS",
+      "details": {
+        "routeFamilies": 43,
+        "nodes": 97,
+        "previewNodes": 85,
+        "specificationOrPlanned": 12
+      }
+    },
+    {
+      "test": "every-tree-node-real-navigation",
+      "status": "PASS",
+      "details": {
+        "visited": [
+          "home",
+          "explore",
+          "assessment-detail",
+          "content",
+          "question",
+          "review",
+          "recovery",
+          "report",
+          "records",
+          "compare",
+          "share",
+          "light-suite",
+          "article",
+          "assistant",
+          "conversations",
+          "conversation",
+          "context",
+          "usage",
+          "analysis",
+          "portrait",
+          "memories",
+          "actions",
+          "journal",
+          "life-spaces",
+          "skills",
+          "reminders",
+          "me",
+          "auth",
+          "account",
+          "settings",
+          "appearance",
+          "privacy",
+          "data",
+          "sync",
+          "support",
+          "notifications",
+          "membership",
+          "checkout",
+          "orders",
+          "order",
+          "topic-workspace",
+          "action-detail",
+          "single-factor",
+          "daily-checkin",
+          "short-16pf",
+          "personality-sandbox",
+          "ai-reset",
+          "complete",
+          "single-factor-process",
+          "single-factor-result",
+          "daily-checkin-process",
+          "daily-checkin-result",
+          "short-16pf-process",
+          "short-16pf-result",
+          "personality-sandbox-result",
+          "topic-relationships",
+          "workspace-relationships",
+          "topic-city-choice",
+          "workspace-city-choice",
+          "topic-learning",
+          "workspace-learning",
+          "topic-self-space",
+          "workspace-self-space",
+          "workspace-saved",
+          "action-observed",
+          "report-source",
+          "settings-preferences",
+          "factor-library",
+          "login-requirement",
+          "phone-requirement",
+          "payments-requirement",
+          "moments-requirement",
+          "abuse-requirement",
+          "memory-flow",
+          "data-transfer-flow",
+          "data-delete-flow",
+          "save-failure-flow",
+          "assistant-chat",
+          "factor-detail",
+          "relationship-detail",
+          "observation-area",
+          "scene-work-move",
+          "organize-work-move",
+          "scene-exam-retake",
+          "organize-exam-retake",
+          "scene-relationship-break",
+          "organize-relationship-break",
+          "scene-unpaid-break",
+          "organize-unpaid-break",
+          "scene-city-return",
+          "organize-city-return",
+          "scene-career-change",
+          "organize-career-change",
+          "scene-independent-home",
+          "organize-independent-home",
+          "scene-first-job",
+          "organize-first-job",
+          "state:default",
+          "state:resume",
+          "state:question",
+          "state:combined",
+          "state:save-failure",
+          "state:complete",
+          "state:mixed-records",
+          "state:topic-record",
+          "state:ongoing-action",
+          "state:action-review",
+          "state:source-login",
+          "state:quota",
+          "state:history",
+          "state:paid-annual",
+          "state:sample-report",
+          "state:profile-sample",
+          "backend:BR-001",
+          "backend:BR-002",
+          "backend:BR-003",
+          "backend:BR-004",
+          "backend:BR-005",
+          "backend:BR-006",
+          "backend:BR-007",
+          "backend:BR-008"
+        ]
+      }
+    },
+    {
+      "test": "substate-sync-and-deep-link",
+      "status": "PASS",
+      "details": {
+        "deepLink": "page=single-factor-result&route=single-factor&theme=sunrise&scene=question&width=390&mode=preview&dq=&hq=&hk=mobile&hv=&hs=&hg=&hp=1&logicDoc=local&logicSection=&logicQuery=&logicStatus=",
+        "stageReflectedInTree": true
+      }
+    },
+    {
+      "test": "tree-search-clear-and-keyboard",
+      "status": "PASS",
+      "details": {
+        "nestedSearch": true,
+        "keyboardTree": true
+      }
+    },
+    {
+      "test": "obsolete-frame-message-ignored",
+      "status": "PASS",
+      "details": {
+        "obsoleteGenerationIgnored": true
+      }
+    },
+    {
+      "test": "new-session-completion-reflects-in-tree",
+      "status": "FAIL",
+      "error": "Frame.wait_for_function: Timeout 30000ms exceeded.",
+      "node": "backend:BR-008"
+    },
+    {
+      "test": "explore-to-eight-scenes-reflects-in-tree",
+      "status": "PASS",
+      "details": [
+        {
+          "route": "topic?id=work-move",
+          "selectedNode": "scene-work-move"
+        },
+        {
+          "route": "topic?id=exam-retake",
+          "selectedNode": "scene-exam-retake"
+        },
+        {
+          "route": "topic?id=relationship-break",
+          "selectedNode": "scene-relationship-break"
+        },
+        {
+          "route": "topic?id=unpaid-break",
+          "selectedNode": "scene-unpaid-break"
+        },
+        {
+          "route": "topic?id=city-return",
+          "selectedNode": "scene-city-return"
+        },
+        {
+          "route": "topic?id=career-change",
+          "selectedNode": "scene-career-change"
+        },
+        {
+          "route": "topic?id=independent-home",
+          "selectedNode": "scene-independent-home"
+        },
+        {
+          "route": "topic?id=first-job",
+          "selectedNode": "scene-first-job"
+        }
+      ]
+    },
+    {
+      "test": "desktop-fit-original-size-and-mobile",
+      "status": "PASS",
+      "details": [
+        "layout-1480",
+        "layout-1188",
+        "layout-390"
+      ]
+    }
+  ],
+  "themeRouteMatrix": [
+    {
+      "theme": "sunrise",
+      "route": "home",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "explore",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "topic",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "content",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "question",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": true
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "review",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "report",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "records",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "compare",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "share",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "simulation",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "article",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "assistant",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "conversations",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "conversation",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "assistant-chat",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "portrait",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "memories",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "actions",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "journal",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "me",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "auth",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "account",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "settings",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "appearance",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "privacy",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "data",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "support",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "membership",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "checkout",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "orders",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "order",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "topic-workspace",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "action-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "single-factor",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "daily-checkin",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "short-16pf",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "personality-sandbox",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "ai-reset",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "complete",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "factor-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "relationship-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sunrise",
+      "route": "observation-area",
+      "status": "PASS",
+      "shared": {
+        "theme": "sunrise",
+        "mode": "light",
+        "canvas": true,
+        "field": "#fff19d",
+        "surface": "#ffcc9c",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "home",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "explore",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "topic",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "content",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "question",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": true
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "review",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "report",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "records",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "compare",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "share",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "simulation",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "article",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "assistant",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "conversations",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "conversation",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "assistant-chat",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "portrait",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "memories",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "actions",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "journal",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "me",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "auth",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "account",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "settings",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "appearance",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "privacy",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "data",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "support",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "membership",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "checkout",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "orders",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "order",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "topic-workspace",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "action-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "single-factor",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "daily-checkin",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "short-16pf",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "personality-sandbox",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "ai-reset",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "complete",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "factor-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "relationship-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "candy",
+      "route": "observation-area",
+      "status": "PASS",
+      "shared": {
+        "theme": "candy",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffeda0",
+        "surface": "#ffc3be",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "home",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "explore",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "topic",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "content",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "question",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": true
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "review",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "report",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "records",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "compare",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "share",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "simulation",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "article",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "assistant",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "conversations",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "conversation",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "assistant-chat",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "portrait",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "memories",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "actions",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "journal",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "me",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "auth",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "account",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "settings",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "appearance",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "privacy",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "data",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "support",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "membership",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "checkout",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "orders",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "order",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "topic-workspace",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "action-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "single-factor",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "daily-checkin",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "short-16pf",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "personality-sandbox",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "ai-reset",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "complete",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "factor-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "relationship-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "berry",
+      "route": "observation-area",
+      "status": "PASS",
+      "shared": {
+        "theme": "berry",
+        "mode": "light",
+        "canvas": true,
+        "field": "#ffabd6",
+        "surface": "#e9b7ef",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "home",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "explore",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "topic",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "content",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "question",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": true
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "review",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "report",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "records",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "compare",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "share",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "simulation",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "article",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "assistant",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "conversations",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "conversation",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "assistant-chat",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "portrait",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "memories",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "actions",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "journal",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "me",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "auth",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "account",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "settings",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "appearance",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "privacy",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "data",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "support",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "membership",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "checkout",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "orders",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "order",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "topic-workspace",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "action-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "single-factor",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "daily-checkin",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "short-16pf",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "personality-sandbox",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "ai-reset",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "complete",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "factor-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "relationship-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "lime",
+      "route": "observation-area",
+      "status": "PASS",
+      "shared": {
+        "theme": "lime",
+        "mode": "light",
+        "canvas": true,
+        "field": "#edff99",
+        "surface": "#cbf8bf",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "home",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "explore",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "topic",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "content",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "question",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": true
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "review",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "report",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "records",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "compare",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "share",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "simulation",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "article",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "assistant",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "conversations",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "conversation",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "assistant-chat",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "portrait",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "memories",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "actions",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "journal",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "me",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "auth",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "account",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "settings",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "appearance",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "privacy",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "data",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "support",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "membership",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "checkout",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "orders",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "order",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "topic-workspace",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "action-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "single-factor",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "daily-checkin",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "short-16pf",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "personality-sandbox",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "ai-reset",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "complete",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "factor-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "relationship-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "aurora",
+      "route": "observation-area",
+      "status": "PASS",
+      "shared": {
+        "theme": "aurora",
+        "mode": "light",
+        "canvas": true,
+        "field": "#c3dfff",
+        "surface": "#ded7ff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "home",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "explore",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "topic",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "content",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "question",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": true
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "review",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "report",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "records",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "compare",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "share",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "simulation",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "article",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "assistant",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "conversations",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "conversation",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "assistant-chat",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "portrait",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "memories",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "actions",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "journal",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "me",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "auth",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "account",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "settings",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "appearance",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "privacy",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "data",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "support",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "membership",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "checkout",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "orders",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "order",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "topic-workspace",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "action-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "single-factor",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "daily-checkin",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "short-16pf",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "personality-sandbox",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "ai-reset",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "complete",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "factor-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "relationship-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "sea",
+      "route": "observation-area",
+      "status": "PASS",
+      "shared": {
+        "theme": "sea",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b3f2ff",
+        "surface": "#b1eeee",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "home",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "explore",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "topic",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "content",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "question",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": true
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "review",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "report",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "records",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "compare",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "share",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "simulation",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "article",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "assistant",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "conversations",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "conversation",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "assistant-chat",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "portrait",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "memories",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "actions",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "journal",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "me",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "auth",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "account",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "settings",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "appearance",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "privacy",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "data",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "support",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "membership",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "checkout",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "orders",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "order",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "topic-workspace",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "action-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "single-factor",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "daily-checkin",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "short-16pf",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "personality-sandbox",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "ai-reset",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "complete",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "factor-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "relationship-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "nebula",
+      "route": "observation-area",
+      "status": "PASS",
+      "shared": {
+        "theme": "nebula",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#423d7f",
+        "surface": "#1e2a45",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "home",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "explore",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "topic",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "content",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "question",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": true
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "review",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "report",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "records",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "compare",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "share",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "simulation",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "article",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "assistant",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "conversations",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "conversation",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "assistant-chat",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "portrait",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "memories",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "actions",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "journal",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "me",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "auth",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "account",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "settings",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "appearance",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "privacy",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "data",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "support",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "membership",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "checkout",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "orders",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "order",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "topic-workspace",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "action-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "single-factor",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "daily-checkin",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "short-16pf",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "personality-sandbox",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "ai-reset",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "complete",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "factor-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "relationship-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "amber",
+      "route": "observation-area",
+      "status": "PASS",
+      "shared": {
+        "theme": "amber",
+        "mode": "dark",
+        "canvas": true,
+        "field": "#805154",
+        "surface": "#4f382d",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "home",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "explore",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "topic",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "content",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "question",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": true
+      }
+    },
+    {
+      "theme": "green",
+      "route": "review",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "report",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "records",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "compare",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "share",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "simulation",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "article",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "assistant",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "conversations",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "conversation",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "assistant-chat",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "portrait",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "memories",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "actions",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "journal",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "me",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "auth",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "account",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "settings",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "appearance",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "privacy",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "data",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "support",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "membership",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "checkout",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "orders",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "order",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "topic-workspace",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "action-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "single-factor",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "daily-checkin",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "short-16pf",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "personality-sandbox",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "ai-reset",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "complete",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "factor-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "relationship-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "green",
+      "route": "observation-area",
+      "status": "PASS",
+      "shared": {
+        "theme": "green",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d3e9b8",
+        "surface": "#fffffb",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "home",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "explore",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "topic",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "content",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "question",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": true
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "review",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "report",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "records",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "compare",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "share",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "simulation",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "article",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "assistant",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "conversations",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "conversation",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "assistant-chat",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "portrait",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "memories",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "actions",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "journal",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "me",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "auth",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "account",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "settings",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "appearance",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "privacy",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "data",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "support",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "membership",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "checkout",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "orders",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "order",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "topic-workspace",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "action-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "single-factor",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "daily-checkin",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "short-16pf",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "personality-sandbox",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "ai-reset",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "complete",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "factor-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "relationship-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "peach",
+      "route": "observation-area",
+      "status": "PASS",
+      "shared": {
+        "theme": "peach",
+        "mode": "light",
+        "canvas": true,
+        "field": "#f4c0a4",
+        "surface": "#fffdfa",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "home",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "explore",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "topic",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "content",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "question",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": true
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "review",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "report",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "records",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "compare",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "share",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "simulation",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "article",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "assistant",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "conversations",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "conversation",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "assistant-chat",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "portrait",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "memories",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "actions",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "journal",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "me",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "auth",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "account",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "settings",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "appearance",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "privacy",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "data",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "support",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "membership",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "checkout",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "orders",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "order",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "topic-workspace",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "action-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "single-factor",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "daily-checkin",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "short-16pf",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "personality-sandbox",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "ai-reset",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "complete",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "factor-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "relationship-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "blue",
+      "route": "observation-area",
+      "status": "PASS",
+      "shared": {
+        "theme": "blue",
+        "mode": "light",
+        "canvas": true,
+        "field": "#b9cdec",
+        "surface": "#fdfeff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "home",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "explore",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "topic",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "content",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "question",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": true
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "review",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "report",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "records",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "compare",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "share",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "simulation",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "article",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "assistant",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "conversations",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "conversation",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "assistant-chat",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "portrait",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "memories",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "actions",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "journal",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "me",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "auth",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "account",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "settings",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "appearance",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "privacy",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "data",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "support",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "membership",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "checkout",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "orders",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "order",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "topic-workspace",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "action-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "single-factor",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "daily-checkin",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "short-16pf",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "personality-sandbox",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "ai-reset",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "complete",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "factor-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "relationship-detail",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    },
+    {
+      "theme": "violet",
+      "route": "observation-area",
+      "status": "PASS",
+      "shared": {
+        "theme": "violet",
+        "mode": "light",
+        "canvas": true,
+        "field": "#d0c0f7",
+        "surface": "#fefcff",
+        "quiet": false
+      }
+    }
+  ],
+  "pageErrors": []
+}

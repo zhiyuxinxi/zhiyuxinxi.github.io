@@ -1,0 +1,15 @@
+{
+  "results": [
+    {
+      "test": "new-session-completion-reflects-in-tree",
+      "status": "PASS",
+      "details": {
+        "sessionId": "session-mutp1usg-nt3s",
+        "seedFixture": false,
+        "actualRoute": "complete?id=session-mutp1usg-nt3s",
+        "selectedNode": "complete"
+      }
+    }
+  ],
+  "pageErrors": []
+}

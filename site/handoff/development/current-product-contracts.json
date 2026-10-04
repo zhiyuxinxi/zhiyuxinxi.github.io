@@ -24,10 +24,21 @@
       ],
       "errors": "对象缺失不捏造内容；写入失败保留草稿；无网络能力时准确告知。",
       "boundary": "本地原型实现；不改变待定业务规则，不代表已上线正式测评。",
-      "presentation": "保留单一16PF框、同级版本切换、人物原比例和四副入口。原版补充日常情境说明；AI文案必须与实际题库设计核对，不宣称更准确、诊断或实时生成。"
+      "presentation": "原版增加日常情境用途；AI说明保留16角度、AI辅助改写题目/选项、具体生活情境与行为描述。无更准确、诊断、实时生成或统一四周承诺；默认无可用题组的禁用状态沿用main，未新增。",
+      "copyEvidence": {
+        "repository": "zhiyuxinxi/self-understanding-app",
+        "commit": "5f133e300944bfc3067941efaf714c3ba95f8203",
+        "references": [
+          "packages/assessment-content/README.md#L35-L47",
+          "packages/assessment-content/README.md#L70-L98",
+          "packages/assessment-content/reviews/candidate-revisions.json#L84-L126",
+          "packages/assessment-content/reviews/candidate-revisions.json#L321-L349"
+        ],
+        "boundary": "仅用于核对版本设计方向；候选修订未启用，未复制题库、计分或内部审校内容。"
+      }
     },
     "explore": {
-      "currentHandling": "不可点击的用途介绍；分类浏览优先，找主题默认收起；8张同级横矩形题组卡，语义图标+用户问题+简短用途。保留旧专题记录和认识工具。",
+      "currentHandling": "低强调独立容器中的不可点击用途介绍；分类浏览优先，找主题默认收起；8张同级横矩形题组卡，语义图标+用户问题+简短用途。保留旧专题记录和认识工具。",
       "inputs": [
         "explore-search：最多100字符，仅本地公开目录短关键词，不理解任意整句"
       ],

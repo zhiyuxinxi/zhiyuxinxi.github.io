@@ -62,7 +62,7 @@ with sync_playwright() as w:
   for theme in themes:
    go('home',theme=theme)
    for route in routes:
-    nav(params[route]);check(p.locator('main').inner_text().strip(),'blank '+route);overflow=p.evaluate('document.documentElement.scrollWidth>innerWidth+1');matrix.append({'theme':theme,'route':route,'overflow':overflow});check(not overflow,theme+' '+route+' overflow')
+    nav(params[route]);check(p.locator('main').inner_text().strip(),'blank '+route);overflow=p.evaluate('document.documentElement.scrollWidth>innerWidth+1');controls=p.evaluate('''()=>({unwiredButtons:[...document.querySelectorAll('main button:not([disabled])')].filter(e=>!e.dataset.action&&!(e.type==='submit'&&e.form)).map(e=>e.outerHTML.slice(0,180)),resizableTextareas:[...document.querySelectorAll('main textarea')].filter(e=>getComputedStyle(e).resize!=='none').map(e=>e.id)})''');matrix.append({'theme':theme,'route':route,'overflow':overflow,'controls':controls});check(not controls['unwiredButtons'] and not controls['resizableTextareas'],str(controls));check(not overflow,theme+' '+route+' overflow')
     if theme==themes[0]:
      text=p.locator('main').inner_text();matches=re.findall(r'.{0,18}(?:原型|设计预览|演示|本轮|样例).{0,25}',text)
      if matches:copy.append({'route':route,'matches':matches})

@@ -1,0 +1,221 @@
+{
+  "results": [
+    {
+      "test": "exhaustive-route-and-tree-map",
+      "status": "PASS",
+      "details": {
+        "routeFamilies": 43,
+        "nodes": 97,
+        "previewNodes": 85,
+        "specificationOrPlanned": 12
+      }
+    },
+    {
+      "test": "every-tree-node-real-navigation",
+      "status": "PASS",
+      "details": {
+        "visited": [
+          "home",
+          "explore",
+          "assessment-detail",
+          "content",
+          "question",
+          "review",
+          "recovery",
+          "report",
+          "records",
+          "compare",
+          "share",
+          "light-suite",
+          "article",
+          "assistant",
+          "conversations",
+          "conversation",
+          "context",
+          "usage",
+          "analysis",
+          "portrait",
+          "memories",
+          "actions",
+          "journal",
+          "life-spaces",
+          "skills",
+          "reminders",
+          "me",
+          "auth",
+          "account",
+          "settings",
+          "appearance",
+          "privacy",
+          "data",
+          "sync",
+          "support",
+          "notifications",
+          "membership",
+          "checkout",
+          "orders",
+          "order",
+          "topic-workspace",
+          "action-detail",
+          "single-factor",
+          "daily-checkin",
+          "short-16pf",
+          "personality-sandbox",
+          "ai-reset",
+          "complete",
+          "single-factor-process",
+          "single-factor-result",
+          "daily-checkin-process",
+          "daily-checkin-result",
+          "short-16pf-process",
+          "short-16pf-result",
+          "personality-sandbox-result",
+          "topic-relationships",
+          "workspace-relationships",
+          "topic-city-choice",
+          "workspace-city-choice",
+          "topic-learning",
+          "workspace-learning",
+          "topic-self-space",
+          "workspace-self-space",
+          "workspace-saved",
+          "action-observed",
+          "report-source",
+          "settings-preferences",
+          "factor-library",
+          "login-requirement",
+          "phone-requirement",
+          "payments-requirement",
+          "moments-requirement",
+          "abuse-requirement",
+          "memory-flow",
+          "data-transfer-flow",
+          "data-delete-flow",
+          "save-failure-flow",
+          "assistant-chat",
+          "factor-detail",
+          "relationship-detail",
+          "observation-area",
+          "scene-work-move",
+          "organize-work-move",
+          "scene-exam-retake",
+          "organize-exam-retake",
+          "scene-relationship-break",
+          "organize-relationship-break",
+          "scene-unpaid-break",
+          "organize-unpaid-break",
+          "scene-city-return",
+          "organize-city-return",
+          "scene-career-change",
+          "organize-career-change",
+          "scene-independent-home",
+          "organize-independent-home",
+          "scene-first-job",
+          "organize-first-job",
+          "state:default",
+          "state:resume",
+          "state:question",
+          "state:combined",
+          "state:save-failure",
+          "state:complete",
+          "state:mixed-records",
+          "state:topic-record",
+          "state:ongoing-action",
+          "state:action-review",
+          "state:source-login",
+          "state:quota",
+          "state:history",
+          "state:paid-annual",
+          "state:sample-report",
+          "state:profile-sample",
+          "backend:BR-001",
+          "backend:BR-002",
+          "backend:BR-003",
+          "backend:BR-004",
+          "backend:BR-005",
+          "backend:BR-006",
+          "backend:BR-007",
+          "backend:BR-008"
+        ]
+      }
+    },
+    {
+      "test": "substate-sync-and-deep-link",
+      "status": "PASS",
+      "details": {
+        "deepLink": "page=single-factor-result&route=single-factor&theme=sunrise&scene=question&width=390&mode=preview&dq=&hq=&hk=mobile&hv=&hs=&hg=&hp=1&logicDoc=local&logicSection=&logicQuery=&logicStatus=",
+        "stageReflectedInTree": true
+      }
+    },
+    {
+      "test": "tree-search-clear-and-keyboard",
+      "status": "PASS",
+      "details": {
+        "nestedSearch": true,
+        "keyboardTree": true
+      }
+    },
+    {
+      "test": "obsolete-frame-message-ignored",
+      "status": "PASS",
+      "details": {
+        "obsoleteGenerationIgnored": true
+      }
+    },
+    {
+      "test": "new-session-completion-reflects-in-tree",
+      "status": "FAIL",
+      "error": "Frame.wait_for_function: Timeout 30000ms exceeded.",
+      "traceback": "Traceback (most recent call last):\n  File \"/workspace/home-explore-evidence/diagnosis/shell-debug.py\", line 22, in test\n    try:detail=fn();results.append({'test':name,'status':'PASS','details':detail})\n               ^^^^\n  File \"/workspace/home-explore-evidence/diagnosis/shell-debug.py\", line 69, in newly_completed_session\n    frame.locator('[data-action=start]').click();frame.wait_for_function(\"App.currentRoute.startsWith('question?')\");sid=frame.evaluate('App.snapshot.activeSession');check(sid!='session-demo-seed','Must exercise a newly created session')\n                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/sync_api/_generated.py\", line 6300, in wait_for_function\n    self._sync(\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/_impl/_sync_base.py\", line 115, in _sync\n    return task.result()\n           ^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/_impl/_frame.py\", line 940, in wait_for_function\n    await self._channel.send(\"waitForFunction\", self._timeout, params)\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/_impl/_connection.py\", line 76, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/_impl/_connection.py\", line 632, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.TimeoutError: Frame.wait_for_function: Timeout 30000ms exceeded.\n",
+      "node": null
+    },
+    {
+      "test": "explore-to-eight-scenes-reflects-in-tree",
+      "status": "PASS",
+      "details": [
+        {
+          "route": "topic?id=work-move",
+          "selectedNode": "scene-work-move"
+        },
+        {
+          "route": "topic?id=exam-retake",
+          "selectedNode": "scene-exam-retake"
+        },
+        {
+          "route": "topic?id=relationship-break",
+          "selectedNode": "scene-relationship-break"
+        },
+        {
+          "route": "topic?id=unpaid-break",
+          "selectedNode": "scene-unpaid-break"
+        },
+        {
+          "route": "topic?id=city-return",
+          "selectedNode": "scene-city-return"
+        },
+        {
+          "route": "topic?id=career-change",
+          "selectedNode": "scene-career-change"
+        },
+        {
+          "route": "topic?id=independent-home",
+          "selectedNode": "scene-independent-home"
+        },
+        {
+          "route": "topic?id=first-job",
+          "selectedNode": "scene-first-job"
+        }
+      ]
+    },
+    {
+      "test": "desktop-fit-original-size-and-mobile",
+      "status": "PASS",
+      "details": [
+        "layout-1480",
+        "layout-1188",
+        "layout-390"
+      ]
+    }
+  ],
+  "pageErrors": []
+}

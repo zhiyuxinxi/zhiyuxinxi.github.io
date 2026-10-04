@@ -1,0 +1,526 @@
+{
+  "capturedAt": "2026-10-04T10:38:00.524093+00:00",
+  "pass": true,
+  "results": [
+    {
+      "name": "workspace-empty",
+      "route": "topic-workspace?topic=work-choice",
+      "width": 390,
+      "theme": "sunrise",
+      "largeText": false,
+      "primaryActions": [
+        {
+          "text": "保存这份整理",
+          "height": 52,
+          "y": 1915.46875
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "record-saved",
+      "route": "topic-workspace?topic=work-choice&id=topic-note-demo-v2",
+      "width": 390,
+      "theme": "sunrise",
+      "largeText": false,
+      "primaryActions": [
+        {
+          "text": "保存这次修改",
+          "height": 52,
+          "y": 2646.828125
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "record-saved-dark",
+      "route": "topic-workspace?topic=work-choice&id=topic-note-demo-v2",
+      "width": 320,
+      "theme": "nebula",
+      "largeText": true,
+      "primaryActions": [
+        {
+          "text": "保存这次修改",
+          "height": 53.640625,
+          "y": 2979.40625
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "action-review",
+      "route": "action-detail?id=action-demo-v2",
+      "width": 390,
+      "theme": "sunrise",
+      "largeText": false,
+      "primaryActions": [
+        {
+          "text": "保存这次观察",
+          "height": 52,
+          "y": 793.5625
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "home",
+      "route": "home",
+      "width": 390,
+      "theme": "sunrise",
+      "largeText": false,
+      "primaryActions": [
+        {
+          "text": "暂不可开始",
+          "height": 52,
+          "y": 507
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "report-empty",
+      "route": "report",
+      "width": 390,
+      "theme": "sunrise",
+      "largeText": false,
+      "primaryActions": [
+        {
+          "text": "选择测评",
+          "height": 52,
+          "y": 207.4375
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "home-resume",
+      "route": "home",
+      "width": 390,
+      "theme": "sunrise",
+      "largeText": false,
+      "primaryActions": [
+        {
+          "text": "继续上次作答",
+          "height": 52,
+          "y": 507
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "home-action",
+      "route": "home",
+      "width": 390,
+      "theme": "sunrise",
+      "largeText": false,
+      "primaryActions": [
+        {
+          "text": "开始原版测评",
+          "height": 52,
+          "y": 507
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "settings",
+      "route": "settings",
+      "width": 390,
+      "theme": "sunrise",
+      "largeText": false,
+      "primaryActions": [],
+      "status": "PASS"
+    },
+    {
+      "name": "explore",
+      "route": "explore",
+      "width": 390,
+      "theme": "sunrise",
+      "largeText": false,
+      "primaryActions": [],
+      "status": "PASS"
+    },
+    {
+      "name": "assistant",
+      "route": "assistant",
+      "width": 390,
+      "theme": "sunrise",
+      "largeText": false,
+      "primaryActions": [
+        {
+          "text": "补充自己的情况",
+          "height": 52,
+          "y": 397.5625
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "profile",
+      "route": "me",
+      "width": 390,
+      "theme": "sunrise",
+      "largeText": false,
+      "primaryActions": [
+        {
+          "text": "记一个自己的时刻",
+          "height": 50.5,
+          "y": 293.265625
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "topic",
+      "route": "topic?id=work-choice",
+      "width": 390,
+      "theme": "sunrise",
+      "largeText": false,
+      "primaryActions": [
+        {
+          "text": "开始整理",
+          "height": 52,
+          "y": 484.734375
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "topic-resume",
+      "route": "topic?id=work-choice",
+      "width": 390,
+      "theme": "sunrise",
+      "largeText": false,
+      "primaryActions": [
+        {
+          "text": "继续上次的整理",
+          "height": 52,
+          "y": 484.734375
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "report",
+      "route": "report?id=report-sample-01",
+      "width": 390,
+      "theme": "sunrise",
+      "largeText": false,
+      "primaryActions": [
+        {
+          "text": "留下这个小尝试",
+          "height": 52,
+          "y": 2087.640625
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "question",
+      "route": "question?id=session-demo-seed",
+      "width": 390,
+      "theme": "sunrise",
+      "largeText": false,
+      "primaryActions": [
+        {
+          "text": "下一题",
+          "height": 52,
+          "y": 776
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "appearance",
+      "route": "appearance",
+      "width": 390,
+      "theme": "sunrise",
+      "largeText": false,
+      "primaryActions": [],
+      "status": "PASS"
+    },
+    {
+      "name": "appearance-320",
+      "route": "appearance",
+      "width": 320,
+      "theme": "sunrise",
+      "largeText": false,
+      "primaryActions": [],
+      "status": "PASS"
+    },
+    {
+      "name": "appearance-dark-320",
+      "route": "appearance",
+      "width": 320,
+      "theme": "nebula",
+      "largeText": false,
+      "primaryActions": [],
+      "status": "PASS"
+    },
+    {
+      "name": "home-320",
+      "route": "home",
+      "width": 320,
+      "theme": "sunrise",
+      "largeText": false,
+      "primaryActions": [
+        {
+          "text": "暂不可开始",
+          "height": 52,
+          "y": 531
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "explore-320",
+      "route": "explore",
+      "width": 320,
+      "theme": "sunrise",
+      "largeText": false,
+      "primaryActions": [],
+      "status": "PASS"
+    },
+    {
+      "name": "assistant-320",
+      "route": "assistant",
+      "width": 320,
+      "theme": "sunrise",
+      "largeText": false,
+      "primaryActions": [
+        {
+          "text": "补充自己的情况",
+          "height": 52,
+          "y": 393.140625
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "profile-320",
+      "route": "me",
+      "width": 320,
+      "theme": "sunrise",
+      "largeText": false,
+      "primaryActions": [
+        {
+          "text": "记一个自己的时刻",
+          "height": 50.5,
+          "y": 297.15625
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "report-320",
+      "route": "report?id=report-sample-01",
+      "width": 320,
+      "theme": "sunrise",
+      "largeText": false,
+      "primaryActions": [
+        {
+          "text": "留下这个小尝试",
+          "height": 52,
+          "y": 2213.21875
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "home-430",
+      "route": "home",
+      "width": 430,
+      "theme": "sunrise",
+      "largeText": false,
+      "primaryActions": [
+        {
+          "text": "暂不可开始",
+          "height": 52,
+          "y": 507
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "question-320",
+      "route": "question?id=session-demo-seed",
+      "width": 320,
+      "theme": "sunrise",
+      "largeText": false,
+      "primaryActions": [
+        {
+          "text": "下一题",
+          "height": 52,
+          "y": 776
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "home-dark",
+      "route": "home",
+      "width": 390,
+      "theme": "nebula",
+      "largeText": false,
+      "primaryActions": [
+        {
+          "text": "暂不可开始",
+          "height": 52,
+          "y": 507
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "explore-dark",
+      "route": "explore",
+      "width": 390,
+      "theme": "nebula",
+      "largeText": false,
+      "primaryActions": [],
+      "status": "PASS"
+    },
+    {
+      "name": "assistant-dark",
+      "route": "assistant",
+      "width": 390,
+      "theme": "nebula",
+      "largeText": false,
+      "primaryActions": [
+        {
+          "text": "补充自己的情况",
+          "height": 52,
+          "y": 397.5625
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "report-dark",
+      "route": "report?id=report-sample-01",
+      "width": 390,
+      "theme": "nebula",
+      "largeText": false,
+      "primaryActions": [
+        {
+          "text": "留下这个小尝试",
+          "height": 52,
+          "y": 2087.640625
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "appearance-dark",
+      "route": "appearance",
+      "width": 390,
+      "theme": "amber",
+      "largeText": false,
+      "primaryActions": [],
+      "status": "PASS"
+    },
+    {
+      "name": "home-large",
+      "route": "home",
+      "width": 320,
+      "theme": "sunrise",
+      "largeText": true,
+      "primaryActions": [
+        {
+          "text": "暂不可开始",
+          "height": 53.640625,
+          "y": 558.28125
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "explore-large",
+      "route": "explore",
+      "width": 320,
+      "theme": "sunrise",
+      "largeText": true,
+      "primaryActions": [],
+      "status": "PASS"
+    },
+    {
+      "name": "assistant-large",
+      "route": "assistant",
+      "width": 320,
+      "theme": "sunrise",
+      "largeText": true,
+      "primaryActions": [
+        {
+          "text": "补充自己的情况",
+          "height": 53.640625,
+          "y": 442.546875
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "profile-large",
+      "route": "me",
+      "width": 320,
+      "theme": "sunrise",
+      "largeText": true,
+      "primaryActions": [
+        {
+          "text": "记一个自己的时刻",
+          "height": 53.640625,
+          "y": 349.65625
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "question-large",
+      "route": "question?id=session-demo-seed",
+      "width": 320,
+      "theme": "sunrise",
+      "largeText": true,
+      "primaryActions": [
+        {
+          "text": "下一题",
+          "height": 53.640625,
+          "y": 774.359375
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "report-large",
+      "route": "report?id=report-sample-01",
+      "width": 320,
+      "theme": "sunrise",
+      "largeText": true,
+      "primaryActions": [
+        {
+          "text": "留下这个小尝试",
+          "height": 53.640625,
+          "y": 2380.046875
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "settings-dialog-dark-320",
+      "status": "PASS"
+    },
+    {
+      "name": "workbench-brand-1480",
+      "status": "PASS"
+    },
+    {
+      "name": "workbench-brand-390",
+      "status": "PASS"
+    },
+    {
+      "name": "motion-and-dialog-focus",
+      "status": "PASS"
+    }
+  ],
+  "limits": [
+    "Emulated Chromium viewports; no physical Android/iOS keyboard or assistive-technology certification."
+  ]
+}

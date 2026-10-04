@@ -35,7 +35,7 @@ window.V3 = (() => {
   function explore(s){
     const recent=s.observations.filter(x=>x.kind==='topic-record').sort((a,b)=>(b.updatedAt||b.createdAt||'').localeCompare(a.updatedAt||a.createdAt||''))[0];
     return `${title('','最近，你在想什么？','',B('收藏','favorites',{cls:'textbtn',icon:'bookmark'}))}
-    <section class="explore-intro" aria-label="探索能帮你做什么"><p>从生活、工作里的纠结开始，梳理自己的想法、在意与顾虑，更了解自己。</p></section>
+    <section class="explore-intro" aria-label="探索能帮你做什么"><p>从生活与工作中的纠结出发，梳理想法、在意与顾虑，也从更多角度认识自己。</p></section>
     <div class="chips v3-categories" aria-label="探索类别">${['全部','工作','学业','关系','生活'].map(c=>B(c,'category',{cls:s.exploreCategory===c?'active':'','data-id':c,'aria-pressed':s.exploreCategory===c})).join('')}</div>
     <div class="explore-find-row"><span class="small muted">从常见问题出发</span>${B('找主题','toggle-topic-search',{cls:'textbtn',icon:'search','aria-expanded':!!s.exploreSearchOpen,'aria-controls':'topic-search-panel'})}</div>
     <div id="topic-search-panel" ${s.exploreSearchOpen?'':'hidden'}><div class="search-box"><label class="sr-only" for="explore-search">按标题或关键词找主题</label>${icon('search')}<input id="explore-search" data-input="explore-search" value="${esc(s.exploreSearch)}" placeholder="试试辞职、考研、搬家" maxlength="100" autocomplete="off" aria-describedby="topic-search-help">${B('','clear-search',{cls:'search-clear',icon:'close','aria-label':'清空搜索',hidden:!s.exploreSearch})}</div><p id="topic-search-help" class="small muted">在当前分类里查找标题或关键词。不用写完整问题。</p></div>
