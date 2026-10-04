@@ -1,0 +1,2329 @@
+{
+  "searchCases": [
+    {
+      "query": "辞职",
+      "ids": [
+        "work-move",
+        "unpaid-break"
+      ]
+    },
+    {
+      "query": "考研",
+      "ids": [
+        "exam-retake"
+      ]
+    },
+    {
+      "query": "  读研  ",
+      "ids": [
+        "exam-retake"
+      ]
+    },
+    {
+      "query": "跳槽",
+      "ids": [
+        "work-move"
+      ]
+    },
+    {
+      "query": "搬家",
+      "ids": [
+        "independent-home"
+      ]
+    },
+    {
+      "query": "火星移民",
+      "ids": []
+    },
+    {
+      "query": "辞职 考研",
+      "ids": []
+    }
+  ],
+  "matrix": [
+    {
+      "width": 320,
+      "theme": "sunrise",
+      "cards": 8,
+      "columns": 1,
+      "cardGeometry": [
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 124,
+          "sh": 124
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 10.22061089270177
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 9.571163566826394
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 9.571163566826394
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 320,
+      "theme": "candy",
+      "cards": 8,
+      "columns": 1,
+      "cardGeometry": [
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 124,
+          "sh": 124
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 10.411496595389394
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 9.677703820647064
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 9.677703820647064
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 320,
+      "theme": "berry",
+      "cards": 8,
+      "columns": 1,
+      "cardGeometry": [
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 124,
+          "sh": 124
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 10.075997206342565
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 9.44779817098672
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 9.44779817098672
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 320,
+      "theme": "lime",
+      "cards": 8,
+      "columns": 1,
+      "cardGeometry": [
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 124,
+          "sh": 124
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 10.65002536164572
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 9.921799840426829
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 9.921799840426829
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 320,
+      "theme": "aurora",
+      "cards": 8,
+      "columns": 1,
+      "cardGeometry": [
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 124,
+          "sh": 124
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 10.07075657538757
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 9.453240911642556
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 9.453240911642556
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 320,
+      "theme": "sea",
+      "cards": 8,
+      "columns": 1,
+      "cardGeometry": [
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 124,
+          "sh": 124
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 9.86640347075004
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 9.174353928412067
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 9.174353928412067
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 320,
+      "theme": "nebula",
+      "cards": 8,
+      "columns": 1,
+      "cardGeometry": [
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 124,
+          "sh": 124
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 14.49951992146611
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 13.997762637787375
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 13.997762637787375
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 320,
+      "theme": "amber",
+      "cards": 8,
+      "columns": 1,
+      "cardGeometry": [
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 124,
+          "sh": 124
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 12.605687985105124
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 12.335998308067138
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 12.335998308067138
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 320,
+      "theme": "green",
+      "cards": 8,
+      "columns": 1,
+      "cardGeometry": [
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 124,
+          "sh": 124
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 10.96463039934325
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 7.612067389516766
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 7.612067389516766
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 320,
+      "theme": "peach",
+      "cards": 8,
+      "columns": 1,
+      "cardGeometry": [
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 124,
+          "sh": 124
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 11.25334139487486
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 8.975920805190976
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 8.975920805190976
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 320,
+      "theme": "blue",
+      "cards": 8,
+      "columns": 1,
+      "cardGeometry": [
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 124,
+          "sh": 124
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 9.975427481958864
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 8.953815216296396
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 8.953815216296396
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 320,
+      "theme": "violet",
+      "cards": 8,
+      "columns": 1,
+      "cardGeometry": [
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 101,
+          "sh": 101
+        },
+        {
+          "w": 274,
+          "h": 124,
+          "sh": 124
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 12.419352612803447
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 9.211584966133938
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 9.211584966133938
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 390,
+      "theme": "sunrise",
+      "cards": 8,
+      "columns": 2,
+      "cardGeometry": [
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 10.067875518969798
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 9.42813344271973
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 9.42813344271973
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 390,
+      "theme": "candy",
+      "cards": 8,
+      "columns": 2,
+      "cardGeometry": [
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 10.411496595389394
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 9.677703820647064
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 9.677703820647064
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 390,
+      "theme": "berry",
+      "cards": 8,
+      "columns": 2,
+      "cardGeometry": [
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 10.075997206342565
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 9.44779817098672
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 9.44779817098672
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 390,
+      "theme": "lime",
+      "cards": 8,
+      "columns": 2,
+      "cardGeometry": [
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 10.65002536164572
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 9.921799840426829
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 9.921799840426829
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 390,
+      "theme": "aurora",
+      "cards": 8,
+      "columns": 2,
+      "cardGeometry": [
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 10.07075657538757
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 9.453240911642556
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 9.453240911642556
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 390,
+      "theme": "sea",
+      "cards": 8,
+      "columns": 2,
+      "cardGeometry": [
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 9.86640347075004
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 9.174353928412067
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 9.174353928412067
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 390,
+      "theme": "nebula",
+      "cards": 8,
+      "columns": 2,
+      "cardGeometry": [
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 14.314336932447807
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 13.818987923943466
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 13.818987923943466
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 390,
+      "theme": "amber",
+      "cards": 8,
+      "columns": 2,
+      "cardGeometry": [
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 12.605687985105124
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 12.335998308067138
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 12.335998308067138
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 390,
+      "theme": "green",
+      "cards": 8,
+      "columns": 2,
+      "cardGeometry": [
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 10.96463039934325
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 7.612067389516766
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 7.612067389516766
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 390,
+      "theme": "peach",
+      "cards": 8,
+      "columns": 2,
+      "cardGeometry": [
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 11.25334139487486
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 8.975920805190976
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 8.975920805190976
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 390,
+      "theme": "blue",
+      "cards": 8,
+      "columns": 2,
+      "cardGeometry": [
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 9.975427481958864
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 8.953815216296396
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 8.953815216296396
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 390,
+      "theme": "violet",
+      "cards": 8,
+      "columns": 2,
+      "cardGeometry": [
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 189,
+          "sh": 189
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 160,
+          "h": 188,
+          "sh": 188
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 12.419352612803447
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 9.211584966133938
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 9.211584966133938
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 1440,
+      "theme": "sunrise",
+      "cards": 8,
+      "columns": 2,
+      "cardGeometry": [
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 10.067875518969798
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 9.42813344271973
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 9.42813344271973
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 1440,
+      "theme": "candy",
+      "cards": 8,
+      "columns": 2,
+      "cardGeometry": [
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 10.411496595389394
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 9.677703820647064
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 9.677703820647064
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 1440,
+      "theme": "berry",
+      "cards": 8,
+      "columns": 2,
+      "cardGeometry": [
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 10.075997206342565
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 9.44779817098672
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 9.44779817098672
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 1440,
+      "theme": "lime",
+      "cards": 8,
+      "columns": 2,
+      "cardGeometry": [
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 10.65002536164572
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 9.921799840426829
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 9.921799840426829
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 1440,
+      "theme": "aurora",
+      "cards": 8,
+      "columns": 2,
+      "cardGeometry": [
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 10.07075657538757
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 9.453240911642556
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 9.453240911642556
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 1440,
+      "theme": "sea",
+      "cards": 8,
+      "columns": 2,
+      "cardGeometry": [
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 9.86640347075004
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 9.174353928412067
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 9.174353928412067
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 1440,
+      "theme": "nebula",
+      "cards": 8,
+      "columns": 2,
+      "cardGeometry": [
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 14.314336932447807
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 13.818987923943466
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 13.818987923943466
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 1440,
+      "theme": "amber",
+      "cards": 8,
+      "columns": 2,
+      "cardGeometry": [
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 12.605687985105124
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 12.335998308067138
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 12.335998308067138
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 1440,
+      "theme": "green",
+      "cards": 8,
+      "columns": 2,
+      "cardGeometry": [
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 10.96463039934325
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 7.612067389516766
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 7.612067389516766
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 1440,
+      "theme": "peach",
+      "cards": 8,
+      "columns": 2,
+      "cardGeometry": [
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 11.25334139487486
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 8.975920805190976
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 8.975920805190976
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 1440,
+      "theme": "blue",
+      "cards": 8,
+      "columns": 2,
+      "cardGeometry": [
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 9.975427481958864
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 8.953815216296396
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 8.953815216296396
+        }
+      ],
+      "homeCTAShiftPx": 0
+    },
+    {
+      "width": 1440,
+      "theme": "violet",
+      "cards": 8,
+      "columns": 2,
+      "cardGeometry": [
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        },
+        {
+          "w": 210,
+          "h": 188,
+          "sh": 188
+        }
+      ],
+      "cardContrast": [
+        {
+          "selector": ".decision-title",
+          "ratio": 12.419352612803447
+        },
+        {
+          "selector": ".decision-description",
+          "ratio": 9.211584966133938
+        },
+        {
+          "selector": ".decision-category",
+          "ratio": 9.211584966133938
+        }
+      ],
+      "homeCTAShiftPx": 0
+    }
+  ],
+  "errors": [],
+  "checks": {
+    "IME": true,
+    "clearFocus": true,
+    "offlineAfterLoadNoRequests": true,
+    "queryNotPersistedOrInURL": true,
+    "categoryAndQuery": true,
+    "keyboard": true,
+    "ambientContinuity": true,
+    "reducedMotion": true
+  },
+  "limits": [
+    "No cold-start offline cache added",
+    "IME events simulated in Chromium, not physical keyboards",
+    "No formal accessibility certification"
+  ]
+}

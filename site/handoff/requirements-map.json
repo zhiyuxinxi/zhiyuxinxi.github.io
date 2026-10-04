@@ -148,7 +148,8 @@
     ],
     "redesignDecision": "保留需求语义，按任务合并承载；确认状态沿用原文，方案不变成用户已确认。",
     "implementationNote": "2026-10-04独立设计候选：DecisionScenes.search / V3.exploreResults / app.js事件；无新增服务。",
-    "v2Review": "V2承载与行为增补不改变原确认状态；原始要求、验收和来源保留。"
+    "v2Review": "V2承载与行为增补不改变原确认状态；原始要求、验收和来源保留。",
+    "presentationSupplement": "探索目录视觉候选：390px同级两列，320px及大字号紧凑横卡；图标/类别为卡片上缘，问题/用途完整不截断。介绍不可点击，文字分类有选中下划线。所有既有事件与本地数据边界不变。"
   },
   {
     "id": "FR-004",

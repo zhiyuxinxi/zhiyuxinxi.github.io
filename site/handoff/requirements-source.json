@@ -141,7 +141,8 @@
         }
       ],
       "valueEvidence": "用户能围绕自己的实际问题选出适用题组，并说出为什么选它。",
-      "implementationNote": "2026-10-04独立设计候选：DecisionScenes.search / V3.exploreResults / app.js事件；无新增服务。"
+      "implementationNote": "2026-10-04独立设计候选：DecisionScenes.search / V3.exploreResults / app.js事件；无新增服务。",
+      "presentationSupplement": "探索目录视觉候选：390px同级两列，320px及大字号紧凑横卡；图标/类别为卡片上缘，问题/用途完整不截断。介绍不可点击，文字分类有选中下划线。所有既有事件与本地数据边界不变。"
     },
     {
       "id": "FR-004",
