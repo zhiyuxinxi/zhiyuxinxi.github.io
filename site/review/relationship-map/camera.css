@@ -1,0 +1,27 @@
+html,body{height:100%;min-height:0;overflow:hidden;scrollbar-color:var(--muted) var(--paper);scrollbar-width:thin}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);--ink2:var(--muted);--serif:"Noto Serif CJK SC","Songti SC","STSong",serif}
+#ambient-background{position:fixed;inset:0;pointer-events:none;z-index:-1}#ambient-tide{width:100%;height:100%;display:block}
+.map-header{position:absolute;z-index:7;top:max(20px,env(safe-area-inset-top));left:24px;right:24px;pointer-events:none}.map-header p{font-size:12px;margin:0 0 8px;color:var(--muted)}.map-header h1{font:600 25px/1.4 var(--serif);margin:0 0 7px}
+.viewport{position:absolute;inset:124px 0 122px;overflow:hidden;touch-action:none;outline-offset:-3px;cursor:grab}.viewport.dragging{cursor:grabbing}
+.app{position:absolute;inset:0;min-height:0;display:block;padding:0;overflow:visible;pointer-events:none}
+.stage{position:absolute;left:0;top:0;width:595px!important;height:566px!important;max-width:none;aspect-ratio:auto;transform-origin:0 0;container-type:normal;touch-action:none;will-change:transform}
+.orb{font-size:1px}.stage .orb{pointer-events:auto}.orb-shine,.orb-halo::before,.lf-sway,.bul-halo{animation:none!important}
+#bg>g[filter="url(#fWash)"]{display:none}#bg>circle{opacity:.35}#leaves{opacity:.75}
+.head{transition:opacity .18s}.head .blob{fill:color-mix(in srgb,var(--paper) 85%,transparent)!important}.t-title{fill:var(--ink);paint-order:stroke;stroke:var(--paper);stroke-width:2px;stroke-linejoin:round}.t-item{fill:var(--ink);paint-order:stroke;stroke:var(--paper);stroke-width:3px;stroke-linejoin:round}
+#hits .hit:hover{stroke:var(--primary);stroke-opacity:.35;stroke-width:1}#hits .hit:focus-visible{stroke:var(--primary);stroke-width:2;fill:color-mix(in srgb,var(--paper) 20%,transparent)}
+button{font:inherit;color:var(--ink);background:var(--paper);border:1px solid color-mix(in srgb,var(--primary) 20%,transparent);border-radius:14px;min-height:44px;min-width:44px;cursor:pointer;padding:0 12px}button:hover{background:var(--surface)}button:active{transform:scale(.97)}button:focus-visible,.orb:focus-visible,.viewport:focus-visible{outline:2px solid var(--primary);outline-offset:3px}
+.camera-tools{position:absolute;z-index:7;bottom:max(45px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:4px;padding:5px;border:1px solid color-mix(in srgb,var(--primary) 14%,transparent);background:color-mix(in srgb,var(--paper) 94%,transparent);border-radius:18px;max-width:calc(100% - 24px)}
+.camera-tools output{font:11px var(--sans);min-width:34px;text-align:center}.camera-tools button{padding:0 8px;background:transparent;border:0}.map-help{position:absolute;bottom:11px;width:100%;text-align:center;font-size:11px;color:var(--muted);margin:0}
+dialog{color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:24px;width:min(420px,calc(100% - 32px));padding:24px;max-height:80dvh;overflow:auto;box-shadow:0 20px 70px #0003}dialog::backdrop{background:#0005}dialog h2{font:600 26px/1.4 var(--serif);margin:15px 0}dialog p{line-height:1.8;margin:12px 0}#close-detail{float:right}#detail-branch{font-size:13px}.detail-note{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
+@media(max-width:440px){.camera-tools{flex-wrap:wrap;width:284px;justify-content:center}.camera-tools button[data-camera=left]{margin-left:0}.viewport{bottom:164px}.map-help{bottom:15px}.camera-tools{bottom:40px}.map-header{left:20px;right:20px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+@media(forced-colors:active){button,dialog{border:1px solid ButtonText}.t-title,.t-item{fill:CanvasText;stroke:Canvas}#hits .hit:focus-visible{stroke:Highlight}}
+@media(max-width:440px){.camera-tools{display:grid;grid-template-columns:repeat(4,1fr);width:244px;gap:0}.camera-tools output{grid-column:3;grid-row:1}.camera-tools button[data-camera=in]{grid-column:4;grid-row:1}}
+.t-title,.t-item{stroke:none}
+#bg>circle{display:none}.orb-halo{display:none}
+body[data-theme-mode=dark] #gGreen path{stroke:var(--on-primary)}
+body[data-theme-mode=dark] .t-title,body[data-theme-mode=dark] .t-item{fill:var(--ink)}
+body[data-theme-mode=dark] #gHeads .ic-g{filter:brightness(1.8)}
+body[data-theme-mode=dark] #gGreen path{stroke:color-mix(in srgb,var(--ink) 65%,var(--surface))}
+body[data-theme-mode=dark] #gPetals{opacity:.12!important}
+.stage[data-mode=overview] .t-title{font-size:20px}
