@@ -84,7 +84,7 @@ with sync_playwright() as pw:
    row['primaryActions']=page.locator('.btn:not(.secondary):not(.tonal)').evaluate_all('(es)=>es.filter(e=>e.getClientRects().length).map(e=>({text:e.textContent.trim(),height:e.getBoundingClientRect().height,y:e.getBoundingClientRect().y}))')
    if route=='assistant':
     check(page.locator('main h1').inner_text()=='我的画像','Profile heading missing')
-    check(page.locator('[data-action=profile-group]').count()==3,'Three profile groups missing')
+    check(page.locator('[data-action=profile-group]').count()==4,'Four profile groups missing')
     check(page.locator('.profile-radar').count()==0,'Unknown state fabricated a radar')
     check(page.locator('[data-route=assistant-chat]').count()>0,'Assistant continuation missing')
    check(page.locator('.brandline,.wordmark,.prototype-label').count()==0,'Removed product toolbar returned')

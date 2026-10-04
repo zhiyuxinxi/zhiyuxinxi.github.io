@@ -1,7 +1,7 @@
 /* Read-only graph content. Every layout keeps its own hand-authored curves. */
 window.MapModel=(()=>{
  const type=new URLSearchParams(location.search).get('map')||'relationships';
- const titles={relationships:'关系需求图谱',traits:'人格倾向',personal:'我的观察',completion:'认识的进度'};
+ const titles={relationships:'关系需求图谱',traits:'人格倾向',personal:'个人画像',completion:'认识的进度'};
  const areas=[['behavior','性格与行为'],['decisions','思考与选择'],['values','在意的事'],['assumptions','待检验的想法'],['emotions','情感与需要'],['family','家庭与边界'],['communication','沟通与互动'],['strengths','优势与代价']];
  const clone=b=>JSON.parse(JSON.stringify(b));
  function replace(b,name,items,curves){b.name=name;b.items=items;b.vines=curves;b.buds=[];b.juncs=[];b.iconPath=0;return b;}

@@ -88,6 +88,8 @@ jobs:
           PY
       - name: Verify published home and local explore interactions
         run: python site/tools/public_home_explore_review.py --url https://zhiyuxinxi.github.io/ --output public-evidence/home-explore
+      - name: Verify published profile graphs
+        run: python site/tools/public_profile_graph_review.py --url https://zhiyuxinxi.github.io/ --output public-evidence/profile-graphs
       - name: Keep public URL evidence
         if: always()
         uses: actions/upload-artifact@v4
