@@ -24,42 +24,42 @@
       "details": [
         {
           "scene": "work-move",
-          "recordId": "observation-mutgkghv-un6y7",
+          "recordId": "observation-mutprd0c-dwgdk",
           "revision": 2
         },
         {
           "scene": "exam-retake",
-          "recordId": "observation-mutgkgmh-r9vzi",
+          "recordId": "observation-mutprd4h-8fbkn",
           "revision": 2
         },
         {
           "scene": "relationship-break",
-          "recordId": "observation-mutgkgr4-2sy86",
+          "recordId": "observation-mutprd8n-qb36k",
           "revision": 2
         },
         {
           "scene": "unpaid-break",
-          "recordId": "observation-mutgkgvq-ugpyb",
+          "recordId": "observation-mutprdcd-w6vun",
           "revision": 2
         },
         {
           "scene": "city-return",
-          "recordId": "observation-mutgkh0d-19u2r",
+          "recordId": "observation-mutprdg2-oybz3",
           "revision": 2
         },
         {
           "scene": "career-change",
-          "recordId": "observation-mutgkh50-whv5v",
+          "recordId": "observation-mutprdjr-ss6a4",
           "revision": 2
         },
         {
           "scene": "independent-home",
-          "recordId": "observation-mutgkh9m-zu2py",
+          "recordId": "observation-mutprdng-aecm1",
           "revision": 2
         },
         {
           "scene": "first-job",
-          "recordId": "observation-mutgkhe9-fo8i1",
+          "recordId": "observation-mutprdr6-036ic",
           "revision": 2
         }
       ]
@@ -133,2582 +133,4646 @@
     {
       "theme": "sunrise",
       "route": "home",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "explore",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "assistant",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "me",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "question",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "review",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "complete",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "report",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "records",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "topic",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "appearance",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "conversations",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "conversation",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "auth",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "memories",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "actions",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "journal",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "portrait",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "data",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "membership",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "checkout",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "orders",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "order",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "article",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "share",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "settings",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "privacy",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "support",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "account",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "simulation",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "compare",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "content",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "topic-workspace",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "action-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "single-factor",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "daily-checkin",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "short-16pf",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "personality-sandbox",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "ai-reset",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "factor-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "observation-area",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "relationship-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sunrise",
       "route": "assistant-chat",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "home",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "explore",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "assistant",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "me",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "question",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "review",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "complete",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "report",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "records",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "topic",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "appearance",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "conversations",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "conversation",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "auth",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "memories",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "actions",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "journal",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "portrait",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "data",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "membership",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "checkout",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "orders",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "order",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "article",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "share",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "settings",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "privacy",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "support",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "account",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "simulation",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "compare",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "content",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "topic-workspace",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "action-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "single-factor",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "daily-checkin",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "short-16pf",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "personality-sandbox",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "ai-reset",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "factor-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "observation-area",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "relationship-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "candy",
       "route": "assistant-chat",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "home",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "explore",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "assistant",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "me",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "question",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "review",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "complete",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "report",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "records",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "topic",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "appearance",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "conversations",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "conversation",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "auth",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "memories",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "actions",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "journal",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "portrait",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "data",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "membership",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "checkout",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "orders",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "order",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "article",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "share",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "settings",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "privacy",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "support",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "account",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "simulation",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "compare",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "content",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "topic-workspace",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "action-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "single-factor",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "daily-checkin",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "short-16pf",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "personality-sandbox",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "ai-reset",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "factor-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "observation-area",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "relationship-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "berry",
       "route": "assistant-chat",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "home",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "explore",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "assistant",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "me",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "question",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "review",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "complete",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "report",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "records",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "topic",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "appearance",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "conversations",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "conversation",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "auth",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "memories",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "actions",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "journal",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "portrait",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "data",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "membership",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "checkout",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "orders",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "order",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "article",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "share",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "settings",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "privacy",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "support",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "account",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "simulation",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "compare",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "content",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "topic-workspace",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "action-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "single-factor",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "daily-checkin",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "short-16pf",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "personality-sandbox",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "ai-reset",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "factor-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "observation-area",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "relationship-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "lime",
       "route": "assistant-chat",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "home",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "explore",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "assistant",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "me",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "question",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "review",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "complete",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "report",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "records",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "topic",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "appearance",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "conversations",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "conversation",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "auth",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "memories",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "actions",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "journal",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "portrait",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "data",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "membership",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "checkout",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "orders",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "order",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "article",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "share",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "settings",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "privacy",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "support",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "account",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "simulation",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "compare",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "content",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "topic-workspace",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "action-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "single-factor",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "daily-checkin",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "short-16pf",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "personality-sandbox",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "ai-reset",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "factor-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "observation-area",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "relationship-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "aurora",
       "route": "assistant-chat",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "home",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "explore",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "assistant",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "me",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "question",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "review",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "complete",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "report",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "records",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "topic",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "appearance",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "conversations",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "conversation",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "auth",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "memories",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "actions",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "journal",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "portrait",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "data",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "membership",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "checkout",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "orders",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "order",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "article",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "share",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "settings",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "privacy",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "support",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "account",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "simulation",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "compare",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "content",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "topic-workspace",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "action-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "single-factor",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "daily-checkin",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "short-16pf",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "personality-sandbox",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "ai-reset",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "factor-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "observation-area",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "relationship-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "sea",
       "route": "assistant-chat",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "home",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "explore",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "assistant",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "me",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "question",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "review",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "complete",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "report",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "records",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "topic",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "appearance",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "conversations",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "conversation",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "auth",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "memories",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "actions",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "journal",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "portrait",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "data",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "membership",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "checkout",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "orders",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "order",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "article",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "share",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "settings",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "privacy",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "support",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "account",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "simulation",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "compare",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "content",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "topic-workspace",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "action-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "single-factor",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "daily-checkin",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "short-16pf",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "personality-sandbox",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "ai-reset",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "factor-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "observation-area",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "relationship-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "nebula",
       "route": "assistant-chat",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "home",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "explore",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "assistant",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "me",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "question",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "review",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "complete",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "report",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "records",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "topic",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "appearance",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "conversations",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "conversation",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "auth",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "memories",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "actions",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "journal",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "portrait",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "data",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "membership",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "checkout",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "orders",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "order",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "article",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "share",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "settings",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "privacy",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "support",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "account",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "simulation",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "compare",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "content",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "topic-workspace",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "action-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "single-factor",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "daily-checkin",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "short-16pf",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "personality-sandbox",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "ai-reset",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "factor-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "observation-area",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "relationship-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "amber",
       "route": "assistant-chat",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "home",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "explore",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "assistant",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "me",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "question",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "review",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "complete",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "report",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "records",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "topic",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "appearance",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "conversations",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "conversation",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "auth",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "memories",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "actions",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "journal",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "portrait",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "data",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "membership",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "checkout",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "orders",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "order",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "article",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "share",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "settings",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "privacy",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "support",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "account",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "simulation",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "compare",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "content",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "topic-workspace",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "action-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "single-factor",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "daily-checkin",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "short-16pf",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "personality-sandbox",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "ai-reset",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "factor-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "observation-area",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "relationship-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "green",
       "route": "assistant-chat",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "home",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "explore",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "assistant",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "me",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "question",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "review",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "complete",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "report",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "records",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "topic",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "appearance",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "conversations",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "conversation",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "auth",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "memories",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "actions",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "journal",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "portrait",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "data",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "membership",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "checkout",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "orders",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "order",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "article",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "share",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "settings",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "privacy",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "support",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "account",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "simulation",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "compare",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "content",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "topic-workspace",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "action-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "single-factor",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "daily-checkin",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "short-16pf",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "personality-sandbox",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "ai-reset",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "factor-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "observation-area",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "relationship-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "peach",
       "route": "assistant-chat",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "home",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "explore",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "assistant",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "me",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "question",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "review",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "complete",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "report",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "records",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "topic",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "appearance",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "conversations",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "conversation",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "auth",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "memories",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "actions",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "journal",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "portrait",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "data",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "membership",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "checkout",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "orders",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "order",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "article",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "share",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "settings",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "privacy",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "support",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "account",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "simulation",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "compare",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "content",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "topic-workspace",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "action-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "single-factor",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "daily-checkin",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "short-16pf",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "personality-sandbox",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "ai-reset",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "factor-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "observation-area",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "relationship-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "blue",
       "route": "assistant-chat",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "home",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "explore",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "assistant",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "me",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "question",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "review",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "complete",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "report",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "records",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "topic",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "appearance",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "conversations",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "conversation",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "auth",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "memories",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "actions",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "journal",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "portrait",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "data",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "membership",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "checkout",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "orders",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "order",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "article",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "share",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "settings",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "privacy",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "support",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "account",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "simulation",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "compare",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "content",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "topic-workspace",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "action-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "single-factor",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "daily-checkin",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "short-16pf",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "personality-sandbox",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "ai-reset",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "factor-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "observation-area",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "relationship-detail",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     },
     {
       "theme": "violet",
       "route": "assistant-chat",
-      "overflow": false
+      "overflow": false,
+      "controls": {
+        "unwiredButtons": [],
+        "resizableTextareas": []
+      }
     }
   ],
   "copyFindings": [],

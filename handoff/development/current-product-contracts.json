@@ -8,24 +8,55 @@
     "relationship": "8维D1/D2/D3/D4/D5/D7/D8/D9；每维能做到、愿意投入、自己需要、边界。只有本人手动补充，无移植题目、评分或配对模块。",
     "observations": "8个非量表观察容器，以本人显式归属关联；不从一次事件推断特质。",
     "future": "行动力、应对方式和近期状态仅保留为未来研究索引，不进入当前产品分组。",
-    "preservation": "8套独立完整主题与4套历史候选、原图logo与人物比例、持续canvas背景、全部39条历史路由、历史删并及底层只读阅读器保留。"
+    "preservation": "8套独立完整主题与4套历史候选、原图logo与人物比例、持续canvas背景、全部39条历史路由、历史删并及底层只读阅读器保留。",
+    "catalogSearch": "DecisionScenes.search是唯一题组目录匹配器：NFKC、去首尾空白、合并空白、转小写；完整短查询匹配。标题或人工别名完全匹配 > 标题包含 > 关键词/别名包含，同档目录序；分类与搜索取交集。NFKC不是简繁转换。"
   },
   "pages": {
     "home": {
       "currentHandling": "一个16PF容器、原版/AI重置版分段和一个对应主按钮。默认无可用题组时，启动前显示暂不可开始，提供生活问题整理入口；工作台夹具可检验目标启动和续接，不创造正式题库。",
       "inputs": [],
-      "events": [],
-      "localData": [],
+      "events": [
+        "mode(original/ai)：更新当前版本、说明和原主动作，键盘焦点留在所选版本",
+        "nav：四副入口和生活问题整理，保持既有路由"
+      ],
+      "localData": [
+        "mode：既有本机版本偏好"
+      ],
       "errors": "对象缺失不捏造内容；写入失败保留草稿；无网络能力时准确告知。",
-      "boundary": "本地原型实现；不改变待定业务规则，不代表已上线正式测评。"
+      "boundary": "本地原型实现；不改变待定业务规则，不代表已上线正式测评。",
+      "presentation": "原版增加日常情境用途；AI说明保留16角度、AI辅助改写题目/选项、具体生活情境与行为描述。无更准确、诊断、实时生成或统一四周承诺；默认无可用题组的禁用状态沿用main，未新增。",
+      "copyEvidence": {
+        "repository": "zhiyuxinxi/self-understanding-app",
+        "commit": "5f133e300944bfc3067941efaf714c3ba95f8203",
+        "references": [
+          "packages/assessment-content/README.md#L35-L47",
+          "packages/assessment-content/README.md#L70-L98",
+          "packages/assessment-content/reviews/candidate-revisions.json#L84-L126",
+          "packages/assessment-content/reviews/candidate-revisions.json#L321-L349"
+        ],
+        "boundary": "仅用于核对版本设计方向；候选修订未启用，未复制题库、计分或内部审校内容。"
+      }
     },
     "explore": {
-      "currentHandling": "8个同级独立生活问题卡片；四类筛选。每个场景有事实、优先项、顾虑、待查信息四个不同提示；仅本人整理，无计分或AI生成。",
-      "inputs": [],
-      "events": [],
-      "localData": [],
-      "errors": "对象缺失不捏造内容；写入失败保留草稿；无网络能力时准确告知。",
-      "boundary": "本地原型实现；不改变待定业务规则，不代表已上线正式测评。"
+      "currentHandling": "低强调独立容器中的不可点击用途介绍；分类浏览优先，找主题默认收起；8张同级横矩形题组卡，语义图标+用户问题+简短用途。保留旧专题记录和认识工具。",
+      "inputs": [
+        "explore-search：最多100字符，仅本地公开目录短关键词，不理解任意整句"
+      ],
+      "events": [
+        "toggle-topic-search：展开/收起找主题，展开聚焦输入",
+        "category：类别与查询取交集，保留原分类按钮焦点",
+        "compositionstart/input/compositionend：组合输入期间不筛选、不出现新空态；结束后更新结果，不替换输入节点",
+        "clear-search：立即清空当前词、刷新结果并回到输入",
+        "clear-filters：清空查询和类别，显示全部并回输入",
+        "nav(topic,id)：查看具体题组，返回保留本次内存查询和分类"
+      ],
+      "localData": [
+        "随静态包内置的id/category/title/desc/ic/keywords/aliases，只含公开目录元数据",
+        "查询与查找展开态仅当前窗口内存；不写URL/本机持久化/导出，不上传；重新加载清空",
+        "现有分类偏好仍本机保存；收藏与本人记录不进入搜索索引"
+      ],
+      "errors": "无匹配显示换短词或换分类；清空筛选有明确恢复入口。离线已载入资源仍可筛选；未实现网页冷启动离线缓存。",
+      "boundary": "不新增后端、AI请求、分词、向量或私密资料索引；只检索已有8个真实目录入口，题组仍为不计分的本人整理。"
     },
     "topic": {
       "currentHandling": "用途、输出、耗时依据、题源/许可、版本/适用范围；准备与版本选择同页，不多次确认。",

@@ -13,5 +13,25 @@ window.DecisionScenes=(()=>{
  const titlePhrases={'work-move':['要不要','辞职换工作？'],'exam-retake':['要不要','二战考研？'],'unpaid-break':['要不要','裸辞休息？'],'city-return':['留在大城市，','还是回老家？'],'independent-home':['要不要','搬出去住？'],'first-job':['第一份工作，','稳定还是成长？']};
  const scenes=rows.map(([id,category,title,desc,name,color,ic,tip,labels,placeholders])=>({id,category,title,titlePhrases:titlePhrases[id]||[title],desc,name,color,ic,tip,short:name,art:'paths',output:'线索、取舍与待查信息',decisionScene:true,fields:labels.map((label,i)=>[['facts','priorities','concerns','unknown'][i],label,placeholders[i]])}));
  for(const x of scenes){D.topics.push(x);V2.schemas[x.id]=x.fields;}
- return {items:scenes,find:id=>scenes.find(x=>x.id===id)};
+ // Public catalog metadata only; never index answers, observations or profile data.
+ const searchMeta={
+  'work-move':{icon:'briefcase',keywords:['工作','辞职','机会','收入'],aliases:['辞职','离职','跳槽','换工作']},
+  'exam-retake':{icon:'book',keywords:['学业','考研','备考'],aliases:['读研','研究生','继续升学','再考一年']},
+  'relationship-break':{icon:'link',keywords:['关系','分手','相处','边界'],aliases:['分开','感情','恋爱']},
+  'unpaid-break':{icon:'sun',keywords:['工作','裸辞','休息','储蓄'],aliases:['离职','辞职','休整','停下来']},
+  'city-return':{icon:'home',keywords:['生活','城市','成本','家庭'],aliases:['回老家','返乡','大城市','换城市']},
+  'career-change':{icon:'explore',keywords:['工作','转行','行业','能力'],aliases:['换行业','职业转型','改行']},
+  'independent-home':{icon:'key',keywords:['生活','居住','空间','预算'],aliases:['搬家','租房','独居','独立生活']},
+  'first-job':{icon:'leaf',keywords:['工作','收入','成长','岗位'],aliases:['毕业','就业','找工作','应届生']}
+ };
+ for(const scene of scenes){const meta=searchMeta[scene.id];Object.assign(scene,{ic:meta.icon,keywords:meta.keywords,aliases:meta.aliases})}
+ const normalize=value=>String(value||'').normalize('NFKC').trim().replace(/\s+/g,' ').toLowerCase();
+ function search(query='',category='全部'){
+  const q=normalize(query);
+  return scenes.map((item,index)=>{const title=normalize(item.title),aliases=item.aliases.map(normalize),keywords=[item.category,...item.keywords].map(normalize);
+   const rank=!q?0:title===q||aliases.includes(q)?0:title.includes(q)?1:[...aliases,...keywords].some(word=>word.includes(q))?2:-1;
+   return {item,index,rank};
+  }).filter(x=>x.rank>=0&&(category==='全部'||x.item.category===category)).sort((a,b)=>a.rank-b.rank||a.index-b.index).map(x=>x.item);
+ }
+ return {items:scenes,find:id=>scenes.find(x=>x.id===id),search,normalize};
 })();

@@ -7,10 +7,10 @@ from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from functools import partial
 from threading import Thread
 from datetime import datetime,timezone
-import json,os,sys
+import json,os,sys,traceback
 from playwright.sync_api import sync_playwright
 from product_browser import ProductBrowser
-ROOT=Path(sys.argv[1] if len(sys.argv)>1 else '.').resolve();OUT=ROOT/'qa'/'complete-workbench';OUT.mkdir(parents=True,exist_ok=True)
+ROOT=Path(sys.argv[1] if len(sys.argv)>1 else '.').resolve();OUT=Path(sys.argv[2]).resolve() if len(sys.argv)>2 else ROOT/'qa'/'complete-workbench';OUT.mkdir(parents=True,exist_ok=True)
 class Quiet(SimpleHTTPRequestHandler):
  def log_message(self,*args):pass
 server=ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT)));Thread(target=server.serve_forever,daemon=True).start();BASE=f'http://127.0.0.1:{server.server_port}'
@@ -18,9 +18,11 @@ results=[];matrix=[];errors=[];currentNode=[None]
 def check(ok,msg):
  if not ok:raise AssertionError(msg)
 def test(name,fn):
+ currentNode[0]=None
  try:detail=fn();results.append({'test':name,'status':'PASS','details':detail})
- except Exception as e:results.append({'test':name,'status':'FAIL','error':str(e),'node':currentNode[0]})
- print(name,results[-1]['status'],results[-1].get('node'),flush=True)
+ except Exception as e:results.append({'test':name,'status':'FAIL','error':str(e),'traceback':traceback.format_exc(),'node':currentNode[0]})
+ print(name,results[-1]['status'],results[-1].get('error',''),flush=True)
+ (OUT/'progress.json').write_text(json.dumps({'results':results,'themeRouteMatrix':matrix,'pageErrors':errors},ensure_ascii=False,indent=2))
 with sync_playwright() as w:
  args={'headless':True,'args':['--no-sandbox']}
  if os.environ.get('CHROMIUM_PATH'):args['executable_path']=os.environ['CHROMIUM_PATH']
@@ -71,6 +73,11 @@ with sync_playwright() as w:
    q.wait_for_function("document.querySelector('[data-page=complete]').getAttribute('aria-selected')==='true'",timeout=5000)
    check(q.locator('#page-title').inner_text()=='作答完成（3题示例）','Wrong completion title');check('complete%3Fid%3D'+sid in q.url,'Workbench URL lost actual new session')
    check(q.locator('.frame-shell').evaluate('e=>e.scrollTop===0&&e.scrollLeft===0'),'Scaled viewport mask scrolled after answering');frame.wait_for_function('scrollY===0');q.wait_for_timeout(200);q.screenshot(path=str(OUT/'real-new-session-complete.png'));return {'sessionId':sid,'seedFixture':False,'actualRoute':'complete?id='+sid,'selectedNode':'complete'}
+  except Exception:
+   q.screenshot(path=str(OUT/'new-session-failure.png'))
+   if 'frame' in locals():
+    (OUT/'new-session-failure.json').write_text(json.dumps(frame.evaluate('({route:App.currentRoute,fixture:ProductContext.fixture,scrollY,body:document.body.innerText})'),ensure_ascii=False,indent=2))
+   raise
   finally:ctx.close()
  test('new-session-completion-reflects-in-tree',newly_completed_session)
  def actual_exploration_topics():
@@ -110,10 +117,11 @@ with sync_playwright() as w:
  for x in nodes:
   if x.get('route') and x['route'].split('?')[0] not in primary:primary[x['route'].split('?')[0]]=x
  for t in ([] if os.environ.get('WORKBENCH_SHELL_ONLY') else data['themes']):
+  print('theme-route matrix',t['id'],flush=True)
   for base,x in primary.items():
    row={'theme':t['id'],'route':base}
    try:
-    p.open_product(BASE,x['route'],x.get('scenario','default'),t['id']);p.wait_for_function('window.App&&window.Ambient');p.wait_for_timeout(70)
+    p.open_product(BASE,x['route'],x.get('scenario','default'),t['id'],wait_until='load');p.wait_for_function('window.App&&window.Ambient');p.wait_for_timeout(70)
     check(p.evaluate('App.currentRoute')==x['route'],'Wrong route');check(p.locator('main').inner_text().strip()!='','Blank content');check(p.locator('.brandline,.wordmark,.prototype-label').count()==0,'Removed toolbar returned');check(p.evaluate('document.documentElement.scrollWidth<=innerWidth'),'Horizontal overflow')
     shared=p.evaluate("({theme:App.snapshot.theme,mode:document.body.dataset.themeMode,canvas:!!document.querySelector('#ambient-tide'),field:getComputedStyle(document.body).getPropertyValue('--field-a'),surface:getComputedStyle(document.body).getPropertyValue('--surface'),quiet:Ambient.isPaused()})")
     check(shared['theme']==t['id'] and shared['canvas'] and shared['field'].strip() and shared['surface'].strip(),'Missing shared theme owner');check(shared['quiet']==(base=='question'),'Quiet route mismatch')
@@ -121,5 +129,6 @@ with sync_playwright() as w:
     row.update(status='PASS',shared=shared)
    except Exception as e:row.update(status='FAIL',error=str(e))
    matrix.append(row)
+  (OUT/'progress.json').write_text(json.dumps({'results':results,'themeRouteMatrix':matrix,'pageErrors':errors},ensure_ascii=False,indent=2))
  c.close();b.close()
 server.shutdown();scope=('8 workbench shell regression checks: route/tree coverage, navigation, substate deep links, keyboard/search, stale messages, fit/original size and narrow drawer. Shell-only run: the 43 × 12 = 516 theme-route render matrix and all-route full-page screenshots were not rerun.' if os.environ.get('WORKBENCH_SHELL_ONLY') else 'All real route families × all 12 themes: real render, shared shell/token presence, no toolbar, no horizontal overflow. Full-page screenshots of all routes in sunrise. This is not a claim of all interaction states or pixel contrast in every theme.');report={'createdAt':datetime.now(timezone.utc).isoformat(),'scope':scope,'results':results,'themeRouteMatrix':matrix,'pageErrors':errors};(OUT/('shell-report.json' if os.environ.get('WORKBENCH_SHELL_ONLY') else 'report.json')).write_text(json.dumps(report,ensure_ascii=False,indent=2));print(json.dumps({'tests':results,'matrixPassed':sum(x['status']=='PASS' for x in matrix),'matrixTotal':len(matrix),'matrixFailures':[x for x in matrix if x['status']=='FAIL'],'pageErrors':errors},ensure_ascii=False,indent=2));sys.exit(0 if all(x['status']=='PASS' for x in results+matrix) and not errors else 1)
