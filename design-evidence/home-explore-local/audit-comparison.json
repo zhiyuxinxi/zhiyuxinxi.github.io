@@ -1,0 +1,18 @@
+{
+  "baseline": {
+    "errors": 29,
+    "total": 29,
+    "unresolved": 0,
+    "violations": 29,
+    "warnings": 0
+  },
+  "candidate": {
+    "errors": 29,
+    "total": 29,
+    "unresolved": 0,
+    "violations": 29,
+    "warnings": 0
+  },
+  "newFindingsIgnoringLineShifts": [],
+  "status": "strict audit fails; unchanged template delegation and CSS resize recognition findings"
+}

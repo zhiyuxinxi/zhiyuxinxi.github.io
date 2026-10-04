@@ -28,14 +28,18 @@ window.V3 = (() => {
   const activeAction=s=>s.actions.find(a=>a.status==='active');
   function home(s){return AssessmentPreview.home(s);}
 
+  function exploreResults(s){
+    const filtered=DecisionScenes.search(s.exploreSearch,s.exploreCategory);
+    return `<p class="explore-result-count small muted">${s.exploreCategory==='全部'?'全部主题':esc(s.exploreCategory)} · ${filtered.length} 个问题</p><div class="v3-topic-grid decision-grid">${filtered.map(t=>`<button class="v3-topic decision-card ${t.color}" data-action="nav" data-route="topic" data-id="${t.id}"><span class="decision-symbol" aria-hidden="true">${icon(t.ic)}</span><span class="decision-copy"><span class="decision-category">${t.category}</span><strong class="decision-title">${esc(t.title)}</strong><span class="decision-description">${esc(t.desc)}</span></span><span class="decision-arrow" aria-hidden="true">${icon('chevron','sm')}</span></button>`).join('')}</div>${!filtered.length?empty('没有找到这个主题','试试更短的词，如辞职、考研；也可以换个分类。',B('清空筛选','clear-filters',{cls:'btn secondary'})):''}`;
+  }
   function explore(s){
-    const text=s.exploreSearch.trim().toLowerCase(),filtered=DecisionScenes.items.filter(t=>(s.exploreCategory==='全部'||t.category===s.exploreCategory)&&(!text||[t.title,t.desc,t.category].join(' ').toLowerCase().includes(text)));
     const recent=s.observations.filter(x=>x.kind==='topic-record').sort((a,b)=>(b.updatedAt||b.createdAt||'').localeCompare(a.updatedAt||a.createdAt||''))[0];
     return `${title('','最近，你在想什么？','',B('收藏','favorites',{cls:'textbtn',icon:'bookmark'}))}
-    <div class="search-box"><label class="sr-only" for="explore-search">搜索生活问题</label>${icon('search')}<input id="explore-search" data-input="explore-search" value="${esc(s.exploreSearch)}" placeholder="辞职、二战考研、搬出去住…" maxlength="100" autocomplete="off">${B('','clear-search',{cls:'search-clear',icon:s.exploreSearch?'close':'filter','aria-label':s.exploreSearch?'清空搜索':'筛选说明'})}</div>
+    <section class="explore-intro" aria-label="探索能帮你做什么"><p>从生活、工作里的纠结开始，梳理自己的想法、在意与顾虑，更了解自己。</p></section>
     <div class="chips v3-categories" aria-label="探索类别">${['全部','工作','学业','关系','生活'].map(c=>B(c,'category',{cls:s.exploreCategory===c?'active':'','data-id':c,'aria-pressed':s.exploreCategory===c})).join('')}</div>
-    <div class="v3-topic-grid decision-grid">${filtered.map(t=>`<button class="v3-topic decision-card ${t.color}" data-action="nav" data-route="topic" data-id="${t.id}"><span class="v3-topic-top">${t.category}<span class="decision-arrow">${icon('arrow','sm')}</span></span><h2>${t.titlePhrases.map(phrase=>`<span class="decision-title-phrase">${esc(phrase)}</span>`).join('')}</h2><p>${t.desc}</p></button>`).join('')}</div>
-    ${!filtered.length?empty('没有找到这个问题','换个关键词，或清空筛选。',B('清空筛选','clear-filters',{cls:'btn secondary'})):''}
+    <div class="explore-find-row"><span class="small muted">从常见问题出发</span>${B('找主题','toggle-topic-search',{cls:'textbtn',icon:'search','aria-expanded':!!s.exploreSearchOpen,'aria-controls':'topic-search-panel'})}</div>
+    <div id="topic-search-panel" ${s.exploreSearchOpen?'':'hidden'}><div class="search-box"><label class="sr-only" for="explore-search">按标题或关键词找主题</label>${icon('search')}<input id="explore-search" data-input="explore-search" value="${esc(s.exploreSearch)}" placeholder="试试辞职、考研、搬家" maxlength="100" autocomplete="off" aria-describedby="topic-search-help">${B('','clear-search',{cls:'search-clear',icon:'close','aria-label':'清空搜索',hidden:!s.exploreSearch})}</div><p id="topic-search-help" class="small muted">在当前分类里查找标题或关键词。不用写完整问题。</p></div>
+    <p id="explore-announcement" class="sr-only" role="status" aria-live="polite"></p><div id="explore-results">${exploreResults(s)}</div>
     ${recent?`<section class="life-entry"><h2>接着上次整理</h2><p>${esc(recent.fields?.issue||recent.title)}</p>${L('继续整理','topic-workspace',{cls:'textbtn','data-topic':recent.topicId,'data-id':recent.id,after:'arrow'})}</section>`:''}
     <details class="explore-tools"><summary>认识工具与阅读</summary><div class="plain-list">${row('单因子探索','选一个想了解的角度','single-factor','bottle')}${row('模拟性格','调整一组假设位置','personality-sandbox','explore')}${row('我的报告','回看测评结果','report','book')}${row('如何理解因子','从具体情境理解不同倾向','article','book', '',{'data-id':'read-traits'})}${row('以前的整理','找回已保存的议题和记录','records','folder')}</div></details>`;
   }
@@ -196,5 +200,5 @@ window.V3 = (() => {
   });
   matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',e=>{if(e.matches)document.getAnimations().forEach(a=>a.cancel());});
   Object.assign(Views.map,{home,explore,topic,'topic-workspace':topicWorkspace,report,assistant,me,question,journal,appearance});
-  return {bind(c){C=c;AssessmentPreview.bind(c);},dispatch,afterRender,reset(){workspaceSteps.clear();previousRoute=null;},topicMeta};
+  return {exploreResults,bind(c){C=c;AssessmentPreview.bind(c);},dispatch,afterRender,reset(){workspaceSteps.clear();previousRoute=null;},topicMeta};
 })();

@@ -98,15 +98,16 @@
           "expected": "可解释当前状态，不伪装能开始正式测量"
         }
       ],
-      "valueEvidence": "用户能区分原版、AI改编和当前可用范围，并知道自己的报告来自哪版。"
+      "valueEvidence": "用户能区分原版、AI改编和当前可用范围，并知道自己的报告来自哪版。",
+      "presentationSupplement": "同框原版/AI重置版切换必须改变相应说明。原版略增情境说明；AI具体改写点须有实际题库依据，不把待定题源描述为更准确、诊断或实时AI。"
     },
     {
       "id": "FR-003",
       "module": "入口与探索",
       "name": "按生活问题发现与保留题组",
       "scenario": "用户想了解某个问题，或想把题组留到以后。",
-      "requirement": "搜索、议题、角度、适用阶段、轻量题组与收藏作为同一探索目录的可组合视图；保留筛选，不强制经过层层目录。",
-      "acceptance": "输入问题后显示相关结果或可解释的无结果；返回目录保留搜索/筛选/滚动；收藏状态可辨认且不自动开始答题；适用范围和投入能辅助选择。",
+      "requirement": "以生活、工作常见问题为同级目录，类别优先；次级找主题采用本地标题、关键词和人工别名匹配。不上传查询，不检索本人答案或画像。",
+      "acceptance": "8个现有题组均可达；介绍不可点击；卡片语义图标/具体标题/用途层级统一且不竖长。分类与短查询取交集；中文组合期间不筛选；空态引导缩短关键词或换类；清空立即生效并回焦点。返回保留本次查询/类别，重载清空查询。",
       "phase": "基础本地",
       "confirmation": "用户明确多主题测评方向；目录合并、筛选与收藏细节为设计建议",
       "pageIds": [
@@ -117,7 +118,7 @@
         "light-intro",
         "exploration-perspectives"
       ],
-      "dataBoundary": "目录及已获取内容可本地浏览；收藏属于当前个人空间；搜索若联网须明确。",
+      "dataBoundary": "目录和keywords/aliases随资源包本地提供；query/searchOpen仅内存，不写URL、持久化、备份或日志，不上传；不搜索私密内容。已载入后断网可用，不承诺网页冷启动缓存。",
       "permissions": "浏览不要求AI权限；未开放内容不显示可立即开始的假按钮。",
       "openQuestions": "首批专题、适用年龄和每套规则待定；不推定青少年题组可直接发布。",
       "source": "PROJECT_CONTEXT.md / 当前必须沿用的事实；design/page-atlas/review/route-refinement-20261001/decisions.json D01；2026-10-01用户授权需求矩阵补充（design/requirements/README.md复核与落实说明）",
@@ -139,7 +140,8 @@
           "expected": "筛选、收藏和滚动位置保留"
         }
       ],
-      "valueEvidence": "用户能围绕自己的实际问题选出适用题组，并说出为什么选它。"
+      "valueEvidence": "用户能围绕自己的实际问题选出适用题组，并说出为什么选它。",
+      "implementationNote": "2026-10-04独立设计候选：DecisionScenes.search / V3.exploreResults / app.js事件；无新增服务。"
     },
     {
       "id": "FR-004",
@@ -5050,7 +5052,7 @@
       "sourceLabel": "路由收敛数据 / pages[subscription-settings]"
     }
   ],
-  "revision": "2026-10-01-r2",
+  "revision": "2026-10-04-home-explore-candidate",
   "supplementSummary": {
     "authorized": "2026-10-01 用户：你进行补充。",
     "scope": "12类边界写回原条目；所有功能新增启用/依赖/异常/价值字段；2项仅纳入候选。",
@@ -5129,6 +5131,7 @@
       "BR-004",
       "BR-006"
     ],
-    "productImplementationChanged": false
+    "productImplementationChanged": false,
+    "homeExplore20261004": "FR-002版本说明来源约束；FR-003本地公开目录关键词/人工别名、分类优先、查询内存与IME/清空行为。独立候选，非发布或业务能力验收。"
   }
 }

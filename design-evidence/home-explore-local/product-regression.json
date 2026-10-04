@@ -1,0 +1,2716 @@
+{
+  "results": [
+    {
+      "test": "route-theme-catalog",
+      "status": "PASS",
+      "details": {
+        "routes": 43,
+        "nodes": 97,
+        "themes": 12
+      }
+    },
+    {
+      "test": "home-mode-and-unavailable",
+      "status": "PASS",
+      "details": {
+        "singleCTA": true,
+        "keyboardSelection": true,
+        "noFakeSession": true
+      }
+    },
+    {
+      "test": "eight-independent-scene-save-edit-reload",
+      "status": "PASS",
+      "details": [
+        {
+          "scene": "work-move",
+          "recordId": "observation-muto6k38-7zpcg",
+          "revision": 2
+        },
+        {
+          "scene": "exam-retake",
+          "recordId": "observation-muto6kdg-fmgsh",
+          "revision": 2
+        },
+        {
+          "scene": "relationship-break",
+          "recordId": "observation-muto6klr-kyxk8",
+          "revision": 2
+        },
+        {
+          "scene": "unpaid-break",
+          "recordId": "observation-muto6kv1-smupz",
+          "revision": 2
+        },
+        {
+          "scene": "city-return",
+          "recordId": "observation-muto6l62-l3f92",
+          "revision": 2
+        },
+        {
+          "scene": "career-change",
+          "recordId": "observation-muto6lc0-31x4h",
+          "revision": 2
+        },
+        {
+          "scene": "independent-home",
+          "recordId": "observation-muto6li1-jjyuk",
+          "revision": 2
+        },
+        {
+          "scene": "first-job",
+          "recordId": "observation-muto6lof-exs0r",
+          "revision": 2
+        }
+      ]
+    },
+    {
+      "test": "explicit-personal-evidence-associations",
+      "status": "PASS",
+      "details": {
+        "linkedNotes": 6,
+        "independentFacets": 4,
+        "reload": true
+      }
+    },
+    {
+      "test": "profile-unknown-and-three-groups",
+      "status": "PASS",
+      "details": {
+        "groups": 3,
+        "relationshipDimensions": 8,
+        "observationContainers": 8,
+        "unknownNotZero": true
+      }
+    },
+    {
+      "test": "relationship-context-draft-and-explicit-reference",
+      "status": "PASS",
+      "details": {
+        "topic": "风险兜底 · 边界",
+        "explicitSourceOnly": true,
+        "noAutoSend": true,
+        "unavailableKeepsDraftAndTopic": true
+      }
+    },
+    {
+      "test": "all-43-routes-across-12-themes",
+      "status": "PASS",
+      "details": {
+        "checks": 516,
+        "runtimeCopyFindings": []
+      }
+    },
+    {
+      "test": "responsive-real-browser-screenshots",
+      "status": "PASS",
+      "details": {
+        "widths": [
+          320,
+          390,
+          430
+        ],
+        "routes": 6
+      }
+    },
+    {
+      "test": "fixture-boundary-and-contract-reader",
+      "status": "PASS",
+      "details": {
+        "workbenchFixture": true,
+        "externalProvenance": true,
+        "standaloneNoFixture": true,
+        "newContractReadable": true
+      }
+    },
+    {
+      "test": "browser-errors",
+      "status": "PASS",
+      "details": null
+    }
+  ],
+  "matrix": [
+    {
+      "theme": "sunrise",
+      "route": "home",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "explore",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "assistant",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "me",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "question",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "review",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "complete",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "report",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "records",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "topic",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "appearance",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "conversations",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "conversation",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "auth",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "memories",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "actions",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "journal",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "portrait",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "data",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "membership",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "checkout",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "orders",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "order",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "article",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "share",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "settings",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "privacy",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "support",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "account",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "simulation",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "compare",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "content",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "topic-workspace",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "action-detail",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "single-factor",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "daily-checkin",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "short-16pf",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "personality-sandbox",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "ai-reset",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "factor-detail",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "observation-area",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "relationship-detail",
+      "overflow": false
+    },
+    {
+      "theme": "sunrise",
+      "route": "assistant-chat",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "home",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "explore",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "assistant",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "me",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "question",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "review",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "complete",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "report",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "records",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "topic",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "appearance",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "conversations",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "conversation",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "auth",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "memories",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "actions",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "journal",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "portrait",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "data",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "membership",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "checkout",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "orders",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "order",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "article",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "share",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "settings",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "privacy",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "support",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "account",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "simulation",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "compare",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "content",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "topic-workspace",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "action-detail",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "single-factor",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "daily-checkin",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "short-16pf",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "personality-sandbox",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "ai-reset",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "factor-detail",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "observation-area",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "relationship-detail",
+      "overflow": false
+    },
+    {
+      "theme": "candy",
+      "route": "assistant-chat",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "home",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "explore",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "assistant",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "me",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "question",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "review",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "complete",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "report",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "records",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "topic",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "appearance",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "conversations",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "conversation",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "auth",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "memories",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "actions",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "journal",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "portrait",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "data",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "membership",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "checkout",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "orders",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "order",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "article",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "share",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "settings",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "privacy",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "support",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "account",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "simulation",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "compare",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "content",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "topic-workspace",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "action-detail",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "single-factor",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "daily-checkin",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "short-16pf",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "personality-sandbox",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "ai-reset",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "factor-detail",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "observation-area",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "relationship-detail",
+      "overflow": false
+    },
+    {
+      "theme": "berry",
+      "route": "assistant-chat",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "home",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "explore",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "assistant",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "me",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "question",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "review",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "complete",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "report",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "records",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "topic",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "appearance",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "conversations",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "conversation",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "auth",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "memories",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "actions",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "journal",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "portrait",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "data",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "membership",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "checkout",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "orders",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "order",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "article",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "share",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "settings",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "privacy",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "support",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "account",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "simulation",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "compare",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "content",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "topic-workspace",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "action-detail",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "single-factor",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "daily-checkin",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "short-16pf",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "personality-sandbox",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "ai-reset",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "factor-detail",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "observation-area",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "relationship-detail",
+      "overflow": false
+    },
+    {
+      "theme": "lime",
+      "route": "assistant-chat",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "home",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "explore",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "assistant",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "me",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "question",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "review",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "complete",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "report",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "records",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "topic",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "appearance",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "conversations",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "conversation",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "auth",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "memories",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "actions",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "journal",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "portrait",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "data",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "membership",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "checkout",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "orders",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "order",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "article",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "share",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "settings",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "privacy",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "support",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "account",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "simulation",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "compare",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "content",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "topic-workspace",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "action-detail",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "single-factor",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "daily-checkin",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "short-16pf",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "personality-sandbox",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "ai-reset",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "factor-detail",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "observation-area",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "relationship-detail",
+      "overflow": false
+    },
+    {
+      "theme": "aurora",
+      "route": "assistant-chat",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "home",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "explore",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "assistant",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "me",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "question",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "review",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "complete",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "report",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "records",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "topic",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "appearance",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "conversations",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "conversation",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "auth",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "memories",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "actions",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "journal",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "portrait",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "data",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "membership",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "checkout",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "orders",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "order",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "article",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "share",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "settings",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "privacy",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "support",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "account",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "simulation",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "compare",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "content",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "topic-workspace",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "action-detail",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "single-factor",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "daily-checkin",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "short-16pf",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "personality-sandbox",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "ai-reset",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "factor-detail",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "observation-area",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "relationship-detail",
+      "overflow": false
+    },
+    {
+      "theme": "sea",
+      "route": "assistant-chat",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "home",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "explore",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "assistant",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "me",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "question",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "review",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "complete",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "report",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "records",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "topic",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "appearance",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "conversations",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "conversation",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "auth",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "memories",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "actions",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "journal",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "portrait",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "data",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "membership",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "checkout",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "orders",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "order",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "article",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "share",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "settings",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "privacy",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "support",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "account",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "simulation",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "compare",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "content",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "topic-workspace",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "action-detail",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "single-factor",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "daily-checkin",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "short-16pf",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "personality-sandbox",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "ai-reset",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "factor-detail",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "observation-area",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "relationship-detail",
+      "overflow": false
+    },
+    {
+      "theme": "nebula",
+      "route": "assistant-chat",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "home",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "explore",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "assistant",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "me",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "question",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "review",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "complete",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "report",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "records",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "topic",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "appearance",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "conversations",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "conversation",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "auth",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "memories",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "actions",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "journal",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "portrait",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "data",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "membership",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "checkout",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "orders",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "order",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "article",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "share",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "settings",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "privacy",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "support",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "account",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "simulation",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "compare",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "content",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "topic-workspace",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "action-detail",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "single-factor",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "daily-checkin",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "short-16pf",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "personality-sandbox",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "ai-reset",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "factor-detail",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "observation-area",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "relationship-detail",
+      "overflow": false
+    },
+    {
+      "theme": "amber",
+      "route": "assistant-chat",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "home",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "explore",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "assistant",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "me",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "question",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "review",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "complete",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "report",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "records",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "topic",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "appearance",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "conversations",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "conversation",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "auth",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "memories",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "actions",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "journal",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "portrait",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "data",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "membership",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "checkout",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "orders",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "order",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "article",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "share",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "settings",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "privacy",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "support",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "account",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "simulation",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "compare",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "content",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "topic-workspace",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "action-detail",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "single-factor",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "daily-checkin",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "short-16pf",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "personality-sandbox",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "ai-reset",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "factor-detail",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "observation-area",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "relationship-detail",
+      "overflow": false
+    },
+    {
+      "theme": "green",
+      "route": "assistant-chat",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "home",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "explore",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "assistant",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "me",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "question",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "review",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "complete",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "report",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "records",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "topic",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "appearance",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "conversations",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "conversation",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "auth",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "memories",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "actions",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "journal",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "portrait",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "data",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "membership",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "checkout",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "orders",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "order",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "article",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "share",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "settings",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "privacy",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "support",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "account",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "simulation",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "compare",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "content",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "topic-workspace",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "action-detail",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "single-factor",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "daily-checkin",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "short-16pf",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "personality-sandbox",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "ai-reset",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "factor-detail",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "observation-area",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "relationship-detail",
+      "overflow": false
+    },
+    {
+      "theme": "peach",
+      "route": "assistant-chat",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "home",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "explore",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "assistant",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "me",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "question",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "review",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "complete",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "report",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "records",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "topic",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "appearance",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "conversations",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "conversation",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "auth",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "memories",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "actions",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "journal",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "portrait",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "data",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "membership",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "checkout",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "orders",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "order",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "article",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "share",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "settings",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "privacy",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "support",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "account",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "simulation",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "compare",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "content",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "topic-workspace",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "action-detail",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "single-factor",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "daily-checkin",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "short-16pf",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "personality-sandbox",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "ai-reset",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "factor-detail",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "observation-area",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "relationship-detail",
+      "overflow": false
+    },
+    {
+      "theme": "blue",
+      "route": "assistant-chat",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "home",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "explore",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "assistant",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "me",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "question",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "review",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "complete",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "report",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "records",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "topic",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "appearance",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "conversations",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "conversation",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "auth",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "memories",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "actions",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "journal",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "portrait",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "data",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "membership",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "checkout",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "orders",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "order",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "article",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "share",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "settings",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "privacy",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "support",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "account",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "simulation",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "compare",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "content",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "topic-workspace",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "action-detail",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "single-factor",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "daily-checkin",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "short-16pf",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "personality-sandbox",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "ai-reset",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "factor-detail",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "observation-area",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "relationship-detail",
+      "overflow": false
+    },
+    {
+      "theme": "violet",
+      "route": "assistant-chat",
+      "overflow": false
+    }
+  ],
+  "copyFindings": [],
+  "errors": []
+}

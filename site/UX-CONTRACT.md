@@ -29,6 +29,7 @@
 |Toast|app.js toast；workbench shell toast|本契约|短确认；关键失败另有内联提示|live region、失败不只toast|
 |CRUD|app.js / V2行为层|原记录标识与修订规则|创建、编辑、回看、删除确认|原有V2行为回归|
 |Overlay|app.js show/close/confirm；工作台wb-dialog|本契约|模态；主题候选使用非模态details|焦点、Escape、inert、回到触发点|
+|Catalog search|DecisionScenes.search / V3.exploreResults / app.js|本轮FR-003与当前产品契约|公开目录本地短关键词，分类交集，内存查询|IME、清空焦点、离线、别名与空态|
 |Tree|workbench.js树组件|WAI-ARIA treeview模式|页面、状态、规格|上下/Home/End/左右、筛选与选中|
 |Preview bridge|experience-v4.js / workbench.js|来源与对象白名单|导航、主题、密度、动态、状态|source+origin拒绝、失败阻断|
 
@@ -178,3 +179,16 @@
 ### 最新页面工艺候选：操作层级
 
 关系详情的四个补充入口保持直接进入对应relationshipDimension和relationshipFacet。四个角度讨论及整体讨论入口集中在原生details内，键盘可展开；只改变发现顺序，沿用原kind、assistantTopic、草稿、显式资料选择及无自动发送。空画像不重复首次记录主动作，不删除待确认记忆或已有记录入口。因子图和中文列表继续通往同一factor-detail，不改变来源与数据。
+
+
+## 2026-10-04 认识与探索候选（本轮优先）
+
+只调整认识首页说明和探索目录；画像与研究分支不合入。首页人物、16PF同框版本切换和四副入口保留。原版说明增加日常情境用途，AI具体重置点仅按真实题库依据写，不宣称效度提升、诊断或实时模型能力。
+
+探索标题下使用不可点击的简短用途段落；分类为主，“找主题”为次级可展开入口。8个题组统一横向矩形卡，沿用首页四入口的小线性图标、主题纸面和字号层级，不设无依据重点卡。此决策覆盖旧390px强制两列规则。颜色仍由themes-v4.json→生成CSS→product.css消费，未新增色板、字体或动态。
+
+DecisionScenes.search拥有目录匹配：NFKC、trim、统一连续空白和小写；完整短查询匹配，标题/alias完全匹配优先，其次标题包含，再关键词/alias包含，同档保持目录顺序。分类与查询取交集，不分词、不纠错、不承诺整句理解或简繁转换。title/category/keywords/aliases本地静态字段；不索引本人记录、答案或画像，不上传查询。
+
+查询和展开状态仅内存；离开再返回保留，刷新清空，不写URL/持久化/备份。该隐私与短查询决策覆盖搜索默认URL持久化。app.js沿用共享事件与中文composition保护，输入仅更新结果、不重建输入控件；非空时显式清空按钮立即重置并回焦点。空态允许缩短关键词、换类或清空筛选。资源已载入后可断网浏览与匹配；本轮不增加网页冷启动离线缓存或后端。
+
+相关逐页按钮/数据说明在handoff/development/current-product-contracts.json；FR-002/003补充在现行需求矩阵。tools/home_explore_review.py提供本轮实测，既有结果不冒充新验收。
