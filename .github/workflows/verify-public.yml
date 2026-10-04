@@ -37,7 +37,7 @@ jobs:
           except Exception as e: result['pagesMetadataError']=str(e)
           try:
               result['resourceHashes']=[]
-              for name in ['index.html','prototype/app.js','prototype/product.css','prototype/experience-v3.js','workbench.js','workbench.css','development-review.js','prototype/views.js','prototype/components.js','prototype/assessment-preview.js','prototype/experience-v2.js','prototype/experience-v4.js','handoff/development/current-copy-contracts.json','prototype/index.html','prototype/product-context.js','prototype/decision-scenes.js','prototype/product-surface.js','prototype/flows-v2.js','workbench-data.js','handoff/routes.json','handoff/development/current-product-contracts.json','review/botanical-tree/index.html','review/botanical-tree/tree.css','review/botanical-tree/tree.js','review/botanical-tree/tree-layout.js'] + [str(p.relative_to(Path('site'))) for p in Path('site/review/botanical-tree/assets').glob('*.webp')]:
+              for name in ['index.html','prototype/app.js','prototype/product.css','prototype/ui.css','prototype/experience-v3.js','workbench.js','workbench.css','development-review.js','prototype/views.js','prototype/components.js','prototype/assessment-preview.js','prototype/experience-v2.js','prototype/experience-v4.js','handoff/development/current-copy-contracts.json','prototype/index.html','prototype/product-context.js','prototype/decision-scenes.js','prototype/product-surface.js','prototype/flows-v2.js','workbench-data.js','handoff/routes.json','handoff/development/current-product-contracts.json','review/botanical-tree/index.html','review/botanical-tree/tree.css','review/botanical-tree/tree.js','review/botanical-tree/tree-layout.js'] + [str(p.relative_to(Path('site'))) for p in Path('site/review/botanical-tree/assets').glob('*.webp')]:
                   expected=hashlib.sha256((Path('site')/name).read_bytes()).hexdigest()
                   for attempt in range(6):
                       with urllib.request.urlopen(result['url']+name+'?resource_check='+str(time.time_ns()),timeout=20) as response: actual=hashlib.sha256(response.read()).hexdigest()
@@ -86,6 +86,8 @@ jobs:
           (out/'public-url-check.json').write_text(json.dumps(result,ensure_ascii=False,indent=2));print(json.dumps(result,ensure_ascii=False,indent=2))
           if not result['passed']:raise SystemExit(1)
           PY
+      - name: Verify published home and local explore interactions
+        run: python site/tools/public_home_explore_review.py --url https://zhiyuxinxi.github.io/ --output public-evidence/home-explore
       - name: Keep public URL evidence
         if: always()
         uses: actions/upload-artifact@v4
