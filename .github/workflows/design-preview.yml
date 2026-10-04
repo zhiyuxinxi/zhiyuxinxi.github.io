@@ -41,12 +41,21 @@ jobs:
           python site/tools/product_structure_safety.py site site/qa/product-safety
           python site/tools/development_review_test.py site
           python site/tools/backend_logic_test.py site
+          python site/tools/botanical_tree_review.py --output /tmp/botanical-release/regression
+          python site/tools/botanical_ring_review.py --output /tmp/botanical-release/ring
       - name: Preserve browser verification evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: native-browser-verification
           path: site/qa
+          retention-days: 14
+      - name: Preserve independent tree evidence outside deployment
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: botanical-release-review
+          path: /tmp/botanical-release
           retention-days: 14
       - name: Publish verified root entry for existing branch-based Pages
         if: success()

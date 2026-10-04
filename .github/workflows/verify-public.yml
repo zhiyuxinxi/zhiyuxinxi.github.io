@@ -26,10 +26,10 @@ jobs:
         run: |
           mkdir -p public-evidence
           python - <<'PY'
-          import json,time,os,urllib.request,traceback,hashlib
+          import json,time,os,urllib.request,traceback,hashlib,subprocess,math
           from pathlib import Path
           from playwright.sync_api import sync_playwright
-          out=Path('public-evidence');result={'url':'https://zhiyuxinxi.github.io/','passed':False,'checks':[]}
+          out=Path('public-evidence');result={'url':'https://zhiyuxinxi.github.io/','passed':False,'checks':[],'verifiedCommit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()}
           try:
               req=urllib.request.Request('https://api.github.com/repos/zhiyuxinxi/zhiyuxinxi.github.io/pages',headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'})
               with urllib.request.urlopen(req,timeout=20) as r: info=json.load(r)
@@ -89,6 +89,26 @@ jobs:
                   p.locator('#tab-relations').click();p.screenshot(path=str(out/'public-botanical-tree-390.png'),full_page=True)
                   assert not Path('site/design-inputs').exists() and not Path('site/design-evidence').exists()
                   result['checks'].append('Standalone botanical tree: 8 branches, 16 factors, node details, restored focus, unselected zoom, derived partial records and isolated deployment verified')
+                  # Verify the repaired reading exclusion, camera, and real fixture deep link.
+                  for bid in ['planning','commitment']:
+                      p.locator('#fit').click();p.wait_for_timeout(300);p.locator('[data-branch='+bid+']').click();p.wait_for_timeout(300)
+                      assert p.locator('[data-leaf][aria-hidden=false]').count()==4
+                      assert p.evaluate("""()=>{const v=document.querySelector('#viewport').getBoundingClientRect(),rs=[...document.querySelectorAll('#reading-space rect[fill=black]')].map(r=>({x:+r.getAttribute('x'),y:+r.getAttribute('y'),w:+r.getAttribute('width'),h:+r.getAttribute('height')}));return [...document.querySelectorAll('.node[aria-hidden=false] .node-label')].every(n=>{const r=n.getBoundingClientRect();return rs.some(m=>m.x<=r.x-v.x&&m.y<=r.y-v.y&&m.x+m.w>=r.right-v.x&&m.y+m.h>=r.bottom-v.y)})}"""),'Text exclusion mask missing'
+                      p.screenshot(path=str(out/('public-ring-'+bid+'.png')),full_page=True)
+                      p.locator('#zoom-out').scroll_into_view_if_needed();r=p.locator('#zoom-out').bounding_box();before=p.evaluate('scrollY');p.mouse.click(r['x']+r['width']/2,r['y']+r['height']/2);p.wait_for_timeout(300);state=p.evaluate('BotanicalTree.snapshot()');assert abs(state['x'])<1 and abs(state['y'])<1;assert abs(p.evaluate('scrollY')-before)<2
+                  p.goto(result['url']+'review/botanical-tree/?structure=12',wait_until='networkidle');p.wait_for_function('window.BotanicalTree');p.wait_for_timeout(300)
+                  assert p.locator('#structure').input_value()=='12' and p.locator('#fixture-banner').is_visible();assert p.evaluate('BotanicalTree.structure()')==12
+                  assert p.locator('[data-branch][aria-hidden=false]').count()==12 and p.locator('#index button').count()==12
+                  assert p.locator('#nodes').evaluate('(e)=>e.classList.contains("compact-ring")')
+                  coords=p.evaluate('BotanicalTree.layout().filter(e=>e.key.startsWith("layout")).map(e=>e.anchor)');xs=[v[0] for v in coords];ys=[v[1] for v in coords];ratio=(max(xs)-min(xs))/(max(ys)-min(ys));assert .9<ratio<1.1
+                  p.screenshot(path=str(out/'public-ring-12-overview.png'),full_page=True)
+                  p.locator('#zoom-in').click();p.wait_for_timeout(300);assert not p.locator('#nodes').evaluate('(e)=>e.classList.contains("compact-ring")');assert '布局样本' in p.locator('[data-branch][aria-hidden=false]').first.inner_text();p.screenshot(path=str(out/'public-ring-12-names.png'),full_page=True)
+                  for bid in ['layout'+str(i) for i in range(12)]:
+                      p.locator('.text-index summary').click();p.locator('[data-select='+bid+']').click();p.wait_for_timeout(300);assert p.evaluate('BotanicalTree.snapshot().branch')==bid;assert p.locator('[data-leaf][aria-hidden=false]').count()==4;p.locator('.text-index summary').click();p.locator('#fit').click();p.wait_for_timeout(300)
+                  p.locator('[data-branch=layout6]').click();p.wait_for_timeout(300);p.locator('[data-leaf=f2]').click();assert '自己需要' in p.locator('#detail').inner_text();p.screenshot(path=str(out/'public-ring-12-focus.png'),full_page=True)
+                  p.locator('#fit').click();p.wait_for_timeout(300);assert p.evaluate('BotanicalTree.snapshot().leaf')=='f2';assert p.locator('#nodes').evaluate('(e)=>e.classList.contains("compact-ring")')
+                  result['ringChecks']={'fixtureURL':result['url']+'review/botanical-tree/?structure=12','worldAspectRatio':ratio,'reachableBranches':12,'downwardTextExclusion':['planning','commitment'],'zoomOutCenteredWithoutScrollJump':True,'semanticNamesAndNumberRestore':True}
+                  result['checks'].append('Public repaired tree: downward text masks, smooth leaf paths, zoom-out camera recovery, circular 12-node deep link, semantic labels and all 12 targets verified; screenshots retained for visual review')
                   result['browser']=b.version;result['consoleErrors']=errors;assert not errors,str(errors)
                   result['finalURL']=p.url;result['passed']=True;b.close()
           except Exception as e:result['error']=str(e);result['trace']=traceback.format_exc(limit=3)
