@@ -3,15 +3,15 @@ window.LineMaterial = (() => {
   const canvas=document.createElement('canvas');canvas.id='line-material';canvas.setAttribute('aria-hidden','true');
   document.querySelector('#viewport').prepend(canvas);
   const gl=canvas.getContext('webgl',{alpha:true,antialias:true,premultipliedAlpha:true,preserveDrawingBuffer:true});
-  let ready=false,error=null,program,buffer,position,uv,resolution,sampler;const textures={};
+  let ready=false,error=null,program,buffer,position,uv,resolution,sampler,opacity;const textures={};
   const assets={sageThick:'assets/line-sage-thick.png',sageFine:'assets/line-sage-fine.png',amberThick:'assets/line-amber-thick.png',amberFine:'assets/line-amber-fine.png'};
   function shader(type,source){const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s}
   function setup(){
     if(!gl)throw Error('WebGL is unavailable; illustrated line materials cannot be displayed.');
     program=gl.createProgram();gl.attachShader(program,shader(gl.VERTEX_SHADER,'attribute vec2 aPosition;attribute vec2 aUV;uniform vec2 uResolution;varying vec2 vUV;void main(){vec2 p=aPosition/uResolution*2.0-1.0;gl_Position=vec4(p.x,-p.y,0,1);vUV=aUV;}'));
-    gl.attachShader(program,shader(gl.FRAGMENT_SHADER,'precision mediump float;uniform sampler2D uTexture;varying vec2 vUV;void main(){gl_FragColor=texture2D(uTexture,vUV);}'));
+    gl.attachShader(program,shader(gl.FRAGMENT_SHADER,'precision mediump float;uniform sampler2D uTexture;uniform float uOpacity;varying vec2 vUV;void main(){gl_FragColor=texture2D(uTexture,vUV)*uOpacity;}'));
     gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));
-    position=gl.getAttribLocation(program,'aPosition');uv=gl.getAttribLocation(program,'aUV');resolution=gl.getUniformLocation(program,'uResolution');sampler=gl.getUniformLocation(program,'uTexture');buffer=gl.createBuffer();
+    position=gl.getAttribLocation(program,'aPosition');uv=gl.getAttribLocation(program,'aUV');resolution=gl.getUniformLocation(program,'uResolution');sampler=gl.getUniformLocation(program,'uTexture');opacity=gl.getUniformLocation(program,'uOpacity');buffer=gl.createBuffer();
     gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL,true);
   }
   async function load(){try{setup();await Promise.all(Object.entries(assets).map(([name,url])=>new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>{const t=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,t);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,image);gl.generateMipmap(gl.TEXTURE_2D);textures[name]=t;resolve()} ;image.onerror=()=>reject(Error('Missing illustrated line asset: '+url));image.src=url})));ready=true;canvas.dispatchEvent(new CustomEvent('materials-ready'));}catch(e){error=e.message;canvas.dataset.error=error;const message=document.createElement('p');message.setAttribute('role','status');message.className='line-material-error';message.textContent='线条图像暂不可用，请刷新重试。';canvas.after(message);console.error(error)}}
@@ -23,7 +23,7 @@ window.LineMaterial = (() => {
     }return new Float32Array(vertices);
   }
   function draw(edges,w,h,zoom=1){if(!ready)return false;const dpr=Math.min(devicePixelRatio||1,2.5),cw=Math.round(w*dpr),ch=Math.round(h*dpr);if(canvas.width!==cw||canvas.height!==ch){canvas.width=cw;canvas.height=ch}gl.viewport(0,0,cw,ch);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);gl.useProgram(program);gl.uniform2f(resolution,w,h);gl.uniform1i(sampler,0);gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.enableVertexAttribArray(position);gl.enableVertexAttribArray(uv);gl.vertexAttribPointer(position,2,gl.FLOAT,false,16,0);gl.vertexAttribPointer(uv,2,gl.FLOAT,false,16,8);
-    for(const edge of edges){const thick=edge.depth===1&&!edge.fine,scale=Math.min(1.5,Math.max(.8,Math.sqrt(zoom))),data=mesh(edge.q,(edge.artWidth?.[0]??(thick?8:edge.preview?3.8:5))*scale,(edge.artWidth?.[1]??(thick?3.6:1.5))*scale,...(edge.uv||[0,1]));gl.bufferData(gl.ARRAY_BUFFER,data,gl.DYNAMIC_DRAW);gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,textures[(edge.warm?'amber':'sage')+(thick?'Thick':'Fine')]);gl.drawArrays(gl.TRIANGLE_STRIP,0,data.length/4)}return true;
+    for(const edge of edges){gl.uniform1f(opacity,edge.opacity??1);const thick=edge.depth===1&&!edge.fine,scale=Math.min(1.5,Math.max(.8,Math.sqrt(zoom))),data=mesh(edge.q,(edge.artWidth?.[0]??(thick?8:edge.preview?3.8:5))*scale,(edge.artWidth?.[1]??(thick?3.6:1.5))*scale,...(edge.uv||[0,1]));gl.bufferData(gl.ARRAY_BUFFER,data,gl.DYNAMIC_DRAW);gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,textures[(edge.warm?'amber':'sage')+(thick?'Thick':'Fine')]);gl.drawArrays(gl.TRIANGLE_STRIP,0,data.length/4)}return true;
   }
   return {load,draw,status:()=>({ready,error,assets:Object.keys(textures)}),canvas,mesh};
 })();

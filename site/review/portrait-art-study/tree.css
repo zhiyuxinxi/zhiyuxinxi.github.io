@@ -37,3 +37,5 @@ body:not(.study) .node-medallion:before{filter:grayscale(.75);opacity:.85}
 .leaf-node.recorded .business-leaf{filter:sepia(.35) saturate(1.25)}
 .text-index button[hidden]{display:none}
 @media(max-width:360px){.tree-label{font-size:14px}}
+
+.tree-node.context-node{opacity:.45}.tree-node.context-node:hover,.tree-node.context-node:focus-visible{opacity:1}

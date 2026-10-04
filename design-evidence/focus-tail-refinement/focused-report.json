@@ -1,0 +1,48 @@
+{
+  "overviewCurvePrefix": [
+    {
+      "id": "risk:carrier",
+      "t": 0.62,
+      "error": 2.842170943040401e-14
+    },
+    {
+      "id": "time:carrier",
+      "t": 0.62,
+      "error": 2.842170943040401e-14
+    },
+    {
+      "id": "emotion:carrier",
+      "t": 0.62,
+      "error": 5.684341886080802e-14
+    },
+    {
+      "id": "space:carrier",
+      "t": 0.48,
+      "error": 5.684341886080802e-14
+    },
+    {
+      "id": "commitment:carrier",
+      "t": 0.62,
+      "error": 0
+    },
+    {
+      "id": "planning:carrier",
+      "t": 0.62,
+      "error": 2.842170943040401e-14
+    },
+    {
+      "id": "growth:carrier",
+      "t": 0.62,
+      "error": 0
+    },
+    {
+      "id": "money:carrier",
+      "t": 0.62,
+      "error": 1.4210854715202004e-14
+    }
+  ],
+  "titleCenterDistancePx": 53.231960912572596,
+  "neighborTitleRestoredOnPan": true,
+  "neighborOpacityRestoredOnPan": true,
+  "semanticTopologyAndWorldPositionsUnchanged": true
+}
