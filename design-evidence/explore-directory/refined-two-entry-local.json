@@ -1,0 +1,34 @@
+{
+  "url": "http://127.0.0.1:8887/",
+  "verifiedCommit": "48598ff6c8c29f28821403314bc7d21f76876efd",
+  "passed": true,
+  "checks": [
+    {
+      "entry": "workbench",
+      "versionCopy": true,
+      "introContainer": true,
+      "eightCards": true,
+      "categoryIntersection": true,
+      "localAliasSearch": true,
+      "clearFocus": true,
+      "noSearchRequests": true,
+      "queryNotPersisted": true,
+      "ambientContinuity": true,
+      "reducedMotion": true
+    },
+    {
+      "entry": "standalone",
+      "versionCopy": true,
+      "introContainer": true,
+      "eightCards": true,
+      "categoryIntersection": true,
+      "localAliasSearch": true,
+      "clearFocus": true,
+      "noSearchRequests": true,
+      "queryNotPersisted": true,
+      "ambientContinuity": true,
+      "reducedMotion": true
+    }
+  ],
+  "pageErrors": []
+}

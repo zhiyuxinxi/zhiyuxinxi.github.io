@@ -17,6 +17,7 @@ window.UI = (()=>{
   book:'<path d="M12 5c-3-2-6-2-10-1v15c4-1 7-1 10 1 3-2 6-2 10-1V4c-4-1-7-1-10 1Zm0 0v15"/>',
   search:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/>',filter:'<path d="M4 7h16M7 12h10M10 17h4"/>',
   shield:'<path d="M12 2 3 6v6c0 5 9 10 9 10s9-5 9-10V6z"/><path d="m8 12 3 3 5-6"/>',
+  dialogue:'<path d="M14 5H5a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h1v3l4-3h4a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Z"/><path d="M19 9h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-1v3l-4-3h-3a2 2 0 0 1-2-2"/>',
   link:'<path d="m9 8 3-3a5 5 0 1 1 7 7l-3 3M8 9l-3 3a5 5 0 0 0 7 7l3-3M8 16l8-8"/>',
   send:'<path d="m21 3-6 18-4-8-8-4 18-6Zm-10 10L21 3"/>',
   clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v6l4 2"/>',

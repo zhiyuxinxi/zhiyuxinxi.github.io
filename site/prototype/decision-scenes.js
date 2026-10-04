@@ -10,21 +10,21 @@ window.DecisionScenes=(()=>{
  ['independent-home','生活','要不要搬出去住？','分清空间需要、经济准备和家人期待。','独立生活','blue','home','把“想有自己的空间”拆成具体需要，再看看怎样满足。',['当前居住中，哪些事影响我？','我希望独立生活带来什么变化？','搬出去要承担哪些成本和责任？','行动前，还需查清或沟通什么？'],['写相处、空间、作息或通勤中的具体经历。','例如自主安排、安静时间或生活边界。','房租、生活开支、家务和家庭责任怎样安排？','例如实际预算、位置安全或家人的期待。']],
  ['first-job','工作','第一份工作，稳定还是成长？','比较收入需要、岗位匹配和成长机会。','第一份工作','cream','book','把“稳定”和“成长”拆成岗位里能核实的条件。',['正在比较的岗位具体怎样？','现阶段最重要的需要是什么？','两个选择各有什么代价？','接受之前，还要问清什么？'],['写职责、薪资、培养安排和已知的团队情况。','例如收入保障、学习机会、地点或工作节奏。','哪些条件可以接受，哪些暂时不能让步？','例如日常任务、培养方式、考核或工作时间。']]
  ];
- const titlePhrases={'work-move':['要不要','辞职换工作？'],'exam-retake':['要不要','二战考研？'],'unpaid-break':['要不要','裸辞休息？'],'city-return':['留在大城市，','还是回老家？'],'independent-home':['要不要','搬出去住？'],'first-job':['第一份工作，','稳定还是成长？']};
+ const titlePhrases={'work-move':['要不要辞职','换工作？'],'exam-retake':['要不要','二战考研？'],'unpaid-break':['要不要','裸辞休息？'],'city-return':['留在大城市，','还是回老家？'],'independent-home':['要不要','搬出去住？'],'first-job':['第一份工作，','稳定还是成长？']};
  const scenes=rows.map(([id,category,title,desc,name,color,ic,tip,labels,placeholders])=>({id,category,title,titlePhrases:titlePhrases[id]||[title],desc,name,color,ic,tip,short:name,art:'paths',output:'线索、取舍与待查信息',decisionScene:true,fields:labels.map((label,i)=>[['facts','priorities','concerns','unknown'][i],label,placeholders[i]])}));
  for(const x of scenes){D.topics.push(x);V2.schemas[x.id]=x.fields;}
  // Public catalog metadata only; never index answers, observations or profile data.
  const searchMeta={
-  'work-move':{icon:'briefcase',keywords:['工作','辞职','机会','收入'],aliases:['辞职','离职','跳槽','换工作']},
-  'exam-retake':{icon:'book',keywords:['学业','考研','备考'],aliases:['读研','研究生','继续升学','再考一年']},
-  'relationship-break':{icon:'link',keywords:['关系','分手','相处','边界'],aliases:['分开','感情','恋爱']},
-  'unpaid-break':{icon:'sun',keywords:['工作','裸辞','休息','储蓄'],aliases:['离职','辞职','休整','停下来']},
-  'city-return':{icon:'home',keywords:['生活','城市','成本','家庭'],aliases:['回老家','返乡','大城市','换城市']},
-  'career-change':{icon:'explore',keywords:['工作','转行','行业','能力'],aliases:['换行业','职业转型','改行']},
-  'independent-home':{icon:'key',keywords:['生活','居住','空间','预算'],aliases:['搬家','租房','独居','独立生活']},
-  'first-job':{icon:'leaf',keywords:['工作','收入','成长','岗位'],aliases:['毕业','就业','找工作','应届生']}
+  'work-move':{directoryDesc:'梳理离职原因、外部机会与空窗准备',icon:'briefcase',keywords:['工作','辞职','机会','收入'],aliases:['辞职','离职','跳槽','换工作']},
+  'exam-retake':{directoryDesc:'分清读研意愿、外部期待与投入条件',icon:'book',keywords:['学业','考研','备考'],aliases:['读研','研究生','继续升学','再考一年']},
+  'relationship-break':{directoryDesc:'梳理反复犹豫、相处需要与改变空间',icon:'dialogue',keywords:['关系','分手','相处','边界'],aliases:['分开','感情','恋爱']},
+  'unpaid-break':{directoryDesc:'梳理休整需要、资金缓冲与回归准备',icon:'sun',keywords:['工作','裸辞','休息','储蓄'],aliases:['离职','辞职','休整','停下来']},
+  'city-return':{directoryDesc:'比较机会、成本、归属与家庭支持',icon:'home',keywords:['生活','城市','成本','家庭'],aliases:['回老家','返乡','大城市','换城市']},
+  'career-change':{directoryDesc:'梳理能力迁移、信息缺口与低成本尝试',icon:'explore',keywords:['工作','转行','行业','能力'],aliases:['换行业','职业转型','改行']},
+  'independent-home':{directoryDesc:'分清空间需要、经济准备与家人期待',icon:'key',keywords:['生活','居住','空间','预算'],aliases:['搬家','租房','独居','独立生活']},
+  'first-job':{directoryDesc:'比较收入需要、岗位匹配与成长机会',icon:'leaf',keywords:['工作','收入','成长','岗位'],aliases:['毕业','就业','找工作','应届生']}
  };
- for(const scene of scenes){const meta=searchMeta[scene.id];Object.assign(scene,{ic:meta.icon,keywords:meta.keywords,aliases:meta.aliases})}
+ for(const scene of scenes){const meta=searchMeta[scene.id];Object.assign(scene,{ic:meta.icon,directoryDesc:meta.directoryDesc,keywords:meta.keywords,aliases:meta.aliases})}
  const normalize=value=>String(value||'').normalize('NFKC').trim().replace(/\s+/g,' ').toLowerCase();
  function search(query='',category='全部'){
   const q=normalize(query);

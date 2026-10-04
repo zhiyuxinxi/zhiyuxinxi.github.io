@@ -19,7 +19,7 @@ try:
    assert f.evaluate('getComputedStyle(document.documentElement).scrollBehavior')=='auto'
    p.screenshot(path=str(out/(mode+'-home-ai.png')))
    f.evaluate('window.beforeCanvas=document.querySelector("#ambient-tide");window.beforeClock=Ambient.getTime()');f.locator('[data-action=tab][data-route=explore]').click();f.wait_for_function('App.currentRoute==="explore"');assert f.evaluate('beforeCanvas===document.querySelector("#ambient-tide")&&Ambient.getTime()>=beforeClock')
-   intro=f.locator('.explore-intro');assert intro.is_visible();assert intro.locator('button,a').count()==0;assert intro.evaluate('e=>parseFloat(getComputedStyle(e).paddingTop)>0&&parseFloat(getComputedStyle(e).borderLeftWidth)>0')
+   intro=f.locator('.explore-intro');assert intro.is_visible();assert intro.locator('button,a').count()==0;assert intro.evaluate('e=>parseFloat(getComputedStyle(e).paddingTop)>0&&parseFloat(getComputedStyle(e).borderRadius)>0&&getComputedStyle(e).backgroundColor!=="rgba(0, 0, 0, 0)"')
    assert f.locator('.decision-card').count()==8 and f.locator('.decision-symbol svg').count()==8;assert f.locator('#topic-search-panel').is_hidden();p.screenshot(path=str(out/(mode+'-explore.png')))
    f.locator('[data-action=category][data-id="学业"]').click();assert f.locator('.decision-card').count()==1
    f.locator('[data-action=toggle-topic-search]').click();inp=f.locator('#explore-search');inp.fill('读研');assert f.locator('.decision-card').evaluate_all('(es)=>es.map(e=>e.dataset.id)')==['exam-retake']

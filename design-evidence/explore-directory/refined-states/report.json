@@ -1,0 +1,90 @@
+[
+  {
+    "width": 320,
+    "large": false,
+    "columns": 1,
+    "titlesAndDirectorySummariesComplete": true,
+    "keyboard": true,
+    "emptyRecovery": true,
+    "longContentGrows": true,
+    "cardHeightBefore": 103.0625,
+    "cardHeightAfter": 210.25
+  },
+  {
+    "width": 320,
+    "large": true,
+    "columns": 1,
+    "titlesAndDirectorySummariesComplete": true,
+    "keyboard": true,
+    "emptyRecovery": true,
+    "longContentGrows": true,
+    "cardHeightBefore": 112.3125,
+    "cardHeightAfter": 258.9375
+  },
+  {
+    "width": 360,
+    "large": false,
+    "columns": 1,
+    "titlesAndDirectorySummariesComplete": true,
+    "keyboard": true,
+    "emptyRecovery": true,
+    "longContentGrows": true,
+    "cardHeightBefore": 81.625,
+    "cardHeightAfter": 188.8125
+  },
+  {
+    "width": 360,
+    "large": true,
+    "columns": 1,
+    "titlesAndDirectorySummariesComplete": true,
+    "keyboard": true,
+    "emptyRecovery": true,
+    "longContentGrows": true,
+    "cardHeightBefore": 112.3125,
+    "cardHeightAfter": 234.5
+  },
+  {
+    "width": 390,
+    "large": false,
+    "columns": 2,
+    "titlesAndDirectorySummariesComplete": true,
+    "keyboard": true,
+    "emptyRecovery": true,
+    "longContentGrows": true,
+    "cardHeightBefore": 162,
+    "cardHeightAfter": 326.75
+  },
+  {
+    "width": 390,
+    "large": true,
+    "columns": 1,
+    "titlesAndDirectorySummariesComplete": true,
+    "keyboard": true,
+    "emptyRecovery": true,
+    "longContentGrows": true,
+    "cardHeightBefore": 82.875,
+    "cardHeightAfter": 205.0625
+  },
+  {
+    "width": 430,
+    "large": false,
+    "columns": 2,
+    "titlesAndDirectorySummariesComplete": true,
+    "keyboard": true,
+    "emptyRecovery": true,
+    "longContentGrows": true,
+    "cardHeightBefore": 182,
+    "cardHeightAfter": 260.6875
+  },
+  {
+    "width": 430,
+    "large": true,
+    "columns": 1,
+    "titlesAndDirectorySummariesComplete": true,
+    "keyboard": true,
+    "emptyRecovery": true,
+    "longContentGrows": true,
+    "cardHeightBefore": 82.875,
+    "cardHeightAfter": 205.0625
+  }
+]
