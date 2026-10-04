@@ -1,0 +1,681 @@
+{
+  "states": [
+    {
+      "nodes": [
+        "root",
+        "money",
+        "risk",
+        "time",
+        "emotion",
+        "space",
+        "commitment",
+        "planning",
+        "growth"
+      ],
+      "labels": [
+        "risk",
+        "time",
+        "emotion",
+        "space",
+        "commitment",
+        "planning",
+        "growth",
+        "money"
+      ],
+      "hiddenFocusable": 0,
+      "leafImages": 0,
+      "overflow": false,
+      "overlaps": [],
+      "materialContacts": [],
+      "width": 320,
+      "branch": null
+    },
+    {
+      "nodes": [
+        "risk",
+        "risk/f0",
+        "risk/f1",
+        "risk/f2",
+        "risk/f3"
+      ],
+      "labels": [
+        "risk",
+        "risk/f0",
+        "risk/f1",
+        "risk/f2",
+        "risk/f3"
+      ],
+      "hiddenFocusable": 0,
+      "leafImages": 4,
+      "overflow": false,
+      "overlaps": [],
+      "materialContacts": [],
+      "width": 320,
+      "branch": "risk"
+    },
+    {
+      "nodes": [
+        "time",
+        "time/f0",
+        "time/f1",
+        "time/f2",
+        "time/f3"
+      ],
+      "labels": [
+        "time",
+        "time/f0",
+        "time/f1",
+        "time/f2",
+        "time/f3"
+      ],
+      "hiddenFocusable": 0,
+      "leafImages": 4,
+      "overflow": false,
+      "overlaps": [],
+      "materialContacts": [],
+      "width": 320,
+      "branch": "time"
+    },
+    {
+      "nodes": [
+        "emotion",
+        "emotion/f0",
+        "emotion/f1",
+        "emotion/f2",
+        "emotion/f3"
+      ],
+      "labels": [
+        "emotion",
+        "emotion/f0",
+        "emotion/f1",
+        "emotion/f2",
+        "emotion/f3"
+      ],
+      "hiddenFocusable": 0,
+      "leafImages": 4,
+      "overflow": false,
+      "overlaps": [],
+      "materialContacts": [],
+      "width": 320,
+      "branch": "emotion"
+    },
+    {
+      "nodes": [
+        "space",
+        "space/f0",
+        "space/f1",
+        "space/f2",
+        "space/f3",
+        "emotion"
+      ],
+      "labels": [
+        "emotion",
+        "space",
+        "space/f0",
+        "space/f1",
+        "space/f2",
+        "space/f3"
+      ],
+      "hiddenFocusable": 0,
+      "leafImages": 4,
+      "overflow": false,
+      "overlaps": [],
+      "materialContacts": [],
+      "width": 320,
+      "branch": "space"
+    },
+    {
+      "nodes": [
+        "commitment",
+        "commitment/f0",
+        "commitment/f1",
+        "commitment/f2",
+        "commitment/f3"
+      ],
+      "labels": [
+        "commitment",
+        "commitment/f0",
+        "commitment/f1",
+        "commitment/f2",
+        "commitment/f3"
+      ],
+      "hiddenFocusable": 0,
+      "leafImages": 4,
+      "overflow": false,
+      "overlaps": [],
+      "materialContacts": [],
+      "width": 320,
+      "branch": "commitment"
+    },
+    {
+      "nodes": [
+        "planning",
+        "planning/f0",
+        "planning/f1",
+        "planning/f2",
+        "planning/f3"
+      ],
+      "labels": [
+        "planning",
+        "planning/f0",
+        "planning/f1",
+        "planning/f2",
+        "planning/f3"
+      ],
+      "hiddenFocusable": 0,
+      "leafImages": 4,
+      "overflow": false,
+      "overlaps": [],
+      "materialContacts": [],
+      "width": 320,
+      "branch": "planning"
+    },
+    {
+      "nodes": [
+        "growth",
+        "growth/f0",
+        "growth/f1",
+        "growth/f2",
+        "growth/f3"
+      ],
+      "labels": [
+        "growth",
+        "growth/f0",
+        "growth/f1",
+        "growth/f2",
+        "growth/f3"
+      ],
+      "hiddenFocusable": 0,
+      "leafImages": 4,
+      "overflow": false,
+      "overlaps": [],
+      "materialContacts": [],
+      "width": 320,
+      "branch": "growth"
+    },
+    {
+      "nodes": [
+        "money",
+        "money/f0",
+        "money/f1",
+        "money/f2",
+        "money/f3",
+        "growth"
+      ],
+      "labels": [
+        "growth",
+        "money",
+        "money/f0",
+        "money/f1",
+        "money/f2",
+        "money/f3"
+      ],
+      "hiddenFocusable": 0,
+      "leafImages": 4,
+      "overflow": false,
+      "overlaps": [],
+      "materialContacts": [],
+      "width": 320,
+      "branch": "money"
+    },
+    {
+      "nodes": [
+        "root",
+        "money",
+        "risk",
+        "time",
+        "emotion",
+        "space",
+        "commitment",
+        "planning",
+        "growth"
+      ],
+      "labels": [
+        "risk",
+        "time",
+        "emotion",
+        "space",
+        "commitment",
+        "planning",
+        "growth",
+        "money"
+      ],
+      "hiddenFocusable": 0,
+      "leafImages": 0,
+      "overflow": false,
+      "overlaps": [],
+      "materialContacts": [],
+      "width": 390,
+      "branch": null
+    },
+    {
+      "nodes": [
+        "risk",
+        "risk/f0",
+        "risk/f1",
+        "risk/f2",
+        "risk/f3"
+      ],
+      "labels": [
+        "risk",
+        "risk/f0",
+        "risk/f1",
+        "risk/f2",
+        "risk/f3"
+      ],
+      "hiddenFocusable": 0,
+      "leafImages": 4,
+      "overflow": false,
+      "overlaps": [],
+      "materialContacts": [],
+      "width": 390,
+      "branch": "risk"
+    },
+    {
+      "nodes": [
+        "time",
+        "time/f0",
+        "time/f1",
+        "time/f2",
+        "time/f3"
+      ],
+      "labels": [
+        "time",
+        "time/f0",
+        "time/f1",
+        "time/f2",
+        "time/f3"
+      ],
+      "hiddenFocusable": 0,
+      "leafImages": 4,
+      "overflow": false,
+      "overlaps": [],
+      "materialContacts": [],
+      "width": 390,
+      "branch": "time"
+    },
+    {
+      "nodes": [
+        "emotion",
+        "emotion/f0",
+        "emotion/f1",
+        "emotion/f2",
+        "emotion/f3"
+      ],
+      "labels": [
+        "emotion",
+        "emotion/f0",
+        "emotion/f1",
+        "emotion/f2",
+        "emotion/f3"
+      ],
+      "hiddenFocusable": 0,
+      "leafImages": 4,
+      "overflow": false,
+      "overlaps": [],
+      "materialContacts": [],
+      "width": 390,
+      "branch": "emotion"
+    },
+    {
+      "nodes": [
+        "space",
+        "space/f0",
+        "space/f1",
+        "space/f2",
+        "space/f3",
+        "emotion"
+      ],
+      "labels": [
+        "emotion",
+        "space",
+        "space/f0",
+        "space/f1",
+        "space/f2",
+        "space/f3"
+      ],
+      "hiddenFocusable": 0,
+      "leafImages": 4,
+      "overflow": false,
+      "overlaps": [],
+      "materialContacts": [],
+      "width": 390,
+      "branch": "space"
+    },
+    {
+      "nodes": [
+        "commitment",
+        "commitment/f0",
+        "commitment/f1",
+        "commitment/f2",
+        "commitment/f3"
+      ],
+      "labels": [
+        "commitment",
+        "commitment/f0",
+        "commitment/f1",
+        "commitment/f2",
+        "commitment/f3"
+      ],
+      "hiddenFocusable": 0,
+      "leafImages": 4,
+      "overflow": false,
+      "overlaps": [],
+      "materialContacts": [],
+      "width": 390,
+      "branch": "commitment"
+    },
+    {
+      "nodes": [
+        "planning",
+        "planning/f0",
+        "planning/f1",
+        "planning/f2",
+        "planning/f3",
+        "commitment"
+      ],
+      "labels": [
+        "commitment",
+        "planning",
+        "planning/f0",
+        "planning/f1",
+        "planning/f2",
+        "planning/f3"
+      ],
+      "hiddenFocusable": 0,
+      "leafImages": 4,
+      "overflow": false,
+      "overlaps": [],
+      "materialContacts": [],
+      "width": 390,
+      "branch": "planning"
+    },
+    {
+      "nodes": [
+        "growth",
+        "growth/f0",
+        "growth/f1",
+        "growth/f2",
+        "growth/f3"
+      ],
+      "labels": [
+        "growth",
+        "growth/f0",
+        "growth/f1",
+        "growth/f2",
+        "growth/f3"
+      ],
+      "hiddenFocusable": 0,
+      "leafImages": 4,
+      "overflow": false,
+      "overlaps": [],
+      "materialContacts": [],
+      "width": 390,
+      "branch": "growth"
+    },
+    {
+      "nodes": [
+        "money",
+        "money/f0",
+        "money/f1",
+        "money/f2",
+        "money/f3",
+        "growth"
+      ],
+      "labels": [
+        "growth",
+        "money",
+        "money/f0",
+        "money/f1",
+        "money/f2",
+        "money/f3"
+      ],
+      "hiddenFocusable": 0,
+      "leafImages": 4,
+      "overflow": false,
+      "overlaps": [],
+      "materialContacts": [],
+      "width": 390,
+      "branch": "money"
+    },
+    {
+      "nodes": [
+        "root",
+        "money",
+        "risk",
+        "time",
+        "emotion",
+        "space",
+        "commitment",
+        "planning",
+        "growth"
+      ],
+      "labels": [
+        "risk",
+        "time",
+        "emotion",
+        "space",
+        "commitment",
+        "planning",
+        "growth",
+        "money"
+      ],
+      "hiddenFocusable": 0,
+      "leafImages": 0,
+      "overflow": false,
+      "overlaps": [],
+      "materialContacts": [],
+      "width": 1440,
+      "branch": null
+    },
+    {
+      "nodes": [
+        "risk",
+        "risk/f0",
+        "risk/f1",
+        "risk/f2",
+        "risk/f3",
+        "time"
+      ],
+      "labels": [
+        "risk",
+        "risk/f0",
+        "risk/f1",
+        "risk/f2",
+        "risk/f3",
+        "time"
+      ],
+      "hiddenFocusable": 0,
+      "leafImages": 4,
+      "overflow": false,
+      "overlaps": [],
+      "materialContacts": [],
+      "width": 1440,
+      "branch": "risk"
+    },
+    {
+      "nodes": [
+        "time",
+        "time/f0",
+        "time/f1",
+        "time/f2",
+        "time/f3",
+        "risk",
+        "emotion"
+      ],
+      "labels": [
+        "risk",
+        "time",
+        "time/f0",
+        "time/f1",
+        "time/f2",
+        "time/f3",
+        "emotion"
+      ],
+      "hiddenFocusable": 0,
+      "leafImages": 4,
+      "overflow": false,
+      "overlaps": [],
+      "materialContacts": [],
+      "width": 1440,
+      "branch": "time"
+    },
+    {
+      "nodes": [
+        "emotion",
+        "emotion/f0",
+        "emotion/f1",
+        "emotion/f2",
+        "emotion/f3"
+      ],
+      "labels": [
+        "emotion",
+        "emotion/f0",
+        "emotion/f1",
+        "emotion/f2",
+        "emotion/f3"
+      ],
+      "hiddenFocusable": 0,
+      "leafImages": 4,
+      "overflow": false,
+      "overlaps": [],
+      "materialContacts": [],
+      "width": 1440,
+      "branch": "emotion"
+    },
+    {
+      "nodes": [
+        "space",
+        "space/f0",
+        "space/f1",
+        "space/f2",
+        "space/f3",
+        "emotion"
+      ],
+      "labels": [
+        "emotion",
+        "space",
+        "space/f0",
+        "space/f1",
+        "space/f2",
+        "space/f3"
+      ],
+      "hiddenFocusable": 0,
+      "leafImages": 4,
+      "overflow": false,
+      "overlaps": [],
+      "materialContacts": [],
+      "width": 1440,
+      "branch": "space"
+    },
+    {
+      "nodes": [
+        "commitment",
+        "commitment/f0",
+        "commitment/f1",
+        "commitment/f2",
+        "commitment/f3",
+        "planning"
+      ],
+      "labels": [
+        "commitment",
+        "commitment/f0",
+        "commitment/f1",
+        "commitment/f2",
+        "commitment/f3",
+        "planning"
+      ],
+      "hiddenFocusable": 0,
+      "leafImages": 4,
+      "overflow": false,
+      "overlaps": [],
+      "materialContacts": [],
+      "width": 1440,
+      "branch": "commitment"
+    },
+    {
+      "nodes": [
+        "planning",
+        "planning/f0",
+        "planning/f1",
+        "planning/f2",
+        "planning/f3",
+        "commitment"
+      ],
+      "labels": [
+        "commitment",
+        "planning",
+        "planning/f0",
+        "planning/f1",
+        "planning/f2",
+        "planning/f3"
+      ],
+      "hiddenFocusable": 0,
+      "leafImages": 4,
+      "overflow": false,
+      "overlaps": [],
+      "materialContacts": [],
+      "width": 1440,
+      "branch": "planning"
+    },
+    {
+      "nodes": [
+        "growth",
+        "growth/f0",
+        "growth/f1",
+        "growth/f2",
+        "growth/f3"
+      ],
+      "labels": [
+        "growth",
+        "growth/f0",
+        "growth/f1",
+        "growth/f2",
+        "growth/f3"
+      ],
+      "hiddenFocusable": 0,
+      "leafImages": 4,
+      "overflow": false,
+      "overlaps": [],
+      "materialContacts": [],
+      "width": 1440,
+      "branch": "growth"
+    },
+    {
+      "nodes": [
+        "money",
+        "money/f0",
+        "money/f1",
+        "money/f2",
+        "money/f3",
+        "growth"
+      ],
+      "labels": [
+        "growth",
+        "money",
+        "money/f0",
+        "money/f1",
+        "money/f2",
+        "money/f3"
+      ],
+      "hiddenFocusable": 0,
+      "leafImages": 4,
+      "overflow": false,
+      "overlaps": [],
+      "materialContacts": [],
+      "width": 1440,
+      "branch": "money"
+    }
+  ],
+  "errors": [],
+  "checks": {
+    "all32LeavesAtThreeWidths": true,
+    "noHiddenFocusTargets": true,
+    "noHitTargetOverlap": true,
+    "keyboardLeafPopoverAndCameraRestore": true,
+    "panAndClickSuppression": true,
+    "zoomHome": true,
+    "persistentCanvases": true,
+    "reducedMotion": true
+  }
+}

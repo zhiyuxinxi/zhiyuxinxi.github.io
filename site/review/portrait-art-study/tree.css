@@ -24,3 +24,16 @@ body:not(.study) .node-medallion:before{filter:grayscale(.75);opacity:.85}
 #viewport[data-composition="completion"] .root-node .node-medallion{font-size:21px}
 
 @media(max-width:360px){.tabs{margin-inline:12px}.tabs button{font-size:13px}}
+
+#viewport[data-long-spines="true"]{height:720px}@media(min-width:1001px){#viewport[data-long-spines="true"]{height:780px}}
+
+/* Leaf imagery denotes business terminals, never ornamental content. */
+#viewport[data-long-spines="true"]{height:560px}
+@media(min-width:1001px){#viewport[data-long-spines="true"]{height:680px}}
+.tree-node:disabled{opacity:1;cursor:inherit;pointer-events:none}
+.leaf-node .node-medallion:before,.leaf-node .overview-mark{display:none}
+.leaf-node .node-medallion{width:38px;height:38px}
+.business-leaf{display:block;width:38px;height:38px;object-fit:contain;transform:rotate(var(--leaf-angle,0deg));pointer-events:none}
+.leaf-node.recorded .business-leaf{filter:sepia(.35) saturate(1.25)}
+.text-index button[hidden]{display:none}
+@media(max-width:360px){.tree-label{font-size:14px}}

@@ -1,0 +1,7 @@
+{
+  "segments": 48,
+  "samplingPerCurve": 200,
+  "crossings": [],
+  "declaredJunctionContacts": 7,
+  "junctionToleranceWorldUnits": 0.05
+}

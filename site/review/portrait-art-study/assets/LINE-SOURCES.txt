@@ -3,3 +3,5 @@ Git branch design/branch-art-assets-20261004, commit 25f1765ff661b005b0dae0fd11c
 design-inputs/sage-wide-line-0818.png.base64
 design-inputs/apricot-fine-line-0818.png.base64
 Derived PNGs: centered/straightened alpha-bearing strips, resized to 1024x128; alternate color variants preserve alpha and luminance structure. Raw sources are not included in the runtime directory.
+
+Business leaf node: leaf-node.png decoded from user-provided generated transparent image in asset branch commit 9e80edd3f8813a0046461b8ed1578da1a6b2b496, design-inputs/leaf-node-0901.png.base64. RGBA 512x427; transparency retained. Semantic terminal only, no decorative leaf clones.

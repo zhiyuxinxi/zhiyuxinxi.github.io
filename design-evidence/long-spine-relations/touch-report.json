@@ -1,0 +1,7 @@
+{
+  "pinchShrink": true,
+  "finalZoom": 0.7,
+  "visibleLeaves": 0,
+  "leafAlphaSource": "RGBA 512x427",
+  "physicalDevice": false
+}
