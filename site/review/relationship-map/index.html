@@ -229,6 +229,7 @@ text{text-rendering:geometricPrecision}
   <section class="panel" hidden><div class="card" id="card"><div class="pv" id="pv"></div></div></section>
 </div>
 
+<script src="../../prototype/data.js"></script><script src="models.js"></script>
 <script>
 (() => {
 'use strict';
@@ -244,7 +245,7 @@ const STILL = true; // Candidate geometry is static; only the shared ambient fie
  *   item: 藤蔓末端连接的条目序号；deco: 分支点亮时一并点亮
  *   vc: [主藤色, 分支色, 柔边宽度]（取自原图各分支藤蔓颜色）
  * ==================================================================== */
-const BRANCHES = [
+let BRANCHES = [
   { id:'time', name:'时间陪伴', desc:'在一起的时间，重在用心而不在多少。', icon:'sproutT', vc:['#5d7259','#5e7057',1.6],
     title:[278,343,48.5], blob:[263.5,34,27,21,-6,3], box:[249.5,13,36,36],
     items:[
@@ -486,11 +487,13 @@ plan.vines.push(
 // Remove two pre-existing overshoot crossings at their true attachment points.
 BRANCHES.find(b=>b.id==='grow').vines[2].pts=[[118.792734,492.103917],[112.5,478],[110,467],[109.8,457.3]];
 BRANCHES.find(b=>b.id==='risk').vines[3].pts=[[181.021899,186.015096],[176,179],[173.5,173],[173,167.8]];
+BRANCHES=MapModel.configure(BRANCHES);
+BRANCHES.forEach(b=>{if(['free','money','risk','factors-1','factors-2','factors-3'].includes(b.id))b.title[2]=b.box[1]-12;});
 const dimensionIds = {money:'D1',time:'D2',plan:'D3',grow:'D4',emo:'D5',risk:'D7',promise:'D8',free:'D9'};
 BRANCHES.forEach(b=>{
  b.dimensionId=dimensionIds[b.id];
  b.vines.forEach((v,i)=>{v.id=`${b.id}:path:${i}`;});
- b.items.forEach((it,i)=>{it.id=`${b.id}:leaf:${i}`;it.kind='need';});
+ b.items.forEach((it,i)=>{it.id=`${b.id}:leaf:${it.id||i}`;it.kind=it.kind||'need';});
 });
 
 /* ====================================================================== 图标 */
@@ -784,13 +787,13 @@ BRANCHES.forEach(b => {
   const x0 = Math.min(b.title[0] - 6, bx - brx), x1 = Math.max(b.title[1] + 6, bx + brx), y0 = by - bry, y1 = b.title[2] + 12;
   const r = el('rect', { class: 'hit', x: f2(x0), y: f2(y0), width: f2(x1 - x0), height: f2(y1 - y0), rx: 10, role: 'button', tabindex: 0, 'aria-label': `${b.name}：点亮或熄灭` }, hits);
   b.hit=r; r.dataset.branch=b.id; r.dataset.kind='branch'; r.setAttribute('aria-label',b.name+'：查看分支');
-  bindTap(r, () => onBranchTap(b), b.head);
+  bindTap(r, () => onBranchTap(b), null);
 });
 BRANCHES.forEach(b => b.items.forEach((it, i) => {
   const x0 = it.b[0] - 9, x1 = it.x[1] + 6;
   const r = el('rect', { class: 'hit', x: f2(x0), y: f2(it.cy - 12), width: f2(x1 - x0), height: 24, rx: 8, role: 'button', tabindex: 0, 'aria-label': `${it.t}：点亮或熄灭` }, hits);
   it.hit=r; r.dataset.branch=b.id; r.dataset.kind='leaf'; r.setAttribute('aria-label',it.t+'：查看详情');
-  bindTap(r, () => onItemTap(b, i), it.g);
+  bindTap(r, () => onItemTap(b, i), null);
 }));
 function bindTap(node, fn, visual) {
   node.addEventListener('pointerdown', () => visual && visual.classList.add('press'));
@@ -811,7 +814,7 @@ function ink(str, weight) {
 const median = a => { const s = [...a].sort((x, y) => x - y); return s[s.length >> 1]; };
 function layoutText() {
   const T = BRANCHES.map(b => ({ b, m: ink(b.name, 700) }));
-  const tfs = median(T.map(({ b, m }) => (b.title[1] + 1 - b.title[0]) / (m.r - m.l) * 100));
+  const tfs = Math.min(17,median(T.map(({ b, m }) => (b.title[1] + 1 - b.title[0]) / (m.r - m.l) * 100)));
   T.forEach(({ b, m }) => {
     const k = tfs / 100, cx = (b.title[0] + b.title[1] + 1) / 2, cy = b.title[2] + .5;
     b.titleEl.setAttribute('font-size', f2(tfs));
@@ -819,7 +822,7 @@ function layoutText() {
     b.titleEl.setAttribute('y', f2(cy + (m.a - m.d) / 2 * k));
   });
   const I = BRANCHES.flatMap(b => b.items.map(it => ({ it, m: ink(it.t, 500) })));
-  const ifs = median(I.map(({ it, m }) => (it.x[1] + 1 - it.x[0]) / (m.r - m.l) * 100));
+  const ifs = Math.min(11.5,median(I.map(({ it, m }) => (it.x[1] + 1 - it.x[0]) / (m.r - m.l) * 100)));
   I.forEach(({ it, m }) => {
     const k = ifs / 100;
     it.tx.setAttribute('font-size', f2(ifs));

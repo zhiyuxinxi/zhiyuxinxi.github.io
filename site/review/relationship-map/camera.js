@@ -3,13 +3,16 @@
 const art=window.RelationshipArt,viewport=document.querySelector('#viewport'),stage=document.querySelector('#stage');
 viewport.append(stage);document.querySelector('.app').remove();
 const dialog=document.querySelector('#leaf-detail'),caption=document.querySelector('#map-caption');
+document.querySelector('.map-header h1').textContent=MapModel.title;document.querySelector('.map-header>p').textContent=MapModel.type==='relationships'?'关系中的自己':MapModel.type==='traits'?'不同情境中的倾向':MapModel.type==='personal'?'从经历里看见自己':'记录与未知分开看';document.title='知遇测评 · '+MapModel.title;
+const embedded=new URLSearchParams(location.search).has('embedded');document.body.classList.toggle('embedded',embedded);
 const originalState=JSON.stringify(art.branches.map(b=>b.items.map(it=>it.lit)));
 let current=null,cam={x:0,y:0,k:1},moved=false,returnFocus=null,frame=0,drawCount=0;
 const pointer=new Map();
+const topology=MapModel.topology(art);
 // Attach each original title/icon group to its own curved stem, not a floating label.
 for(const b of art.branches){
- const p=b.paths[0],anchor=art.at(p.poly,b.id==='plan'?p.total*.48:b.id==='promise'?p.total*.43:p.total);
- const base=[b.box[0]+18,b.box[1]+32];b.headOffset=[anchor[0]-base[0],anchor[1]-base[1]];
+ const p=b.paths[0],anchor=art.at(p.poly,b.anchorRatio!=null?p.total*b.anchorRatio:b.id==='plan'?p.total*.48:b.id==='promise'?p.total*.43:p.total);
+ const base=({sproutT:[261.9,49.3],emo:[426.9,84.2],sun:[505.5,233.7],heart:[454.55,383.6],mount:[290.2,459.8],sproutG:[96.75,394.6],coins:[65.8,214.7],shield:[141.6,74.9]})[b.icon];b.headOffset=[anchor[0]-base[0],anchor[1]-base[1]];
  b.head.setAttribute('transform',`translate(${b.headOffset.join(' ')})`);
 }
 
@@ -35,7 +38,7 @@ function layers(){
  for(const p of art.paths.filter(p=>p.stem))for(const s of p.gSet)visible(s.e,false);
  for(const [i,leaf] of art.leaves.entries()){const decorative=leaf.host?.main&&leaf.dist>60&&i%2===0;visible(leaf.pop.parentNode,current?leaf.host?.b?.id===current:decorative);leaf.pop.parentNode.style.opacity=current?'1':'.65';}
  document.querySelector('#gPetals').style.display='none';
- caption.textContent=current?art.branches.find(b=>b.id===current).name+' · 轻触叶片查看需要':'从一条枝蔓，看看关系中在意的需要';
+ caption.textContent=current?art.branches.find(b=>b.id===current).name+' · 轻触叶片查看含义':MapModel.type==='relationships'?'从一条枝蔓，看看关系中在意的需要':'点击主节点，从一个角度慢慢了解自己';
 }
 function overview(){current=null;layers();fit({x:25,y:5,w:545,h:553});}
 function focusBranch(id){
@@ -45,7 +48,9 @@ function focusBranch(id){
  const x=Math.min(...xs)-12,y=Math.min(...ys)-15;fit({x,y,w:Math.max(...xs)-x+12,h:Math.max(...ys)-y+15});
 }
 function openDetail(id,index){if(current!==id)return;const b=art.branches.find(b=>b.id===id),it=b?.items[index];if(!it)return;
- returnFocus=it.hit;document.querySelector('#detail-branch').textContent=b.name;document.querySelector('#detail-title').textContent=it.t;document.querySelector('#detail-copy').textContent=it.sub;dialog.showModal();document.querySelector('#close-detail').focus();}
+ returnFocus=it.hit;
+ if(embedded){parent.postMessage({type:'zhiyu-map-detail',title:it.t,description:it.sub,branch:b.name,route:it.route||(b.dimensionId?'relationship-detail':null),id:it.routeId||b.dimensionId||null},location.origin);return;}
+ document.querySelector('#detail-branch').textContent=b.name;document.querySelector('#detail-title').textContent=it.t;document.querySelector('#detail-copy').textContent=it.sub;dialog.showModal();document.querySelector('#close-detail').focus();}
 // Cutout leaf silhouettes replace terminal dots only; original branch art stays SVG.
 for(const b of art.branches)for(const it of b.items){
  it.bul.style.display='none';const img=document.createElementNS('http://www.w3.org/2000/svg','image');
@@ -74,6 +79,6 @@ function release(e){pointer.delete(e.pointerId);if(!pointer.size){viewport.class
 viewport.addEventListener('pointerup',release);viewport.addEventListener('pointercancel',release);
 viewport.addEventListener('click',e=>{if(moved){e.preventDefault();e.stopImmediatePropagation();}},{capture:true});
 addEventListener('resize',()=>current?focusBranch(current):overview());
-window.MapCamera={overview,focusBranch,openDetail,state:()=>({current,...cam,drawCount,originalState,liveState:JSON.stringify(art.branches.map(b=>b.items.map(it=>it.lit)))})};
-Ambient.setContext({quiet:false,reduced:new URLSearchParams(location.search).has('still')});overview();
+window.MapCamera={overview,focusBranch,openDetail,topology,state:()=>({current,...cam,drawCount,originalState,liveState:JSON.stringify(art.branches.map(b=>b.items.map(it=>it.lit)))})};
+Ambient.setContext({quiet:embedded,reduced:new URLSearchParams(location.search).has('still')});overview();
 })();

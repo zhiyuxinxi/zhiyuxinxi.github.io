@@ -197,6 +197,7 @@ window.App=(()=>{
  // Read-only debugging interface enables deterministic, shipped regression tests.
  
  V4.bind({get state(){return state;},current,commit,nav,show,confirm,close,repaint,toast,download,dispatch,get blocked(){return !!(api.externalChange||api.pendingAnswer||api.unsavedDraft||V2.hasUnsaved);},get storageKey(){return KEY;},replaceState(next){if(persist(next)){state=next;V2.reset();V3.reset();render();return true;}return false;}});
+ ProductSurface.bindGraph({show,nav});
  V3.bind({get state(){return state;},current,commit,nav,show,repaint,toast});
  V2.bind({get state(){return state;},current,commit,nav,show,confirm,form,repaint,toast,close,download,addSource,status:renderStorageStatus,reset(){cancelAll();state=D.defaultState();api.pendingAnswer=null;api.formDrafts={};api.unsavedDraft=false;V2.reset();V3.reset();}});
  Object.defineProperties(api,{snapshot:{get:()=>clone(serial(state))},storageKey:{get:()=>KEY},currentRoute:{get:()=>current()}});

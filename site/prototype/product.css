@@ -273,3 +273,7 @@ body[data-route=explore] .v3-title{margin-bottom:12px}
 .decision-description{font-size:.8125rem;line-height:1.7;color:var(--muted)}
 .decision-card .decision-arrow{align-self:center}
 @media(max-width:359px){.decision-grid .decision-card{grid-template-columns:24px minmax(0,1fr) 12px;padding:16px 13px;gap:9px}.decision-card .decision-symbol .icon{width:23px;height:23px}.decision-title{font-size:.9375rem}.explore-intro{font-size:.875rem}.assessment-purpose{min-height:7.2em}}
+
+/* A transparent botanical world shares the page's persistent background. */
+.profile-botanical-map{display:block;width:calc(100% + 24px);margin:0 -12px 18px;height:580px;border:0;background:transparent;border-radius:20px}.profile-progress-map{margin-top:14px}.profile-progress-map>summary{padding:12px 0;cursor:pointer;font-size:14px}.profile-progress-map>summary:focus-visible{outline:2px solid var(--primary);outline-offset:3px}@media(max-width:359px){.profile-botanical-map{height:540px}}
+.profile-tendencies:has(.profile-botanical-map){background:transparent;border:0;padding:0}.profile-tendencies>.profile-unknown,.profile-tendencies>.relationship-dimensions,.profile-tendencies>.profile-factor-list{background:var(--paper);padding:20px;border-radius:22px}.profile-botanical-map{width:calc(100% + 36px);margin-inline:-18px}
