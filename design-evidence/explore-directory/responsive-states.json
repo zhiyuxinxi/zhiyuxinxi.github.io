@@ -1,0 +1,90 @@
+[
+  {
+    "width": 320,
+    "large": false,
+    "columns": 1,
+    "titlesAndPurposesUnchanged": true,
+    "keyboard": true,
+    "emptyRecovery": true,
+    "longContentGrows": true,
+    "cardHeightBefore": 103.0625,
+    "cardHeightAfter": 231.6875
+  },
+  {
+    "width": 320,
+    "large": true,
+    "columns": 1,
+    "titlesAndPurposesUnchanged": true,
+    "keyboard": true,
+    "emptyRecovery": true,
+    "longContentGrows": true,
+    "cardHeightBefore": 112.3125,
+    "cardHeightAfter": 307.8125
+  },
+  {
+    "width": 360,
+    "large": false,
+    "columns": 2,
+    "titlesAndPurposesUnchanged": true,
+    "keyboard": true,
+    "emptyRecovery": true,
+    "longContentGrows": true,
+    "cardHeightBefore": 190.703125,
+    "cardHeightAfter": 426.515625
+  },
+  {
+    "width": 360,
+    "large": true,
+    "columns": 1,
+    "titlesAndPurposesUnchanged": true,
+    "keyboard": true,
+    "emptyRecovery": true,
+    "longContentGrows": true,
+    "cardHeightBefore": 115.3125,
+    "cardHeightAfter": 261.9375
+  },
+  {
+    "width": 390,
+    "large": false,
+    "columns": 2,
+    "titlesAndPurposesUnchanged": true,
+    "keyboard": true,
+    "emptyRecovery": true,
+    "longContentGrows": true,
+    "cardHeightBefore": 190.703125,
+    "cardHeightAfter": 362.203125
+  },
+  {
+    "width": 390,
+    "large": true,
+    "columns": 1,
+    "titlesAndPurposesUnchanged": true,
+    "keyboard": true,
+    "emptyRecovery": true,
+    "longContentGrows": true,
+    "cardHeightBefore": 115.3125,
+    "cardHeightAfter": 237.5
+  },
+  {
+    "width": 430,
+    "large": false,
+    "columns": 2,
+    "titlesAndPurposesUnchanged": true,
+    "keyboard": true,
+    "emptyRecovery": true,
+    "longContentGrows": true,
+    "cardHeightBefore": 190.703125,
+    "cardHeightAfter": 340.765625
+  },
+  {
+    "width": 430,
+    "large": true,
+    "columns": 1,
+    "titlesAndPurposesUnchanged": true,
+    "keyboard": true,
+    "emptyRecovery": true,
+    "longContentGrows": true,
+    "cardHeightBefore": 90.875,
+    "cardHeightAfter": 213.0625
+  }
+]

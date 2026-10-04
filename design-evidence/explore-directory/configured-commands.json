@@ -1,0 +1,67 @@
+[
+  {
+    "name": "themes",
+    "command": "python tools/build_themes.py",
+    "exitCode": 0
+  },
+  {
+    "name": "runtime",
+    "command": "python tools/hosted_smoke.py .",
+    "exitCode": 0
+  },
+  {
+    "name": "visual",
+    "command": "python tools/design_snapshots.py .",
+    "exitCode": 0
+  },
+  {
+    "name": "recordContract",
+    "command": "node tools/record_loop_contract.mjs .",
+    "exitCode": 0
+  },
+  {
+    "name": "motion",
+    "command": "python tools/tidal_motion.py .",
+    "exitCode": 1
+  },
+  {
+    "name": "previewUI",
+    "command": "python tools/six_paths_ui.py .",
+    "exitCode": 0
+  },
+  {
+    "name": "navigation",
+    "command": "python tools/nav_contrast.py .",
+    "exitCode": 0
+  },
+  {
+    "name": "workbench",
+    "command": "python tools/build_workbench.py && python tools/workbench_coverage.py .",
+    "exitCode": 0
+  },
+  {
+    "name": "development",
+    "command": "python tools/development_review_test.py .",
+    "exitCode": 0
+  },
+  {
+    "name": "backendLogic",
+    "command": "python tools/backend_logic_test.py .",
+    "exitCode": 0
+  },
+  {
+    "name": "homeExplore",
+    "command": "python tools/home_explore_review.py .",
+    "exitCode": 0
+  },
+  {
+    "name": "productStructure",
+    "command": "python tools/product_structure_review.py .",
+    "exitCode": 0
+  },
+  {
+    "name": "workbenchPointer",
+    "command": "python tools/workbench_pointer_review.py .",
+    "exitCode": 0
+  }
+]

@@ -206,3 +206,5 @@ AI版本说明已依据现有候选题库核对：保留16因子，AI辅助改�
 卡片使用各主题自己的 paper，文字复用 ink/muted，线条来自 primary 的透明混合；不改变 themes-v4.json、生成主题、背景画布或动效。默认主题角色为 ink #402c28 / paper #ffdebe / surface #ffcc9c，其他主题使用各自完整角色而非复制默认色。正文与工具字栈沿用系统中文，问题字重650、辅助文字常规，不引入营销标题字体。
 
 运行时所有权不变：V3.explore/exploreResults负责目录结构，product.css负责探索变体，UI.icon与UI.button负责语义图标/按钮；app.js与DecisionScenes.search继续拥有事件和本机数据。CSS网格只合并视觉栏位，不重建输入控件或改变键盘顺序。
+
+探索目录查找使用共享 search-box 的外层 focus-within 轮廓；输入本体不再重复画第二道方形轮廓，清空按钮仍保留独立键盘焦点。找主题的悬停使用下划线，避免重新形成一枚填色方框。

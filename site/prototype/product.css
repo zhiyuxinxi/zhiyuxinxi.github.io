@@ -298,3 +298,6 @@ body[data-large-text=true] .decision-grid{grid-template-columns:1fr}
 body[data-large-text=true] .decision-grid .decision-card{min-height:0;display:grid;grid-template-columns:46px minmax(0,1fr);gap:14px}
 body[data-large-text=true] .decision-title{min-height:0}
 body[data-large-text=true] .decision-heading{flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:6px}
+/* The search group already owns the visible focus ring; avoid a second square inside it. */
+.explore-directory .search-box input:focus-visible{outline:none}
+.explore-find-row .textbtn:hover{background:transparent;text-decoration:underline;text-underline-offset:4px}
