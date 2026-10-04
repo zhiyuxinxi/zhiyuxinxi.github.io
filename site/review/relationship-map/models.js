@@ -16,10 +16,10 @@ window.MapModel=(()=>{
     {base:'promise',name:'L — O',leaves:[[437,375],[470,411],[493,451],[508,493]],curves:[[[368,358],[391,360],[416,369],[437,375]],[[410,390],[432,395],[451,403],[470,411]],[[427,433],[448,444],[472,449],[493,451]],[[448,463],[468,482],[489,492],[508,493]]]},
     {base:'grow',name:'Q1 — Q4',leaves:[[96,407],[112,451],[145,487],[192,516]],curves:[[[92,399],[93,403],[96,407]],[[97,463],[101,451],[112,451]],[[137,501],[140,491],[145,487]],[[197,496],[200,507],[192,516]]]}
    ];
-   return designs.map((d,g)=>{const b=clone(rows.find(b=>b.id===d.base));b.id='factors-'+g;b.anchorRatio=g===2?.43:1;const main={...b.vines[0],item:undefined,deco:true};return replace(b,d.name,D.factors.slice(g*4,g*4+4).map((f,i)=>({...item(f[0],f[0]+' '+f[1],f[4]+'。目前没有这个因子的有效读数。',...d.leaves[i]),route:'factor-detail',routeId:f[0],kind:'factor'})),[main,...d.curves.map((c,i)=>path(c,i))]);});
+   return designs.map((d,g)=>{const b=clone(rows.find(b=>b.id===d.base));b.id='factors-'+g;b.anchorRatio=g===2?.43:1;const main={...b.vines[0],item:undefined,deco:true};return replace(b,d.name,D.factors.slice(g*4,g*4+4).map((f,i)=>({...item(f[0],f[0]+' '+f[1],f[4]+'。具体读数以已保存的有效测评结果为准。',...d.leaves[i]),route:'factor-detail',routeId:f[0],kind:'factor'})),[main,...d.curves.map((c,i)=>path(c,i))]);});
   }
   if(type==='personal'){
-   // Eight observation areas on two uneven, hand-laid climbing stems. No psychological score.
+   // Eight observation areas on three uneven, hand-laid climbing stems. No psychological score.
    const designs=[
     {base:'risk',name:'经历与选择',main:[[281,252],[260,230],[249,192],[248,156],[237,124],[215,105],[188,99],[166,105]],leaves:[[130,175],[170,220],[215,259]],curves:[[[177.832838,100.862804],[160,127],[145,152],[130,175]],[[248,156],[219,167],[190,193],[170,220]],[[260,230],[243,237],[226,250],[215,259]]],ids:[0,1,2]},
     {base:'emo',name:'感受与相处',main:[[327,271],[355,251],[370,222],[379,186],[400,151],[430,130],[454,122]],leaves:[[461,159],[451,204],[436,248]],curves:[[[430,130],[445,138],[455,149],[461,159]],[[379,186],[405,189],[433,197],[451,204]],[[355,251],[382,243],[409,243],[436,248]]],ids:[4,5,6]},
