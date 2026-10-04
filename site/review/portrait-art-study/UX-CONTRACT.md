@@ -28,3 +28,7 @@
 ## 本候选概览补充
 
 缩略第二层只提示真实子节点数量，不提供隐藏热区，也不编码强度或分数。展开后恢复原节点说明与索引。装饰独立避让、无焦点和交互。回归证据见非部署design-evidence/portrait-art-study目录。
+
+## 四tab研究页
+
+新增测评完整度仅在本目录。真实分类依据six-paths-ui-requirements.md；未知不显示0分或0%，模拟不并入真人完成结果。人格倾向保留16因子及原节点标识，改为独立主枝。四tab循环方向键/Home/End，分别恢复视口；背景和线条Canvas共用且不重建。回归重放脚本位于design-evidence/four-portrait-studies/replay-review.py，避免用旧版四字母组测试断言代表新构图。

@@ -9,16 +9,25 @@ const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'
   const relations = names.map((name,i) => ({id:relationIds[i],name,p:positions[i],kind:'fixed',recorded:[2,3].includes(i),leaves:facetNames.map((name,j)=>({id:'f'+j,name,recorded:i===3&&j===2||i===2&&j===1,kind:'fixed'}))}));
   const factorNames = ['乐群','推理','情绪稳定','支配','活泼','规则意识','社交大胆','敏感','警觉','抽象','私密','忧虑','开放变化','自立','自律','紧张'];
   const codes = ['A','B','C','E','F','G','H','I','L','M','N','O','Q1','Q2','Q3','Q4'];
-  // Sixteen maintained factors; the four letter ranges are navigation indices, not new psychological dimensions.
-  const traits = [0,1,2,3].map((g)=>({id:'group'+g,name:['A — E','F — I','L — O','Q1 — Q4'][g],p:[[89,110],[292,110],[292,348],[89,348]][g],kind:'index',leaves:factorNames.slice(g*4,g*4+4).map((name,j)=>({id:codes[g*4+j],name:codes[g*4+j]+' '+name,kind:'bipolar',recorded:false}))}));
+  // Sixteen genuine factors, each an independent branch; no invented aggregate dimensions.
+  const factorAnchors=[[50,-256],[131,-209],[221,-154],[224,-63],[220,27],[195,113],[144,189],[69,255],[-39,264],[-123,214],[-187,149],[-224,65],[-228,-25],[-206,-114],[-155,-189],[-67,-254]];
+  const traits=codes.map((code,i)=>({id:'group'+Math.floor(i/4)+'/'+code,shortId:code,name:code+' '+factorNames[i],p:[195+factorAnchors[i][0],230+factorAnchors[i][1]],kind:'bipolar',recorded:false,leaves:[]}));
   const personal = [
-    {id:'rhythm',name:'相处节奏',p:[98,100],kind:'independent',recorded:true,leaves:[{id:'company',name:'需要陪伴',kind:'independent',recorded:true},{id:'alone',name:'需要独处',kind:'independent',recorded:true}]},
-    {id:'visibility',name:'记录可见性',p:[293,118],kind:'exclusive',leaves:[{id:'private',name:'仅自己',kind:'exclusive',recorded:true},{id:'shared',name:'允许分享',kind:'exclusive',recorded:false}]},
-    {id:'values',name:'在意的事',p:[288,347],kind:'fixed',leaves:[{id:'respect',name:'相互尊重',kind:'fixed'},{id:'rest',name:'休息空间',kind:'fixed'}]},
-    {id:'evidence',name:'认识的进度',p:[98,347],kind:'completion',leaves:[{id:'record',name:'已有记录',kind:'completion',recorded:true},{id:'unknown',name:'信息不足',kind:'completion'}]}
+    {id:'rhythm',name:'相处节奏',p:[67,75],kind:'independent',recorded:true,leaves:[{id:'company',name:'需要陪伴',kind:'independent',recorded:true},{id:'alone',name:'需要独处',kind:'independent',recorded:true}]},
+    {id:'visibility',name:'记录可见性',p:[323,158],kind:'exclusive',leaves:[{id:'private',name:'仅自己',kind:'exclusive',recorded:true},{id:'shared',name:'允许分享',kind:'exclusive',recorded:false}]},
+    {id:'values',name:'在意的事',p:[267,403],kind:'fixed',leaves:[{id:'respect',name:'相互尊重',kind:'fixed'},{id:'rest',name:'休息空间',kind:'fixed'}]},
+    {id:'evidence',name:'认识的进度',p:[63,338],kind:'completion',leaves:[{id:'record',name:'已有记录',kind:'completion',recorded:true},{id:'unknown',name:'信息不足',kind:'completion'}]}
   ];
 const normalize=rows=>rows.map(b=>({...b,anchor:b.p,children:b.leaves.map(l=>({...l,id:b.id+'/'+l.id,shortId:l.id,children:[]}))}));
-const actual={relations:normalize(relations),traits:normalize(traits),personal:normalize(personal)};
+const completion=[
+ {id:'original',name:'16PF原版',p:[81,68],kind:'assessment-record',leaves:[],description:'按16PF原版分类查看完成记录。当前研究页没有真实完成数据，也不生成测评分数。'},
+ {id:'ai-reset',name:'AI重置版',p:[316,104],kind:'assessment-record',leaves:[],description:'AI重置版与原版分别保留记录，不默认同等效度，也不合并计算完成比例。当前无真实完成数据。'},
+ {id:'single-factor',name:'单因子',p:[24,229],kind:'assessment-record',leaves:[],description:'单因子记录仅覆盖所选因子，不充作整套16PF完成结果。当前无真实完成数据。'},
+ {id:'daily',name:'每日打卡',p:[350,270],kind:'assessment-record',leaves:[],description:'每日打卡按其独立入口保留记录；本页不推定连续天数、题量或完成比例。当前无真实完成数据。'},
+ {id:'short-16pf',name:'简化16PF',p:[140,409],kind:'assessment-record',leaves:[],description:'简化16PF是独立分类，题数、映射和效度仍沿用原有待定状态。当前无真实完成数据。'},
+ {id:'simulation',name:'模拟性格',p:[291,373],kind:'simulation-record',leaves:[],description:'模拟性格是人为设定的假设配置，不属于本人测量完成结果，不计入任何真人测评完成度。'}
+];
+const actual={relations:normalize(relations),traits:normalize(traits),personal:normalize(personal),completion:normalize(completion)};
 function fixture(count){
   const node=(id,name,kind='explanation',children=[])=>({id,name,kind,children,recorded:kind==='completion',description:'匿名结构样本，仅验证节点说明与层级导航，不是心理维度或真实结果。'});
   return Array.from({length:count},(_,i)=>{const id='layout'+i;let children=[];
@@ -32,7 +41,7 @@ function fixture(count){
 }
 let count=8,tab='relations',longLabels=false,model,renderedEdges=[],visibleLayout=[],seq=0,anim=0,frame=0,returnFocus=null;
 const fresh=()=>({k:1,x:0,y:0,selected:null,branch:null,leaf:null,focusDepth:0,names:false,level:1,focusCamera:null});
-const views={relations:fresh(),traits:fresh(),personal:fresh()},view=()=>views[tab];
+const views={relations:fresh(),traits:fresh(),personal:fresh(),completion:fresh()},view=()=>views[tab];
 const viewport=$('#viewport'),svg=$('#branches'),layer=$('#nodes'),popover=$('#node-popover');
 const reduced=()=>$('#still').checked||matchMedia('(prefers-reduced-motion: reduce)').matches;
 const dims=()=>({w:viewport.clientWidth,h:viewport.clientHeight,s:Math.min(viewport.clientWidth/390,viewport.clientHeight/460)*.7});
@@ -41,6 +50,7 @@ const nodeBy=id=>model.nodes.find(n=>n.id===id);
 function state(n){const children=model.nodes.filter(c=>c.parent===n.id);if(children.length){const recorded=children.filter(c=>c.recorded).length;return recorded?recorded===children.length?'有记录':'部分线索有记录':'未探索'}return n.recorded?'有记录':'未探索'}
 function make(tag,attrs){const e=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));return e}
 const iconPaths={
+ book:'M4 3h13l3 3v15H4Z M8 7h7 M8 11h8 M8 15h6',
  shield:'M12 3 20 6v6c0 5-8 9-8 9S4 17 4 12V6Z',
  clock:'M12 7v5l4 2 M21 12a9 9 0 1 0-18 0 9 9 0 0 0 18 0',
  heart:'M12 20 4 12C-1 5 7 1 12 7c5-6 13-2 8 5Z',
@@ -60,6 +70,7 @@ const iconPaths={
  info:'M12 10v8 M12 5v1',
  unknown:'M7 7c0-6 12-6 10 1-1 3-5 3-5 7 M12 19v1'};
 function nodeIcon(n){
+ if(tab==='completion')return {name:({original:'book','ai-reset':'star','single-factor':'compass',daily:'clock','short-16pf':'book',simulation:'person'})[n.id]||'info'};
  if(n.id.startsWith('layout')&&n.depth===1)return {name:'factor-code',text:n.kind==='bipolar'?'AB':String(Number(n.id.slice(6))+1).padStart(2,'0')};
  if(n.id.startsWith('layout'))return {name:n.kind==='unknown'?'unknown':n.kind==='completion'?'check':'info'};
  const roots={risk:'shield',time:'clock',emotion:'heart',space:'space',commitment:'link',planning:'compass',growth:'growth',money:'coins',rhythm:'rhythm',visibility:'eye',values:'star',evidence:'progress'};
@@ -70,12 +81,12 @@ function nodeIcon(n){
 }
 function iconMarkup(n){const icon=nodeIcon(n);return `<svg class="semantic-icon" data-icon="${icon.name}" viewBox="0 0 24 24" aria-hidden="true">${icon.text?`<text x="12" y="16" text-anchor="middle">${esc(icon.text)}</text>`:`<path d="${iconPaths[icon.name]}"/>`}</svg>`;}
 function rebuild(){
- const roots=tab==='relations'&&count!==8?fixture(count):actual[tab];model=G.build(roots);
- layer.innerHTML=model.nodes.map(n=>`<button class="tree-node ${n.depth===0?'root-node':''} depth-${n.depth} ${n.recorded?'recorded':''}" data-node="${n.id}" aria-label="${esc(n.name+'，'+state(n))}"><span class="node-medallion" aria-hidden="true">${n.depth===0?'我':`<span class="overview-mark">${n.depth===1&&count!==8&&tab==='relations'?String(roots.findIndex(r=>r.id===n.id)+1).padStart(2,'0'):'<i></i>'}</span>${iconMarkup(n)}`}</span></button><span class="tree-label" data-label="${n.id}" aria-hidden="true">${esc(n.name)}</span>`).join('');
+ const roots=tab==='relations'&&count!==8?fixture(count):actual[tab];model=G.build(roots);if(tab==='completion')model.nodes[0].name='测评记录';viewport.dataset.composition=tab;
+ layer.innerHTML=model.nodes.map(n=>`<button class="tree-node ${n.depth===0?'root-node':''} depth-${n.depth} ${n.recorded?'recorded':''}" data-node="${n.id}" aria-label="${esc(n.name+'，'+state(n))}"><span class="node-medallion" aria-hidden="true">${n.depth===0?(tab==='completion'?'记录':'我'):`<span class="overview-mark">${n.depth===1&&count!==8&&tab==='relations'?String(roots.findIndex(r=>r.id===n.id)+1).padStart(2,'0'):'<i></i>'}</span>${iconMarkup(n)}`}</span></button><span class="tree-label" data-label="${n.id}" aria-hidden="true">${esc(n.name)}</span>`).join('');
  $('#index').innerHTML=model.nodes.filter(n=>n.depth).map(n=>`<button data-select="${n.id}" style="--depth:${n.depth}">${esc(n.name)}<small>${n.children.length?' · '+n.children.length+'个下级':' · 说明'}</small></button>`).join('');
  $('.text-index summary').textContent=`按名称查看线索 · ${roots.length}条主枝`;
  $('#fixture-banner').hidden=!(count!==8&&tab==='relations');$('#fixture-banner').textContent=`匿名拓扑样本：${count}条主枝，子树数量与深度不等，最深6层。不是新增心理维度。`;
- $('#intro').textContent=count!==8&&tab==='relations'?'匿名结构 · 点选圆点，放大逐层查看。':{relations:'了解自己，也理解相处。',traits:'不同倾向，不同的理解入口。',personal:'从经历里，慢慢看见自己。'}[tab];
+ $('#intro').textContent=count!==8&&tab==='relations'?'匿名结构 · 点选圆点，放大逐层查看。':{relations:'了解自己，也理解相处。',traits:'16个独立因子 · 点选查看，无有效结果不落点。',personal:'经历、需要与边界，各自保留。',completion:'六类入口 · 尚无真实完成数据。'}[tab];
  draw();
 }
 function levels(){const v=view();if(v.k>1.36)v.icons=true;if(v.k<1.24)v.icons=false;if(v.k>1.24)v.names=true;if(v.k<1.12)v.names=false;const thresholds=[0,0,1.52,1.9,2.2,2.55,2.8];let level=v.level;while(level<6&&v.k>thresholds[level+1])level++;while(level>1&&v.k<thresholds[level]-.12)level--;v.level=level;return Math.min(6,Math.max(level,v.focusDepth));}
@@ -103,7 +114,7 @@ function draw(){
  for(const edge of model.edges){const preview=depth===1&&edge.depth===2;if(!preview&&!allowed.some(n=>n.id===edge.child))continue;const q=edge.q.map(project);if(preview){const base=q[0];for(let j=1;j<4;j++)q[j]=q[j].map((v,i)=>base[i]+(v-base[i])*([.40,.64,.52,.34][nodeBy(edge.parent).children.indexOf(edge.child)%4]))}const trimmed=G.trim(q,edge.parent==='root'?32:preview?18:16,preview?4:16);if(!trimmed)continue;
   const child=nodeBy(edge.child),warm=child.recorded||state(child).startsWith('部分');
   if(preview){const end=q[3];svg.append(make('circle',{cx:end[0],cy:end[1],r:2.7,fill:warm?'var(--warm)':'var(--primary)',opacity:'.48','class':'preview-tip'}));}
-  const samples=Array.from({length:65},(_,i)=>G.point(trimmed,i/64));renderedEdges.push({...edge,q:trimmed,samples,warm,preview});
+  const samples=Array.from({length:65},(_,i)=>G.point(trimmed,i/64));renderedEdges.push({...edge,q:trimmed,samples,warm,preview,fine:tab==='traits'});
  }
  const occupied=hitboxes.map(b=>({x:b.x-b.size/2-4,y:b.y-b.size/2-4,w:b.size+8,h:b.size+8}));visibleLayout=[];
  const overlap=(a,b)=>a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y;
@@ -111,6 +122,7 @@ function draw(){
  for(const n of [...model.nodes].sort((a,b)=>a.depth-b.depth||(a.id==='money'?-1:b.id==='money'?1:0))){const button=layer.querySelector(`[data-node="${n.id}"]`),label=layer.querySelector(`[data-label="${n.id}"]`),[x,y]=project(n.p),visible=activeIds.has(n.id);
   button.hidden=!visible;button.tabIndex=visible?0:-1;button.setAttribute('aria-hidden',String(!visible));button.style.left=x+'px';button.style.top=y+'px';button.classList.toggle('selected',v.selected===n.id);label.hidden=true;
   if(!visible)continue;visibleLayout.push({id:n.id,depth:n.depth,x,y,size:n.depth?44:66});
+  if(tab==='traits'&&v.k<1.3)continue;
   if(!n.depth||v.k<.86&&n.depth>1)continue;
   label.textContent=n.name+(longLabels?' · 长内容排版示例':'');label.hidden=false;label.style.maxWidth=longLabels?'116px':'100px';const w=label.offsetWidth,h=label.offsetHeight;
   const a=n.angle,ux=Math.cos(a),uy=Math.sin(a),candidates=[];
@@ -121,7 +133,7 @@ function draw(){
  LineMaterial.draw(renderedEdges,d.w,d.h,v.k);
  ornaments(occupied,d);
  $('#zoom-label').textContent=Math.round(v.k*100)+'%';$('#zoom-in').disabled=v.k>=3;$('#zoom-out').disabled=v.k<=.7;$('#fit-branch').disabled=!v.branch;$('#level').textContent=`第${depth}层 · ${active.filter(n=>n.depth).length}节点`;
- $('#detail').textContent=v.selected?`已保留「${nodeBy(v.selected)?.name||'我'}」 · 点圆点查看说明`:'从一条线索开始，慢慢看见自己。';
+ $('#detail').textContent=v.selected?`已保留「${nodeBy(v.selected)?.name||'我'}」 · 点圆点查看说明`:tab==='completion'?'记录按来源分别呈现，不合成总完成比例。':tab==='traits'?'尚无有效量表结果，16因子均保持未知。':'从一条线索开始，慢慢看见自己。';
 }
 function schedule(){if(!frame)frame=requestAnimationFrame(draw)}
 function stop(){seq++;cancelAnimationFrame(anim);anim=0}
@@ -130,6 +142,7 @@ function fit(){view().focusDepth=0;view().focusCamera=null;moveTo({k:1,x:0,y:0})
 function zoom(k,anchor){const v=view(),d=dims(),nk=Math.max(.7,Math.min(3,k)),a=anchor||[d.w/2,d.h/2],r=nk/v.k;let x=a[0]-d.w/2-(a[0]-d.w/2-v.x)*r,y=a[1]-d.h/2-(a[1]-d.h/2-v.y)*r;if(nk<1.36){v.focusDepth=0;if(v.focusCamera){x=0;y=0;v.focusCamera=null}}moveTo({k:nk,x,y})}
 function focusNode(n,children=false){const d=dims(),v=view(),targets=children?n.children.map(nodeBy):[];v.branch=n.rootId||n.id;v.focusDepth=Math.min(6,n.depth+(children?1:0));const ps=[n,...targets],center=ps.reduce((p,n)=>[p[0]+n.p[0]/ps.length,p[1]+n.p[1]/ps.length],[0,0]);const k=children?1.4:1.6;v.focusCamera=true;moveTo({k,x:-center[0]*d.s*k,y:-center[1]*d.s*k})}
 function description(n){
+ if(tab==='completion')return `<p>${esc(n.description||'按实际测评分类分别查看；不合成总完成比例。')}</p><p>没有有效记录时保持未知，不把未知显示为0分或0%完成。</p>`;
  if(n.description)return `<p>${esc(n.description)}</p><p>${n.kind==='bipolar'?'A与B仅展示两端含义，不要求二选一。':n.kind==='unknown'?'信息不足，不推断结果或完成状态。':n.children.length?'下级线索各自保留，不合成为总分。':'这是说明节点，没有待选择或待完成的任务。'}</p>`;
  if(n.kind==='root')return '<p>不同线索共同组成画像；它们不是一个总分。</p>';
  if(n.kind==='bipolar')return n.shortId==='A'?'<p>乐群：较低与较高倾向是同一因子的两端。没有有效量表结果，暂不落点。</p>':'<p>尚无有效结果。两端名称和刻度须由对应量表支持，不借用其他因子的定义。</p>';
@@ -161,7 +174,7 @@ function release(e){pointers.delete(e.pointerId);if(moved)suppress=true;if(point
 viewport.addEventListener('pointerup',release);viewport.addEventListener('pointercancel',release);viewport.addEventListener('click',e=>{if(suppress){e.preventDefault();e.stopPropagation();suppress=false}},true);
 viewport.addEventListener('wheel',e=>{e.preventDefault();zoom(view().k*Math.exp(-e.deltaY*.002),local(e))},{passive:false});
 viewport.addEventListener('keydown',e=>{if(['+','=','-','Home','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)){e.preventDefault();stop();if(e.key==='+'||e.key==='=')zoom(view().k*1.28);else if(e.key==='-')zoom(view().k/1.28);else if(e.key==='Home')fit();else{const v=view();v.focusCamera=null;v.x+=e.key==='ArrowRight'?-32:e.key==='ArrowLeft'?32:0;v.y+=e.key==='ArrowDown'?-32:e.key==='ArrowUp'?32:0;draw()}}});
-$('.tabs').addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const keys=['traits','relations','personal'],i=keys.indexOf(tab),n=e.key==='Home'?0:e.key==='End'?2:(i+(e.key==='ArrowRight'?1:2))%3;switchTab(keys[n]);$('#tab-'+keys[n]).focus()}});
+$('.tabs').addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const keys=['traits','relations','personal','completion'],i=keys.indexOf(tab),n=e.key==='Home'?0:e.key==='End'?3:(i+(e.key==='ArrowRight'?1:3))%4;switchTab(keys[n]);$('#tab-'+keys[n]).focus()}});
 new ResizeObserver(schedule).observe(viewport);const syncMotion=()=>{if(reduced())stop();Ambient.setContext({quiet:false,reduced:$('#still').checked})};$('#still').onchange=syncMotion;matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',syncMotion);
 document.body.className='theme-mint study';Ambient.setContext({quiet:false});
 fetch('../../handoff/themes-v4.json').then(r=>{if(!r.ok)throw Error();return r.json()}).then(themes=>{$('#theme').insertAdjacentHTML('beforeend',themes.map(t=>`<option value="${t.id}">${esc(t.name)}</option>`).join(''));$('#theme').onchange=()=>{document.body.className=$('#theme').value==='study'?'theme-mint study':'theme-'+$('#theme').value;Ambient.setContext({quiet:false,reduced:$('#still').checked})}}).catch(()=>{$('#announce').textContent='主题目录暂不可用，当前配色仍可浏览。'});

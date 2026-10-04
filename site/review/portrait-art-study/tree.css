@@ -17,3 +17,10 @@ body:not(.study) .node-medallion:before{filter:grayscale(.75);opacity:.85}
 @media(min-width:1001px){.phone{max-width:600px;margin-left:calc(50% - 190px)}#viewport{height:570px}.demo-frame{left:max(24px,calc(50% - 510px))}}
 
 #line-material{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}#branches{z-index:1}#nodes{z-index:2}
+
+/* Independent compositions use the same material and controls. */
+.tabs button{font-size:15px}.intro{font-size:12px;letter-spacing:.03em;padding-inline:14px}
+#viewport[data-composition="traits"] .depth-1 .node-medallion{width:28px;height:28px}#viewport[data-composition="traits"] .depth-1 .node-medallion:before{inset:-8px}#viewport[data-composition="traits"] .semantic-icon text{font-size:13px}
+#viewport[data-composition="completion"] .root-node .node-medallion{font-size:21px}
+
+@media(max-width:360px){.tabs{margin-inline:12px}.tabs button{font-size:13px}}

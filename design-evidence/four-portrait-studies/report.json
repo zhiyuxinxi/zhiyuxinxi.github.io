@@ -1,0 +1,167 @@
+{
+  "states": [
+    {
+      "width": 320,
+      "tab": "relations",
+      "hits": [],
+      "visibleRoots": 8,
+      "labelCount": 7,
+      "overflow": false,
+      "canvasKept": true
+    },
+    {
+      "width": 320,
+      "tab": "traits",
+      "hits": [],
+      "visibleRoots": 16,
+      "labelCount": 0,
+      "overflow": false,
+      "canvasKept": true
+    },
+    {
+      "width": 320,
+      "tab": "personal",
+      "hits": [],
+      "visibleRoots": 4,
+      "labelCount": 4,
+      "overflow": false,
+      "canvasKept": true
+    },
+    {
+      "width": 320,
+      "tab": "completion",
+      "hits": [],
+      "visibleRoots": 6,
+      "labelCount": 6,
+      "overflow": false,
+      "canvasKept": true
+    },
+    {
+      "width": 390,
+      "tab": "relations",
+      "hits": [],
+      "visibleRoots": 8,
+      "labelCount": 8,
+      "overflow": false,
+      "canvasKept": true
+    },
+    {
+      "width": 390,
+      "tab": "traits",
+      "hits": [],
+      "visibleRoots": 16,
+      "labelCount": 0,
+      "overflow": false,
+      "canvasKept": true
+    },
+    {
+      "width": 390,
+      "tab": "personal",
+      "hits": [],
+      "visibleRoots": 4,
+      "labelCount": 4,
+      "overflow": false,
+      "canvasKept": true
+    },
+    {
+      "width": 390,
+      "tab": "completion",
+      "hits": [],
+      "visibleRoots": 6,
+      "labelCount": 6,
+      "overflow": false,
+      "canvasKept": true
+    },
+    {
+      "width": 1440,
+      "tab": "relations",
+      "hits": [],
+      "visibleRoots": 8,
+      "labelCount": 8,
+      "overflow": false,
+      "canvasKept": true
+    },
+    {
+      "width": 1440,
+      "tab": "traits",
+      "hits": [],
+      "visibleRoots": 16,
+      "labelCount": 0,
+      "overflow": false,
+      "canvasKept": true
+    },
+    {
+      "width": 1440,
+      "tab": "personal",
+      "hits": [],
+      "visibleRoots": 4,
+      "labelCount": 4,
+      "overflow": false,
+      "canvasKept": true
+    },
+    {
+      "width": 1440,
+      "tab": "completion",
+      "hits": [],
+      "visibleRoots": 6,
+      "labelCount": 6,
+      "overflow": false,
+      "canvasKept": true
+    }
+  ],
+  "geometry": [
+    {
+      "name": "relations",
+      "nodes": 41,
+      "edges": 40,
+      "maxDepth": 2,
+      "crossings": [],
+      "sectorEscapes": [],
+      "inwardEdges": [],
+      "commonNodeExclusionWorldRadius": 0
+    },
+    {
+      "name": "traits",
+      "nodes": 17,
+      "edges": 16,
+      "maxDepth": 1,
+      "crossings": [],
+      "sectorEscapes": [],
+      "inwardEdges": [],
+      "commonNodeExclusionWorldRadius": 0
+    },
+    {
+      "name": "personal",
+      "nodes": 13,
+      "edges": 12,
+      "maxDepth": 2,
+      "crossings": [],
+      "sectorEscapes": [],
+      "inwardEdges": [],
+      "commonNodeExclusionWorldRadius": 0
+    },
+    {
+      "name": "completion",
+      "nodes": 7,
+      "edges": 6,
+      "maxDepth": 1,
+      "crossings": [],
+      "sectorEscapes": [],
+      "inwardEdges": [],
+      "commonNodeExclusionWorldRadius": 0
+    }
+  ],
+  "errors": [],
+  "checks": {
+    "fourTabKeyboardCycle": true,
+    "all16FactorsReachable": true,
+    "simulationNotPersonalCompletion": true,
+    "zoomAndPopoverCamera": true,
+    "reducedMotion": true
+  },
+  "limits": [
+    "Chromium only",
+    "No physical-device or WebGL context recovery certification",
+    "Visual quality requires separate review"
+  ]
+}

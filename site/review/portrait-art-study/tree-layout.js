@@ -9,7 +9,7 @@ window.TreeGeometry = (() => {
     const rhythm=[1.05,.82,1.25,.92,1.13,.8,.98,1.16,.88,1.07,.94,1.2],weights=roots.map((_,i)=>rhythm[i%rhythm.length]),total=weights.reduce((a,b)=>a+b,0);let cursor=0;
     const angles=roots.map((n,i)=>{const angle=n.anchor?Math.atan2(n.anchor[1]-230,n.anchor[0]-195):-Math.PI/2+cursor/total*TAU;cursor+=weights[i];return angle});
     // Art-directed handles: radial fractions and signed fractions of each available sector.
-    const poses={risk:[.34,.90,.78,.35],time:[.42,.90,.83,-.72],emotion:[.40,-.35,.82,.12],space:[.55,-.82,.87,.60],commitment:[.30,.45,.82,.92],planning:[.54,-.95,.84,-.40],growth:[.36,.92,.80,-.85],money:[.60,-.96,.84,.78]};
+    const poses={risk:[.34,.90,.78,.35],time:[.42,.90,.83,-.72],emotion:[.40,-.35,.82,.12],space:[.55,-.82,.87,.60],commitment:[.30,.45,.82,.92],planning:[.54,-.95,.84,-.40],growth:[.36,.92,.80,-.85],money:[.60,-.96,.84,.78],rhythm:[.24,.86,.84,.25],visibility:[.52,-.72,.81,-.42],values:[.43,.91,.76,.18],evidence:[.61,-.82,.88,.65],original:[.48,-.82,.77,.42],'ai-reset':[.31,.42,.88,-.61],'single-factor':[.58,.87,.85,.30],daily:[.42,-.93,.82,.56],'short-16pf':[.53,.91,.88,.44],simulation:[.34,-.71,.78,.82]};
     const fallback=Object.values(poses);
     const root={id:'root',name:'我',depth:0,p:[0,0],radius:0,angle:0,children:roots.map(n=>n.id),kind:'root'};nodes.push(root);
     function visit(source,parent,angle,lo,hi,rootId,depth,radius){

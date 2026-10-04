@@ -23,7 +23,7 @@ window.LineMaterial = (() => {
     }return new Float32Array(vertices);
   }
   function draw(edges,w,h,zoom=1){if(!ready)return false;const dpr=Math.min(devicePixelRatio||1,2.5),cw=Math.round(w*dpr),ch=Math.round(h*dpr);if(canvas.width!==cw||canvas.height!==ch){canvas.width=cw;canvas.height=ch}gl.viewport(0,0,cw,ch);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);gl.useProgram(program);gl.uniform2f(resolution,w,h);gl.uniform1i(sampler,0);gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.enableVertexAttribArray(position);gl.enableVertexAttribArray(uv);gl.vertexAttribPointer(position,2,gl.FLOAT,false,16,0);gl.vertexAttribPointer(uv,2,gl.FLOAT,false,16,8);
-    for(const edge of edges){const thick=edge.depth===1,scale=Math.min(1.5,Math.max(.8,Math.sqrt(zoom))),data=mesh(edge.q,(thick?8:edge.preview?3.8:5)*scale,(thick?3.6:1.5)*scale);gl.bufferData(gl.ARRAY_BUFFER,data,gl.DYNAMIC_DRAW);gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,textures[(edge.warm?'amber':'sage')+(thick?'Thick':'Fine')]);gl.drawArrays(gl.TRIANGLE_STRIP,0,data.length/4)}return true;
+    for(const edge of edges){const thick=edge.depth===1&&!edge.fine,scale=Math.min(1.5,Math.max(.8,Math.sqrt(zoom))),data=mesh(edge.q,(thick?8:edge.preview?3.8:5)*scale,(thick?3.6:1.5)*scale);gl.bufferData(gl.ARRAY_BUFFER,data,gl.DYNAMIC_DRAW);gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,textures[(edge.warm?'amber':'sage')+(thick?'Thick':'Fine')]);gl.drawArrays(gl.TRIANGLE_STRIP,0,data.length/4)}return true;
   }
   return {load,draw,status:()=>({ready,error,assets:Object.keys(textures)}),canvas,mesh};
 })();
