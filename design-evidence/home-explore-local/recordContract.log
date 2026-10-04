@@ -1,0 +1,15 @@
+PASS original topic schemas remain intact
+PASS empty record is not manufactured
+PASS draft-only failed commit retains text
+PASS record saved locally without account or assessment
+PASS explicit action stores original saved revision
+PASS review stores its own plan snapshot
+PASS changing plan never rewrites previous review
+PASS editing note keeps ID, previous revision and action source
+PASS dirty draft cannot silently become assistant source
+PASS same source ID with newer revision is not deduplicated to old action
+PASS new and legacy state normalize without invented snapshots
+PASS corrupt nested histories and sources are rejected
+PASS export excludes note snapshot without mutating local action
+PASS source deletion clears full snapshot but keeps plan and reviews
+{"passed":14,"failed":0,"scope":"Pure local V2 record/action/review contract; no browser verification"}

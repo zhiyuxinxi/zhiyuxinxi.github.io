@@ -20,7 +20,9 @@ AI重置版具体改写说明尚缺准确题库来源。当前主站契约仍将
 - design-lint.log：DESIGN.md 0 errors，3个既有token警告。
 - viewport文件为390px实际首屏；其余为完整页面截图，固定底栏出现在视口位置，不代表文档中插入底栏。
 
-旧manifest的全量命令另行执行并补充准确结果；不能以历史首页/助理结构断言替代现行契约。
+旧manifest的10个命令已在隔离副本执行，精确退出状态见configured-commands.json：themes、runtime（18项）、recordContract（14项）、previewUI、navigation、development、backendLogic通过。visual失败：旧首页/助理选择器与现行main结构、旧独立页夹具启动方式不兼容，完整日志保留；不把失败删除或改称通过。motion在创建录像上下文时因Playwright ffmpeg缺失失败。workbench的8项外框检查已通过，随后全主题路由扫描超过360秒超时，不宣称该脚本全量通过；现行product_structure_review的43×12独立矩阵已通过。
+
+补充scene-contrast.json用浏览器计算后的两色端点与101个混色样本检查新增背景文字角色，最低5.07:1；属于角色数值检查，不是全屏像素或无障碍认证。
 
 ## 边界
 

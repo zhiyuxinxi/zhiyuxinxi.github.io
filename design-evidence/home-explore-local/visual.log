@@ -1,0 +1,48 @@
+PASS workspace-empty 
+PASS record-saved 
+PASS record-saved-dark 
+PASS action-review 
+FAIL home Primary assessment lost
+FAIL home-resume Primary assessment lost
+FAIL home-action Primary assessment lost
+PASS settings 
+PASS explore 
+FAIL assistant Missing supplied brand image
+PASS profile 
+PASS topic 
+FAIL topic-resume Resume lost original record identity
+FAIL report Locator.get_attribute: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator(".factor-detail")
+
+PASS question 
+PASS appearance 
+PASS appearance-320 
+PASS appearance-dark-320 
+FAIL home-320 Primary assessment lost
+PASS explore-320 
+FAIL assistant-320 Missing supplied brand image
+PASS profile-320 
+FAIL report-320 Locator.get_attribute: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator(".factor-detail")
+
+FAIL home-430 Primary assessment lost
+PASS question-320 
+FAIL home-dark Primary assessment lost
+PASS explore-dark 
+FAIL assistant-dark Missing supplied brand image
+FAIL report-dark Locator.get_attribute: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator(".factor-detail")
+
+PASS appearance-dark 
+FAIL home-large Primary assessment lost
+PASS explore-large 
+FAIL assistant-large Missing supplied brand image
+PASS profile-large 
+PASS question-large 
+FAIL report-large Locator.get_attribute: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator(".factor-detail")
+
