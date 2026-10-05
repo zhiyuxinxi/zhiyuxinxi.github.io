@@ -13,7 +13,7 @@ window.ProductSurface=(()=>{
  const groups=[['traits','人格倾向'],['relationships','关系模式'],['observations','个人画像'],['completion','认识进度']];
  const relationshipDimensions=[['D1','金钱资源','金钱与资源怎样安排，让彼此更自在？'],['D2','时间陪伴','相处时间怎样分配，才能兼顾陪伴和各自生活？'],['D3','规划带领与关系秩序','谁来规划、怎样协商，什么安排更适合自己？'],['D4','成长与价值确认','希望怎样支持彼此成长，又怎样感到被认可？'],['D5','情绪支持','需要怎样被理解，自己能怎样回应情绪？'],['D7','风险兜底','遇到困难时，期待怎样共同面对？'],['D8','亲密节奏与承诺','靠近和承诺的节奏，怎样才适合自己？'],['D9','自由与空间','亲近之余，希望保留多少自主与独处？']];
  const facets=[['ability','能做到'],['willingness','愿意投入'],['need','自己需要'],['boundary','边界']];
- function graphFrame(s,type){return `<iframe class="profile-botanical-map" title="${{traits:'人格倾向图谱',relationships:'关系需求图谱',personal:'个人画像图谱',completion:'认识进度图谱'}[type]}" src="../review/relationship-map/index.html?embedded=1&map=${type}&theme=${encodeURIComponent(s.theme)}${s.reduced?'&still=1':''}" loading="lazy"></iframe>`;}
+ function graphFrame(s,type){return `<iframe class="profile-botanical-map" title="${{traits:'人格倾向图谱',relationships:'关系需求图谱',personal:'个人画像图谱',completion:'认识进度图谱'}[type]}" src="../review/relationship-map/index.html?embedded=1&map=${type}${type==='relationships'&&new URLSearchParams(location.search).get('relationship')==='crystal'?'&geometry=crystal':''}&theme=${encodeURIComponent(s.theme)}${s.reduced?'&still=1':''}" loading="lazy"></iframe>`;}
  let graphController=null;
  function bindGraph(C){graphController=C;}
  window.addEventListener('message',e=>{

@@ -5,7 +5,8 @@ viewport.append(stage);document.querySelector('.app').remove();
 const dialog=document.querySelector('#leaf-detail'),caption=document.querySelector('#map-caption');
 document.querySelector('.map-header h1').textContent=MapModel.title;document.querySelector('.map-header>p').textContent=MapModel.type==='relationships'?'关系中的自己':MapModel.type==='traits'?'不同情境中的倾向':MapModel.type==='personal'?'从经历里看见自己':MapModel.type==='structure'?'中性示例 · 不代表测量结果':'记录与未知分开看';document.title='知遇测评 · '+MapModel.title;
 const embedded=new URLSearchParams(location.search).has('embedded');document.body.classList.toggle('embedded',embedded);
-const botanical=MapModel.type==='relationships';document.body.classList.toggle('relationship-art',botanical);
+const geometric=window.RelationshipGeometry;
+const botanical=MapModel.type==='relationships'&&!geometric;document.body.classList.toggle('relationship-art',botanical);
 if(botanical)document.documentElement.style.colorScheme=document.body.dataset.themeMode;
 const originalState=JSON.stringify(art.branches.map(b=>b.items.map(it=>it.lit)));
 let focusScale=1,current=null,cam={x:0,y:0,k:1},moved=false,returnFocus=null,frame=0,drawCount=0;
@@ -14,6 +15,7 @@ const geometryTopology=MapModel.geometryTopology(art),semantic=MapSemantics;
 const depthLimit=()=>!current?1:semantic.research?Math.min(6,Math.max(2,2+Math.floor(Math.log(cam.k/focusScale)/Math.log(1.2)+.02))):2;
 // Attach each original title/icon group to its own curved stem, not a floating label.
 for(const b of art.branches){
+ if(geometric)continue;
  const p=b.paths[0],anchor=art.at(p.poly,b.anchorRatio!=null?p.total*b.anchorRatio:b.id==='plan'?p.total*(botanical?.75:.48):b.id==='promise'?p.total*.43:p.total);
  if(botanical&&b.id==='money'){
   // A short continuation of the same stem gives the compact heading breathing room above its first leaf.
@@ -69,7 +71,7 @@ function requestPaint(){if(!frame)frame=requestAnimationFrame(paint);}
 function fit(bounds){const w=viewport.clientWidth,h=viewport.clientHeight;cam.k=Math.min((w-32)/bounds.w,(h-36)/bounds.h,2.7);cam.x=(w-bounds.w*cam.k)/2-bounds.x*cam.k;cam.y=(h-bounds.h*cam.k)/2-bounds.y*cam.k;requestPaint();}
 function zoom(factor,x=viewport.clientWidth/2,y=viewport.clientHeight/2){const k=Math.min(semantic.research?8:3.5,Math.max(.35,cam.k*factor));cam.x=x-(x-cam.x)*k/cam.k;cam.y=y-(y-cam.y)*k/cam.k;cam.k=k;requestPaint();}
 function layers(){
- const overview=!current,level=depthLimit();stage.dataset.depth=level;stage.dataset.mode=overview?"overview":"focus";
+ const overview=!current,level=depthLimit();if(geometric)geometric.layout(current);stage.dataset.depth=level;stage.dataset.mode=overview?"overview":"focus";
  for(const b of art.branches){
   const chosen=b.id===current;
   visible(b.head,overview||chosen);hideHit(b.hit,overview||chosen);
@@ -79,8 +81,8 @@ function layers(){
   visible(b.warm,false);visible(b.shade,overview||chosen);visible(b.fillet,!botanical&&(overview||chosen));
   for(const j of b.juncEls)visible(j.g,false);
   for(const bd of b.budEls)visible(bd.bul,false);
-  for(const p of b.paths){const on=overview?(semantic.research?p.semanticNode.depth===1:(botanical||p.main||p.vi===1)):chosen&&p.semanticNode.depth<=level;for(const s of [...p.gSet,...p.lSet])visible(s.e,on&&!s.rootReplaced);}
-  for(const it of b.items){const on=chosen&&it.semanticNode.depth<=level;visible(it.g,on);hideHit(it.hit,on);it.hit.dataset.node=it.semanticNode.id;it.hit.dataset.depth=it.semanticNode.depth;if(semantic.research){const y=Math.min(it.b[1]-24,it.cy-12);it.hit.setAttribute('y',y);it.hit.setAttribute('height',Math.max(it.b[1]+8,it.cy+12)-y);}}
+  for(const p of b.paths){const on=overview?(semantic.research?p.semanticNode.depth===1:(botanical||geometric||p.main||p.vi===1)):chosen&&p.semanticNode.depth<=level;for(const s of [...p.gSet,...p.lSet])visible(s.e,on&&!s.rootReplaced);}
+  for(const it of b.items){const on=chosen&&it.semanticNode.depth<=level;visible(it.g,on);hideHit(it.hit,on);it.hit.dataset.node=it.semanticNode.id;it.hit.dataset.depth=it.semanticNode.depth;if(geometric&&on){const r=it.g.getBBox(),w=Math.max(r.width+10,44/cam.k),h=Math.max(r.height+10,44/cam.k);it.hit.setAttribute('x',r.x+r.width/2-w/2);it.hit.setAttribute('y',r.y+r.height/2-h/2);it.hit.setAttribute('width',w);it.hit.setAttribute('height',h);}if(semantic.research){const y=Math.min(it.b[1]-24,it.cy-12);it.hit.setAttribute('y',y);it.hit.setAttribute('height',Math.max(it.b[1]+8,it.cy+12)-y);}}
  }
  for(const n of semantic.nodes.filter(n=>n.element))visible(n.element,n.branch===current&&n.depth<=level);
  for(const p of art.paths.filter(p=>p.stem))for(const s of p.gSet)visible(s.e,false);
@@ -98,6 +100,7 @@ function layers(){
 function overview(){current=null;layers();fit(semantic.research?{x:80,y:130,w:460,h:330}:{x:25,y:5,w:545,h:553});}
 function focusBranch(id){
  const b=art.branches.find(b=>b.id===id);if(!b)return;current=id;layers();
+ if(geometric){fit(geometric.bounds(b));focusScale=cam.k;return;}
  if(botanical){
   // Fit the branch and its reading targets, not the root disc or the unselected map.
   const pts=b.vines.flatMap(v=>v.pts),head=b.head.getBBox(),xs=pts.map(p=>p[0]),ys=pts.map(p=>p[1]);
@@ -116,6 +119,7 @@ function openDetail(id,index){if(current!==id)return;const b=art.branches.find(b
  document.querySelector('#detail-branch').textContent=b.name;document.querySelector('#detail-title').textContent=it.t;document.querySelector('#detail-copy').textContent=it.sub+(semantic.research?' 父节点：'+semantic.by.get(it.semanticNode.parent).label+'；真实深度：'+it.semanticNode.depth+'。'+(it.semanticNode.pair?'当前状态：'+semantic.stateLabel(it.semanticNode)+'。A、B 独立记录，可同时存在，不要求总和为 100%。':''):'');dialog.showModal();document.querySelector('#close-detail').focus();}
 // Keep relationship terminal leaves in the source SVG vocabulary; other models retain their approved cutout.
 for(const b of art.branches)for(const it of b.items){
+ if(geometric)continue;
  it.bul.style.display='none';
  if(botanical){
   if(b.id==='money'&&it.t==='现实保障')it.tx.setAttribute('transform','translate(0 -4)');
@@ -155,6 +159,6 @@ viewport.addEventListener('click',e=>{if(moved){e.preventDefault();e.stopImmedia
 let lastSize=[viewport.clientWidth,viewport.clientHeight],resizeTimer;
 addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{const size=[viewport.clientWidth,viewport.clientHeight];if(size.some(v=>v<120)||size.every((v,i)=>v===lastSize[i]))return;if(current){const ratio=cam.k/focusScale,cx=(lastSize[0]/2-cam.x)/cam.k,cy=(lastSize[1]/2-cam.y)/cam.k;focusBranch(current);zoom(ratio);cam.x=size[0]/2-cx*cam.k;cam.y=size[1]/2-cy*cam.k;requestPaint();}else overview();lastSize=size;},100);});
 window.MapCamera={overview,focusBranch,openDetail,geometryTopology,get topology(){return semantic.snapshot();},semantic:semantic.snapshot,inspectNode(id){const n=semantic.by.get(id);if(!n||!n.branch)return;focusBranch(n.branch);zoom(Math.pow(1.2,Math.max(0,n.depth-2)));if(n.point){cam.x=viewport.clientWidth/2-(n.point[0]+(n.type==='terminal'?45:0))*cam.k;cam.y=viewport.clientHeight/2-n.point[1]*cam.k;}requestPaint();},state:()=>({current,depth:depthLimit(),...cam,drawCount,originalState,liveState:JSON.stringify(art.branches.map(b=>b.items.map(it=>it.lit)))})};
-if(botanical)document.fonts.ready.then(requestPaint);
+if(botanical||geometric)document.fonts.ready.then(requestPaint);
 Ambient.setContext({quiet:embedded,reduced:new URLSearchParams(location.search).has('still')});overview();
 })();
