@@ -33,3 +33,33 @@ body.embedded{background:transparent!important}.embedded #ambient-background,.em
 .semantic-joint{pointer-events:none}.semantic-joint circle{fill:var(--paper);stroke:var(--primary);stroke-width:1}.semantic-joint text{font:11px var(--sans);fill:var(--muted)}.item[data-evidence=unknown] image{opacity:.4}.item[data-evidence=present] image{opacity:1}
 
 .camera-tools button{white-space:nowrap}@media(min-width:441px){.camera-tools{width:max-content}}
+
+/* Relationship artwork keeps the source botanical silhouette. Other maps retain their own presentation. */
+.relationship-art #leaves{opacity:1}
+.relationship-art .head .blob{display:none}
+.relationship-art .orb{--root-size:52px;width:var(--root-size);left:calc(297.5px - var(--root-size)/2);top:calc(281.5px - var(--root-size)/2)}
+.relationship-art .stage[data-mode=focus] .orb{--root-size:min(52px,calc(44px / var(--map-scale,1)))}
+.relationship-art .orb-body{background:color-mix(in srgb,#edc992 28%,transparent);box-shadow:none;border:1px solid color-mix(in srgb,var(--ink) 12%,transparent)}
+.relationship-art #wo{display:none}
+.relationship-art .root-label{fill:var(--ink);font:500 28px var(--serif);text-anchor:middle;dominant-baseline:central}
+.relationship-art .orb-svg>g{display:none}
+.relationship-art .orb-txt{fill:var(--ink);font-weight:500}
+.relationship-art .stage[data-mode=overview] .t-title{font-size:19px}
+
+
+.relationship-art .item image.terminal-leaf{opacity:1}
+.relationship-art .camera-tools{display:grid;grid-template-columns:repeat(4,1fr);border:0;box-shadow:none;background:transparent;gap:0;padding:0;width:224px;border-radius:0}
+.relationship-art .camera-tools button{border-radius:50%}
+.relationship-art .camera-tools button[data-camera=overview]{border-radius:22px;background:color-mix(in srgb,var(--paper) 62%,transparent)}
+.relationship-art .camera-tools output{color:var(--muted)}
+.relationship-art.embedded .viewport{bottom:110px}
+.relationship-art.embedded .camera-tools{bottom:22px}
+.relationship-art #hits .hit:hover{stroke:none;fill:color-mix(in srgb,var(--primary) 5%,transparent)}
+.relationship-art #hits .hit:focus-visible{stroke:var(--primary);stroke-width:2}
+
+.relationship-art .camera-tools output{grid-column:3;grid-row:1}
+.relationship-art .camera-tools button[data-camera=in]{grid-column:4;grid-row:1}
+.relationship-art:not(.embedded) .viewport{bottom:164px}
+
+.relationship-art #gGreen .root-join{stroke:none}
+.relationship-art[data-theme-mode=dark] #gGreen .root-join{fill:color-mix(in srgb,var(--ink) 65%,var(--surface))}
