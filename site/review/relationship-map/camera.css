@@ -60,3 +60,6 @@ body.embedded{background:transparent!important}.embedded #ambient-background,.em
 .relationship-art .camera-tools output{grid-column:3;grid-row:1}
 .relationship-art .camera-tools button[data-camera=in]{grid-column:4;grid-row:1}
 .relationship-art:not(.embedded) .viewport{bottom:164px}
+
+.relationship-art #gGreen .root-join{stroke:none}
+.relationship-art[data-theme-mode=dark] #gGreen .root-join{fill:color-mix(in srgb,var(--ink) 65%,var(--surface))}

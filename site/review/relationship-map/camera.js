@@ -6,6 +6,7 @@ const dialog=document.querySelector('#leaf-detail'),caption=document.querySelect
 document.querySelector('.map-header h1').textContent=MapModel.title;document.querySelector('.map-header>p').textContent=MapModel.type==='relationships'?'关系中的自己':MapModel.type==='traits'?'不同情境中的倾向':MapModel.type==='personal'?'从经历里看见自己':MapModel.type==='structure'?'中性示例 · 不代表测量结果':'记录与未知分开看';document.title='知遇测评 · '+MapModel.title;
 const embedded=new URLSearchParams(location.search).has('embedded');document.body.classList.toggle('embedded',embedded);
 const botanical=MapModel.type==='relationships';document.body.classList.toggle('relationship-art',botanical);
+if(botanical)document.documentElement.style.colorScheme=document.body.dataset.themeMode;
 const originalState=JSON.stringify(art.branches.map(b=>b.items.map(it=>it.lit)));
 let focusScale=1,current=null,cam={x:0,y:0,k:1},moved=false,returnFocus=null,frame=0,drawCount=0;
 const pointer=new Map();
@@ -25,13 +26,27 @@ for(const b of art.branches){
  const base=({sproutT:[261.9,49.3],emo:[426.9,84.2],sun:[505.5,233.7],heart:[454.55,383.6],mount:botanical?[304.4,459.8]:[290.2,459.8],sproutG:[96.75,394.6],coins:[65.8,214.7],shield:[141.6,74.9]})[b.icon];b.headOffset=[anchor[0]-base[0],anchor[1]-base[1]];
  b.head.setAttribute('transform',`translate(${b.headOffset.join(' ')})`);
  if(botanical){
-  // Carry the original stem into the quiet root disc; the source glow used to conceal this gap.
-  const start=p.poly.p[0],dx=start[0]-297.5,dy=start[1]-281.5,d=Math.hypot(dx,dy);
-  b.rootLink=document.createElementNS('http://www.w3.org/2000/svg','path');
-  b.rootLink.setAttribute('d',`M${297.5+dx/d*26},${281.5+dy/d*26}L${start.join(',')}`);
-  b.rootLink.setAttribute('fill','none');b.rootLink.setAttribute('stroke',b.vc[0]);
-  b.rootLink.setAttribute('stroke-width','2.2');b.rootLink.setAttribute('stroke-opacity','.55');b.rootLink.setAttribute('stroke-linecap','round');
+  // Replace only the old flared root segment with a tapered continuation to the smaller center.
+  const start=p.poly.p[0],next=art.at(p.poly,1),dx=start[0]-297.5,dy=start[1]-281.5,d=Math.hypot(dx,dy);
+  const ux=dx/d,uy=dy/d,tl=Math.hypot(next[0]-start[0],next[1]-start[1]),tx=(next[0]-start[0])/tl,ty=(next[1]-start[1])/tl;
+  const inner=[297.5+ux*26,281.5+uy*26],reach=d-26,c1=[inner[0]+ux*reach/3,inner[1]+uy*reach/3],c2=[start[0]-tx*reach/3,start[1]-ty*reach/3];
+  const join=p.gSet.find(s=>s.a>0).a+1,points=[];
+  for(let i=0;i<=16;i++){const t=i/16,q=1-t;points.push([q*q*q*inner[0]+3*q*q*t*c1[0]+3*q*t*t*c2[0]+t*t*t*start[0],q*q*q*inner[1]+3*q*q*t*c1[1]+3*q*t*t*c2[1]+t*t*t*start[1]]);}
+  for(let v=1;v<join;v++)points.push(art.at(p.poly,v));points.push(art.at(p.poly,join));
+  const core=p.gSet.find(s=>s.a>0&&Number(s.e.getAttribute('stroke-opacity'))>.9),half=Number(core.e.getAttribute('stroke-width'))/2,left=[],right=[];
+  for(let i=0;i<points.length;i++){
+   const [x,y]=points[i],before=points[Math.max(0,i-1)],after=points[Math.min(points.length-1,i+1)],len=Math.hypot(after[0]-before[0],after[1]-before[1]),nx=-(after[1]-before[1])/len,ny=(after[0]-before[0])/len,t=i/(points.length-1),width=.65+(half-.65)*t*t*(3-2*t);
+   left.push([x+nx*width,y+ny*width]);right.push([x-nx*width,y-ny*width]);
+  }
+  b.rootLink=document.createElementNS('http://www.w3.org/2000/svg','path');b.rootLink.setAttribute('class','root-join');
+  b.rootLink.setAttribute('d','M'+[...left,...right.reverse()].map(q=>q.join(',')).join('L')+'Z');
+  b.rootLink.setAttribute('fill',core.e.getAttribute('stroke'));b.rootLink.setAttribute('fill-opacity','.96');
   document.querySelector('#gGreen').prepend(b.rootLink);
+  for(const segment of p.gSet)if(segment.a===0)segment.rootReplaced=true;
+  // Preserve the existing shadow farther along the branch, without its old round cap around the center.
+  const shadow=[];for(let v=join+8;v<=100;v+=2)shadow.push(art.at(p.poly,v));
+  b.shade.setAttribute('d','M'+shadow.map(q=>q.join(',')).join('L'));
+
  }
 
 }
@@ -61,10 +76,10 @@ function layers(){
   b.hit.setAttribute('aria-expanded',String(chosen));
   if(overview||chosen){if(botanical)alignHead(b);const r=b.head.getBBox();for(const [k,v] of Object.entries({x:r.x+b.headOffset[0]-5,y:r.y+b.headOffset[1]-5,width:r.width+10,height:r.height+10}))b.hit.setAttribute(k,v);}
   if(b.rootLink)visible(b.rootLink,overview||chosen);if(b.nodeLink)visible(b.nodeLink,overview||chosen);
-  visible(b.warm,false);visible(b.shade,overview||chosen);visible(b.fillet,overview||chosen);
+  visible(b.warm,false);visible(b.shade,overview||chosen);visible(b.fillet,!botanical&&(overview||chosen));
   for(const j of b.juncEls)visible(j.g,false);
   for(const bd of b.budEls)visible(bd.bul,false);
-  for(const p of b.paths){const on=overview?(semantic.research?p.semanticNode.depth===1:(botanical||p.main||p.vi===1)):chosen&&p.semanticNode.depth<=level;for(const s of [...p.gSet,...p.lSet])visible(s.e,on);}
+  for(const p of b.paths){const on=overview?(semantic.research?p.semanticNode.depth===1:(botanical||p.main||p.vi===1)):chosen&&p.semanticNode.depth<=level;for(const s of [...p.gSet,...p.lSet])visible(s.e,on&&!s.rootReplaced);}
   for(const it of b.items){const on=chosen&&it.semanticNode.depth<=level;visible(it.g,on);hideHit(it.hit,on);it.hit.dataset.node=it.semanticNode.id;it.hit.dataset.depth=it.semanticNode.depth;if(semantic.research){const y=Math.min(it.b[1]-24,it.cy-12);it.hit.setAttribute('y',y);it.hit.setAttribute('height',Math.max(it.b[1]+8,it.cy+12)-y);}}
  }
  for(const n of semantic.nodes.filter(n=>n.element))visible(n.element,n.branch===current&&n.depth<=level);
