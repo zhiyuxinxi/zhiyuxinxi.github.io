@@ -1,6 +1,6 @@
 /* Opt-in relationship comparison; the published botanical rendering remains the default. */
 (()=>{
- if(MapModel.type!=='relationships'||new URLSearchParams(location.search).get('geometry')!=='crystal')return;
+ if(!['relationships','structure'].includes(MapModel.type)||new URLSearchParams(location.search).get('geometry')!=='crystal')return;
  const art=RelationshipArt,NS='http://www.w3.org/2000/svg',C=[297.5,281.5],R=118,L=80;
  document.body.classList.add('crystal');document.documentElement.style.colorScheme=document.body.dataset.themeMode;
  const css=document.createElement('link');css.rel='stylesheet';css.href='crystal.css';document.head.append(css);
@@ -17,9 +17,20 @@
   const main=path(b,[point(b.angle,22),b.joint],0);
   make('path',{d:`M${b.joint[0]},${b.joint[1]-5}l5,5l-5,5l-5,-5Z`,class:'crystal-joint'},b.head);
   b.titleEl=make('text',{class:'t-title crystal-title','text-anchor':'middle'},b.head);b.titleEl.textContent=b.name;
+  // The optional nodeSpecs schema already belongs to the structural reader.
+  // Respect its explicit parents/depths; the normal relationship data stays flat.
+  const specs=b.nodeSpecs||[{id:b.id,parent:'root',type:'topic'},...b.items.map(it=>({id:it.id,parent:b.id,type:'terminal'}))];
+  const placed=new Map([[b.id,{point:b.joint,angle:b.angle,path:main,depth:1}]]);
+  specs[0].path=0;specs[0].point=b.joint;
+  for(const spec of specs.slice(1)){
+   const parent=placed.get(spec.parent);if(!parent)throw new Error('Geometric node requires an explicit preceding parent: '+spec.id);
+   const peers=specs.filter(n=>n.parent===spec.parent),index=peers.indexOf(spec),a=parent.angle+(index-(peers.length-1)/2)*Math.min(Math.PI/4,Math.PI/Math.max(1,peers.length-1));
+   const length=L/(parent.depth>1?1.15:1),end=[parent.point[0]+Math.cos(a)*length,parent.point[1]+Math.sin(a)*length],p=path(b,[parent.point,end],b.paths.length,parent.path);
+   spec.path=p.vi;spec.point=end;placed.set(spec.id,{point:end,angle:a,path:p,depth:parent.depth+1});
+  }
   b.items.forEach((it,n)=>{
-   const a=b.angle+(n-(b.items.length-1)/2)*Math.PI/4,end=[b.joint[0]+Math.cos(a)*L,b.joint[1]+Math.sin(a)*L];
-   it.path=path(b,[b.joint,end],n+1,main);it.path.item=n;it.b=end;it.cy=end[1];
+   const node=placed.get(it.nodeId||it.id),end=node.point;
+   it.path=node.path;it.path.item=n;it.b=end;it.cy=end[1];
    it.g.replaceChildren();it.bul=make('g',{});
    make('path',{d:`M${end[0]},${end[1]-6}l6,6l-6,6l-6,-6Z`,class:'crystal-terminal'},it.g);
    const centered=Math.abs(end[0]-C[0])<5,left=end[0]<C[0]-5;

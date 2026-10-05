@@ -1,15 +1,21 @@
+/* Geometry-specific roles inherit each theme's palette; widths stay legible at overview scale. */
+.crystal{--map-stroke:var(--ink);--map-main-width:1.65px;--map-child-width:1.15px;--map-node-width:1.55px;--map-main-opacity:.88;--map-child-opacity:.72;--map-node-fill:var(--paper)}
+.crystal[data-theme-mode=dark]{--map-main-opacity:.96;--map-child-opacity:.82}
 .crystal #bg,.crystal #leaves{display:none}
-.crystal #gGreen path{fill:none;stroke:var(--ink);stroke-linecap:round;stroke-linejoin:round}
-.crystal .crystal-spine{stroke-width:1.55;stroke-opacity:.76}
-.crystal .crystal-twig{stroke-width:1;stroke-opacity:.48}
-.crystal .crystal-joint{fill:var(--paper);fill-opacity:.7;stroke:var(--ink);stroke-width:1}
-.crystal .crystal-terminal{fill:var(--paper);fill-opacity:.55;stroke:var(--primary);stroke-width:1.3}
+.crystal #gGreen path{fill:none;stroke:var(--map-stroke);stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.crystal .crystal-spine{stroke-width:calc(var(--map-main-width) / var(--map-scale,1));stroke-opacity:var(--map-main-opacity)}
+.crystal .crystal-twig{stroke-width:calc(var(--map-child-width) / var(--map-scale,1));stroke-opacity:var(--map-child-opacity)}
+.crystal .crystal-joint,.crystal .crystal-terminal{fill:var(--map-node-fill);stroke:var(--map-stroke);stroke-width:calc(var(--map-node-width) / var(--map-scale,1));vector-effect:non-scaling-stroke}
+.crystal .crystal-terminal{stroke-width:calc(1.8px / var(--map-scale,1))}
 .crystal .t-title{font:500 20px var(--serif);letter-spacing:1px}
-.crystal .t-item{font:400 14px var(--sans)}
+.crystal .stage[data-mode=focus] .t-title{font-size:min(17px,calc(22px / var(--map-scale,1)));letter-spacing:.5px}
+.crystal .t-item{font:400 min(14px,calc(18px / var(--map-scale,1))) var(--sans)}
 .crystal .orb{width:40px;left:277.5px;top:261.5px}
-.crystal .orb-body{background:color-mix(in srgb,var(--paper) 42%,transparent);border:1px solid color-mix(in srgb,var(--ink) 30%,transparent);box-shadow:none}
+.crystal .orb-body{background:var(--map-node-fill);border:1.5px solid var(--map-stroke);box-shadow:none}
 .crystal .orb-svg>g{display:none}.crystal .orb-txt{fill:var(--ink);font-weight:500}
 .crystal .stage[data-mode=focus] .orb{display:none}
 .crystal #hits .hit:hover{stroke:none;fill:color-mix(in srgb,var(--ink) 6%,transparent)}
-.crystal #hits .hit:focus-visible{stroke:var(--primary);stroke-width:2}
+.crystal #hits .hit:focus-visible{stroke:var(--map-stroke);stroke-width:calc(1.5px / var(--map-scale,1));stroke-dasharray:3 3;fill:none;vector-effect:non-scaling-stroke}
 .crystal .camera-tools{background:transparent;border:0}
+
+.crystal .semantic-joint circle{fill:var(--map-node-fill);stroke:var(--map-stroke);stroke-width:calc(var(--map-node-width) / var(--map-scale,1))}

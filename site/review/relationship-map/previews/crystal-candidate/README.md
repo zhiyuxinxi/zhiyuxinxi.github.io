@@ -6,4 +6,4 @@
 - 独立图：`review/relationship-map/index.html?geometry=crystal&theme=green&still`。
 - 点击主节点聚焦；点击末端阅读说明；支持拖动、双指缩放和键盘控制。
 
-截图为Chromium在390×844 CSS像素、DPR 2、减弱动态下捕获的实际APP。候选尚待设计评审，没有替换线上默认图。
+截图为Chromium在390×844 CSS像素、DPR 2下捕获的实际APP：绿色使用减弱动态，暗色使用背景动态的确定性相位。候选尚待设计评审，没有替换线上默认图。
