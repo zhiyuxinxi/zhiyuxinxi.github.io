@@ -279,3 +279,7 @@ body[data-route=explore] .v3-title{margin-bottom:12px}
 .profile-tendencies:has(.profile-botanical-map){background:transparent;border:0;padding:0}.profile-tendencies>.profile-unknown,.profile-tendencies>.relationship-dimensions,.profile-tendencies>.profile-factor-list{background:var(--paper);padding:20px;border-radius:22px}.profile-botanical-map{width:calc(100% + 36px);margin-inline:-18px}
 
 .profile-groups{display:flex;overflow-x:auto;gap:6px;padding:2px 2px 7px;scrollbar-width:thin}.profile-groups button{flex:1 0 78px;white-space:nowrap;padding-inline:9px}.profile-text-list{background:var(--paper);border-radius:20px;margin-top:14px;padding:16px 20px}.profile-text-list>summary{cursor:pointer;min-height:28px;font-size:.875rem}.profile-text-list>summary:focus-visible{outline:2px solid var(--primary);outline-offset:4px}.profile-text-list .relationship-dimensions{padding-top:12px}
+
+/* The relationship art uses its complete silhouette without the former empty top/bottom band. */
+.profile-botanical-map[src*="map=relationships"]{height:510px}
+@media(max-width:359px){.profile-botanical-map[src*="map=relationships"]{height:465px}}
