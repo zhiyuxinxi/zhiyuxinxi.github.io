@@ -13,27 +13,43 @@ const geometryTopology=MapModel.geometryTopology(art),semantic=MapSemantics;
 const depthLimit=()=>!current?1:semantic.research?Math.min(6,Math.max(2,2+Math.floor(Math.log(cam.k/focusScale)/Math.log(1.2)+.02))):2;
 // Attach each original title/icon group to its own curved stem, not a floating label.
 for(const b of art.branches){
- const p=b.paths[0],anchor=art.at(p.poly,b.anchorRatio!=null?p.total*b.anchorRatio:b.id==='plan'?p.total*.48:b.id==='promise'?p.total*.43:p.total);
- const base=({sproutT:[261.9,49.3],emo:[426.9,84.2],sun:[505.5,233.7],heart:[454.55,383.6],mount:[290.2,459.8],sproutG:[96.75,394.6],coins:[65.8,214.7],shield:[141.6,74.9]})[b.icon];b.headOffset=[anchor[0]-base[0],anchor[1]-base[1]];
+ const p=b.paths[0],anchor=art.at(p.poly,b.anchorRatio!=null?p.total*b.anchorRatio:b.id==='plan'?p.total*(botanical?.75:.48):b.id==='promise'?p.total*.43:p.total);
+ if(botanical&&b.id==='money'){
+  // A short continuation of the same stem gives the compact heading breathing room above its first leaf.
+  const end=anchor.slice();anchor[0]-=2;anchor[1]-=24;
+  b.nodeLink=document.createElementNS('http://www.w3.org/2000/svg','path');
+  b.nodeLink.setAttribute('d',`M${end.join(',')}Q${end[0]-1},${end[1]-12} ${anchor.join(',')}`);
+  b.nodeLink.setAttribute('fill','none');b.nodeLink.setAttribute('stroke',b.vc[0]);b.nodeLink.setAttribute('stroke-width','1.2');
+  document.querySelector('#gGreen').append(b.nodeLink);
+ }
+ const base=({sproutT:[261.9,49.3],emo:[426.9,84.2],sun:[505.5,233.7],heart:[454.55,383.6],mount:botanical?[304.4,459.8]:[290.2,459.8],sproutG:[96.75,394.6],coins:[65.8,214.7],shield:[141.6,74.9]})[b.icon];b.headOffset=[anchor[0]-base[0],anchor[1]-base[1]];
  b.head.setAttribute('transform',`translate(${b.headOffset.join(' ')})`);
- // Leave the icon rooted on the curve while placing text in natural clearings.
- if(botanical&&b.id==='promise')b.titleEl.setAttribute('transform','translate(30 0)');
- if(botanical&&b.id==='plan')b.titleEl.setAttribute('transform','translate(-80 12)');
  if(botanical){
   // Carry the original stem into the quiet root disc; the source glow used to conceal this gap.
   const start=p.poly.p[0],dx=start[0]-297.5,dy=start[1]-281.5,d=Math.hypot(dx,dy);
   b.rootLink=document.createElementNS('http://www.w3.org/2000/svg','path');
-  b.rootLink.setAttribute('d',`M${297.5+dx/d*34},${281.5+dy/d*34}L${start.join(',')}`);
+  b.rootLink.setAttribute('d',`M${297.5+dx/d*26},${281.5+dy/d*26}L${start.join(',')}`);
   b.rootLink.setAttribute('fill','none');b.rootLink.setAttribute('stroke',b.vc[0]);
-  b.rootLink.setAttribute('stroke-width','3.5');b.rootLink.setAttribute('stroke-linecap','round');
+  b.rootLink.setAttribute('stroke-width','2.2');b.rootLink.setAttribute('stroke-opacity','.55');b.rootLink.setAttribute('stroke-linecap','round');
   document.querySelector('#gGreen').prepend(b.rootLink);
  }
 
 }
 
+if(botanical){
+ const label=document.createElementNS('http://www.w3.org/2000/svg','text');
+ label.setAttribute('class','root-label');label.setAttribute('x','297.5');label.setAttribute('y','281.5');label.textContent='我';
+ document.querySelector('.orb-svg').append(label);
+}
+function alignHead(b){
+ // Titles share an eight-unit gap and optical center with their icon. The plan group faces left into its natural clearing.
+ const icon=b.iconWrap.querySelector('.ic-g').getBBox(),title=b.titleEl.getBBox();
+ const x=b.id==='plan'?icon.x-8-title.width:icon.x+icon.width+8;
+ b.titleEl.setAttribute('transform',`translate(${x-title.x} ${icon.y+icon.height/2-title.y-title.height/2})`);
+}
 const visible=(node,on)=>{node.style.display=on?'':'none';};
 const hideHit=(node,on)=>{visible(node,on);node.setAttribute('tabindex',on?'0':'-1');node.setAttribute('aria-hidden',String(!on));};
-function paint(){frame=0;drawCount++;layers();if(semantic.research){for(const b of art.branches)for(const it of b.items)it.tx.style.fontSize=Math.min(14,16/cam.k)+'px';for(const n of semantic.nodes.filter(n=>n.element))n.element.querySelector('text').style.fontSize=Math.min(11,12/cam.k)+'px';}stage.style.transform=`translate(${cam.x}px,${cam.y}px) scale(${cam.k})`;document.querySelector('#zoom-level').value=Math.round(cam.k*100)+'%';}
+function paint(){frame=0;drawCount++;stage.style.setProperty('--map-scale',cam.k);layers();if(semantic.research){for(const b of art.branches)for(const it of b.items)it.tx.style.fontSize=Math.min(14,16/cam.k)+'px';for(const n of semantic.nodes.filter(n=>n.element))n.element.querySelector('text').style.fontSize=Math.min(11,12/cam.k)+'px';}stage.style.transform=`translate(${cam.x}px,${cam.y}px) scale(${cam.k})`;document.querySelector('#zoom-level').value=Math.round(cam.k*100)+'%';}
 function requestPaint(){if(!frame)frame=requestAnimationFrame(paint);}
 function fit(bounds){const w=viewport.clientWidth,h=viewport.clientHeight;cam.k=Math.min((w-32)/bounds.w,(h-36)/bounds.h,2.7);cam.x=(w-bounds.w*cam.k)/2-bounds.x*cam.k;cam.y=(h-bounds.h*cam.k)/2-bounds.y*cam.k;requestPaint();}
 function zoom(factor,x=viewport.clientWidth/2,y=viewport.clientHeight/2){const k=Math.min(semantic.research?8:3.5,Math.max(.35,cam.k*factor));cam.x=x-(x-cam.x)*k/cam.k;cam.y=y-(y-cam.y)*k/cam.k;cam.k=k;requestPaint();}
@@ -43,8 +59,8 @@ function layers(){
   const chosen=b.id===current;
   visible(b.head,overview||chosen);hideHit(b.hit,overview||chosen);
   b.hit.setAttribute('aria-expanded',String(chosen));
-  if(overview||chosen){const r=b.head.getBBox();for(const [k,v] of Object.entries({x:r.x+b.headOffset[0]-5,y:r.y+b.headOffset[1]-5,width:r.width+10,height:r.height+10}))b.hit.setAttribute(k,v);}
-  if(b.rootLink)visible(b.rootLink,overview||chosen);
+  if(overview||chosen){if(botanical)alignHead(b);const r=b.head.getBBox();for(const [k,v] of Object.entries({x:r.x+b.headOffset[0]-5,y:r.y+b.headOffset[1]-5,width:r.width+10,height:r.height+10}))b.hit.setAttribute(k,v);}
+  if(b.rootLink)visible(b.rootLink,overview||chosen);if(b.nodeLink)visible(b.nodeLink,overview||chosen);
   visible(b.warm,false);visible(b.shade,overview||chosen);visible(b.fillet,overview||chosen);
   for(const j of b.juncEls)visible(j.g,false);
   for(const bd of b.budEls)visible(bd.bul,false);
@@ -55,14 +71,28 @@ function layers(){
  for(const p of art.paths.filter(p=>p.stem))for(const s of p.gSet)visible(s.e,false);
  for(const [i,leaf] of art.leaves.entries()){const decorative=botanical?Boolean(leaf.host?.b):leaf.host?.main&&leaf.dist>60&&i%2===0;visible(leaf.pop.parentNode,current?leaf.host?.b?.id===current&&(!semantic.research||leaf.host.semanticNode.depth<=level):decorative);leaf.pop.parentNode.style.opacity=current||botanical?'1':'.65';}
  document.querySelector('#gPetals').style.display='none';
+ if(botanical){
+  // Do not leave a cropped fragment of the root button at the edge of a focused reading area.
+  const root=document.querySelector('.orb'),r=Math.min(52*cam.k,44)/2,cx=cam.x+297.5*cam.k,cy=cam.y+281.5*cam.k;
+  const on=overview||(cx-r>=6&&cy-r>=6&&cx+r<=viewport.clientWidth-6&&cy+r<=viewport.clientHeight-6);
+  visible(root,on);root.setAttribute('tabindex',on?'0':'-1');root.setAttribute('aria-hidden',String(!on));
+ }
+
  caption.textContent=semantic.research?(current?'结构样例 · 已展开至第 '+level+' 层 · 放大继续展开':'中性结构样例 · 深度 2 / 3 / 5 / 6，不代表心理维度'):current?art.branches.find(b=>b.id===current).name+' · 轻触叶片查看含义':MapModel.type==='relationships'?'从一条枝蔓，看看关系中在意的需要':'点击主节点，从一个角度慢慢了解自己';
 }
 function overview(){current=null;layers();fit(semantic.research?{x:80,y:130,w:460,h:330}:{x:25,y:5,w:545,h:553});}
 function focusBranch(id){
  const b=art.branches.find(b=>b.id===id);if(!b)return;current=id;layers();
- // Keep the selected branch's original art coordinates and fit its full rooted extent.
+ if(botanical){
+  // Fit the branch and its reading targets, not the root disc or the unselected map.
+  const pts=b.vines.flatMap(v=>v.pts),head=b.head.getBBox(),xs=pts.map(p=>p[0]),ys=pts.map(p=>p[1]);
+  xs.push(head.x+b.headOffset[0],head.x+head.width+b.headOffset[0]);
+  ys.push(head.y+b.headOffset[1],head.y+head.height+b.headOffset[1]);
+  for(const it of b.items){const r=it.g.getBBox();xs.push(r.x,r.x+r.width);ys.push(r.y,r.y+r.height);}
+  const x=Math.min(...xs)-12,y=Math.min(...ys)-12;fit({x,y,w:Math.max(...xs)-x+12,h:Math.max(...ys)-y+12});focusScale=cam.k;return;
+ }
+ // Other map models retain their original framing.
  const pts=b.vines.flatMap(v=>v.pts),xs=[258,337,...pts.map(p=>p[0]),b.title[0]+b.headOffset[0]-15,b.title[1]+b.headOffset[0]+14,...b.items.flatMap(it=>[it.b[0]-18,it.x[1]+10])],ys=[242,321,...pts.map(p=>p[1]),b.box[1]+b.headOffset[1]-10,b.title[2]+b.headOffset[1]+14,...b.items.map(it=>it.cy+17)];
- if(botanical){const r=b.head.getBBox();xs.push(r.x+b.headOffset[0],r.x+r.width+b.headOffset[0]);ys.push(r.y+b.headOffset[1],r.y+r.height+b.headOffset[1]);}
  const x=Math.min(...xs)-12,y=Math.min(...ys)-15;fit({x,y,w:Math.max(...xs)-x+12,h:Math.max(...ys)-y+15});focusScale=cam.k;
 }
 function openDetail(id,index){if(current!==id)return;const b=art.branches.find(b=>b.id===id),it=b?.items[index];if(!it||it.semanticNode.depth>depthLimit())return;
@@ -74,12 +104,12 @@ for(const b of art.branches)for(const it of b.items){
  it.bul.style.display='none';
  if(botanical){
   if(b.id==='money'&&it.t==='现实保障')it.tx.setAttribute('transform','translate(0 -4)');
-  const ns='http://www.w3.org/2000/svg',leaf=document.createElementNS(ns,'g');
+  const leaf=document.createElementNS('http://www.w3.org/2000/svg','image');
   leaf.setAttribute('class','terminal-leaf');leaf.setAttribute('aria-hidden','true');
-  leaf.setAttribute('transform',`translate(${it.b.join(' ')})`);
-  for(const [d,cls] of [['M0 0C-12 -4 -13 -15 -8 -22C2 -17 4 -6 0 0Z','terminal-blade'],['M0 0Q-3 -11 -8 -22','terminal-vein']]){
-   const path=document.createElementNS(ns,'path');path.setAttribute('d',d);path.setAttribute('class',cls);leaf.append(path);
-  }
+  leaf.setAttribute('href','assets/terminal-leaf.svg');
+  // Asset viewBox -14 -24 20 26 puts the stalk tip at (0,0), exactly on the path endpoint.
+  leaf.setAttribute('x',it.b[0]-14);leaf.setAttribute('y',it.b[1]-24);
+  leaf.setAttribute('width','20');leaf.setAttribute('height','26');
   it.g.insertBefore(leaf,it.tx);continue;
  }
  const img=document.createElementNS('http://www.w3.org/2000/svg','image');
@@ -110,5 +140,6 @@ viewport.addEventListener('click',e=>{if(moved){e.preventDefault();e.stopImmedia
 let lastSize=[viewport.clientWidth,viewport.clientHeight],resizeTimer;
 addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{const size=[viewport.clientWidth,viewport.clientHeight];if(size.some(v=>v<120)||size.every((v,i)=>v===lastSize[i]))return;if(current){const ratio=cam.k/focusScale,cx=(lastSize[0]/2-cam.x)/cam.k,cy=(lastSize[1]/2-cam.y)/cam.k;focusBranch(current);zoom(ratio);cam.x=size[0]/2-cx*cam.k;cam.y=size[1]/2-cy*cam.k;requestPaint();}else overview();lastSize=size;},100);});
 window.MapCamera={overview,focusBranch,openDetail,geometryTopology,get topology(){return semantic.snapshot();},semantic:semantic.snapshot,inspectNode(id){const n=semantic.by.get(id);if(!n||!n.branch)return;focusBranch(n.branch);zoom(Math.pow(1.2,Math.max(0,n.depth-2)));if(n.point){cam.x=viewport.clientWidth/2-(n.point[0]+(n.type==='terminal'?45:0))*cam.k;cam.y=viewport.clientHeight/2-n.point[1]*cam.k;}requestPaint();},state:()=>({current,depth:depthLimit(),...cam,drawCount,originalState,liveState:JSON.stringify(art.branches.map(b=>b.items.map(it=>it.lit)))})};
+if(botanical)document.fonts.ready.then(requestPaint);
 Ambient.setContext({quiet:embedded,reduced:new URLSearchParams(location.search).has('still')});overview();
 })();
