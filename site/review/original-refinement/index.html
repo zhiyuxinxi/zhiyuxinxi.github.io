@@ -207,9 +207,9 @@ body.dark{--bg:#202d29;--ink:#eee9d9;--ink2:#d0d8bd;--surface:rgba(37,51,44,.94)
 .masthead{position:absolute;z-index:10;top:max(28px,env(safe-area-inset-top));left:40px;right:40px;display:flex;justify-content:space-between;align-items:center;pointer-events:none}
 .masthead button{pointer-events:auto}.eyebrow{margin:0 0 8px;font-size:11px;letter-spacing:2.4px;color:var(--ink2)}h1{font:600 25px/1.35 var(--serif);letter-spacing:2px;margin:0}
 .viewport{position:absolute;inset:110px 0 88px;overflow:hidden;touch-action:none;cursor:grab;outline:none}.viewport.dragging{cursor:grabbing}
-.stage{position:absolute;left:0;top:0;width:595px;max-width:none;height:566px;transform-origin:0 0;container-type:inline-size;touch-action:none;will-change:transform;background:transparent}
+.stage{position:absolute;left:0;top:0;width:595px;max-width:none;height:566px;transform-origin:0 0;container-type:inline-size;touch-action:none;background:transparent}
 .t-title{font-weight:600}.lf-body{fill-opacity:.72;stroke-opacity:.2}.orb-body{box-shadow:inset 0 0 0 1.1em rgba(255,250,240,.95),inset 0 0 6em rgba(255,246,228,.55),0 6em 20em rgba(182,141,77,.12)}
-.head,.item,#gJunc{transition:opacity .35s ease}.stage.overview #gItems,.stage.overview #gJunc{opacity:0;pointer-events:none}.stage.overview .item-hit{display:none}
+.head,.item,#gJunc{transition:opacity .35s ease}.stage.overview #gItems .t-item,.stage.overview #gJunc{opacity:0;pointer-events:none}.stage.overview .bul{opacity:.6}.stage.overview .item-hit{display:none}
 #hits .hit:focus-visible{stroke:var(--accent);stroke-width:1.8;stroke-dasharray:3 3;fill:rgba(255,235,200,.1)}
 #hits .hit:hover{fill:rgba(230,179,114,.12)}.orb:focus-visible{outline:2px solid var(--accent);outline-offset:6px}
 .map-footer{position:absolute;z-index:12;left:40px;right:40px;bottom:max(25px,env(safe-area-inset-bottom));display:flex;justify-content:space-between;align-items:center;gap:16px;color:var(--ink2);font-size:12px;letter-spacing:.5px}
@@ -960,7 +960,7 @@ function renderPanel() {
   $('.panel').classList.toggle('visible', !!focus);
   pv.classList.add('out');
   clearTimeout(renderPanel._t);
-  renderPanel._t = setTimeout(() => { pv.innerHTML = focus ? (detail != null ? detailView(focus,detail) : branchView(focus)) : summaryView(); pv.classList.remove('out'); }, 160);
+  renderPanel._t = setTimeout(() => { pv.innerHTML = focus ? (detail != null ? detailView(focus,detail) : branchView(focus)) : summaryView(); pv.classList.remove('out'); if(focus)pv.querySelector('button')?.focus({preventScroll:true}); }, 160);
 }
 const refreshPanel = () => { pv.innerHTML = focus ? (detail != null ? detailView(focus,detail) : branchView(focus)) : summaryView(); };
 // 卡片高度锁定为两种视图中较高者，切换时图谱不会上下跳动
@@ -989,7 +989,7 @@ pv.addEventListener('click', e => {
  const t=e.target.closest('button');if(!t)return;
  if(t.dataset.act==='back'){focus=null;detail=null;fitView();renderPanel();return;}
  if(t.dataset.act==='branch'){detail=null;renderPanel();return;}
- if(t.dataset.act==='toggle'&&focus&&detail!=null){const it=focus.items[detail];it.lit=!it.lit;retarget(focus);haptic();ripple(it.b[0],it.b[1],it.lit);refreshPanel();return;}
+ if(t.dataset.act==='toggle'&&focus&&detail!=null){const it=focus.items[detail];it.lit=!it.lit;retarget(focus);haptic();ripple(it.b[0],it.b[1],it.lit);refreshPanel();pv.querySelector('.select-need').focus({preventScroll:true});return;}
  if(t.dataset.i!=null){detail=+t.dataset.i;renderPanel();}
 });
 function applyInitial() { BRANCHES.forEach(b => { b.items.forEach((it, i) => it.lit = !!(INITIAL_LIT[b.id] && INITIAL_LIT[b.id].includes(i))); retarget(b); }); }
@@ -1064,7 +1064,9 @@ function commitCamera(){
  stage.style.transform=`translate(${camera.x}px,${camera.y}px) scale(${camera.k})`;
  const overview=!focus && camera.k<1.4;
  stage.classList.toggle('overview',overview);
- hits.querySelectorAll('.item-hit').forEach(el=>{el.setAttribute('tabindex',overview?'-1':'0');el.setAttribute('aria-hidden',overview?'true':'false');});
+ BRANCHES.forEach(b=>{const show=!focus||b===focus;b.head.style.visibility=show?'visible':'hidden';b.items.forEach(it=>it.g.style.visibility=show?'visible':'hidden');});
+ hits.querySelectorAll('.item-hit').forEach(el=>{const hidden=overview||!!(focus&&el.dataset.branch!==focus.id);el.style.display=hidden?'none':'';el.setAttribute('tabindex',hidden?'-1':'0');el.setAttribute('aria-hidden',hidden?'true':'false');});
+ hits.querySelectorAll('.hit:not(.item-hit)').forEach(el=>{const hidden=!!(focus&&el.dataset.branch!==focus.id);el.style.display=hidden?'none':'';el.setAttribute('tabindex',hidden?'-1':'0');});
  $('#mapHint').textContent=overview?'轻触一个主题，慢慢靠近':'拖动画布 · 双指缩放';
 }
 function goCamera(next,animate=true){
@@ -1095,7 +1097,7 @@ addEventListener('pointermove',e=>{
 function endPointer(e){pointers.delete(e.pointerId);gesture=null;if(!pointers.size)viewport.classList.remove('dragging');setTimeout(()=>{if(!pointers.size)cameraMoved=false;},0);}
 addEventListener('pointerup',endPointer);addEventListener('pointercancel',endPointer);
 viewport.addEventListener('keydown',e=>{if(e.target!==viewport)return;const moves={ArrowLeft:[35,0],ArrowRight:[-35,0],ArrowUp:[0,35],ArrowDown:[0,-35]};if(moves[e.key]){e.preventDefault();camera.x+=moves[e.key][0];camera.y+=moves[e.key][1];commitCamera();}else if(e.key==='+'||e.key==='='){e.preventDefault();zoomAt(1.2);}else if(e.key==='-'){e.preventDefault();zoomAt(1/1.2);}else if(e.key==='0'){e.preventDefault();resetView();}});
-function resetView(){focus=null;detail=null;fitView();renderPanel();}
+function resetView(){focus=null;detail=null;fitView();renderPanel();viewport.focus({preventScroll:true});}
 $('#zoomIn').onclick=()=>zoomAt(1.25);$('#zoomOut').onclick=()=>zoomAt(.8);$('#resetView').onclick=resetView;
 $('#theme').onclick=()=>{const dark=document.body.classList.toggle('dark');$('#theme').setAttribute('aria-label',dark?'切换浅色背景':'切换深色背景');};
 addEventListener('keydown',e=>{if(e.key==='Escape'){if(detail!=null){detail=null;renderPanel();}else resetView();}});
