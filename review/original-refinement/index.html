@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f9f2e3">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<title>关系需求图谱 · 向内看见</title>
+<link rel="preconnect" href="https://fonts.googleapis.cn">
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin>
+<style>
+:root{
+  --bg:#f9f2e3;
+  --ink:#19211c;
+  --ink2:#5b5750;
+  --serif:"Noto Serif SC","Source Han Serif SC","Source Han Serif CN","Noto Serif CJK SC","Songti SC","STSong","SimSun",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","HarmonyOS Sans SC","MiSans","Microsoft YaHei","Noto Sans SC","Noto Sans CJK SC",sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%}
+body{
+  background-color:var(--bg);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .42 0 0 0 0 .38 0 0 0 0 .28 .11 0 0 0 -.025'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    radial-gradient(70% 38% at 100% 0%,#f7e5cd 0%,rgba(247,229,205,0) 70%),
+    radial-gradient(70% 36% at 0% 100%,#f8e4ca 0%,rgba(248,228,202,0) 70%),
+    radial-gradient(60% 32% at 100% 100%,#f1ddc0 0%,rgba(241,221,192,0) 70%);
+  color:var(--ink);
+  font-family:var(--sans);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  -webkit-user-select:none;user-select:none;
+  -webkit-touch-callout:none;
+}
+.app{
+  min-height:100vh;min-height:100dvh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:calc(env(safe-area-inset-top) + 6px) 0 calc(env(safe-area-inset-bottom) + 16px);
+  overflow:hidden;
+}
+
+/* ---------- 图谱舞台：设计坐标 595 × 566，按宽度等比缩放 ---------- */
+.stage{position:relative;width:100%;max-width:600px;aspect-ratio:595/566;container-type:inline-size;touch-action:manipulation;flex:none}
+.stage>svg,.stage>canvas{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+#bg{z-index:0}
+#leaves{z-index:2;will-change:transform}
+#scene{z-index:2}
+#fx{z-index:4}
+#hits{z-index:5}
+#hits .hit{pointer-events:all;cursor:pointer;fill:transparent;outline:none}
+
+/* 叶片 */
+.lf-pop{transform:scale(0);transition:transform .9s cubic-bezier(.2,.85,.3,1.18)}
+.lf-pop.on{transform:scale(1)}
+.lf-sway{animation:sway var(--d,6s) ease-in-out var(--dl,0s) infinite alternate}
+@keyframes sway{from{transform:rotate(calc(var(--a,2deg) * -1))}to{transform:rotate(var(--a,2deg))}}
+.lf-body{fill-opacity:.82;stroke-width:.45;stroke-opacity:.38;transition:fill 1s ease,stroke 1s ease}
+
+/* 藤蔓 */
+#scene path,#bg path{stroke-linecap:round;stroke-linejoin:round}
+.petal{transition:fill 1.2s ease}
+.fillet{transition:fill 1s ease}
+.shade{transition:stroke 1.2s ease}
+
+/* 节点 */
+.junc{opacity:0;transform:scale(.2);transform-box:fill-box;transform-origin:center;transition:opacity .45s ease,transform .6s cubic-bezier(.2,.9,.3,1.5)}
+.junc.on{opacity:1;transform:scale(1)}
+.bul .bul-ring{fill:#f8ecc6;stroke:#a6a487;stroke-width:1.5;transition:fill .6s,stroke .6s;transform-box:fill-box;transform-origin:center}
+.bul .bul-halo{opacity:0;transition:opacity .7s}
+.bul.on .bul-ring{fill:#fff0b9;stroke:#f3a052}
+.bul.on .bul-halo{opacity:1;animation:halo 2.8s ease-in-out var(--hd,0s) infinite}
+.bul-in{transform:scale(0);transform-box:fill-box;transform-origin:center;transition:transform .55s cubic-bezier(.2,.9,.3,1.6)}
+.bul-in.shown{transform:scale(1)}
+.bul.pop .bul-ring{animation:pop .6s cubic-bezier(.2,.9,.3,1.4)}
+@keyframes halo{0%,100%{opacity:.7}50%{opacity:1}}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.55)}100%{transform:scale(1)}}
+
+/* 标题与条目 */
+text{text-rendering:geometricPrecision}
+.t-title{font-family:var(--serif);font-weight:700;fill:var(--ink)}
+.t-item{font-family:var(--serif);font-weight:500;fill:var(--ink2)}
+.fade{opacity:0}
+.fade.shown{opacity:1}
+.press-able{transform-box:fill-box;transform-origin:center;transition:transform .25s cubic-bezier(.2,.9,.3,1.4),opacity .8s ease}
+.press-able.press{transform:scale(.93)}
+
+/* 图标：绿色态 / 暖色态交叉淡入 */
+.ic-g,.ic-w{transition:opacity .9s ease}
+.ic-w{opacity:0}
+.ic.on .ic-w{opacity:1}
+.ic.on .ic-g{opacity:0}
+.ic-wrap{transform-box:fill-box;transform-origin:center}
+.ic-wrap.bloom{animation:bloom .9s cubic-bezier(.2,.9,.3,1.3)}
+@keyframes bloom{0%{transform:scale(1)}35%{transform:scale(1.16)}100%{transform:scale(1)}}
+.blob{transition:fill 1s ease}
+.warm{opacity:0;transition:opacity 1.4s ease}
+.warm.on{opacity:1}
+
+/* ---------- 中心「我」 ---------- */
+.orb,.orb-halo{position:absolute;left:calc(259 / 595 * 100%);top:calc(243 / 566 * 100%);width:calc(77 / 595 * 100%);aspect-ratio:1}
+.orb-halo{z-index:1;pointer-events:none;opacity:0;transition:opacity 1.2s ease}
+.orb-halo.on{opacity:1}
+.orb-halo::before{
+  content:"";position:absolute;left:-58%;top:-58%;width:216%;height:216%;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(255,214,160,.85) 33%,rgba(255,226,186,.5) 47%,rgba(255,236,210,.18) 70%,rgba(255,240,222,0) 100%);
+  animation:breathe 4.8s ease-in-out infinite;will-change:transform,opacity;
+}
+.orb{
+  font-size:calc(100cqw / 595);
+  z-index:3;cursor:pointer;outline:none;border-radius:50%;
+  opacity:0;transform:scale(.35);
+  transition:transform 1.1s cubic-bezier(.2,.9,.25,1.12),opacity .8s ease;
+}
+.orb.on{opacity:1;transform:scale(1)}
+.orb-body{
+  position:absolute;inset:0;border-radius:50%;overflow:hidden;
+  background:
+    radial-gradient(30% 22% at 61% 23%,rgba(255,255,255,.85),rgba(255,255,255,0) 100%),
+    radial-gradient(80% 75% at 18% 78%,rgba(190,158,108,.5),rgba(190,158,108,0) 70%),
+    radial-gradient(60% 75% at 98% 55%,rgba(252,184,120,.62),rgba(252,184,120,0) 72%),
+    radial-gradient(105% 105% at 50% 30%,#fef0d6 0%,#fbe3bf 40%,#f6d3a4 74%,#ecc08b 100%);
+  box-shadow:
+    inset 0 0 0 1.2em rgba(255,250,240,.95),
+    inset 0 0 6em rgba(255,246,228,.55),
+    0 0 4em rgba(250,190,120,.35);
+}
+.orb-shine{
+  position:absolute;inset:-25%;
+  background:conic-gradient(from 10deg,rgba(255,255,255,0) 0deg,rgba(255,255,255,.4) 38deg,rgba(255,255,255,0) 86deg,rgba(255,206,160,.28) 150deg,rgba(255,255,255,0) 210deg,rgba(255,255,255,.32) 285deg,rgba(255,255,255,0) 335deg);
+  mix-blend-mode:soft-light;animation:spin 18s linear infinite;
+}
+.orb-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.orb-txt{font-family:var(--serif);font-weight:900;fill:#3a2d11}
+.orb.pulse .orb-body{animation:orbPulse .7s cubic-bezier(.2,.9,.3,1.3)}
+@keyframes orbPulse{0%{transform:scale(1)}35%{transform:scale(.92)}100%{transform:scale(1)}}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.06);opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---------- 底部卡片 ---------- */
+.panel{width:calc(100% - 28px);max-width:540px;margin-top:4px;position:relative;z-index:6}
+.card{
+  position:relative;
+  background:linear-gradient(180deg,rgba(255,252,245,.82),rgba(253,247,236,.74));
+  border:1px solid rgba(255,255,255,.9);
+  border-radius:22px;
+  box-shadow:0 14px 34px -16px rgba(120,96,52,.32),0 1px 0 rgba(255,255,255,.95) inset;
+  -webkit-backdrop-filter:blur(14px) saturate(1.08);backdrop-filter:blur(14px) saturate(1.08);
+  padding:15px 15px 14px;
+  opacity:0;transform:translateY(14px);
+  transition:opacity .7s ease,transform .7s cubic-bezier(.2,.9,.3,1);
+}
+.card.on{opacity:1;transform:none}
+.pv{display:flex;flex-direction:column;transition:opacity .22s ease,transform .22s ease}
+.pv.out{opacity:0;transform:translateY(6px)}
+.ph{display:flex;align-items:center;gap:10px;min-height:36px}
+.ph-ic{width:36px;height:36px;flex:none;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 40% 35%,#f1f1e3,#e1e3cf);transition:background .6s}
+.ph-ic.on{background:radial-gradient(circle at 40% 35%,#fff3e3,#fbdcb6)}
+.ph-ic svg{width:30px;height:30px}
+.ph-t{flex:1;min-width:0}
+.ph-title{font:700 17px/1.25 var(--serif);color:var(--ink);letter-spacing:.5px}
+.ph-sub{font-size:12px;color:#8b8577;margin-top:2px}
+.ph-sub b{color:#d27d3c;font-weight:600}
+.pill{font-size:11.5px;padding:4px 9px;border-radius:999px;background:#ecebdc;color:#7b7d6c;white-space:nowrap;transition:all .4s}
+.pill.on{background:linear-gradient(180deg,#ffe9cf,#fdd6aa);color:#a3561c}
+.btn{appearance:none;-webkit-appearance:none;border:0;font:inherit;cursor:pointer;color:inherit;background:none;padding:0}
+.btn-ghost{font-size:12.5px;color:#7d7a6d;padding:7px 11px;border-radius:999px;background:rgba(236,234,218,.7);border:1px solid rgba(255,255,255,.8)}
+.btn-ghost:active{transform:scale(.96)}
+.back{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:rgba(236,234,218,.75);color:#6c6f60;font-size:18px;line-height:1;flex:none}
+.pdesc{margin:10px 2px 2px;font-size:13px;line-height:1.6;color:#7a7568}
+.chips{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.chip{
+  display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 2px 7px;border-radius:15px;
+  background:rgba(240,239,224,.6);border:1px solid rgba(255,255,255,.75);
+  font:600 12px/1.2 var(--serif);color:#4b4f45;transition:background .5s,color .5s,box-shadow .5s,transform .2s
+}
+.chip svg{width:26px;height:26px}
+.chip.on{background:linear-gradient(180deg,#fff4e6,#fde2c2);color:#9a531f;box-shadow:0 6px 16px -8px rgba(236,140,64,.75)}
+.chip:active{transform:scale(.95)}
+.chip i{font-style:normal;font:500 10px var(--sans);color:#a39d8e}
+.chip.on i{color:#d0843f}
+.rows{margin-top:10px;display:flex;flex-direction:column;gap:8px}
+.row{
+  display:flex;align-items:center;gap:11px;width:100%;padding:11px 13px;border-radius:15px;text-align:left;
+  background:rgba(243,241,228,.66);border:1px solid rgba(255,255,255,.8);transition:background .45s,box-shadow .45s,transform .2s
+}
+.row:active{transform:scale(.98)}
+.row .dot{width:11px;height:11px;border-radius:50%;flex:none;border:1.7px solid #a6a487;background:#f8ecc6;transition:all .45s}
+.row .rt{font:600 15px/1.2 var(--serif);color:#2b302b}
+.row .rs{margin-left:auto;font-size:12px;color:#9a9486;white-space:nowrap}
+.row.on{background:linear-gradient(90deg,rgba(255,240,222,.95),rgba(255,247,236,.8));box-shadow:0 6px 16px -10px rgba(236,140,64,.8)}
+.row.on .dot{border-color:#f3a052;background:#fff0b9;box-shadow:0 0 0 4px rgba(255,196,130,.32),0 0 10px rgba(255,170,90,.5)}
+.pf{display:flex;justify-content:flex-end;margin-top:auto;padding-top:11px}
+.hint{margin:auto 2px 0;padding-top:11px;font-size:12px;color:#a19b8c;text-align:center;letter-spacing:.5px}
+
+@media (prefers-reduced-motion:reduce){
+  .lf-sway,.orb-halo::before,.orb-shine,.bul.on .bul-halo{animation:none!important}
+}
+
+body.dark #gPetals{opacity:.16}body.dark #bg>circle{opacity:.15}body.dark .orb-halo.on{opacity:.2}body.dark #gWarm{opacity:.3}body.dark .blob{opacity:.18}body.dark .ic-w>circle{opacity:.28}
+body.dark #gGreen{filter:brightness(1.5) saturate(.65)}
+/* Refinement: the illustration remains a transparent, independently movable scene. */
+:root{--bg:#f8f5e9;--ink:#303e32;--ink2:#586253;--surface:rgba(255,255,249,.88);--edge:rgba(86,104,80,.16);--accent:#855736;--shadow:rgba(44,61,42,.12)}
+html,body{height:100%;overflow:hidden}
+body{background:radial-gradient(ellipse at 0 20%,#dfe8d4 0%,transparent 62%),radial-gradient(ellipse at 100% 90%,#f2d7c5 0%,transparent 65%),var(--bg)}
+body.dark{--bg:#202d29;--ink:#eee9d9;--ink2:#d0d8bd;--surface:rgba(37,51,44,.94);--edge:rgba(226,234,207,.22);--accent:#f1c28e;--shadow:rgba(0,0,0,.25);background:radial-gradient(ellipse at 0 0,#364b3d,transparent 65%),radial-gradient(ellipse at 100% 100%,#4b3c31,transparent 65%),var(--bg)}
+.app{height:100dvh;min-height:0;padding:0;display:block;position:relative;isolation:isolate}
+.masthead{position:absolute;z-index:10;top:max(28px,env(safe-area-inset-top));left:40px;right:40px;display:flex;justify-content:space-between;align-items:center;pointer-events:none}
+.masthead button{pointer-events:auto}.eyebrow{margin:0 0 8px;font-size:11px;letter-spacing:2.4px;color:var(--ink2)}h1{font:600 25px/1.35 var(--serif);letter-spacing:2px;margin:0}
+.viewport{position:absolute;inset:110px 0 88px;overflow:hidden;touch-action:none;cursor:grab;outline:none}.viewport.dragging{cursor:grabbing}
+.stage{position:absolute;left:0;top:0;width:595px;max-width:none;height:566px;transform-origin:0 0;container-type:inline-size;touch-action:none;background:transparent}
+.t-title{font-weight:600}.lf-body{fill-opacity:.72;stroke-opacity:.2}.orb-body{box-shadow:inset 0 0 0 1.1em rgba(255,250,240,.95),inset 0 0 6em rgba(255,246,228,.55),0 6em 20em rgba(182,141,77,.12)}
+.head,.item,#gJunc{transition:opacity .35s ease}.stage.overview #gItems .t-item,.stage.overview #gJunc{opacity:0;pointer-events:none}.stage.overview .bul{opacity:.6}.stage.overview .item-hit{display:none}
+#hits .hit:focus-visible{stroke:var(--accent);stroke-width:1.8;stroke-dasharray:3 3;fill:rgba(255,235,200,.1)}
+#hits .hit:hover{fill:rgba(230,179,114,.12)}.orb:focus-visible{outline:2px solid var(--accent);outline-offset:6px}
+.map-footer{position:absolute;z-index:12;left:40px;right:40px;bottom:max(25px,env(safe-area-inset-bottom));display:flex;justify-content:space-between;align-items:center;gap:16px;color:var(--ink2);font-size:12px;letter-spacing:.5px}
+.tools{display:flex;align-items:center;gap:3px;padding:4px;border:1px solid var(--edge);border-radius:99px;background:var(--surface);box-shadow:0 6px 25px -12px var(--shadow)}
+.tool{border:0;color:var(--ink);background:transparent;cursor:pointer;font:400 21px var(--sans);width:40px;height:40px;border-radius:50%;display:grid;place-items:center;transition:background .2s,transform .2s}.tool:hover{background:rgba(130,146,114,.14)}.tool:active{transform:scale(.94)}.tool:focus-visible,.btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}.reset-view{width:56px;font-size:12px;letter-spacing:1px}.theme{background:var(--surface);border:1px solid var(--edge)}
+.panel{display:none;position:absolute;z-index:11;bottom:88px;left:40px;margin:0;width:300px;max-width:calc(100% - 80px)}.panel.visible{display:block}.card{padding:20px;background:var(--surface);border:1px solid var(--edge);border-radius:22px;box-shadow:0 10px 35px -14px var(--shadow);backdrop-filter:blur(18px)}.pv{min-height:0!important}.ph-title{font-size:19px;color:var(--ink)}.ph-sub,.pdesc,.row .rs{color:var(--ink2)}.pdesc{font-size:13px;line-height:1.8;margin:12px 0 0}.rows{gap:5px}.row{background:transparent;border:0;border-top:1px solid var(--edge);padding:13px 0;border-radius:0}.row .rt{font-family:var(--sans);font-size:13px;font-weight:400;color:var(--ink)}.row .rs{font-size:11px}.row:hover{background:rgba(160,160,116,.08)}.row.on{background:transparent;box-shadow:none}.back{color:var(--ink);background:rgba(135,155,119,.12)}.detail-label{font-size:11px;color:var(--accent);letter-spacing:1px;margin:0 0 10px}.detail-title{font:600 24px/1.5 var(--serif);margin:12px 0 8px}.detail-copy{font-size:14px;line-height:1.8;color:var(--ink2);margin:0 0 20px}.select-need{padding:11px 16px;border:1px solid var(--edge);border-radius:30px;color:var(--ink);background:rgba(219,178,126,.15);width:100%;font-size:13px}.select-need:hover{background:rgba(219,178,126,.28)}.panel-close{margin-left:auto}
+*{scrollbar-color:#8a9980 transparent;scrollbar-width:thin}
+@media(max-width:600px){.masthead{top:max(23px,env(safe-area-inset-top));left:24px;right:24px}h1{font-size:23px}.eyebrow{font-size:10px;letter-spacing:1.8px}.viewport{inset:106px 0 100px}.map-footer{left:22px;right:22px;bottom:max(24px,env(safe-area-inset-bottom));gap:10px}#mapHint{max-width:145px;line-height:1.8;font-size:11px}.panel{left:20px;right:20px;width:auto;max-width:none;bottom:100px}.card{padding:17px 19px}.panel.visible~.map-footer #mapHint{visibility:hidden}.ph-title{font-size:17px}.pdesc{font-size:12px}.row{padding:11px 0}.detail-title{font-size:22px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="masthead"><div><p class="eyebrow">向内看见 · 关系探索</p><h1>我的关系需要</h1></div><button class="tool theme" id="theme" aria-label="切换深色背景" title="切换背景">◐</button></header>
+  <div class="viewport" id="viewport" tabindex="0" aria-label="关系图谱画布，可用方向键平移，加减键缩放，零键回到全图">
+  <main class="stage" id="stage" aria-label="关系需求图谱">
+    <svg id="bg" viewBox="0 0 595 566" aria-hidden="true"></svg>
+    <div class="orb-halo" id="halo"></div>
+    <svg id="leaves" viewBox="0 0 595 566" aria-hidden="true"><g id="gLeaves"></g></svg>
+    <svg id="scene" viewBox="0 0 595 566" aria-hidden="true">
+      <g id="gWarm"></g><g id="gGlow"></g><g id="gGreen"></g><g id="gLit"></g><g id="gHi"></g>
+      <g id="gJunc"></g><g id="gHeads"></g><g id="gItems"></g>
+    </svg>
+    <div class="orb" id="orb" role="button" tabindex="0" aria-label="我：回到全图">
+      <div class="orb-body"><div class="orb-shine"></div></div>
+      <svg class="orb-svg" viewBox="259 243 77 77">
+        <g fill="none" stroke="#fff" stroke-linecap="round">
+          <path d="M268.5,266 C276,251 300,246 314,254" stroke-opacity=".5" stroke-width=".9"/>
+          <path d="M275,305 C288,313 310,312 322,299" stroke-opacity=".35" stroke-width=".8"/>
+          <path d="M318,262 C326,272 327,288 321,298" stroke-opacity=".42" stroke-width=".7"/>
+          <path d="M270,288 C266,278 268,270 272,265" stroke-opacity=".28" stroke-width=".7"/>
+        </g>
+        <text class="orb-txt" id="wo" x="285" y="289" font-size="25">我</text>
+      </svg>
+    </div>
+    <canvas id="fx"></canvas>
+    <svg id="hits" viewBox="0 0 595 566"></svg>
+  </main>
+  </div>
+  <section class="panel" aria-live="polite"><div class="card" id="card"><div class="pv" id="pv"></div></div></section>
+<footer class="map-footer"><span id="mapHint">轻触一个主题，慢慢靠近</span><div class="tools" aria-label="图谱视图"><button class="tool" id="zoomOut" aria-label="缩小">−</button><button class="tool reset-view" id="resetView">全图</button><button class="tool" id="zoomIn" aria-label="放大">＋</button></div></footer>
+</div>
+
+<script>
+(() => {
+'use strict';
+// Optional same-page responsive preview, isolated in a genuine 390px iframe.
+// This does not alter the normal graph or require browser developer tools.
+if(new URLSearchParams(location.search).get('preview')==='mobile'){
+ const src=new URL(location.href);src.searchParams.delete('preview');
+ document.body.replaceChildren();document.body.style.cssText='margin:0;min-height:844px;display:grid;place-items:start center;overflow:auto';
+ document.documentElement.style.cssText='height:auto;overflow:auto';
+ const frame=document.createElement('iframe');frame.title='390 像素移动端预览';frame.src=src.href;frame.width='390';frame.height='844';frame.style.cssText='border:0;display:block;background:transparent;flex:none';document.body.appendChild(frame);return;
+}
+const NS = 'http://www.w3.org/2000/svg';
+const W = 595, H = 566;
+const ORB = { x: 297.5, y: 281.5, r: 38.5 };
+const STILL = new URLSearchParams(location.search).has('still') || matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ======================================================================
+ * 数据：坐标全部取自原图（595×566）逐像素测量
+ *   title / items.x: 文字墨迹框左右边界，cy: 垂直中心
+ *   b: 圆点中心；vines[0] 为主藤（从「我」出发），其余为分支
+ *   item: 藤蔓末端连接的条目序号；deco: 分支点亮时一并点亮
+ *   vc: [主藤色, 分支色, 柔边宽度]（取自原图各分支藤蔓颜色）
+ * ==================================================================== */
+const BRANCHES = [
+  { id:'time', name:'时间陪伴', desc:'在一起的时间，重在用心而不在多少。', icon:'sproutT', vc:['#5d7259','#5e7057',1.6],
+    title:[278,343,48.5], blob:[263.5,34,27,21,-6,3], box:[249.5,13,36,36],
+    items:[
+      { t:'高质量相处', x:[288,342], cy:76.5,  b:[272.5,77.75], sub:'专注地在一起' },
+      { t:'日常分享',   x:[304,346], cy:101.5, b:[288.75,103],  sub:'分享生活点滴' },
+      { t:'稳定在场',   x:[320,363], cy:127.5, b:[306.5,129.5], sub:'需要时你都在' }],
+    vines:[
+      { pts:[[297,245],[302,234],[307,220],[310,200],[308.5,177],[303.5,157],[296,143],[286,131],[276,119],[267,107],[260,95],[255,81],[252.5,66],[254,56],[258.5,50.5],[261.5,48.6]], w:[2.4,1.25], deco:true },
+      { pts:[[281,126],[276,118],[271.5,105],[270,93],[271.3,84],[272.5,77.75]], item:0 },
+      { pts:[[297,142],[292,131],[289,120],[288.3,110],[288.75,103]], item:1 },
+      { pts:[[303.5,157],[304.5,147],[305.5,138],[306.5,129.5]], item:2 }],
+    juncs:[[297,142.5,3.6]], iconPath:0 },
+
+  { id:'emo', name:'情绪支持', desc:'被理解、被接住的情绪，是最温柔的力量。', icon:'emo', vc:['#738468','#728267',1.7],
+    title:[453,518,84.5], blob:[426.5,62.5,25.5,24,10,7], box:[406.5,49,36,36],
+    items:[
+      { t:'倾听接纳', x:[475,517], cy:115.5, b:[461,116.5],   sub:'认真听，不评判' },
+      { t:'情绪共鸣', x:[461,504], cy:148.5, b:[446.8,150],   sub:'懂得我的感受' },
+      { t:'低谷陪伴', x:[457,499], cy:178,   b:[441.5,178.8], sub:'难过时有人陪' }],
+    vines:[
+      { pts:[[326,249],[331,236],[345,223],[361.7,213.3],[378.3,203.3],[391.7,193.3],[401.7,183.3],[408.3,175],[413,166],[418,153],[422,138],[425,122],[426.5,105],[426.5,92],[426.6,83.5]], w:[2.5,1.3], deco:true },
+      { pts:[[419,151],[428,145],[438,136.5],[448,127],[455,120.5],[461,116.5]], item:0 },
+      { pts:[[412,169],[421,164.5],[430,159],[438.5,154],[446.8,150]], item:1 },
+      { pts:[[400,185.5],[409,181.5],[419,179.8],[430,179],[441.5,178.8]], item:2 }],
+    juncs:[[409.8,173.2,5]], iconPath:0 },
+
+  { id:'free', name:'自由空间', desc:'亲密也需要呼吸的空间，彼此都能做自己。', icon:'sun', vc:['#738468','#728267',1.7],
+    title:[493,556,250.5], blob:[506,231,30,28,0,11], box:[487,209,36,36],
+    items:[
+      { t:'独处时间', x:[508,549], cy:279.5, b:[493.5,280], sub:'拥有自己的时间' },
+      { t:'不被打扰', x:[499,539], cy:304.5, b:[476.5,305], sub:'专注时被尊重' },
+      { t:'保留自我', x:[516,558], cy:331.5, b:[500,332.3], sub:'在爱里做自己' }],
+    vines:[
+      { pts:[[333,279],[340,285],[350,290],[362,295.5],[375,299.5],[390,302],[403,301],[415,297],[427,290.5],[440,282.5],[452,274],[461.7,266.7]], w:[2.5,1.5], deco:true },
+      { pts:[[461.7,266.7],[471,271],[481,276.5],[489,279.5],[493.5,280]], item:0 },
+      { pts:[[403,301],[414,301.5],[425,300],[436,297],[446,297.5],[456,300],[466,303],[476.5,305]], item:1, w:[1.5,1.1] },
+      { pts:[[436,297],[446,302],[457,311],[468,320],[480,327],[492,331.5],[500,332.3]], item:2 },
+      { pts:[[461.7,266.7],[468,261],[477.5,257]], deco:true, w:[1.2,.8] }],
+    juncs:[[403,301.2,5],[436.4,296.9,3.1],[461.7,266.7,4.2]], iconPath:4 },
+
+  { id:'promise', name:'亲密承诺', desc:'确定的爱，让人安心地走向未来。', icon:'heart', vc:['#6d7d64','#6e7c62',1.8],
+    title:[472,536,391], blob:[451,370.5,27,20,-4,5], box:[436.5,355.6,36,36],
+    items:[
+      { t:'情感确定性', x:[481,536], cy:419.5, b:[462.8,420.5], sub:'确信自己被爱' },
+      { t:'长期愿景',   x:[486,527], cy:446.5, b:[467,448.3],   sub:'一起想象未来' },
+      { t:'彼此忠诚',   x:[499,541], cy:475,   b:[482,475.5],   sub:'专一而坦诚' }],
+    vines:[
+      { pts:[[328,313],[335,333],[348,347],[368,358],[388,370],[402,380],[410,390],[417,403],[422,417],[427,433],[435,450],[448,463],[462,471],[475,474.5],[482,475.5]], w:[2.4,1.15], item:2 },
+      { pts:[[403,381],[414,389],[424,400],[433,410],[443,417],[453,420.3],[462.8,420.5]], item:0 },
+      { pts:[[436,453],[446,460],[455,460.5],[462,457],[466,452.5],[467,448.3]], item:1 },
+      { pts:[[402,380],[411,386],[421,390.5],[433,394]], deco:true }],
+    juncs:[[402.5,380.5,4]], iconPath:3 },
+
+  { id:'plan', name:'规划协商', desc:'两个人的生活，需要一起商量着过。', icon:'mount', vc:['#788a6e','#748469',1.8],
+    title:[287,350,477], blob:[285.6,450,22,20,8,9], box:[273.2,431.8,36,36],
+    items:[
+      { t:'生活节奏', x:[293,335], cy:501.5, b:[278.2,502],   sub:'作息习惯协调' },
+      { t:'重要决策', x:[303,343], cy:526,   b:[287.8,526.5], sub:'大事一起商量' },
+      { t:'共同目标', x:[324,366], cy:551.5, b:[308.8,553.3], sub:'朝同一方向走' }],
+    buds:[[355.5,512.3,1],[359.8,539,0]],
+    vines:[
+      { pts:[[296,320],[292,335],[289,352],[288,370],[290,388],[297,403],[312,419],[330,430],[346,439],[358,448],[367,462],[372,480],[374,497],[372,513],[368,527],[363.5,535],[359.8,539]], w:[2.3,1.1], deco:true },
+      { pts:[[373.7,493],[371.5,503],[366,509],[360,511.5],[355.5,512.3]], deco:true }],
+    juncs:[[373.6,493.5,3.4]], iconPath:0 },
+
+  { id:'grow', name:'成长认可', desc:'好的关系，让彼此成为更好的人。', icon:'sproutG', vc:['#87937a','#7f8a6c',2.3],
+    title:[115,179,403], blob:[101.7,380,25,20,-8,13], box:[86,364.7,36,36],
+    items:[
+      { t:'支持我变好', x:[122,174], cy:431, b:[103.3,429.2], sub:'鼓励我去尝试' },
+      { t:'看到我努力', x:[127,180], cy:456, b:[109.8,457.3], sub:'认可我的付出' },
+      { t:'尊重我选择', x:[148,202], cy:482, b:[134.8,484],   sub:'理解我的决定' }],
+    vines:[
+      { pts:[[264,313],[250,318],[236,328],[226,344],[220,364],[219,387],[222,408],[225.5,428],[226.5,447],[223,466],[213,483],[197,496.5],[177,503],[157,505],[137,501.5],[120,493],[107,480],[97,463],[89,443],[86,423],[87.5,407],[92,399],[96.75,394.6]], w:[2.3,1.25], deco:true },
+      { pts:[[97,463],[95,452],[96,441],[99.5,434],[103.3,429.2]], item:0 },
+      { pts:[[127,500],[118,491],[112.5,478],[110,467],[109.8,457.3]], item:1 },
+      { pts:[[148,503.5],[141,497],[137,490],[134.8,484]], item:2 }],
+    juncs:[[137,501.5,3.8]], iconPath:0 },
+
+  { id:'money', name:'金钱资源', desc:'物质基础，是安全感的现实来源。', icon:'coins', vc:['#66795f','#5f7259',1.8],
+    title:[62,127,227], blob:[65.8,200,29,23,-5,17], box:[48.5,184,36,36],
+    items:[
+      { t:'经济观念', x:[80,123],  cy:256, b:[61.8,256.8],  sub:'消费观念相合' },
+      { t:'资源支持', x:[102,144], cy:280, b:[85.5,282.8],  sub:'需要时能帮衬' },
+      { t:'现实保障', x:[122,166], cy:305, b:[107.7,306.5], sub:'生活有底气' }],
+    vines:[
+      { pts:[[259,276],[250,270],[238,267],[225,267],[213,271],[202,280],[191,293],[177,307],[160,318],[140,323],[120,323],[100,320],[83,313],[67,303],[55,289],[48,275],[44,262],[43,250]], w:[2.4,1.2], deco:true },
+      { pts:[[64,300],[60.5,288],[59.5,275],[60.5,265],[61.8,256.8]], item:0 },
+      { pts:[[103,318],[95,312],[89,303],[86,292],[85.5,282.8]], item:1 },
+      { pts:[[120,323],[113,318],[109,312],[107.7,306.5]], item:2 }],
+    juncs:[[103,318,3.8]], iconPath:0 },
+
+  { id:'risk', name:'风险兜底', desc:'风雨来时，有人和你站在一起。', icon:'shield', vc:['#7d8a6b','#6c7c60',2.4],
+    title:[128,193,87.5], blob:[140.5,66.7,27,20,6,19], box:[123.6,45.7,36,36],
+    items:[
+      { t:'遇事有担当', x:[148,201], cy:116.5, b:[124.9,117.1], sub:'出了事不推诿' },
+      { t:'困难时支持', x:[163,217], cy:141,   b:[147,143],     sub:'困境中不离开' },
+      { t:'提供安全感', x:[187,241], cy:165.5, b:[173,167.8],   sub:'让我安心踏实' }],
+    vines:[
+      { pts:[[266,250],[260,233],[250,217],[237,203],[220,195],[200,191.5],[187,188],[173,183],[160,177],[147,170],[137,160],[127,147],[120,133],[115,120],[110,107],[104,99],[100,94]], w:[2.2,1.1], deco:true },
+      { pts:[[117,127],[119.5,122.5],[122,119.5],[124.9,117.1]], item:0 },
+      { pts:[[168,180],[157,173],[150.5,163],[147.5,153],[147,143]], item:1 },
+      { pts:[[190,190],[181,186],[176,179],[173.5,173],[173,167.8]], item:2 }],
+    juncs:[[168,180,3.8]], iconPath:0 },
+];
+// The original planning labels were detached. Connect them as a nested side shoot.
+BRANCHES.find(b=>b.id==='plan').vines.push(
+ {pts:[[288,370],[281,389],[264,409],[257,435],[259,463],[263,487],[278.2,502]],w:[1.45,.8],item:0},
+ {pts:[[263,487],[267,504],[276,519],[287.8,526.5]],item:1},
+ {pts:[[276,519],[279,535],[293,548],[308.8,553.3]],item:2}
+);
+const INITIAL_LIT = { emo:[0,1,2], free:[0,1,2] };   // 与原图一致：情绪支持、自由空间已点亮
+
+// 左下角装饰枝
+const DECO_STEMS = [ { pts:[[18,568],[24,546],[31,522],[38,500],[43,482],[45,468]], w:[1.2,.7] } ];
+
+// 叶片：[基部x, 基部y, 叶尖x, 叶尖y, 宽, 颜色]（原图色块连通域 + PCA 拟合）
+const LEAVES = [
+[315.7,217.7,359.8,153.6,24.2,"#d8d2b2"],[236.1,333.3,174.1,388.3,22.8,"#cbceae"],[370.2,309.3,448.4,329.0,21.3,"#d8cca0"],
+[422.7,456.3,460.1,527.5,21.4,"#d2d5c1"],[88.9,429.7,39.5,393.1,22.3,"#ccc89e"],[281.5,405.6,245.5,453.8,18.3,"#d0cfad"],
+[352.3,435.9,393.6,479.4,17.8,"#d6d6bc"],[380.9,493.9,387.0,546.7,19.7,"#cacfb5"],[3.5,529.5,10.6,568.1,20.6,"#cbc496"],
+[433.2,240.7,413.1,295.6,18.4,"#ded6b5"],[204.2,494.2,207.0,542.9,18.0,"#d0d2b9"],[100.8,473.4,56.9,436.2,17.0,"#d7d1ad"],
+[121.1,329.3,75.5,353.6,16.5,"#cecfb5"],[404.2,97.5,427.1,135.4,17.2,"#e1cc9e"],[195.8,496.7,149.6,539.6,14.3,"#d7d7bd"],
+[55.8,295.4,21.9,267.4,19.0,"#b3bba0"],[302.4,328.6,254.8,308.9,18.5,"#d2caa7"],[384.9,372.6,403.0,417.8,15.7,"#dcdac0"],
+[225.0,451.1,229.8,496.7,15.7,"#cbd0b6"],[461.9,211.0,449.9,267.8,13.3,"#d1cba5"],[381.0,361.6,424.5,360.2,16.2,"#c6c8ab"],
+[288.6,246.2,341.1,214.0,21.2,"#d0ccad"],[172.0,197.1,134.9,195.2,16.7,"#caccb0"],[110.0,135.9,76.1,116.9,14.9,"#d2cea6"],
+[271.0,115.0,231.2,54.3,9.2,"#cbcaaa"],[282.0,346.0,244.7,370.1,15.0,"#d7d7bc"],[419.2,429.1,407.9,460.6,15.3,"#d2d5bf"],
+[132.4,171.2,100.5,154.6,13.7,"#e0dcbb"],[131.0,502.0,94.1,496.1,13.0,"#d5d1b1"],[100.3,98.0,95.2,67.5,14.3,"#c9c9ab"],
+[376.0,215.6,413.1,216.4,11.4,"#ded5b6"],[220.2,421.1,210.3,453.2,13.3,"#d0d2b9"],[310.9,416.4,339.4,428.1,12.5,"#d0d2ba"],
+[330.0,319.7,338.7,370.7,11.1,"#d6d3b6"],[218.8,269.3,182.9,251.1,10.9,"#cfceae"],[280.1,380.9,263.6,410.4,10.5,"#d7d6b9"],
+[321.4,431.5,342.5,457.2,9.9,"#d7d7ba"],[75.0,312.0,47.4,310.8,10.5,"#d7d7bf"],[28.2,540.6,45.1,503.9,7.5,"#c9c1a0"],
+[341.3,351.5,358.7,372.7,9.3,"#dedcc3"],[257.7,237.0,230.5,217.5,8.2,"#d1d0b4"],[200.4,270.4,178.4,279.4,11.3,"#cbcfb4"],
+[43.0,491.4,36.9,460.2,7.6,"#cfc5a7"],[254.6,213.9,260.7,190.8,9.5,"#e3d8b6"],[401.6,263.0,403.7,284.1,10.6,"#d3cca4"],
+[32.7,239.1,27.6,219.9,10.0,"#c1c7ad"],[185.2,200.5,163.5,209.9,9.2,"#e4e0c6"],[389.6,372.7,352.4,351.9,4.8,"#bfc0a3"],
+[217.1,394.5,205.9,417.5,6.9,"#dfdec6"],[167.1,318.9,154.1,334.8,7.7,"#deddc6"],[243.0,336.4,233.9,357.4,7.6,"#e4e0c6"],
+[248.9,320.4,225.6,322.8,8.0,"#dddac0"],[246.6,315.5,234.8,304.9,8.7,"#dcd7ba"],[199.5,192.8,224.5,198.7,5.9,"#c0c1a3"],
+[306.5,198.0,304.7,176.8,5.8,"#d0d5bc"],[281.9,147.5,266.8,150.7,8.0,"#e5dec2"],[223.7,262.4,216.3,252.6,8.1,"#b9bda0"],
+[301.7,395.7,315.3,402.4,6.5,"#dfdcc1"],[342.3,332.4,352.8,337.8,8.3,"#bfc2a2"],
+// 藤蔓上的深色小叶（形状匹配得到）
+[154.0,174.8,143.1,175.6,4.6,"#b5bb9b"],[260.2,314.9,252.7,322.9,4.6,"#adb191"],[154.3,171.3,143.4,170.2,4.6,"#bdc1a5"],
+[255.3,274.6,245.3,279.2,4.6,"#b5b28e"],[372.4,478.9,379.7,487.1,4.6,"#c0c4a9"],[294.7,327.9,301.5,340.1,5.9,"#b4bda4"],
+[308.9,206.4,304.7,196.2,4.6,"#a8b39d"],[208.6,273.2,197.7,274.4,4.6,"#a4af97"],[263.0,242.5,254.9,235.1,4.6,"#acae8f"],
+[209.2,487.9,206.4,498.6,4.6,"#d0d2b9"]
+];
+const FILL_PALETTE = ['#cdd2b4','#d3d6bc','#c6cdb0','#d9dbc3','#c2c9ab','#d0d4b9','#dadcc6'];
+
+/* ====================================================================== 工具 */
+const $ = (s, r = document) => r.querySelector(s);
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const lerp = (a, b, t) => a + (b - a) * t;
+const f2 = v => Math.round(v * 100) / 100;
+function el(tag, attrs, parent) {
+  const e = document.createElementNS(NS, tag);
+  if (attrs) for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function rng(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const hex2rgb = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+const rgb2hex = c => '#' + c.map(v => clamp(Math.round(v), 0, 255).toString(16).padStart(2, '0')).join('');
+const mix = (a, b, t) => a.map((v, i) => lerp(v, b[i], t));
+const CREAM = [251, 244, 229], WARM_TGT = [244, 196, 140], TIP = hex2rgb('#8f9169');
+
+// Catmull-Rom → 密集折线（带弧长）
+function sample(pts, step = 1.4) {
+  const n = pts.length;
+  const P = [[2 * pts[0][0] - pts[1][0], 2 * pts[0][1] - pts[1][1]], ...pts, [2 * pts[n - 1][0] - pts[n - 2][0], 2 * pts[n - 1][1] - pts[n - 2][1]]];
+  const p = [];
+  for (let i = 1; i < P.length - 2; i++) {
+    const p0 = P[i - 1], p1 = P[i], p2 = P[i + 1], p3 = P[i + 2];
+    const m = Math.max(2, Math.ceil(Math.hypot(p2[0] - p1[0], p2[1] - p1[1]) / step));
+    for (let k = 0; k < m; k++) {
+      const t = k / m, t2 = t * t, t3 = t2 * t;
+      p.push([0, 1].map(j => 0.5 * (2 * p1[j] + (-p0[j] + p2[j]) * t + (2 * p0[j] - 5 * p1[j] + 4 * p2[j] - p3[j]) * t2 + (-p0[j] + 3 * p1[j] - 3 * p2[j] + p3[j]) * t3)));
+    }
+  }
+  p.push(pts[n - 1].slice());
+  const s = [0];
+  for (let i = 1; i < p.length; i++) s.push(s[i - 1] + Math.hypot(p[i][0] - p[i - 1][0], p[i][1] - p[i - 1][1]));
+  return { p, s, total: s[s.length - 1] };
+}
+function at(poly, d) {
+  const { p, s } = poly;
+  if (d <= 0) return p[0];
+  if (d >= poly.total) return p[p.length - 1];
+  let lo = 0, hi = s.length - 1;
+  while (hi - lo > 1) { const mid = (lo + hi) >> 1; if (s[mid] < d) lo = mid; else hi = mid; }
+  const t = (d - s[lo]) / ((s[hi] - s[lo]) || 1);
+  return [lerp(p[lo][0], p[hi][0], t), lerp(p[lo][1], p[hi][1], t)];
+}
+function slice(poly, a, b) {
+  const out = [at(poly, a)];
+  for (let i = 0; i < poly.p.length; i++) if (poly.s[i] > a && poly.s[i] < b) out.push(poly.p[i]);
+  out.push(at(poly, b));
+  return out;
+}
+const dOf = pts => 'M' + pts.map(q => f2(q[0]) + ',' + f2(q[1])).join('L');
+const plen = pts => { let l = 0; for (let i = 1; i < pts.length; i++) l += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]); return l; };
+function nearest(poly, x, y) {
+  let best = 1e9, bs = 0;
+  for (let i = 0; i < poly.p.length; i++) {
+    const d = (poly.p[i][0] - x) ** 2 + (poly.p[i][1] - y) ** 2;
+    if (d < best) { best = d; bs = poly.s[i]; }
+  }
+  return { d: Math.sqrt(best), s: bs };
+}
+function offsetPts(poly, a, b, off) {
+  const pts = slice(poly, a, b), out = [];
+  for (let i = 0; i < pts.length; i++) {
+    const q0 = pts[Math.max(0, i - 1)], q1 = pts[Math.min(pts.length - 1, i + 1)];
+    let tx = q1[0] - q0[0], ty = q1[1] - q0[1]; const l = Math.hypot(tx, ty) || 1; tx /= l; ty /= l;
+    out.push([pts[i][0] + ty * off, pts[i][1] - tx * off]);
+  }
+  return out;
+}
+function leafD(bx, by, tx, ty, w, bend = 0) {
+  const dx = tx - bx, dy = ty - by, L = Math.hypot(dx, dy), ux = dx / L, uy = dy / L, nx = -uy, ny = ux;
+  const P = (a, b) => f2(bx + ux * a + nx * b) + ',' + f2(by + uy * a + ny * b);
+  const h = w * .68, bb = bend * L;
+  return `M${f2(bx)},${f2(by)}C${P(L * .22, -h + bb)} ${P(L * .62, -h * .9 + bb)} ${f2(tx)},${f2(ty)}C${P(L * .62, h * .9 + bb)} ${P(L * .22, h + bb)} ${f2(bx)},${f2(by)}Z`;
+}
+function blobD(cx, cy, rx, ry, rot, seed) {
+  const r = rng(seed), n = 12, ph1 = r() * 6.28, ph2 = r() * 6.28, cr = Math.cos(rot * Math.PI / 180), sr = Math.sin(rot * Math.PI / 180);
+  const pts = [];
+  for (let i = 0; i < n; i++) {
+    const t = i / n * Math.PI * 2, k = 1 + .07 * Math.sin(3 * t + ph1) + .045 * Math.sin(5 * t + ph2);
+    const x = rx * k * Math.cos(t), y = ry * k * Math.sin(t);
+    pts.push([cx + x * cr - y * sr, cy + x * sr + y * cr]);
+  }
+  let d = `M${f2(pts[0][0])},${f2(pts[0][1])}`;
+  for (let i = 0; i < n; i++) {
+    const p0 = pts[(i - 1 + n) % n], p1 = pts[i], p2 = pts[(i + 1) % n], p3 = pts[(i + 2) % n];
+    d += `C${f2(p1[0] + (p2[0] - p0[0]) / 6)},${f2(p1[1] + (p2[1] - p0[1]) / 6)} ${f2(p2[0] - (p3[0] - p1[0]) / 6)},${f2(p2[1] - (p3[1] - p1[1]) / 6)} ${f2(p2[0])},${f2(p2[1])}`;
+  }
+  return d + 'Z';
+}
+
+/* ====================================================================== 图标 */
+const PAL_G = { dark:'#4e654c', mid:'#7d9378', light:'#d3dcc7', line:'#eef1e6' };
+const PAL_W = { dark:'#d27a3b', mid:'#e99d5f', light:'#fde3c2', line:'#fff3e2' };
+const ICONS = {
+  sproutT: p => `<path d="M261.9,49.3C263.4,45.5 265.8,40.5 268.2,35.6C269.2,33.5 270,31.8 270.6,29.9" fill="none" stroke="${p.dark}" stroke-width="1.35" stroke-linecap="round"/>
+    <path d="${leafD(270.6,31.1,280.2,14.9,6.6,-.03)}" fill="${p.dark}"/><path d="${leafD(270,30.6,264,20.4,5.6,.04)}" fill="${p.dark}"/>
+    <path d="${leafD(266.7,39.9,275.2,34.8,4.8)}" fill="${p.dark}"/><path d="${leafD(262.6,45.6,254.3,36,5.8,.04)}" fill="${p.dark}"/>`,
+  emo: (p, warm) => `<path d="M426.9,84.2L426.2,77.3" stroke="${warm ? '#c97a45' : p.dark}" stroke-width="1.4" stroke-linecap="round"/>
+    <path d="${leafD(425.7,78.2,413.6,63.4,8.8,.03)}" fill="${warm ? '#dc8752' : p.dark}"/>
+    <path d="${leafD(426.3,77.6,435.2,53.6,10.4,-.03)}" fill="${warm ? '#eda064' : '#5b7458'}"/>
+    <path d="M425.2,76.6Q419.5,71 414.6,64.6M426.8,75.8Q430.6,65 434.6,55" fill="none" stroke="${warm ? '#ffe3c4' : p.line}" stroke-opacity=".55" stroke-width=".6"/>
+    <path d="${leafD(425.7,78.2,413.6,63.4,8.8,.03)}" fill="url(#icShade)"/>`,
+  sun: (p, warm) => `<path d="M494.2,228.8A11.2,11.2 0 1 1 516.4,228.8Z" fill="${warm ? 'url(#grSun)' : p.dark}"/>
+    <ellipse cx="509.6" cy="219.6" rx="4.2" ry="2.1" transform="rotate(24 509.6 219.6)" fill="#fff" fill-opacity="${warm ? .32 : .12}"/>
+    <path d="M488.6,233.7C495,231.2 509,230.6 521,232.6C509,235.8 495,236.4 488.6,233.7Z" fill="${warm ? 'url(#grHor)' : p.mid}"/>`,
+  heart: p => `<path d="M454.55,369.4C452.9,364.6 448.9,363.2 446,364C442.9,364.9 441.8,368.4 442.6,371.3C443.5,374.6 447,377.6 454.55,383.6C462.1,377.6 465.6,374.6 466.5,371.3C467.3,368.4 466.2,364.9 463.1,364C460.2,363.2 456.2,364.6 454.55,369.4Z" fill="none" stroke="${p.dark}" stroke-width="2.15" stroke-linejoin="round"/>`,
+  mount: p => `<path d="M278.2,459.8L290.2,439.7L302.2,459.8Z" fill="${p.dark}"/><path d="M289.6,459.8L297.6,447L304.4,459.8Z" fill="${p.dark}"/>
+    <path d="M293.4,453.6L297.6,447" stroke="${p.line}" stroke-width=".9" fill="none"/>
+    <path d="M290.2,442.8L292.7,446.8L291,452L289.5,446.4Z" fill="${p.light}"/><path d="M297.6,450.2L300.5,455.3L298.6,457.4L296.6,453.5Z" fill="${p.light}"/>`,
+  sproutG: p => `<path d="M96.75,394.6C98.4,391.6 100.6,388.2 103,384.6" fill="none" stroke="${p.dark}" stroke-width="1.45" stroke-linecap="round"/>
+    <path d="${leafD(101.1,384.8,93.4,370.6,7,.03)}" fill="${p.dark}"/><path d="${leafD(103,384.6,117.6,372.6,8.2,-.03)}" fill="${p.dark}"/>
+    <path d="${leafD(100.3,391.3,107.1,389.1,3.9)}" fill="${p.dark}"/>`,
+  coins: p => {
+    const stack = (cx, top, n, h) => {
+      const rx = 7.6, ry = 3, bot = top + n * h;
+      let s = `<path d="M${cx - rx},${top}L${cx - rx},${bot}A${rx},${ry} 0 0 0 ${cx + rx},${bot}L${cx + rx},${top}Z" fill="${p.dark}"/>`;
+      for (let k = 1; k < n; k++) s += `<path d="M${cx - rx},${top + k * h}A${rx},${ry} 0 0 0 ${cx + rx},${top + k * h}" fill="none" stroke="${p.line}" stroke-width=".95"/>`;
+      return s + `<ellipse cx="${cx}" cy="${top}" rx="${rx}" ry="${ry}" fill="${p.light}" stroke="${p.dark}" stroke-width="1.15"/><ellipse cx="${cx}" cy="${top}" rx="${rx - 2.4}" ry="${ry - 1.1}" fill="none" stroke="${p.mid}" stroke-width=".55"/>`;
+    };
+    return stack(70.6, 191.6, 3, 4.6) + stack(62.4, 202.7, 2, 4.8);
+  },
+  shield: p => `<path d="M141.6,52.6C139.2,54.5 136.6,55.6 133.7,56.1L133.7,63.4C133.7,68.9 137.2,72.5 141.6,74.9C146,72.5 149.5,68.9 149.5,63.4L149.5,56.1C146.6,55.6 144,54.5 141.6,52.6Z" fill="${p.dark}"/>
+    <path d="M141.6,55.3C139.7,56.7 137.8,57.5 135.9,57.9L135.9,63.6C135.9,67.6 138.4,70.4 141.6,72.3C144.8,70.4 147.3,67.6 147.3,63.6L147.3,57.9C145.4,57.5 143.5,56.7 141.6,55.3Z" fill="${p.light}"/>
+    <path d="M141.6,55.3C139.7,56.7 137.8,57.5 135.9,57.9L135.9,63.6C135.9,67.6 138.4,70.4 141.6,72.3Z" fill="${p.mid}" fill-opacity=".55"/>
+    <path d="M145.6,58.6L139.2,69.4" stroke="#fff" stroke-opacity=".35" stroke-width="1.1"/>`,
+};
+const iconSVG = (b, warm) => ICONS[b.icon](warm ? PAL_W : PAL_G, warm);
+
+/* ====================================================================== 几何预处理 */
+const PATHS = [];        // 所有藤蔓（含装饰枝）
+BRANCHES.forEach((b, bi) => {
+  b.idx = bi;
+  b.items.forEach(it => { it.lit = false; it.on = false; });
+  b.paths = [];
+  b.vines.forEach((v, vi) => {
+    const poly = sample(v.pts);
+    const p = { b, vi, poly, total: poly.total, item: v.item ?? null, deco: !!v.deco, w: v.w || [1.15, .85],
+      parent: null, attach: 0, children: [], cur: 0, tgt: 0, g: 0, gt: 0, main: vi === 0 };
+    if (vi > 0) {          // 挂到最近的已有藤蔓上
+      let best = null;
+      for (const q of b.paths) {
+        const n = nearest(q.poly, v.pts[0][0], v.pts[0][1]);
+        if (!best || n.d < best.d) best = { d: n.d, q, s: n.s };
+      }
+      p.parent = best.q; p.attach = best.s; best.q.children.push(p);
+    }
+    PATHS.push(p); b.paths.push(p);
+  });
+});
+DECO_STEMS.forEach(v => { const poly = sample(v.pts); PATHS.push({ poly, total: poly.total, w: v.w, g: 0, gt: 0, deco: true, stem: true, children: [] }); });
+
+/* ====================================================================== 背景层 */
+const bg = $('#bg');
+bg.innerHTML = `
+<defs>
+  <filter id="fWash" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="16"/></filter>
+  <filter id="fSoft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation=".9"/></filter>
+  <filter id="fShade" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2"/></filter>
+  <radialGradient id="grHalo"><stop offset="0" stop-color="#fffbf2" stop-opacity=".95"/><stop offset=".5" stop-color="#fff7e9" stop-opacity=".55"/><stop offset="1" stop-color="#fff7e9" stop-opacity="0"/></radialGradient>
+  <radialGradient id="grPetal" cx="${ORB.x}" cy="${ORB.y}" r="112" gradientUnits="userSpaceOnUse"><stop offset=".3" stop-color="#fffcf4" stop-opacity=".95"/><stop offset=".66" stop-color="#fdf8ec" stop-opacity=".75"/><stop offset=".92" stop-color="#faf3e2" stop-opacity="0"/></radialGradient>
+  <radialGradient id="grRim" cx="${ORB.x}" cy="${ORB.y}" r="112" gradientUnits="userSpaceOnUse"><stop offset=".34" stop-color="#fff" stop-opacity=".95"/><stop offset=".66" stop-color="#fff" stop-opacity=".85"/><stop offset=".9" stop-color="#fff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="grPetalW" cx="${ORB.x}" cy="${ORB.y}" r="112" gradientUnits="userSpaceOnUse"><stop offset=".3" stop-color="#fff1db" stop-opacity=".95"/><stop offset=".6" stop-color="#fde9d0" stop-opacity=".75"/><stop offset=".9" stop-color="#fbe2c2" stop-opacity="0"/></radialGradient>
+  <radialGradient id="grWarm"><stop offset="0" stop-color="#ffdcb0" stop-opacity=".62"/><stop offset=".55" stop-color="#ffe5c6" stop-opacity=".3"/><stop offset="1" stop-color="#ffe9cc" stop-opacity="0"/></radialGradient>
+  <radialGradient id="grBulHalo"><stop offset="0" stop-color="#ffc98c" stop-opacity=".95"/><stop offset=".45" stop-color="#ffd7a6" stop-opacity=".5"/><stop offset="1" stop-color="#ffe2b8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="grJunc"><stop offset="0" stop-color="#ffc888" stop-opacity=".85"/><stop offset=".5" stop-color="#ffd3a0" stop-opacity=".35"/><stop offset="1" stop-color="#ffdcb0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="grIconGlow"><stop offset="0" stop-color="#fff2df" stop-opacity="1"/><stop offset=".55" stop-color="#ffe1bc" stop-opacity=".75"/><stop offset="1" stop-color="#ffe1bc" stop-opacity="0"/></radialGradient>
+  <radialGradient id="grSun" cx=".38" cy=".25" r=".85"><stop offset="0" stop-color="#f8bf88"/><stop offset=".5" stop-color="#ea9352"/><stop offset="1" stop-color="#cf763a"/></radialGradient>
+  <linearGradient id="grHor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c8bb8b"/><stop offset="1" stop-color="#9c9461"/></linearGradient>
+  <linearGradient id="grRing" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".62" stop-color="#fff" stop-opacity=".75"/><stop offset=".9" stop-color="#fff" stop-opacity="0"/></linearGradient>
+  <linearGradient id="lfShade" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3d5236" stop-opacity=".16"/><stop offset=".6" stop-color="#3d5236" stop-opacity=".05"/><stop offset="1" stop-color="#3d5236" stop-opacity="0"/></linearGradient>
+  <linearGradient id="icShade" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#7a3b12" stop-opacity=".22"/><stop offset=".6" stop-color="#7a3b12" stop-opacity="0"/></linearGradient>
+</defs>
+
+<circle cx="${ORB.x}" cy="${ORB.y}" r="112" fill="url(#grHalo)"/>
+<g id="gShade"></g><g id="gPetals"></g>`;
+
+// 「我」周围的花瓣：相邻两条主藤之间的奶白色瓣，白色描边贴着藤蔓（原图的浮雕感）
+const gShade = $('#gShade'), gPetals = $('#gPetals');
+const mains = BRANCHES.map(b => b.paths[0]).map(p => { const q = at(p.poly, 6); return { p, a: Math.atan2(q[1] - ORB.y, q[0] - ORB.x) }; }).sort((u, v) => u.a - v.a);
+const reach = p => { let s = 0; while (s < Math.min(p.total, 92)) { const q = at(p.poly, s); if (Math.hypot(q[0] - ORB.x, q[1] - ORB.y) > 98) break; s += 2; } return s; };
+const sideToward = (p, a) => { const t = [3.3, -3.3].map(o => { const q = offsetPts(p.poly, 18, 19, o)[0]; let d = Math.atan2(q[1] - ORB.y, q[0] - ORB.x) - a; d = Math.atan2(Math.sin(d), Math.cos(d)); return { o, d: Math.abs(d) }; }); return t[0].d < t[1].d ? t[0].o : t[1].o; };
+const PETALS = mains.map((m1, i) => {
+  const m2 = mains[(i + 1) % mains.length];
+  let a2 = m2.a; if (a2 <= m1.a) a2 += Math.PI * 2;
+  const am = (m1.a + a2) / 2;
+  const e1 = offsetPts(m1.p.poly, 3, reach(m1.p), sideToward(m1.p, am)), e2 = offsetPts(m2.p.poly, 3, reach(m2.p), sideToward(m2.p, am)).reverse();
+  const A = e1[e1.length - 1], B = e2[0], R = Math.max(Math.hypot(A[0] - ORB.x, A[1] - ORB.y), Math.hypot(B[0] - ORB.x, B[1] - ORB.y)) + 16;
+  const C = [ORB.x + Math.cos(am) * R, ORB.y + Math.sin(am) * R];
+  const d = dOf(e1) + `Q${f2(C[0])},${f2(C[1])} ${f2(B[0])},${f2(B[1])}` + dOf(e2).replace('M', 'L') + 'Z';
+  const e = el('path', { d, class: 'petal', fill: 'url(#grPetal)', stroke: 'url(#grRim)', 'stroke-width': 1.1 }, gPetals);
+  return { e, bs: [m1.p.b, m2.p.b] };
+});
+// 主藤近「我」处的柔和阴影（花瓣之间的凹槽）
+BRANCHES.forEach(b => {
+  const m = b.paths[0];
+  b.shade = el('path', { d: dOf(slice(m.poly, 0, Math.min(100, m.total))), class: 'shade', fill: 'none', stroke: '#bfc6a8', 'stroke-opacity': .62, 'stroke-width': 8.5, filter: 'url(#fShade)' }, gShade);
+});
+
+/* ====================================================================== 场景层：藤蔓 */
+const gWarm = $('#gWarm'), gGlow = $('#gGlow'), gGreen = $('#gGreen'), gLit = $('#gLit'), gHi = $('#gHi'),
+      gJunc = $('#gJunc'), gHeads = $('#gHeads'), gItems = $('#gItems');
+
+// 一条描边 = 藤蔓上 [a,b] 一段（可侧向偏移），按生长进度揭示
+function stroke(set, p, a, b, attrs, parent, off = 0) {
+  const pts = off ? offsetPts(p.poly, a, b, off) : slice(p.poly, a, b), L = plen(pts);
+  const e = el('path', Object.assign({ d: dOf(pts), fill: 'none' }, attrs), parent);
+  set.push({ e, a, k: L / Math.max(.001, b - a), L });
+  reveal(e, L, 0);
+}
+function reveal(e, L, vis) {
+  if (vis <= .01) { if (e._st !== 0) { e.style.visibility = 'hidden'; e._st = 0; } return; }
+  if (vis >= L - .01) { if (e._st !== 2) { e.style.visibility = ''; e.style.strokeDasharray = ''; e.style.strokeDashoffset = ''; e._st = 2; } return; }
+  if (e._st !== 1) { e.style.visibility = ''; e.style.strokeDasharray = `${f2(L)} ${f2(L + 4)}`; e._st = 1; }
+  e.style.strokeDashoffset = f2(L - vis);
+}
+const revealSet = (set, cur) => { for (const s of set) reveal(s.e, s.L, clamp((cur - s.a) * s.k, 0, s.L)); };
+
+// 主藤与「我」相接处的“根部”：向球面张开的弧形过渡（原图藤蔓汇入球体的样子）
+BRANCHES.forEach(b => {
+  const m = b.paths[0], R = 17, left = [], right = [];
+  for (let s = 0; s <= R; s += 1) {
+    const [x, y] = at(m.poly, s), [x2, y2] = at(m.poly, s + 1);
+    let tx = x2 - x, ty = y2 - y; const l = Math.hypot(tx, ty) || 1; tx /= l; ty /= l;
+    const hw = m.w[0] / 2 + 7 * Math.pow(1 - s / R, 2.2);
+    left.push([x + ty * hw, y - tx * hw]); right.push([x - ty * hw, y + tx * hw]);
+  }
+  b.fillet = el('path', { d: dOf([...left, ...right.reverse()]) + 'Z', class: 'fillet', fill: b.vc[0], 'fill-opacity': .5, filter: 'url(#fSoft)' }, gGreen);
+});
+const ORANGE_A = hex2rgb('#e7843d'), ORANGE_B = hex2rgb('#f4a560');
+for (const p of PATHS) {
+  p.gSet = []; p.lSet = [];
+  const K = p.main ? 8 : (p.stem ? 3 : 2);
+  const base = p.stem ? hex2rgb('#a3ad92') : hex2rgb(p.main ? p.b.vc[0] : p.b.vc[1]);
+  const softW = p.stem ? 1.2 : p.b.vc[2];
+  for (let k = 0; k < K; k++) {
+    const e = p.main ? 1.45 : 1;
+    const a = p.total * Math.pow(k / K, e), b = Math.min(p.total, p.total * Math.pow((k + 1) / K, e) + (k < K - 1 ? .8 : 0)), t = (k + .5) / K, sm = (a + b) / 2;
+    const flare = p.main ? 2.4 * Math.max(0, 1 - sm / 11) : 0;
+    const w = p.w[1] + (p.w[0] - p.w[1]) * Math.pow(1 - sm / p.total, 1.2) + flare;
+    const col = mix(base, TIP, Math.pow(t, 2) * (p.main ? .45 : .7));
+    stroke(p.gSet, p, a, b, { stroke: rgb2hex(mix(col, CREAM, .42)), 'stroke-opacity': .32, 'stroke-width': f2(w + softW + flare) }, gGreen);
+    stroke(p.gSet, p, a, b, { stroke: rgb2hex(col), 'stroke-width': f2(w), 'stroke-opacity': p.stem ? .7 : .96 }, gGreen);
+    if (p.main) stroke(p.gSet, p, a, b, { stroke: '#fff', 'stroke-opacity': f2(.8 - t * .45), 'stroke-width': .75 }, gGreen, 2.1 + w * .25);
+    if (!p.stem) stroke(p.lSet, p, a, b, { stroke: rgb2hex(mix(ORANGE_A, ORANGE_B, p.main ? t : .5 + t * .3)), 'stroke-width': f2(w + .8) }, gLit);
+  }
+  if (p.stem) continue;
+  stroke(p.lSet, p, 0, p.total, { stroke: '#ffd3a0', 'stroke-opacity': .22, 'stroke-width': p.main ? 13 : 8 }, gGlow);
+  stroke(p.lSet, p, 0, p.total, { stroke: '#ffb873', 'stroke-opacity': .4, 'stroke-width': p.main ? 5.4 : 3.8 }, gGlow);
+  stroke(p.lSet, p, 0, p.total, { stroke: '#fff1d8', 'stroke-opacity': .7, 'stroke-width': .6 }, gHi);
+  stroke(p.lSet, p, 0, p.total, { stroke: '#fff', 'stroke-opacity': .85, 'stroke-width': .7 }, gHi, p.main ? 2.3 : 1.7);
+}
+
+/* ====================================================================== 场景层：节点 / 图标 / 文字 */
+BRANCHES.forEach(b => {
+  // 点亮后出现的暖色光晕
+  const xs = [b.title[0], b.title[1], b.blob[0] - b.blob[2], b.blob[0] + b.blob[2], ...b.items.flatMap(it => [it.b[0], it.x[1]])];
+  const ys = [b.title[2], b.blob[1] - b.blob[3], b.blob[1] + b.blob[3], ...b.items.map(it => it.cy)];
+  const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+  b.warm = el('ellipse', { cx: f2((x0 + x1) / 2), cy: f2((y0 + y1) / 2), rx: f2((x1 - x0) / 2 + 26), ry: f2((y1 - y0) / 2 + 24), fill: 'url(#grWarm)', class: 'warm' }, gWarm);
+
+  // 分叉处的发光节点
+  b.juncEls = b.juncs.map(([x, y, r]) => {
+    let host = b.paths[0], hs = 0, bd = 1e9;
+    for (const p of b.paths) { const n = nearest(p.poly, x, y); if (n.d < bd) { bd = n.d; host = p; hs = n.s; } }
+    const g = el('g', { class: 'junc' }, gJunc);
+    el('circle', { cx: x, cy: y, r: r * 2.3, fill: 'url(#grJunc)' }, g);
+    el('circle', { cx: x, cy: y, r: r, fill: '#fffdf8', stroke: '#f4a35a', 'stroke-width': r > 4 ? 1.5 : 1.1 }, g);
+    return { g, host, s: hs, on: false };
+  });
+
+  // 标题区：色块 + 图标 + 标题
+  const head = el('g', { class: 'head press-able fade' }, gHeads);
+  const [bx, by, brx, bry, brot, bseed] = b.blob;
+  b.blobEl = b.id === 'free'
+    ? el('path', { d: blobD(bx, by - 2, brx * .8, bry * .78, brot, bseed), class: 'blob', fill: '#e7e6d2', filter: 'url(#fSoft)' }, head)
+    : el('path', { d: blobD(bx, by, brx, bry, brot, bseed), class: 'blob', fill: '#e5e5d0', filter: 'url(#fSoft)' }, head);
+  const ic = el('g', { class: 'ic' }, head);
+  if (b.id === 'free') ic.innerHTML = `<g class="ic-w"><circle cx="506" cy="232" r="36" fill="url(#grIconGlow)"/><circle cx="506" cy="236" r="33" fill="none" stroke="url(#grRing)" stroke-width="1.1"/></g>`;
+  const wrap = el('g', { class: 'ic-wrap' }, ic);
+  wrap.innerHTML = `<g class="ic-g">${iconSVG(b, false)}</g><g class="ic-w">${iconSVG(b, true)}</g>`;
+  b.iconEl = ic; b.iconWrap = wrap; b.head = head;
+  b.titleEl = el('text', { class: 't-title', x: b.title[0], y: b.title[2] + 6, 'font-size': 17 }, head);
+  b.titleEl.textContent = b.name;
+
+  // 条目：圆点 + 文字
+  b.items.forEach((it, ii) => {
+    const g = el('g', { class: 'item press-able' }, gItems);
+    const bul = el('g', { class: 'bul', style: `--hd:${(-Math.random() * 2.8).toFixed(2)}s` }, g);
+    const bin = el('g', { class: 'bul-in' }, bul);
+    el('circle', { cx: it.b[0], cy: it.b[1], r: 7.5, fill: 'url(#grBulHalo)', class: 'bul-halo' }, bin);
+    el('circle', { cx: it.b[0], cy: it.b[1], r: 3.55, class: 'bul-ring' }, bin);
+    const tx = el('text', { class: 't-item fade', x: it.x[0], y: it.cy + 4, 'font-size': 11.1 }, g);
+    tx.textContent = it.t;
+    Object.assign(it, { g, bul, bin, tx, path: b.paths.find(p => p.item === ii) || null });
+  });
+  // 无文字的花苞圆点（规划协商末端）
+  b.budEls = (b.buds || []).map(([x, y, vi]) => {
+    const bul = el('g', { class: 'bul' }, gItems), bin = el('g', { class: 'bul-in' }, bul);
+    el('circle', { cx: x, cy: y, r: 7, fill: 'url(#grBulHalo)', class: 'bul-halo' }, bin);
+    el('circle', { cx: x, cy: y, r: 3.4, class: 'bul-ring' }, bin);
+    return { bul, bin, path: b.paths[vi], on: false };
+  });
+});
+
+/* ====================================================================== 叶片层 */
+// 补充叶：沿藤蔓按原图密度交替生出小叶，避开文字、图标与圆点
+function fillerLeaves() {
+  const r = rng(20261004), keep = [];
+  BRANCHES.forEach(b => {
+    keep.push(['r', b.title[0] - 5, b.title[2] - 12, b.title[1] + 5, b.title[2] + 12], ['e', b.blob[0], b.blob[1], b.blob[2] + 4, b.blob[3] + 4]);
+    b.items.forEach(it => keep.push(['r', it.x[0] - 3, it.cy - 8.5, it.x[1] + 3, it.cy + 8.5], ['e', it.b[0], it.b[1], 7, 7]));
+    (b.buds || []).forEach(([x, y]) => keep.push(['e', x, y, 6.5, 6.5]));
+  });
+  keep.push(['e', ORB.x, ORB.y, 47, 47], ['e', 506, 236, 37, 37]);
+  const inside = (x, y) => keep.some(k => k[0] === 'r' ? x > k[1] && x < k[3] && y > k[2] && y < k[4] : ((x - k[1]) / k[3]) ** 2 + ((y - k[2]) / k[4]) ** 2 < 1);
+  const placed = LEAVES.map(([bx, by, tx, ty]) => ({ x: (bx + tx) / 2, y: (by + ty) / 2, L: Math.hypot(tx - bx, ty - by) }));
+  const out = [];
+  for (const p of PATHS) {
+    if (p.stem) continue;
+    const step = p.main ? 15 : 11;
+    let s = p.main ? 14 : 4, side = r() < .5 ? 1 : -1;
+    while (s < p.total - (p.main ? 9 : 5)) {
+      if (r() > .2) {
+        const [x, y] = at(p.poly, s), [x2, y2] = at(p.poly, s + 1.5);
+        const ang = Math.atan2(y2 - y, x2 - x) + side * (.62 + r() * .36);
+        const L = p.main ? 9.5 + r() * 7.5 : 6.5 + r() * 4.5, w = L * (.38 + r() * .08);
+        const bx = x + Math.cos(ang), by = y + Math.sin(ang), tx = bx + Math.cos(ang) * L, ty = by + Math.sin(ang) * L;
+        const mx = (bx + tx) / 2, my = (by + ty) / 2;
+        const ok = ![[mx, my], [tx, ty], [bx + Math.cos(ang) * L * .3, by + Math.sin(ang) * L * .3]].some(([qx, qy]) => inside(qx, qy))
+          && !placed.some(q => Math.hypot(q.x - mx, q.y - my) < (q.L + L) * .3);
+        if (ok) { out.push([f2(bx), f2(by), f2(tx), f2(ty), f2(w), FILL_PALETTE[Math.floor(r() * FILL_PALETTE.length)], 1]); placed.push({ x: mx, y: my, L }); }
+        side = -side;
+      }
+      s += step * (.75 + r() * .5);
+    }
+  }
+  return out;
+}
+const gLeaves = $('#gLeaves');
+const GREENIFY = c => { const l = .299 * c[0] + .587 * c[1] + .114 * c[2]; return [l + 2.6, l + 3.6, l - 25.4]; };
+const EDGE = hex2rgb('#6d7c5f');
+const leaves = [...LEAVES, ...fillerLeaves()].map(([bx, by, tx, ty, w, col], i) => {
+  const r = rng(i * 7 + 11);
+  let host = null, hs = 0, bd = 1e9;
+  for (const p of PATHS) { const n = nearest(p.poly, bx, by); if (n.d < bd) { bd = n.d; host = p; hs = n.s; } }
+  if (bd > 24) host = null;
+  const c0 = hex2rgb(col), warmy = c0[0] - c0[1] > 4 && host && host.b && (host.b.id === 'emo' || host.b.id === 'free');
+  const baseC = warmy ? GREENIFY(c0) : c0, litC = warmy ? c0 : mix(c0, WARM_TGT, .36);
+  const L = Math.hypot(tx - bx, ty - by), ang = Math.atan2(ty - by, tx - bx) * 180 / Math.PI, bend = (r() - .5) * .16;
+  const h = w * .68, bb = bend * L;
+  const g = el('g', { transform: `translate(${f2(bx)} ${f2(by)}) rotate(${f2(ang)})` }, gLeaves);
+  const pop = el('g', { class: 'lf-pop' }, g);
+  const sway = !STILL && L > 13;
+  const sw = el('g', sway ? { class: 'lf-sway', style: `--d:${(4.2 + r() * 3.6).toFixed(2)}s;--dl:${(-r() * 6).toFixed(2)}s;--a:${clamp(46 / (L + 10), .8, 2.6).toFixed(2)}deg` } : {}, pop);
+  const body = el('path', { class: 'lf-body', d: `M0,0C${f2(L * .22)},${f2(-h + bb)} ${f2(L * .62)},${f2(-h * .9 + bb)} ${f2(L)},0C${f2(L * .62)},${f2(h * .9 + bb)} ${f2(L * .22)},${f2(h + bb)} 0,0Z`,
+    style: `fill:${rgb2hex(baseC)};stroke:${rgb2hex(mix(baseC, EDGE, .3))}` }, sw);
+  el('path', { d: `M0,0C${f2(L * .22)},${f2(-h + bb)} ${f2(L * .62)},${f2(-h * .9 + bb)} ${f2(L)},0Q${f2(L * .5)},${f2(bb * 1.1)} 0,0Z`, fill: 'url(#lfShade)' }, sw);
+  if (L > 12) el('path', { d: `M${f2(L * .05)},0Q${f2(L * .5)},${f2(bb * 1.1)} ${f2(L * .9)},0`, fill: 'none', stroke: '#fbf8ea', 'stroke-opacity': .5, 'stroke-width': L > 40 ? .7 : .5 }, sw);
+  return { pop, body, host, s: hs, base: baseC, lit: litC, on: false, shown: false, dist: Math.hypot(bx - ORB.x, by - ORB.y) };
+});
+function paintLeaf(lf) {
+  const c = lf.on ? lf.lit : lf.base;
+  lf.body.style.fill = rgb2hex(c); lf.body.style.stroke = rgb2hex(mix(c, EDGE, .3));
+}
+
+/* ====================================================================== 点击热区 */
+const hits = $('#hits');
+BRANCHES.forEach(b => {
+  const [bx, by, brx, bry] = b.blob;
+  const x0 = Math.min(b.title[0] - 6, bx - brx), x1 = Math.max(b.title[1] + 6, bx + brx), y0 = by - bry, y1 = b.title[2] + 12;
+  const r = el('rect', { class: 'hit', x: f2(x0), y: f2(y0), width: f2(x1 - x0), height: f2(y1 - y0), rx: 10, role: 'button', tabindex: 0, 'aria-label': `${b.name}：聚焦分支`, 'data-branch': b.id }, hits);
+  bindTap(r, () => onBranchTap(b), b.head);
+});
+BRANCHES.forEach(b => b.items.forEach((it, i) => {
+  const x0 = it.b[0] - 9, x1 = it.x[1] + 6;
+  const r = el('rect', { class: 'hit item-hit', 'data-branch': b.id, x: f2(x0), y: f2(it.cy - 12), width: f2(x1 - x0), height: 24, rx: 8, role: 'button', tabindex: 0, 'aria-label': `${it.t}：查看详情` }, hits);
+  bindTap(r, () => onItemTap(b, i), it.g);
+}));
+function bindTap(node, fn, visual) {
+  node.addEventListener('pointerdown', () => visual && visual.classList.add('press'));
+  const up = () => visual && visual.classList.remove('press');
+  node.addEventListener('pointerup', up); node.addEventListener('pointerleave', up); node.addEventListener('pointercancel', up);
+  node.addEventListener('click', e => { e.preventDefault(); if (!cameraMoved) fn(); });
+  node.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fn(); } });
+}
+
+/* ====================================================================== 文字校准：按原图墨迹框精确摆放 */
+const SERIF = getComputedStyle(document.documentElement).getPropertyValue('--serif').trim();
+const mctx = document.createElement('canvas').getContext('2d');
+function ink(str, weight) {
+  mctx.font = `${weight} 100px ${SERIF}`;
+  const m = mctx.measureText(str);
+  return { l: -m.actualBoundingBoxLeft, r: m.actualBoundingBoxRight, a: m.actualBoundingBoxAscent, d: m.actualBoundingBoxDescent };
+}
+const median = a => { const s = [...a].sort((x, y) => x - y); return s[s.length >> 1]; };
+function layoutText() {
+  const T = BRANCHES.map(b => ({ b, m: ink(b.name, 700) }));
+  const tfs = median(T.map(({ b, m }) => (b.title[1] + 1 - b.title[0]) / (m.r - m.l) * 100));
+  T.forEach(({ b, m }) => {
+    const k = tfs / 100, cx = (b.title[0] + b.title[1] + 1) / 2, cy = b.title[2] + .5;
+    b.titleEl.setAttribute('font-size', f2(tfs));
+    b.titleEl.setAttribute('x', f2(cx - (m.l + m.r) / 2 * k));
+    b.titleEl.setAttribute('y', f2(cy + (m.a - m.d) / 2 * k));
+  });
+  const I = BRANCHES.flatMap(b => b.items.map(it => ({ it, m: ink(it.t, 500) })));
+  const ifs = median(I.map(({ it, m }) => (it.x[1] + 1 - it.x[0]) / (m.r - m.l) * 100));
+  I.forEach(({ it, m }) => {
+    const k = ifs / 100;
+    it.tx.setAttribute('font-size', f2(ifs));
+    it.tx.setAttribute('x', f2(it.x[0] - m.l * k));
+    it.tx.setAttribute('y', f2(it.cy + .5 + (m.a - m.d) / 2 * k));
+  });
+  const wo = ink('我', 900), wfs = ((22 / (wo.r - wo.l)) + 2 * (24 / (wo.a + wo.d))) / 3 * 100, k = wfs / 100, t = $('#wo');
+  t.setAttribute('font-size', f2(wfs));
+  t.setAttribute('x', f2(298 - (wo.l + wo.r) / 2 * k));
+  t.setAttribute('y', f2(281 + (wo.a - wo.d) / 2 * k));
+}
+
+/* ====================================================================== 字体（按需子集） */
+layoutText();
+document.fonts.ready.then(layoutText);
+
+/* ====================================================================== 状态：生长与点亮 */
+let introDone = false;
+const anyLit = b => b.items.some(it => it.lit);
+function retarget(b) {
+  const on = anyLit(b);
+  for (const p of b.paths) p.own = (p.item != null ? b.items[p.item].lit : (p.deco && on)) ? p.total : 0;
+  for (let i = b.paths.length - 1; i >= 0; i--) {
+    const p = b.paths[i];
+    p.tgt = p.own;
+    for (const c of p.children) if (c.tgt > 0) p.tgt = Math.max(p.tgt, c.attach);
+  }
+}
+const GROW = 300, SHRINK = 420, INTRO_SPEED = 230;
+
+let onGrown = null;      // 所有藤蔓长完后回调（由生长进度驱动，不依赖定时器）
+function step(dt) {
+  // 入场：绿色藤蔓生长（子藤在父藤抵达分叉点后开始）
+  let growing = false;
+  for (const p of PATHS) {
+    if (p.g >= p.gt) continue;
+    growing = true;
+    const ok = !p.parent || p.parent.g >= p.attach - .5;
+    if (ok && (p.delay == null || (p.delay -= dt) <= 0)) p.g = Math.min(p.gt, p.g + INTRO_SPEED * dt);
+    revealSet(p.gSet, p.g);
+  }
+  if (!growing && onGrown) { const f = onGrown; onGrown = null; f(); }
+  // 点亮：能量从「我」沿藤蔓流向节点；熄灭时由末端回收
+  for (const b of BRANCHES) for (const p of b.paths) {
+    if (Math.abs(p.cur - p.tgt) < .01) continue;
+    if (p.cur < p.tgt) {
+      if (!p.parent || p.parent.cur >= p.attach - .5) p.cur = Math.min(p.tgt, p.cur + GROW * dt * (p.main ? 1 : .8));
+    } else {
+      let hold = 0; for (const c of p.children) if (c.cur > .01) hold = Math.max(hold, c.attach);
+      p.cur = Math.max(p.tgt, hold, p.cur - SHRINK * dt);
+    }
+    revealSet(p.lSet, p.cur);
+  }
+  syncDerived();
+}
+function setCls(o, key, node, cls, v) { if (o[key] !== v) { o[key] = v; node.classList.toggle(cls, v); return true; } return false; }
+const full = p => p && p.cur >= p.total - .6;
+function syncDerived() {
+  for (const b of BRANCHES) {
+    const lit = anyLit(b);
+    const icOn = full(b.paths[b.iconPath]) && lit;
+    if (setCls(b, '_ic', b.iconEl, 'on', icOn)) {
+      b.blobEl.style.fill = icOn ? (b.id === 'free' ? '#fde9cf' : '#fbe2c4') : (b.id === 'free' ? '#e7e6d2' : '#e5e5d0');
+      b.warm.classList.toggle('on', icOn);
+      if (icOn && introDone) { b.iconWrap.classList.remove('bloom'); void b.iconWrap.getBBox(); b.iconWrap.classList.add('bloom'); burst(b.box[0] + 18, b.box[1] + 18, 10); }
+    }
+    // 主藤点亮时，「我」周围对应的凹槽与花瓣也变暖
+    const mainLit = b.paths[0].cur > 8;
+    if (b._ml !== mainLit) {
+      b._ml = mainLit;
+      b.shade.style.stroke = mainLit ? '#f6c18e' : '';
+      b.fillet.style.fill = mainLit ? '#f2a865' : '';
+      for (const pt of PETALS) pt.e.setAttribute('fill', pt.bs.some(x => x._ml) ? 'url(#grPetalW)' : 'url(#grPetal)');
+    }
+    for (const j of b.juncEls) setCls(j, 'on', j.g, 'on', lit && j.host.cur >= j.s - .5);
+    b.items.forEach(it => {
+      const on = it.lit && (it.path ? full(it.path) : full(b.paths[0]));
+      if (setCls(it, 'on', it.bul, 'on', on) && on && introDone) { it.bul.classList.remove('pop'); void it.bul.getBBox(); it.bul.classList.add('pop'); burst(it.b[0], it.b[1], 6); }
+    });
+    for (const bd of b.budEls) setCls(bd, 'on', bd.bul, 'on', lit && full(bd.path));
+  }
+  for (const lf of leaves) {
+    if (!lf.shown && (lf.host ? lf.host.g >= lf.s : introClock * INTRO_SPEED >= lf.dist - 40)) { lf.shown = true; lf.pop.classList.add('on'); }
+    const warm = !!(lf.host && lf.host.b && lf.host.cur >= lf.s && anyLit(lf.host.b));
+    if (lf.on !== warm) { lf.on = warm; paintLeaf(lf); }
+  }
+  if (!introDone) for (const b of BRANCHES) {
+    const m = b.paths[0];
+    if (!b._shown && m.g >= m.total * .72) { b._shown = true; b.head.classList.add('shown'); }
+    b.items.forEach(it => {
+      const p = it.path || m;
+      if (!it._shown && p.g >= p.total - .6) { it._shown = true; it.tx.classList.add('shown'); it.bin.classList.add('shown'); }
+    });
+    for (const bd of b.budEls) if (!bd._shown && bd.path.g >= bd.path.total - .6) { bd._shown = true; bd.bin.classList.add('shown'); }
+  }
+}
+let introClock = 0, last = 0;
+function tick(now) {
+  const dt = Math.min(.05, (now - last) / 1000); last = now;
+  introClock += dt;
+  step(dt);
+  fxFrame(dt);
+  requestAnimationFrame(tick);
+}
+
+/* ====================================================================== 交互 */
+let detail = null;
+let focus = null;   // 当前在卡片中展示的分支
+function haptic() {
+  const ua = navigator.userActivation;
+  if (!navigator.vibrate || (ua && !ua.hasBeenActive)) return;
+  try { navigator.vibrate(8); } catch (e) {}
+}
+function onBranchTap(b) {
+  if (!introDone) return;
+  focus = b; detail = null; focusBranch(b); renderPanel();
+}
+function onItemTap(b, i) {
+  if (!introDone) return;
+  const it = b.items[i];
+  focus = b; detail = i; renderPanel();
+}
+const orb = $('#orb');
+orb.addEventListener('click', () => {
+  orb.classList.remove('pulse'); void orb.offsetWidth; orb.classList.add('pulse');
+  haptic(); ripple(ORB.x, ORB.y, true, 62);
+  for (const b of BRANCHES) if (anyLit(b)) for (let k = 0; k < 4; k++) setTimeout(() => spawnFlow(b, true), k * 90);
+  focus = null; detail = null; fitView(); renderPanel();
+});
+orb.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); orb.click(); } });
+
+/* ====================================================================== 底部卡片 */
+const card = $('#card'), pv = $('#pv');
+const miniIcon = (b, on) => `<svg viewBox="${b.box.join(' ')}" aria-hidden="true">${iconSVG(b, on)}</svg>`;
+function renderPanel() {
+  $('.panel').classList.toggle('visible', !!focus);
+  pv.classList.add('out');
+  clearTimeout(renderPanel._t);
+  renderPanel._t = setTimeout(() => { pv.innerHTML = focus ? (detail != null ? detailView(focus,detail) : branchView(focus)) : summaryView(); pv.classList.remove('out'); if(focus)pv.querySelector('button')?.focus({preventScroll:true}); }, 160);
+}
+const refreshPanel = () => { pv.innerHTML = focus ? (detail != null ? detailView(focus,detail) : branchView(focus)) : summaryView(); };
+// 卡片高度锁定为两种视图中较高者，切换时图谱不会上下跳动
+function lockPanelHeight() { return; /* panel is an overlay, so content cannot move the graph */
+  const probe = card.cloneNode(false), inner = document.createElement('div');
+  probe.removeAttribute('id'); inner.className = 'pv';
+  probe.style.cssText = 'position:absolute;left:0;right:0;top:0;visibility:hidden;pointer-events:none';
+  probe.appendChild(inner); card.parentNode.appendChild(probe);
+  let h = 0;
+  for (const html of [summaryView(), ...BRANCHES.map(branchView)]) { inner.innerHTML = html; h = Math.max(h, inner.offsetHeight); }
+  probe.remove();
+  pv.style.minHeight = h + 'px';
+}
+addEventListener('resize', lockPanelHeight);
+document.fonts.ready.then(lockPanelHeight);
+if (document.fonts.addEventListener) document.fonts.addEventListener('loadingdone', lockPanelHeight);
+function summaryView() { return ''; }
+function branchView(b) {
+  return `<div class="ph"><div class="ph-t"><div class="ph-title">${b.name}</div><div class="ph-sub">${b.items.length} 个需要 · 点击查看</div></div><button class="btn back panel-close" data-act="back" aria-label="关闭分支，回到全图">×</button></div><p class="pdesc">${b.desc}</p><div class="rows">${b.items.map((it,i)=>`<button class="btn row${it.lit?' on':''}" data-b="${b.idx}" data-i="${i}"><span class="dot"></span><span class="rt">${it.t}</span><span class="rs">查看 ›</span></button>`).join('')}</div>`;
+}
+function detailView(b,i) {
+  const it=b.items[i];
+  return `<div class="ph"><button class="btn back" data-act="branch" aria-label="返回${b.name}">‹</button><span class="detail-label">${b.name}</span><button class="btn back panel-close" data-act="back" aria-label="关闭详情，回到全图">×</button></div><h2 class="detail-title">${it.t}</h2><p class="detail-copy">${it.sub}。<br>此刻的你，是否也需要这一份支持？</p><button class="btn select-need" data-act="toggle" aria-pressed="${!!it.lit}">${it.lit?'已标记为重要 · 取消标记':'这对我很重要'}</button>`;
+}
+pv.addEventListener('click', e => {
+ const t=e.target.closest('button');if(!t)return;
+ if(t.dataset.act==='back'){focus=null;detail=null;fitView();renderPanel();return;}
+ if(t.dataset.act==='branch'){detail=null;renderPanel();return;}
+ if(t.dataset.act==='toggle'&&focus&&detail!=null){const it=focus.items[detail];it.lit=!it.lit;retarget(focus);haptic();ripple(it.b[0],it.b[1],it.lit);refreshPanel();pv.querySelector('.select-need').focus({preventScroll:true});return;}
+ if(t.dataset.i!=null){detail=+t.dataset.i;renderPanel();}
+});
+function applyInitial() { BRANCHES.forEach(b => { b.items.forEach((it, i) => it.lit = !!(INITIAL_LIT[b.id] && INITIAL_LIT[b.id].includes(i))); retarget(b); }); }
+
+/* ====================================================================== 粒子特效（canvas） */
+const cv = $('#fx'), ctx = cv.getContext('2d');
+function resize() {
+  const r = cv.getBoundingClientRect(), dpr = Math.min(2, window.devicePixelRatio || 1);
+  cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr);
+  const k = r.width / W * dpr; ctx.setTransform(k, 0, 0, k, 0, 0);
+}
+new ResizeObserver(resize).observe($('#stage'));
+const sprite = (() => {
+  const c = document.createElement('canvas'); c.width = c.height = 64;
+  const g = c.getContext('2d'), gr = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+  gr.addColorStop(0, 'rgba(255,255,250,1)'); gr.addColorStop(.22, 'rgba(255,240,212,.95)');
+  gr.addColorStop(.5, 'rgba(255,190,120,.42)'); gr.addColorStop(1, 'rgba(255,180,110,0)');
+  g.fillStyle = gr; g.fillRect(0, 0, 64, 64); return c;
+})();
+const flows = [], sparks = [], rings = [];
+function routeTo(p) { const chain = []; let q = p; while (q) { chain.unshift(q); q = q.parent; } return chain.map((q, i) => ({ p: q, a: 0, b: i < chain.length - 1 ? chain[i + 1].attach : q.cur })); }
+function spawnFlow(b, fast) {
+  const ends = b.paths.filter(p => p.cur > 4 && !p.children.some(c => c.cur > 4));
+  if (!ends.length) return;
+  const segs = routeTo(ends[Math.floor(Math.random() * ends.length)]);
+  flows.push({ segs, len: segs.reduce((s, x) => s + (x.b - x.a), 0), s: 0, v: (fast ? 150 : 62) + Math.random() * 40, r: 1.6 + Math.random() * 1.3 });
+}
+function flowPos(f) {
+  let s = f.s;
+  for (const sg of f.segs) { const l = sg.b - sg.a; if (s <= l) return at(sg.p.poly, sg.a + s); s -= l; }
+  const z = f.segs[f.segs.length - 1]; return at(z.p.poly, z.b);
+}
+function burst(x, y, n) { if (STILL) return; for (let i = 0; i < n; i++) { const a = Math.random() * Math.PI * 2, v = 10 + Math.random() * 22; sparks.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 4, life: 0, max: .6 + Math.random() * .5, r: .9 + Math.random() * 1.1 }); } }
+function ripple(x, y, warm, R = 26) { if (!STILL) rings.push({ x, y, t: 0, warm, R }); }
+let spawnT = 0, moteT = 0;
+function fxFrame(dt) {
+  if (!cv.width) resize();
+  ctx.clearRect(0, 0, W, H);
+  if (STILL) return;
+  spawnT -= dt;
+  if (introDone && spawnT <= 0) { spawnT = .32 + Math.random() * .3; const lit = BRANCHES.filter(b => anyLit(b) && b.paths[0].cur > 20); if (lit.length) spawnFlow(lit[Math.floor(Math.random() * lit.length)]); }
+  moteT -= dt;   // 「我」周围缓慢上浮的微光
+  if (moteT <= 0) { moteT = .5 + Math.random() * .6; const a = Math.random() * Math.PI * 2, rr = ORB.r + 4 + Math.random() * 10;
+    sparks.push({ x: ORB.x + Math.cos(a) * rr, y: ORB.y + Math.sin(a) * rr, vx: Math.cos(a) * 6, vy: Math.sin(a) * 6 - 5, life: 0, max: 1.6 + Math.random(), r: .8 + Math.random() * .9, soft: true }); }
+  for (let i = flows.length - 1; i >= 0; i--) {
+    const f = flows[i]; f.s += f.v * dt;
+    if (f.s >= f.len) { const [x, y] = flowPos(f); burst(x, y, 2); flows.splice(i, 1); continue; }
+    const [x, y] = flowPos(f), e = f.s / f.len, a = Math.min(1, f.s / 14) * (e > .85 ? (1 - e) / .15 : 1);
+    ctx.globalAlpha = .95 * a; const r = f.r * 2.6; ctx.drawImage(sprite, x - r, y - r, r * 2, r * 2);
+  }
+  for (let i = sparks.length - 1; i >= 0; i--) {
+    const s = sparks[i]; s.life += dt; if (s.life >= s.max) { sparks.splice(i, 1); continue; }
+    s.x += s.vx * dt; s.y += s.vy * dt; s.vx *= .97; s.vy *= .97;
+    ctx.globalAlpha = (s.soft ? .55 : .9) * Math.sin(Math.PI * s.life / s.max); const r = s.r * 2.6;
+    ctx.drawImage(sprite, s.x - r, s.y - r, r * 2, r * 2);
+  }
+  for (let i = rings.length - 1; i >= 0; i--) {
+    const g = rings[i]; g.t += dt / .55; if (g.t >= 1) { rings.splice(i, 1); continue; }
+    const e = 1 - Math.pow(1 - g.t, 3);
+    ctx.globalAlpha = .6 * (1 - g.t); ctx.lineWidth = 1.3 * (1 - g.t) + .3;
+    ctx.strokeStyle = g.warm ? '#f2a35b' : '#93a487';
+    ctx.beginPath(); ctx.arc(g.x, g.y, 5 + g.R * e, 0, Math.PI * 2); ctx.stroke();
+  }
+  ctx.globalAlpha = 1;
+}
+
+/* Camera owns pan/zoom; illustration code and transparent layers are unchanged. */
+const viewport=$('#viewport'), stage=$('#stage');
+let camera={x:0,y:0,k:1}, cameraMoved=false, motion=0;
+const pointers=new Map();let gesture=null, dragOrigin=null;
+function commitCamera(){
+ stage.style.transform=`translate(${camera.x}px,${camera.y}px) scale(${camera.k})`;
+ const overview=!focus && camera.k<1.4;
+ stage.classList.toggle('overview',overview);
+ BRANCHES.forEach(b=>{const show=!focus||b===focus;b.head.style.visibility=show?'visible':'hidden';b.items.forEach(it=>it.g.style.visibility=show?'visible':'hidden');});
+ hits.querySelectorAll('.item-hit').forEach(el=>{const hidden=overview||!!(focus&&el.dataset.branch!==focus.id);el.style.display=hidden?'none':'';el.setAttribute('tabindex',hidden?'-1':'0');el.setAttribute('aria-hidden',hidden?'true':'false');});
+ hits.querySelectorAll('.hit:not(.item-hit)').forEach(el=>{const hidden=!!(focus&&el.dataset.branch!==focus.id);el.style.display=hidden?'none':'';el.setAttribute('tabindex',hidden?'-1':'0');});
+ $('#mapHint').textContent=overview?'轻触一个主题，慢慢靠近':'拖动画布 · 双指缩放';
+}
+function goCamera(next,animate=true){
+ cancelAnimationFrame(motion);const from={...camera},t0=performance.now();
+ if(STILL||!animate){camera=next;commitCamera();return;}
+ function frame(t){const u=Math.min(1,(t-t0)/480),e=1-Math.pow(1-u,3);for(const key of ['x','y','k'])camera[key]=lerp(from[key],next[key],e);commitCamera();if(u<1)motion=requestAnimationFrame(frame);}
+ motion=requestAnimationFrame(frame);
+}
+function fitView(){const w=viewport.clientWidth,h=viewport.clientHeight,k=Math.min((w-36)/595,(h-24)/566,1.3);goCamera({k,x:(w-595*k)/2,y:(h-566*k)/2});}
+function focusBranch(b){
+ const w=viewport.clientWidth,h=viewport.clientHeight,mobile=w<600;
+ const xs=[b.box[0]-15,b.title[0],b.title[1]+10,...b.items.flatMap(it=>[it.b[0]-14,it.x[1]+10])],ys=[b.box[1]-15,b.title[2]+10,...b.items.map(it=>it.cy+15)];
+ const minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys);
+ const availableH=mobile?Math.max(180,h-255):h-70;
+ const k=Math.min(mobile?1.9:2.15,(w-(mobile?65:380))/(maxX-minX),availableH/(maxY-minY));
+ const cx=mobile?w/2:(w+260)/2,cy=mobile?availableH/2+10:h/2;
+ goCamera({k,x:cx-(minX+maxX)/2*k,y:cy-(minY+maxY)/2*k});
+}
+function zoomAt(f,x=viewport.clientWidth/2,y=viewport.clientHeight/2){cancelAnimationFrame(motion);const k=clamp(camera.k*f,.4,3.6),ratio=k/camera.k;camera={k,x:x-(x-camera.x)*ratio,y:y-(y-camera.y)*ratio};commitCamera();}
+viewport.addEventListener('wheel',e=>{e.preventDefault();const r=viewport.getBoundingClientRect();zoomAt(Math.exp(-e.deltaY*.0015),e.clientX-r.left,e.clientY-r.top);},{passive:false});
+viewport.addEventListener('pointerdown',e=>{if(e.button!==0)return;cancelAnimationFrame(motion);pointers.set(e.pointerId,[e.clientX,e.clientY]);cameraMoved=false;gesture=null;dragOrigin=[e.clientX,e.clientY];viewport.classList.add('dragging');});
+addEventListener('pointermove',e=>{
+ if(!pointers.has(e.pointerId))return;
+ const prev=pointers.get(e.pointerId),dx=e.clientX-prev[0],dy=e.clientY-prev[1];pointers.set(e.pointerId,[e.clientX,e.clientY]);
+ if(pointers.size===1){if(Math.hypot(e.clientX-dragOrigin[0],e.clientY-dragOrigin[1])>5||cameraMoved){cameraMoved=true;camera.x+=dx;camera.y+=dy;commitCamera();}}
+ else{cameraMoved=true;const [a,b]=[...pointers.values()],dist=Math.hypot(a[0]-b[0],a[1]-b[1]),mid=[(a[0]+b[0])/2,(a[1]+b[1])/2],r=viewport.getBoundingClientRect();if(gesture){camera.x+=mid[0]-gesture.mid[0];camera.y+=mid[1]-gesture.mid[1];zoomAt(dist/gesture.dist,mid[0]-r.left,mid[1]-r.top);}gesture={dist,mid};}
+});
+function endPointer(e){pointers.delete(e.pointerId);gesture=null;if(!pointers.size)viewport.classList.remove('dragging');setTimeout(()=>{if(!pointers.size)cameraMoved=false;},0);}
+addEventListener('pointerup',endPointer);addEventListener('pointercancel',endPointer);
+viewport.addEventListener('keydown',e=>{if(e.target!==viewport)return;const moves={ArrowLeft:[35,0],ArrowRight:[-35,0],ArrowUp:[0,35],ArrowDown:[0,-35]};if(moves[e.key]){e.preventDefault();camera.x+=moves[e.key][0];camera.y+=moves[e.key][1];commitCamera();}else if(e.key==='+'||e.key==='='){e.preventDefault();zoomAt(1.2);}else if(e.key==='-'){e.preventDefault();zoomAt(1/1.2);}else if(e.key==='0'){e.preventDefault();resetView();}});
+function resetView(){focus=null;detail=null;fitView();renderPanel();viewport.focus({preventScroll:true});}
+$('#zoomIn').onclick=()=>zoomAt(1.25);$('#zoomOut').onclick=()=>zoomAt(.8);$('#resetView').onclick=resetView;
+$('#theme').onclick=()=>{const dark=document.body.classList.toggle('dark');$('#theme').setAttribute('aria-label',dark?'切换浅色背景':'切换深色背景');};
+addEventListener('keydown',e=>{if(e.key==='Escape'){if(detail!=null){detail=null;renderPanel();}else resetView();}});
+new ResizeObserver(()=>focus?focusBranch(focus):fitView()).observe(viewport);
+fitView();
+
+/* ====================================================================== 入场 */
+const halo = $('#halo');
+function start() {
+  const finishIntro = () => {
+    introDone = true;
+    applyInitial();
+    pv.innerHTML = summaryView(); lockPanelHeight();
+    card.classList.add('on');
+  };
+  if (STILL) {
+    for (const p of PATHS) { p.g = p.gt = p.total; revealSet(p.gSet, p.total); }
+    leaves.forEach(lf => { lf.shown = true; lf.pop.style.transition = 'none'; lf.pop.classList.add('on'); });
+    BRANCHES.forEach(b => { b.head.classList.add('shown'); b.items.forEach(it => { it.tx.classList.add('shown'); it.bin.classList.add('shown'); }); b.budEls.forEach(bd => bd.bin.classList.add('shown')); });
+    orb.classList.add('on'); halo.classList.add('on');
+    applyInitial();
+    for (const b of BRANCHES) for (const p of b.paths) { p.cur = p.tgt; revealSet(p.lSet, p.cur); }
+    introDone = true; syncDerived();
+    pv.innerHTML = summaryView(); lockPanelHeight(); card.classList.add('on');
+    requestAnimationFrame(t => { last = t; tick(t); });
+    return;
+  }
+  document.querySelectorAll('.fade:not(.press-able)').forEach(n => n.style.transition = 'opacity .8s ease');
+  const t0 = .35;
+  for (const p of PATHS) { p.gt = p.total; p.delay = p.parent ? null : (p.stem ? 1.1 : t0); }
+  introClock = -t0;
+  onGrown = () => setTimeout(finishIntro, 350);
+  void orb.offsetWidth;                       // 先提交初始样式，再触发过渡（不依赖首帧回调）
+  orb.classList.add('on'); halo.classList.add('on');
+  requestAnimationFrame(t => { last = t; tick(t); });
+}
+start();
+})();
+</script>
+</body>
+</html>
+
